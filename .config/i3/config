@@ -1,0 +1,308 @@
+# #---Basic Definitions---# #
+# Needed for i3-gaps
+for_window [class="^.*"] border pixel 2
+gaps inner 8
+gaps outer 8
+set $term --no-startup-id $TERMINAL
+set $mod Mod4
+set $stoprec --no-startup-id dmenurecord kill
+set $shutdown sudo -A shutdown -h now
+set $reboot sudo -A reboot
+set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
+set $hibernate sudo -A systemctl suspend
+
+# #---Starting External Scripts---# #
+exec_always setxkbmap -option grp:alt_shift_toggle us,il
+# Composite manager:
+exec --no-startup-id xcompmgr
+# Starts dunst for notifications:
+exec --no-startup-id dunst
+# Unclutter makes the mouse invisible after a brief period
+exec --no-startup-id unclutter
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# font pango:monospace 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Set Xresources colors:
+set_from_resource $darkblack	color0  #000000
+set_from_resource $black		color8  #000000
+set_from_resource $darkred		color1  #000000
+set_from_resource $red			color9  #000000
+set_from_resource $darkgreen	color2  #000000
+set_from_resource $green		color10 #000000
+set_from_resource $darkyellow	color3  #000000
+set_from_resource $yellow		color11 #000000
+set_from_resource $darkblue		color4  #000000
+set_from_resource $blue			color12 #000000
+set_from_resource $darkmagenta	color5  #000000
+set_from_resource $magenta		color13 #000000
+set_from_resource $darkcyan		color6  #000000
+set_from_resource $cyan			color14 #000000
+set_from_resource $darkwhite	color7  #000000
+set_from_resource $white		color15 #000000
+set $transparent						#00000000
+
+#						BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
+client.focused			$red			$red		$magenta	$darkmagenta	$darkblue
+client.unfocused		$transparent	$blue		$white		$darkblue		$darkblack
+client.focused_inactive	$transparent	$blue		$white		$darkblue		$darkblack
+client.urgent			$darkred		$darkred	$black		$darkred		$darkred
+client.background 		$black
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# #---Basic Bindings---# #
+bindsym $mod+Return 			exec $term
+bindsym $mod+Shift+Return		exec --no-startup-id samedir
+
+
+# unicode & emojis menus
+bindsym $mod+grave				exec --no-startup-id dmenuunicode
+bindsym $mod+Shift+grave		exec --no-startup-id dmenufontaw
+
+# Show selection:
+bindsym $mod+Insert				exec --no-startup-id showclip
+bindsym $mod+Pause				exec --no-startup-id xcqr
+
+# #---Letter Key Bindings---# #
+bindsym $mod+q					[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+
+# change gaps
+bindsym $mod+Shift+t			gaps inner current set 8; gaps outer current set 8
+bindsym $mod+Shift+d			gaps inner current set 0; gaps outer current set 0
+bindsym $mod+z					gaps outer current plus 5
+bindsym $mod+Shift+z			gaps outer current minus 5
+bindsym $mod+s					gaps inner current plus 5
+bindsym $mod+Shift+s			gaps inner current minus 5
+
+# focus
+bindsym $mod+h					focus left
+bindsym $mod+Left 				focus left
+bindsym $mod+j					focus down
+bindsym $mod+Down 				focus down
+bindsym $mod+k					focus up
+bindsym $mod+Up 				focus up
+bindsym $mod+l					focus right
+bindsym $mod+Right 				focus right
+
+# resize
+bindsym $mod+Shift+y			exec --no-startup-id i3resize left
+bindsym $mod+Mod1+Left			exec --no-startup-id i3resize left
+bindsym $mod+Shift+u			exec --no-startup-id i3resize down
+bindsym $mod+Mod1+Down			exec --no-startup-id i3resize down
+bindsym $mod+Shift+i			exec --no-startup-id i3resize up
+bindsym $mod+Mod1+Up			exec --no-startup-id i3resize up
+bindsym $mod+Shift+o			exec --no-startup-id i3resize right
+bindsym $mod+Mod1+Right			exec --no-startup-id i3resize right
+
+# toggle
+bindsym $mod+o					sticky 		toggle
+bindsym $mod+t					split 		toggle
+bindsym $mod+f					fullscreen 	toggle
+bindsym $mod+Shift+space 		floating 	toggle
+bindsym $mod+space				focus 		mode_toggle
+
+# move
+bindsym $mod+Shift+h			move left 	30
+bindsym $mod+Shift+Left			move left 	30
+bindsym $mod+Shift+j			move down 	30
+bindsym $mod+Shift+Down			move down 	30
+bindsym $mod+Shift+k			move up 	30
+bindsym $mod+Shift+Up			move up 	30
+bindsym $mod+Shift+l			move right 	30
+bindsym $mod+Shift+Right		move right 	30
+
+# run
+bindsym $mod+y					exec $term -e calcurse
+bindsym $mod+u					exec --no-startup-id ddspawn tmuxdd
+bindsym $mod+i 					exec $term -e htop
+bindsym $mod+Shift+a			exec $term -e pulsemixer
+bindsym $mod+a					exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym $mod+d					exec --no-startup-id dmenu_run
+
+# luke smith tutorials
+bindsym $mod+Shift+e			exec --no-startup-id tutorialvids
+
+bindsym $mod+g					workspace prev
+bindsym $mod+Escape				workspace prev
+
+bindsym $mod+x					exec --no-startup-id lockscreen
+bindsym $mod+Shift+x			exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
+bindsym $mod+Shift+Escape 		exec --no-startup-id prompt "Exit i3?" "i3-msg exit"
+bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"
+bindsym $mod+Shift+r 			restart
+
+# #---Function Buttons---# #
+bindsym $mod+F1					exec --no-startup-id groff -kejpt -mom ~/.readme.mom -Tpdf | zathura -
+bindsym $mod+F2					restart
+bindsym $mod+F3					exec --no-startup-id displayselect
+bindsym $mod+F4					exec --no-startup-id prompt "Hibernate computer?" "$hibernate"
+bindsym $mod+F5					exec --no-startup-id $netrefresh
+bindsym $mod+F6					exec --no-startup-id torwrap
+bindsym $mod+F7					exec --no-startup-id td-toggle
+bindsym $mod+F8					exec --no-startup-id ~/.config/mutt/etc/mailsync.sh
+bindsym $mod+F9					exec --no-startup-id dmenumount
+bindsym $mod+F10				exec --no-startup-id dmenuumount
+bindsym $mod+F11				exec --no-startup-id ducksearch
+bindsym $mod+F12				exec $term -e nmtui
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# #---Media Keys---# #
+
+# Volume keys
+bindsym $mod+plus						exec --no-startup-id lmc up 5
+bindsym $mod+Shift+plus					exec --no-startup-id lmc up 15
+bindsym $mod+minus 						exec --no-startup-id lmc down 5
+bindsym $mod+Shift+minus				exec --no-startup-id lmc down 15
+bindsym $mod+less 						exec --no-startup-id lmc prev
+bindsym $mod+Shift+less					exec --no-startup-id lmc replay
+bindsym $mod+greater					exec --no-startup-id lmc next
+bindsym $mod+Shift+greater				exec --no-startup-id lmc next
+
+# For screenshots and recording
+bindsym Print 							exec --no-startup-id maim pic-full-"$(date '+%y%m%d-%H%M-%S').png"
+bindsym Shift+Print 					exec --no-startup-id maimpick
+bindsym $mod+Print						exec --no-startup-id dmenurecord
+bindsym $mod+Scroll_Lock				exec --no-startup-id "killall screenkey || screenkey"
+bindsym $mod+Delete						exec $stoprec
+bindsym XF86Launch1						exec --no-startup-id xset dpms force off
+
+# #---Extra XF86 Keys---# #
+# These are the extra media keys that some keyboards have.
+bindsym XF86AudioMute					exec --no-startup-id lmc mute
+bindsym XF86AudioLowerVolume			exec --no-startup-id lmc down 5
+bindsym Shift+XF86AudioLowerVolume		exec --no-startup-id lmc down 10
+bindsym Control+XF86AudioLowerVolume	exec --no-startup-id lmc down 1
+bindsym XF86AudioRaiseVolume			exec --no-startup-id lmc up 5
+bindsym Shift+XF86AudioRaiseVolume		exec --no-startup-id lmc up 10
+bindsym Control+XF86AudioRaiseVolume	exec --no-startup-id lmc up 1
+bindsym XF86PowerOff					exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
+bindsym XF86Calculator					exec $term -e R -q --no-save
+bindsym XF86Explorer					exec $term -e $FILE
+bindsym XF86WWW							exec --no-startup-id $BROWSER
+bindsym XF86ScreenSaver					exec exec --no-startup-id lockscreen
+bindsym XF86MyComputer					exec $term -e $FILE
+bindsym XF86Eject						exec --no-startup-id dmenuumount
+bindsym XF86AudioNext					exec --no-startup-id lmc next
+bindsym XF86AudioPlay					exec --no-startup-id lmc toggle
+bindsym XF86AudioPrev					exec --no-startup-id lmc prev
+bindsym XF86AudioStop					exec --no-startup-id lmc toggle
+bindsym XF86AudioRewind					exec --no-startup-id lmc back 10
+bindsym XF86AudioForward				exec --no-startup-id lmc forward 10
+bindsym XF86Reload						restart
+bindsym XF86TouchpadToggle				exec --no-startup-id toggletouchpad
+bindsym XF86TouchpadOn					exec --no-startup-id synclient TouchpadOff=0
+bindsym XF86TouchpadOff					exec --no-startup-id synclient TouchpadOff=1
+bindsym XF86Suspend						exec --no-startup-id lockscreen
+bindsym XF86Close						kill
+bindsym XF86WebCam						exec --no-startup-id camtoggle
+bindsym XF86Mail						exec $term -e neomutt && pkill -RTMIN+12 i3blocks
+bindsym XF86Messenger					exec $term -e weechat
+bindsym XF86Search						exec $BROWSER https://duckduckgo.com
+bindsym XF86Shop						exec $BROWSER https://ebay.com
+bindsym XF86MonBrightnessDown			exec --no-startup-id xbacklight -dec 15
+bindsym XF86MonBrightnessUp				exec --no-startup-id xbacklight -inc 15
+bindsym XF86AudioMedia					exec --no-startup-id $term -e ncmpcpp
+bindsym XF86Display						exec --no-startup-id displayselect
+bindsym XF86Documents					exec $term -e $FILE ~/Documents
+bindsym XF86WLAN						exec $netrefresh
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	font pango:mono 12
+	colors {
+			background 			$darkblack
+			statusline 			$darkwhite
+			separator 			$cyan
+			focused_workspace  	$blue 		$darkblue 	$darkblack
+        	active_workspace   	$blue 		$blue 		$darkwhite
+      		inactive_workspace 	$darkblack 	$darkblack 	$white
+        	urgent_workspace   	$darkblack 	$darkblack 	$white
+		}
+	status_command i3blocks
+	position top
+	mode dock
+	modifier None
+}
