@@ -1,0 +1,87 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Marks:
+'H
+	/home/david/
+	..
+1548877348
+'b
+	/home/david/bin/
+	..
+1548877348
+'h
+	/home/david/
+	..
+1548877348
+'z
+	/home/david/.config/vifm
+	..
+1548877348
+
+# Bookmarks:
+
+# TUI:
+al
+q0
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/home/david/voidrice
+	LICENSE
+1
+d/home/david
+	VMs
+10
+d/home/david/VMs
+	..
+0
+d/home/david
+	ISOs
+4
+d/home
+	david
+1
+d/
+	home
+4
+d
+
+# Right window history (oldest to newest):
+D/home/david/voidrice
+	..
+0
+D/home/david
+	..
+0
+D
+
+# Command line history (oldest to newest):
+:help
+:q
+
+# Search history (oldest to newest):
+
+# Prompt history (oldest to newest):
+
+# Local filter history (oldest to newest):
+
+# Registers:
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+
+# State:
+f
+i1
+[.1
+[F
+F
+I1
+].1
+]F
+s0
