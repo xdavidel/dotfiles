@@ -34,6 +34,9 @@ set wildmode=longest,list,full
 " -- Disable auto comments --
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" -- Set Tab Size --
+autocmd Filetype * setlocal tabstop=4
+
 " -- Goyo plugin mapping --
 map <leader>f :Goyo \| set linebreak<CR>
 
