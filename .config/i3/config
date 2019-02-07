@@ -12,6 +12,8 @@ set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 
 # #---Starting External Scripts---# #
+
+# Set hebrew layout change with Alt+Shift
 exec_always setxkbmap -option grp:alt_shift_toggle us,il
 # Composite manager:
 exec --no-startup-id xcompmgr
