@@ -11,9 +11,11 @@ Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'valloric/youcompleteme'
+Plug 'vim-airline/vim-airline'
 Plug 'potatoesmaster/i3-vim-syntax'
 call plug#end()
 
+" -- Stop old vi compatibility --
 set nocompatible
 
 " -- Set copy to clipboard --
@@ -21,11 +23,18 @@ set nocompatible
 vnoremap <C-c> "+y
 map <C-v> "+v
 
+" -- Basic Plugins handles --
 filetype plugin on
 syntax on
 
+" -- Use UTF encoding --
 set encoding=utf-8
 
+" -- File Searching down info subfolders --
+set path+=**
+set wildmenu
+
+" -- Enable numbers row  --
 set number relativenumber
 
 " -- Enable Auto Completion --
