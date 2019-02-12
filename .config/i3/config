@@ -12,15 +12,15 @@ set $netrefresh --no-startup-id sudo -A systemctl restart NetworkManager
 set $hibernate sudo -A systemctl suspend
 
 # #---Dropdown Windows---# #
-for_window [instance="dropdown_*"] 		floating enable
-for_window [instance="dropdown_*"] 		move scratchpad
-for_window [instance="dropdown_*"] 		sticky enable
-for_window [instance="dropdown_*"] 		scratchpad show
-for_window [instance="dropdown_*"] 		move position center
-for_window [instance="dropdown_tmuxdd"] 	resize set 625 450
-for_window [instance="dropdown_tmuxdd"] 	border pixel 3
-for_window [instance="dropdown_dropdowncalc"] 	resize set 1000 500
-for_window [instance="dropdown_dropdowncalc"] 	border pixel 2
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_tmuxdd"] resize set 900 600
+for_window [instance="dropdown_dropdowncalc"] resize set 900 600
+for_window [instance="dropdown_tmuxdd"] border pixel 3
+for_window [instance="dropdown_dropdowncalc"] border pixel 2
+for_window [instance="dropdown_*"] move position center
 
 # #---Starting External Scripts---# #
 
