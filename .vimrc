@@ -12,6 +12,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'valloric/youcompleteme'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'potatoesmaster/i3-vim-syntax'
 call plug#end()
 
@@ -45,6 +46,20 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " -- Set Tab Size --
 autocmd Filetype * setlocal tabstop=4
+
+" -- Powerline --
+set rtp+=/usr/share/powerline/bindings/vim/
+" Always show statusline
+set laststatus=2
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
+let g:rehash256 = 1
+let g:Powerline_symbols='unicode'
+let g:Powerline_theme='long'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='powerlineish'
 
 " -- Goyo plugin mapping --
 map <leader>f :Goyo \| set linebreak<CR>
