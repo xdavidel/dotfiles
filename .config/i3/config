@@ -27,11 +27,13 @@ for_window [instance="dropdown_*"] move position center
 # Set hebrew layout change with Alt+Shift
 exec_always setxkbmap -option grp:alt_shift_toggle us,il
 # Composite manager:
-exec --no-startup-id xcompmgr
+exec --no-startup-id compton -f
 # Starts dunst for notifications:
 exec --no-startup-id dunst
 # Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
+# Restore background
+exec --no-startup-id nitrogen --restore
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
