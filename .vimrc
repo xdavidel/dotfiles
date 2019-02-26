@@ -24,7 +24,9 @@ vnoremap <C-c> "+y
 map <C-v> "+v
 
 " -- Basic Plugins handles --
-filetype plugin on
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
 syntax on
 
 " -- Use UTF encoding --
