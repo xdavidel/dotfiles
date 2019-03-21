@@ -9,6 +9,9 @@
 #"\e[3~": delete-char
 #"\e[2~": quoted-insert
 
+set show-mode-in-prompt on
+set keymap vi-command
+
 #set editing-mode 	vi
 #$if mode=vi
 #	set keymap vi-command

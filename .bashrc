@@ -4,8 +4,10 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+PS1='\[\033[01;35m\]\W \[\033[01;00m\]> '
+#PS1='[\u@\h \W]\$ '
 
-PS1='[\u@\h \W]\$ '
+set -o vi
 
 alias l='ls -lh --color=auto --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
