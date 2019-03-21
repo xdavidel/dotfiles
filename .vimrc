@@ -29,6 +29,9 @@ set tabstop=4
 set shiftwidth=4
 syntax on
 
+" -- Highlight matching regex --
+set incsearch
+
 " -- Use UTF encoding --
 set encoding=utf-8
 
