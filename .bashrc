@@ -9,7 +9,7 @@ PS1='\[\033[01;35m\]\W \[\033[01;00m\]> '
 
 set -o vi
 
-if type lsd 2&>/dev/null; then
+if type lsd &>/dev/null; then
 	alias l='lsd -l'
 	alias ls='lsd'
 	alias ll='lsd -la'
