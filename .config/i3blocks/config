@@ -72,5 +72,5 @@ interval=persist
 [internet]
 interval=10
 
-[help]
-interval=once
+#[help]
+#interval=once
