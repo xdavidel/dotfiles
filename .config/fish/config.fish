@@ -8,7 +8,9 @@ if type -q lsd
 	alias ll='lsd -la'
 	alias la='lsd -a'
 else
-	alias l='ls -l'
+	alias l='ls -lh'
+	alias la='ls -A'
+	alias ll='ls -lAh'
 end
 
 alias dotconf='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
