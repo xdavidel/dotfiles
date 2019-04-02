@@ -9,16 +9,23 @@ from libqtile import layout, bar, widget, hook
 
 from typing import List
 
-mod = "mod4" # Alt key
+mod = "mod4" # Super key
+alt = "mod1"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod], "l", lazy.layout.right()),
+    Key([mod], "Left", lazy.layout.left()),
     Key([mod], "Down", lazy.layout.down()),
-    Key([mod], "Right", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
-    Key([mod], "Left", lazy.layout.up()),
     Key([mod], "Up", lazy.layout.up()),
+    Key([mod], "Right", lazy.layout.right()),
+
+    # Grow / Shrink Monad
+    Key([mod, alt], "Right", lazy.layout.grow()),
+    Key([mod, alt], "Left", lazy.layout.shrink()),
 
     # Move windows up or down in current stack
     Key([mod, "shift"], "k", lazy.layout.shuffle_down()),
