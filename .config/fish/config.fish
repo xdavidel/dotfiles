@@ -13,5 +13,9 @@ else
 	alias ll='ls -lAh'
 end
 
+if type -q wal
+	alias cb='wal -i'
+end
+
 alias dotconf='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 

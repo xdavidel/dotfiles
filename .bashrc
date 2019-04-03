@@ -21,6 +21,10 @@ else
 	alias ll='ls -lAh --color=auto --group-directories-first'
 fi
 
+if type wal &>/dev/null; then
+	alias cb='wal -i'
+fi
+
 #alias l='ls -lh --color=auto --group-directories-first'
 #alias ls='ls --color=auto --group-directories-first'
 #alias la='ls -A --color=auto --group-directories-first'
