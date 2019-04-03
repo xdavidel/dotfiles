@@ -19,3 +19,18 @@
 st.alpha: 230
 !! Set a default font and font size as below:
 !! *.font: Monospace-14;
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! URxvt Remove scrollbar
+URxvt.scrollBar: false
+
+! URxvt font
+URxvt.font: 9x15
