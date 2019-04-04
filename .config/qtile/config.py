@@ -1,8 +1,3 @@
-import os
-import re
-import socket
-import subprocess
-
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
@@ -84,7 +79,7 @@ layouts = [
 
 widget_defaults = dict(
     font='sans',
-    fontsize=14,
+    fontsize=16,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -99,7 +94,7 @@ screens = [
                 widget.Systray(),
                 widget.Clock(format='%d/%m/%Y %a %I:%M %p'),
             ],
-            24,
+            26,
         ),
     ),
 ]
