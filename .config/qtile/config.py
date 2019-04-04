@@ -46,14 +46,15 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("urxvt")),
+    Key([mod], "Return", lazy.spawn("st")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "q", lazy.window.kill()),
 
     Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
+    Key([mod, "shift"], "F2", lazy.restart()),
+    Key([mod, "shift"], "Escape", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
     Key([mod], "d", lazy.spawn("rofi -show run")),
 ]
