@@ -21,6 +21,12 @@ else
 	alias ll='ls -lAh --color=auto --group-directories-first'
 fi
 
+if type ueberzug &>/dev/null; then
+	if [ -f ~/.config/vifm/scripts/vifmrun ]; then
+		alias vifm='~/.config/vifm/scripts/vifmrun'
+	fi
+fi
+
 if type wal &>/dev/null; then
 	alias cb='wal -i'
 fi

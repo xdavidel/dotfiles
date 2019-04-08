@@ -13,6 +13,12 @@ else
 	alias ll='ls -lAh'
 end
 
+if type -q ueberzug
+	if test -e ~/.config/vifm/scripts/vifmrun
+		alias vifm='~/.config/vifm/scripts/vifmrun'
+	end
+end
+
 if type -q wal
 	alias cb='wal -i'
 end
