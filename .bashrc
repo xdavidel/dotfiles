@@ -45,3 +45,9 @@ function cd() {
 	fi;
 	builtin cd "${new_directory}" && ls
 }
+
+function se() {
+	if type fzf &>/dev/null; then
+		du -a ~/.*rc ~/.config ~/.scripts/ | awk '{print $2}' | fzf | xargs -r $EDITOR
+	fi	  
+}
