@@ -2,7 +2,24 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 
-from typing import List
+import subprocess
+
+# Startup Scripts
+def execute_once(process):
+    return subprocess.Popen(process.split())
+
+@hook.subscribe.startup
+def startup():
+    #execute_once('feh --bg-scale /home/thava/Images/wallpaper.jpg')
+    #execute_once('/usr/bin/nm-applet')
+    #execute_once('/usr/bin/pamac-tray')
+    #execute_once('/usr/bin/blueman-applet')
+    #execute_once('/usr/bin/dropbox')
+    #execute_once('/usr/bin/utox')
+    #execute_once('/usr/bin/dunst')
+    #execute_once('/usr/bin/light-locker')
+    #execute_once('/home/jv/Develop/bin/screentemp')
+    pass
 
 mod = "mod4" # Super key
 alt = "mod1"
@@ -82,18 +99,63 @@ widget_defaults = dict(
     fontsize=16,
     padding=3,
 )
+
+default_configuration1 = dict(
+    fontsize=12,
+    foreground="FFFFFF",
+    background=["33393B", "232729"],
+    font="ttf-droid",
+    margin_y=2,
+    font_shadow="000000",
+)
+
+default_configuration2 = dict(
+    fontsize=12,
+    foreground="FFFFFF",
+    background=["232729", "292A2A"],
+    font="ttf-droid",
+    margin_y=2,
+    font_shadow="000000",
+)
+
+group_configuration = dict(
+    active="db8843",
+    inactive="3160aa",
+    fontsize=15,
+    background=["33393B", "232729"],
+    font="ttf-droid",
+    margin_y=0,
+    font_shadow="000000",
+    rounded=False,
+    this_current_screen_border='85678F',
+    #this_screen_border='3b3a7c',
+    highlight_method='block',
+    hide_unused=True,
+)
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Systray(),
-                widget.Clock(format='%d/%m/%Y %a %I:%M %p'),
+                widget.TextBox(text="◤ ", fontsize=60, padding=-5, foreground=["232729", "292A2A"], background=["33393B", "232729"]),
+                widget.GroupBox(**group_configuration),
+                widget.Prompt(**default_configuration1),
+                widget.TextBox(text="◤ ", fontsize=60, padding=-5, foreground=["33393B", "232729"], background=["232729", "292A2A"]),
+                widget.WindowName(**default_configuration2),
+                widget.TextBox(text="◤ ", fontsize=60, padding=-5, foreground=["232729", "292A2A"], background=["33393B", "232729"]),
+                widget.TextBox(text="CPU", **default_configuration1),
+                widget.CPUGraph(core="all", frequency=5, line_width=2, border_width=1, background=["33393B", "232729"]),
+                widget.TextBox(text="  VOL", **default_configuration1),
+                widget.Volume(channel="Master", background=["33393B", "232729"]),
+                widget.Systray(**default_configuration1),
+                widget.TextBox(text="", **default_configuration1),
+                widget.TextBox(text="◤ ", fontsize=60, padding=-5, foreground=["33393B", "232729"], background=["232729", "292A2A"]),
+                widget.Clock(**default_configuration2, format='%H:%M - %a,%d.%m.%Y'),
+                widget.TextBox(text="◤ ", fontsize=60, padding=-5, foreground=["232729", "292A2A"], background=["33393B", "232729"]),
             ],
+
             26,
         ),
     ),
@@ -109,7 +171,7 @@ mouse = [
 ]
 
 dgroups_key_binder = None
-dgroups_app_rules : List = [] 
+dgroups_app_rules = [] 
 main = None
 follow_mouse_focus = True
 bring_front_click = False
