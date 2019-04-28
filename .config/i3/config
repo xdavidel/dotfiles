@@ -97,12 +97,12 @@ bindsym $mod+q				[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 
 # change gaps
-bindsym $mod+Shift+t			gaps inner current set 8; gaps outer current set 8
-bindsym $mod+Shift+d			gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+t		gaps inner current set 8; gaps outer current set 8
+bindsym $mod+t				gaps inner current set 0; gaps outer current set 0
 bindsym $mod+z				gaps outer current plus 5
-bindsym $mod+Shift+z			gaps outer current minus 5
+bindsym $mod+Shift+z		gaps outer current minus 5
 bindsym $mod+s				gaps inner current plus 5
-bindsym $mod+Shift+s			gaps inner current minus 5
+bindsym $mod+Shift+s		gaps inner current minus 5
 
 # focus
 bindsym $mod+h				focus left
@@ -126,7 +126,7 @@ bindsym $mod+Mod1+Right			exec --no-startup-id i3resize right
 
 # toggle
 bindsym $mod+o				sticky 		toggle
-bindsym $mod+t				split 		toggle
+#bindsym $mod+t				split 		toggle
 bindsym $mod+f				fullscreen 	toggle
 bindsym $mod+Shift+space 		floating 	toggle
 bindsym $mod+space			focus 		mode_toggle
@@ -142,12 +142,13 @@ bindsym $mod+Shift+l			move right 	30
 bindsym $mod+Shift+Right		move right 	30
 
 # run
-bindsym $mod+y				exec $term -e calcurse
-bindsym $mod+u				exec --no-startup-id ddspawn tmuxdd
-bindsym $mod+i 				exec $term -e htop
+bindsym $mod+y					exec $term -e calcurse
+bindsym $mod+u					exec --no-startup-id ddspawn tmuxdd
+bindsym $mod+i 					exec $term -e htop
 bindsym $mod+Shift+a			exec $term -e pulsemixer
-bindsym $mod+a				exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
-bindsym $mod+d				exec --no-startup-id dmenu_run
+bindsym $mod+a					exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
+bindsym $mod+d					exec --no-startup-id dmenu_run
+bindsym $mod+Shift+d			exec --no-startup-id rofi -show run
 
 # luke smith tutorials
 bindsym $mod+Shift+e			exec --no-startup-id tutorialvids
