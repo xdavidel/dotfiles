@@ -21,15 +21,12 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
-# Set cursor speed
-xset r rate 200 50 &>/dev/null
-
 [ ! -f ~/.shortcuts ] && shortcuts >/dev/null 2>&1
 
 echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
 
 # Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
+[ "$(tty)" = "/dev/tty1" ] && [command -v startx ] && ! pgrep -x i3 >/dev/null && exec startx
 
 # Switch escape and caps if tty:
 #sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
