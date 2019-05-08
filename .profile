@@ -3,11 +3,11 @@
 
 # Adds `~/.scripts` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.scripts/" | cut -f2 | tr '\n' ':')"
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="google-chrome-stable"
 export READER="zathura"
-export FILE="ranger"
+export FILE="vifm"
 #export BIB="$HOME/Documents/LaTeX/uni.bib"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 
@@ -22,7 +22,7 @@ export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
 # Set cursor speed
-xset r rate 200 50
+xset r rate 200 50 &>/dev/null
 
 [ ! -f ~/.shortcuts ] && shortcuts >/dev/null 2>&1
 

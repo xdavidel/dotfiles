@@ -1,9 +1,7 @@
-#
-# ~/.bashrc
-#
-
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+stty -ixon # Disable ctrl-s and ctrl-q
+
 PS1='\[\033[01;35m\]\W \[\033[01;00m\]> '
 #PS1='[\u@\h \W]\$ '
 
@@ -31,16 +29,11 @@ if type wal &>/dev/null; then
 	alias cb='wal -i'
 fi
 
-#alias l='ls -lh --color=auto --group-directories-first'
-#alias ls='ls --color=auto --group-directories-first'
-#alias la='ls -A --color=auto --group-directories-first'
-#alias ll='ls -lAh --color=auto --group-directories-first'
-
 alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 function cd() {
 	new_directory="$*";
-	if [ $# -eq 0 ]; then 
+	if [ $# -eq 0 ]; then
 		new_directory=${HOME};
 	fi;
 	builtin cd "${new_directory}" && ls
@@ -49,5 +42,7 @@ function cd() {
 function se() {
 	if type fzf &>/dev/null; then
 		du -a ~/.*rc ~/.config ~/.scripts/ | awk '{print $2}' | fzf | xargs -r $EDITOR
-	fi	  
+	fi
 }
+
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
