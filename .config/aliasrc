@@ -1,0 +1,15 @@
+#!/bin/sh
+
+alias 	ka="killall" \
+	calcurse="calcurse -D ~/.config/calcurse" \
+	f="$FILE" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	x="sxiv -ft *" \
+	grep="grep --color=auto" \
+	#diff="diff --color=auto" \
+	ffmpeg="ffmpeg -hide_banner"
+
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if possible
+
+vf() { fzf | xargs -r - I % $EDITOR % ;}
