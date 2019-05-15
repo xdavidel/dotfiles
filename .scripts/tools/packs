@@ -1,0 +1,6 @@
+#!/bin/sh
+! command -v fzf >>/dev/null && exit
+
+command -v pacman >>/dev/null && pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'
+
+command -v pkg >> /dev/null && pkg list-installed | cut -d/ -f1 | fzf --preview 'pkg show {}' --layout=reverse --bind 'enter:execute(pkg show {} | less)'

@@ -31,18 +31,12 @@ fi
 
 alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
-function cd() {
-	new_directory="$*";
-	if [ $# -eq 0 ]; then
-		new_directory=${HOME};
-	fi;
-	builtin cd "${new_directory}" && ls
-}
-
-function se() {
-	if type fzf &>/dev/null; then
-		du -a ~/.*rc ~/.config ~/.scripts/ | awk '{print $2}' | fzf | xargs -r $EDITOR
-	fi
-}
+#function cd() {
+#	new_directory="$*";
+#	if [ $# -eq 0 ]; then
+#		new_directory=${HOME};
+#	fi;
+#	builtin cd "${new_directory}" && ls
+#}
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
