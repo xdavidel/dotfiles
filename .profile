@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Profile file. Runs on login.
 
 # Adds `~/.scripts` and all subdirectories to $PATH
@@ -27,6 +27,3 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 
 # Start graphical server if i3 not already running.
 [ "$(tty)" = "/dev/tty1" ] && command -v startx && ! pgrep -x i3 >/dev/null && exec startx
-
-# Switch escape and caps if tty:
-#sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
