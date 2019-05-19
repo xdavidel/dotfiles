@@ -3,6 +3,8 @@ super + Return
 	$TERMINAL
 super + d
 	dmenu_run
+super + shift + d
+	rofi -show run
 super + r
 	$TERMINAL -e lf
 super + e
@@ -33,6 +35,8 @@ super + shift + grave
 	dmenufontaw
 super + Scroll_Lock
 	killall screenkey || screenkey
+super + shift + Escape
+	prompt "Exit i3?" "i3-msg exit"
 super + Insert
 	showclip
 super + shift + x
