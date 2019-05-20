@@ -4,7 +4,7 @@ setbg & # Set default background
 sxhkd & # Bind keys
 
 # Set hebrew layout change with Alt+Shift
-exec_always setxkbmap -option grp:alt_shift_toggle us,il &
+setxkbmap -option grp:alt_shift_toggle us,il &
 
 # Properties button extra Mod/Escape
 xmodmap -e 'keycode 135 = Super_R' &
