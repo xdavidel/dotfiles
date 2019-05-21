@@ -19,3 +19,4 @@ $endif
 
 # Single tab completion
 set show-all-if-ambiguous on
+set completion-ignore-case On
