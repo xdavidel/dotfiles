@@ -6,8 +6,9 @@ alias 	ka="killall" \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	x="sxiv -ft *" \
+	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+	yta="youtube-dl -xi --audio-format mp3" \
 	grep="grep --color=auto" \
-	#diff="diff --color=auto" \
 	ffmpeg="ffmpeg -hide_banner"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if possible
