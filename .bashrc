@@ -7,11 +7,11 @@ PS1='\[\033[01;35m\]\W \[\033[01;00m\]> '
 
 set -o vi
 
-if type lsd &>/dev/null; then
-	alias l='lsd -l'
-	alias ls='lsd'
-	alias ll='lsd -la'
-	alias la='lsd -a'
+if type exa &>/dev/null; then
+	alias l='exa -lF'
+	alias ls='exa -F'
+	alias ll='exa -laF'
+	alias la='exa -aF'
 else
 	alias l='ls -lh --color=auto --group-directories-first'
 	alias ls='ls --color=auto --group-directories-first'
