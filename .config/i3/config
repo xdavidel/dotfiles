@@ -85,13 +85,12 @@ bindsym $mod+Shift+Right		move right 	30
 bindsym $mod+u				exec --no-startup-id ddspawn tmuxdd
 bindsym $mod+a				exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
 
-bindsym $mod+g				workspace prev
 bindsym $mod+Escape			workspace prev
 
 bindsym $mod+Shift+r 			restart
 
 # #---Function Buttons---# #
-bindsym $mod+F2				restart
+#bindsym $mod+F2				restart
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

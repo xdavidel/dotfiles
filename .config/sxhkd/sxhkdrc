@@ -5,18 +5,18 @@ super + d
 	dmenu_run
 super + shift + d
 	rofi -show run
-super + r
-	$TERMINAL -e $FILE
 super + e
-	$TERMINAL -e neomutt
+	$TERMINAL -e $FILE
 super + m
 	$TERMINAL -e ncmpcpp
+super + n
+	$TERMINAL -e newsboat
 super + i
 	$TERMINAL -e htop
 super + y
 	$TERMINAL -e calcurse
 super + shift + a
-	$TERMINAL -e pulsemixer
+	$TERMINAL -e alsamixer
 super + shift + c
 	camtoggle
 super + shift + e
@@ -27,8 +27,6 @@ super + shift + w
 	$BROWSER
 super + shift + g
 	gimp
-super + b
-	killall -USR1 sxhkd
 
 # Et cetera...
 super + grave
@@ -38,7 +36,7 @@ super + shift + grave
 super + Scroll_Lock
 	killall screenkey || screenkey
 super + shift + Escape
-	prompt "Exit i3?" "i3-msg exit"
+	prompt "Exit Xorg?" "killall Xorg"
 super + Insert
 	showclip
 super + shift + x
@@ -90,7 +88,8 @@ super + {_,shift +} bracketleft
 # Show readme
 super + F1
 	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
-# F2 is restart in i3 right now.
+super + F2
+	refreshsession
 # Change display
 super + F3
 	displayselect
@@ -120,4 +119,4 @@ super + F11
 	ducksearch
 # Network Manager interface
 super + F12
-	$TERMINAL -e sudo -A nmtui
+	$TERMINAL -e nmtui
