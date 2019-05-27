@@ -1,4 +1,6 @@
 # Basic binds
+
+# - Open terminal
 super + Return
 	$TERMINAL
 super + d
