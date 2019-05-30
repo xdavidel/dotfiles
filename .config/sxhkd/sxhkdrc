@@ -3,6 +3,8 @@
 # - Open terminal
 super + Return
 	$TERMINAL
+super + shift + Return
+	samedir
 super + d
 	dmenu_run
 super + shift + d

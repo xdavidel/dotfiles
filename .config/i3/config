@@ -23,10 +23,10 @@ bar {
 	position 	top
 	mode 		dock
 	modifier 	None
-	
-		
+
+
 	colors {
-		# prop              border  	backgr		text	
+		# prop              border  	backgr		text
 		background 			#222222
 		focused_workspace 	#750775 	#800080 	#f1f1f1
 		active_workspace 	#222222 	#222222 	#f1f1f1
@@ -45,9 +45,6 @@ client.background       #ffffff
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-# #---Basic Bindings---# #
-bindsym $mod+Shift+Return		exec --no-startup-id samedir
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q				[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
