@@ -1,0 +1,18 @@
+#!/bin/sh
+
+pgrep -x dmenu && exit
+
+getmount() { \
+	mp="$(find $1 | dmenu -i -p "Type in mount point.")"
+	[ "$mp" = "" ] && exit 1
+	if [ ! -d "$mp" ]; then
+		mkdiryn=$(printf "No\\nYes" | dmenu -i -p "$mp does not exist. Create it?")
+		[ "$mkdiryn" = "Yes" ] && (mkdir -p "$mp" || sudo -A mkdir -p "$mp")
+	fi
+	}
+
+
+[ ! -f "$1" ] && echo "Run on <file>.iso" && exit
+getmount "/mnt /media /mount /home -maxdepth 5 -type d"
+echo "here"
+sudo -A mount -t iso9660 -o ro,loop "$1" "$mp"
