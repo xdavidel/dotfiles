@@ -1,0 +1,11 @@
+#!/bin/sh
+
+! command -v mkisofs >/dev/null && echo "This script need cdrtools to be installed!" && exit
+
+[ ! "$1" ] && echo "Run on files" && exit
+
+name=$(echo "" | dmenu -i -p "Enter ISO name")
+
+[ -z "$name" ] && exit
+
+mkisofs -o "./$name.iso" -V $name -graft-points -rational-rock -full-iso9660-filenames -r -J "$@"
