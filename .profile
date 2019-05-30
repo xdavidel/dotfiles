@@ -8,8 +8,10 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
-#export BIB="$HOME/Documents/LaTeX/uni.bib"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
+
+export MPD_HOST="127.0.0.1"
+export MPD_PORT="6600"
 
 # less/man colors
 export LESS=-R
