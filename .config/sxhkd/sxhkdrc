@@ -83,10 +83,10 @@ super {_,shift +} + minus
 	lmc down {5,15}
 # Seek foward in song
 super + {_,shift +} bracketright
-	lmc forward {10,120}
+	lmc forward {5,20}
 # Seek backward in song
 super + {_,shift +} bracketleft
-	lmc back {10,120}
+	lmc back {5,20}
 
 # Function keys
 # Show readme
