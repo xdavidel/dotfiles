@@ -12,7 +12,7 @@ super + shift + d
 super + e
 	$TERMINAL -e $FILE
 super + m
-	$TERMINAL -e ncmpcpp
+	mediaplayer
 super + n
 	$TERMINAL -e newsboat
 super + i

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# checks if mpd is installed
+! command -v mpc >/dev/null && echo "mpd is not installed!" && exit 1
+
+# Start daemon if not runing and refresh i3blocks
+pgrep -x mpd >/dev/null || (mpd && note "Starting mpd daemon..." && sleep 3 && pkill -RTMIN+7 i3blocks)
+
+command -v ncmpcpp >/dev/null && $TERMINAL -e ncmpcpp &
+
+# Update media folder
+command -v mpc >/dev/null && mpc update >/dev/null
