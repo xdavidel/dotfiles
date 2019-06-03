@@ -1,2 +1,3 @@
 #!/bin/sh
-pgrep -x i3 >/dev/null && i3-msg restart
+pgrep -x i3 >/dev/null && i3-msg restart && exit
+pgrep -x awesome >/dev/null && echo "awesome.restart()" | awesome-client && exit
