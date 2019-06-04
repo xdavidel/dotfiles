@@ -17,46 +17,64 @@ for_window [instance="dropdown_tmuxdd"] border pixel 3
 for_window [instance="dropdown_dropdowncalc"] border pixel 2
 for_window [instance="dropdown_*"] move position center
 
+# Set Xresources colors:
+
+set_from_resource $darkblack	color0		#1d2021
+set_from_resource $black		color8		#272929
+set_from_resource $darkred		color1  	#cc241d
+set_from_resource $red			color9  	#fb4934
+set_from_resource $darkgreen	color2  	#98971a
+set_from_resource $green		color10 	#7ABB26
+set_from_resource $darkyellow	color3  	#d79921
+set_from_resource $yellow		color11 	#fabd2f
+set_from_resource $darkblue		color4  	#1F66A7
+set_from_resource $blue			color12 	#1879D2
+set_from_resource $darkmagenta	color5  	#750775
+set_from_resource $magenta		color13 	#800080
+set_from_resource $darkcyan		color6  	#1E8B9E
+set_from_resource $cyan			color14 	#34ADC2
+set_from_resource $darkwhite	color7  	#f2e6c9
+set_from_resource $white		color15 	#f1f1f1
+set $transparent							#00000000
+
 bar {
 	font pango:mono 12
-	status_command i3blocks
-	position 	top
-	mode 		dock
-	modifier 	None
-
-
 	colors {
-		# prop              border  	backgr		text
-		background 			#222222
-		focused_workspace 	#750775 	#800080 	#f1f1f1
-		active_workspace 	#222222 	#222222 	#f1f1f1
-		inactive_workspace 	#222222 	#222222 	#f1f1f1
-		urgent_workspace 	#FD6A0E 	#F06812 	#f1f1f1
-   }
+		background 			$darkblack
+		statusline 			$darkwhite
+		separator 			$cyan
+		focused_workspace  	$magenta		$darkmagenta		$darkwhite
+        active_workspace   	$blue 			$blue				$darkwhite
+      	inactive_workspace 	$darkblack 		$darkblack			$darkwhite
+        urgent_workspace   	$yellow 		$darkyellow			$darkwhite
+		}
+	status_command i3blocks
+	position top
+	mode dock
+	modifier None
 }
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #800080 #ffffff #800080   #800080
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-client.background       #ffffff
+# class						BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
+client.focused				$red			$red		$white		$darkmagenta	$darkmagenta
+client.unfocused			$transparent	$blue		$white		$darkblue		$darkblack
+client.focused_inactive		$transparent	$blue		$darkwhite	$darkblue		$darkblack
+client.urgent				$darkred		$darkred	$white		$darkred		$darkred
+client.background			$black
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # #---Letter Key Bindings---# #
 bindsym $mod+q				[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 
 # change gaps
-bindsym $mod+Shift+t			gaps inner current set 8; gaps outer current set 8
+bindsym $mod+Shift+t		gaps inner current set 8; gaps outer current set 8
 bindsym $mod+t				gaps inner current set 0; gaps outer current set 0
 bindsym $mod+z				gaps outer current plus 5
-bindsym $mod+Shift+z			gaps outer current minus 5
+bindsym $mod+Shift+z		gaps outer current minus 5
 bindsym $mod+s				gaps inner current plus 5
-bindsym $mod+Shift+s			gaps inner current minus 5
+bindsym $mod+Shift+s		gaps inner current minus 5
 
 # focus
 bindsym $mod+h				focus left
@@ -69,31 +87,31 @@ bindsym $mod+l				focus right
 bindsym $mod+Right 			focus right
 
 # resize
-bindsym $mod+Shift+y			exec --no-startup-id i3resize left
-bindsym $mod+Mod1+Left			exec --no-startup-id i3resize left
-bindsym $mod+Shift+u			exec --no-startup-id i3resize down
-bindsym $mod+Mod1+Down			exec --no-startup-id i3resize down
-bindsym $mod+Shift+i			exec --no-startup-id i3resize up
-bindsym $mod+Mod1+Up			exec --no-startup-id i3resize up
-bindsym $mod+Shift+o			exec --no-startup-id i3resize right
-bindsym $mod+Mod1+Right			exec --no-startup-id i3resize right
+bindsym $mod+Shift+y		exec --no-startup-id i3resize left
+bindsym $mod+Mod1+Left		exec --no-startup-id i3resize left
+bindsym $mod+Shift+u		exec --no-startup-id i3resize down
+bindsym $mod+Mod1+Down		exec --no-startup-id i3resize down
+bindsym $mod+Shift+i		exec --no-startup-id i3resize up
+bindsym $mod+Mod1+Up		exec --no-startup-id i3resize up
+bindsym $mod+Shift+o		exec --no-startup-id i3resize right
+bindsym $mod+Mod1+Right		exec --no-startup-id i3resize right
 
 # toggle
 bindsym $mod+o				sticky 		toggle
 #bindsym $mod+t				split 		toggle
 bindsym $mod+f				fullscreen 	toggle
-bindsym $mod+Shift+space 		floating 	toggle
+bindsym $mod+Shift+space 	floating 	toggle
 bindsym $mod+space			focus 		mode_toggle
 
 # move
-bindsym $mod+Shift+h			move left 	30
-bindsym $mod+Shift+Left			move left 	30
-bindsym $mod+Shift+j			move down 	30
-bindsym $mod+Shift+Down			move down 	30
-bindsym $mod+Shift+k			move up 	30
-bindsym $mod+Shift+Up			move up 	30
-bindsym $mod+Shift+l			move right 	30
-bindsym $mod+Shift+Right		move right 	30
+bindsym $mod+Shift+h		move left 	30
+bindsym $mod+Shift+Left		move left 	30
+bindsym $mod+Shift+j		move down 	30
+bindsym $mod+Shift+Down		move down 	30
+bindsym $mod+Shift+k		move up 	30
+bindsym $mod+Shift+Up		move up 	30
+bindsym $mod+Shift+l		move right 	30
+bindsym $mod+Shift+Right	move right 	30
 
 # run
 bindsym $mod+u				exec --no-startup-id ddspawn tmuxdd
@@ -101,10 +119,7 @@ bindsym $mod+a				exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
 
 bindsym $mod+Escape			workspace prev
 
-bindsym $mod+Shift+r 			restart
-
-# #---Function Buttons---# #
-#bindsym $mod+F2				restart
+bindsym $mod+Shift+r 		restart
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

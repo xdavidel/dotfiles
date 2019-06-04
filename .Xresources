@@ -1,29 +1,33 @@
 !! The default colors are "Gruvbox":
-*.color0: #1d2021
-*.color1: #cc241d
-*.color2: #98971a
-*.color3: #d79921
-*.color4: #458588
-*.color5: #b16286
-*.color6: #689d6a
-*.color7: #a89984
-*.color8: #928374
-*.color9: #fb4934
-*.color10: #b8bb26
-*.color11: #fabd2f
-*.color12: #83a598
-*.color13: #d3869b
-*.color14: #8ec07c
-*.color15: #f2e6c9
+*.color0:	#1d2021
+*.color1:	#cc241d
+*.color2:	#5F9E0E
+*.color3:	#d79921
+*.color4:	#1F66A7
+*.color5:	#750775
+*.color6:	#1E8B9E
+*.color7:	#f2e6c9
+*.color8:	#272929
+*.color9:	#fb4934
+*.color10:	#7ABB26
+*.color11:	#fabd2f
+*.color12:	#1879D2
+*.color13:	#800080
+*.color14:	#34ADC2
+*.color15:	#f1f1f1
+
 !! Transparency (0-1):
 st.alpha: 0.95
 st.font: Monospace-11;
+
 ! st.termname: st-256color
 ! st.borderpx: 2
 
 !! Set a default font and font size as below:
 !! *.font: Monospace-14;
 
+
+!! URXVT
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
 
