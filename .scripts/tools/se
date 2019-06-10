@@ -1,3 +1,6 @@
 #!/bin/sh
 
-command -v fzf >>/dev/null && du -a ~/.*rc ~/.config ~/.scripts/ | awk '{print $2}' | fzf | xargs -r $EDITOR
+command -v fzf >>/dev/null \
+	&& find ~/.*rc ~/.config/ ~/.scripts/ -type f \
+	| fzf --preview='cat {}' \
+	| xargs -r $EDITOR
