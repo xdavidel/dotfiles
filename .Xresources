@@ -1,23 +1,39 @@
-!! The default colors are "Gruvbox":
-*.background: #272929
-*.foreground: #f2e6c9
+! special
+*.foreground:   #f2e6c9
+*.background:   #272929
+*.cursorColor:  #c5c8c6
 
-*.color0:	#1d2021
-*.color1:	#cc241d
-*.color2:	#5F9E0E
-*.color3:	#d79921
-*.color4:	#1F66A7
-*.color5:	#750775
-*.color6:	#1E8B9E
-*.color7:	#f2e6c9
-*.color8:	#272929
-*.color9:	#fb4934
-*.color10:	#7ABB26
-*.color11:	#fabd2f
-*.color12:	#1879D2
-*.color13:	#800080
-*.color14:	#34ADC2
-*.color15:	#f1f1f1
+! black
+*.color0:       #1d2021
+*.color8:       #373b41
+
+! red
+*.color1:       #cc241d
+*.color9:       #a54242
+
+! green
+*.color2:       #5F9E0E
+*.color10:      #8c9440
+
+! yellow
+*.color3:       #d79921
+*.color11:      #f0c674
+
+! blue
+*.color4:       #5f819d
+*.color12:      #81a2be
+
+! magenta
+*.color5:       #750775
+*.color13:      #800080
+
+! cyan
+*.color6:       #5e8d87
+*.color14:      #8abeb7
+
+! white
+*.color7:       #f2e6c9
+*.color15:      #c5c8c6
 
 !! Transparency (0-1):
 st.alpha: 0.95
