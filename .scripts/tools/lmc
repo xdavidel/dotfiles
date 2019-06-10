@@ -1,5 +1,4 @@
 #!/bin/sh
-# A general audio interface for LARBS.
 
 [ -z "$2" ] && num="2" || num="$2"
 
@@ -9,8 +8,8 @@ case "$1" in
 	m*) pulsemixer --toggle-mute ;;
 	truemute) pulsemixer --mute ;;
 	play) mpc play ;;
-	n*) mpc next ;;
-	prev) mpc prev ;;
+	n*) mpc next && pkill -RTMIN+11 i3blocks ;;
+	prev) mpc prev && pkill -RTMIN+11 i3blocks ;;
 	t*) mpc toggle ;;
 	p*) mpc pause ; pauseallmpv ;;
 	f*) mpc seek +"$num" ;;
