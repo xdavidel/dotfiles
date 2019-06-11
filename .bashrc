@@ -1,9 +1,7 @@
-[[ $- != *i* ]] && return
-
+#!/bin/bash
 stty -ixon # Disable ctrl-s and ctrl-q
 
-PS1='\[\033[01;35m\]\W \[\033[01;00m\]> '
-#PS1='[\u@\h \W]\$ '
+PS1="\[$(tput bold)\]\[$(tput setaf 5)\]\W\[$(tput sgr0)\] > "
 
 set -o vi
 
