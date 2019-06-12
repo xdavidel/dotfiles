@@ -3,10 +3,11 @@
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
-	u*) pulsemixer --change-volume +"$num" ;;
-	d*) pulsemixer --change-volume -"$num" ;;
-	m*) pulsemixer --toggle-mute ;;
-	truemute) pulsemixer --mute ;;
+	a*) "$TERMINAL" -e alsamixer & ;;
+	u*) amixer sset Master "$num"%+ && pkill -RTMIN+10 i3blocks ;;
+	d*) amixer sset Master "$num"%- && pkill -RTMIN+10 i3blocks ;;
+	m*) amixer sset Master toggle && pkill -RTMIN+10 i3blocks ;;
+	truemute) amixer sset Master mute && pkill -RTMIN+10 i3blocks ;;
 	play) mpc play ;;
 	n*) mpc next && pkill -RTMIN+11 i3blocks ;;
 	prev) mpc prev && pkill -RTMIN+11 i3blocks ;;
@@ -37,5 +38,3 @@ All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be tru
 i.e. \`lmc r\` for \`lmc restart\`.
 EOF
 esac
-
-pkill -RTMIN+10 i3blocks

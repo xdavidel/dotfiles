@@ -20,7 +20,7 @@ super + i
 super + y
 	$TERMINAL -e calcurse
 super + shift + a
-	$TERMINAL -e alsamixer
+	lmc audiomixer
 super + shift + c
 	camtoggle
 super + shift + e
@@ -81,6 +81,9 @@ super + {equal,plus}
 # Decrease volume
 super {_,shift +} + minus
 	lmc down {5,15}
+# Toggle Mute
+super + shift + m
+	lmc mute
 # Seek foward in song
 super + {_,shift +} bracketright
 	lmc forward {5,20}
