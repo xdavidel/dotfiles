@@ -64,10 +64,6 @@ client.background			$black
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# #---Letter Key Bindings---# #
-bindsym $mod+q				[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-
 # change gaps
 bindsym $mod+Shift+t		gaps inner current set 8; gaps outer current set 8
 bindsym $mod+t				gaps inner current set 0; gaps outer current set 0

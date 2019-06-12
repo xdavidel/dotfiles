@@ -454,10 +454,10 @@ function hotkeys:init(args)
 			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
 			{ description = "Toggle fullscreen", group = "Client keys" }
 		},
-		{
-			{ env.mod }, "q", function(c) c:kill() end,
-			{ description = "Close", group = "Client keys" }
-		},
+	--	{
+	--		{ env.mod }, "q", function(c) c:kill() end,
+	--		{ description = "Close", group = "Client keys" }
+	--	},
 		{
 			{ env.mod, "Control" }, "f", awful.client.floating.toggle,
 			{ description = "Toggle floating", group = "Client keys" }

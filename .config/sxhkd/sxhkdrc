@@ -5,6 +5,11 @@ super + Return
 	$TERMINAL
 super + shift + Return
 	samedir
+# Close Focused Window
+super + q
+	kill `xdotool getwindowfocus getwindowpid`
+super + shift + q
+	kill -9 `xdotool getwindowfocus getwindowpid`
 super + d
 	dmenu_run -fn 'mono:pixelsize=25'
 super + shift + d
