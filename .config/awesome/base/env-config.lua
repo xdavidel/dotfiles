@@ -27,6 +27,7 @@ function env:init(args)
 	-- environment vars
 	self.terminal = os.getenv("TERMINAL") or args.terminal or "st"
 	self.mod = args.mod or "Mod4"
+	self.alt = args.alt or "Mod1"
 	self.fm = os.getenv("FILE") or args.fm or "pcmanfm"
 	self.home = os.getenv("HOME")
 	self.themedir = awful.util.get_configuration_dir() .. "themes/" .. theme

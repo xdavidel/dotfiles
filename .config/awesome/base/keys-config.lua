@@ -112,13 +112,13 @@ function hotkeys:init(args)
 	--------------------------------------------------------------------------------
 	-- this is exaple for layouts hotkeys setup, see other color configs for more
 
-	-- local layout_tile = {
+	local layout_tile = {
 	-- 	{
 	-- 		{ env.mod }, "l", function () awful.tag.incmwfact( 0.05) end,
 	-- 		{ description = "Increase master width factor", group = "Layout" }
 	-- 	},
 	-- 	{
-	-- 		{ env.mod }, "j", function () awful.tag.incmwfact(-0.05) end,
+	-- 		{ env.mod }, "j", function () heawful.tag.incmwfact(-0.05) end,
 	-- 		{ description = "Decrease master width factor", group = "Layout" }
 	-- 	},
 	-- 	{
@@ -145,9 +145,9 @@ function hotkeys:init(args)
 	-- 		{ env.mod, "Control" }, "-", function () awful.tag.incncol(-1, nil, true) end,
 	-- 		{ description = "Decrease the number of columns", group = "Layout" }
 	-- 	},
-	-- }
+	}
 
-	-- laycom:set_keys(layout_tile, "tile")
+	--laycom:set_keys(layout_tile, "tile")
 
 	-- Keys for widgets
 	--------------------------------------------------------------------------------
@@ -307,8 +307,8 @@ function hotkeys:init(args)
 		--	{ description = "Show hotkeys helper", group = "Main" }
 		--},
 		--{
-		--	{ env.mod }, "F2", function () redflat.service.navigator:run() end,
-		--	{ description = "Window control mode", group = "Main" }
+			--{ env.mod }, "F2", function () redflat.service.navigator:run() end,
+			--{ description = "Window control mode", group = "Main" }
 		--},
 		--{
 		--	{ env.mod, "Control" }, "r", awesome.restart,
@@ -339,7 +339,6 @@ function hotkeys:init(args)
 			{ env.mod }, "j", focus_switch_byd("down"),
 			{ description = "Go to lower client", group = "Client focus" }
 		},
-
 		{
 			{ env.mod }, "Right", focus_switch_byd("right"),
 			{ description = "Go to right client", group = "Client focus" }
@@ -356,6 +355,22 @@ function hotkeys:init(args)
 			{ env.mod }, "Down", focus_switch_byd("down"),
 			{ description = "Go to lower client", group = "Client focus" }
 		},
+	 	{
+	 		{ env.mod ,env.alt }, "Right", function () awful.tag.incmwfact( 0.05) end,
+	 		{ description = "Increase master width factor", group = "Layout" }
+	 	},
+	 	{
+	 		{ env.mod, env.alt }, "Left", function () awful.tag.incmwfact(-0.05) end,
+	 		{ description = "Decrease master width factor", group = "Layout" }
+	 	},
+	 	{
+	 		{ env.mod, "Mod1" }, "Up", function () awful.client.incwfact( 0.05) end,
+	 		{ description = "Increase window factor of a client", group = "Layout" }
+	 	},
+	 	{
+	 		{ env.mod, "Mod1" }, "Down", function () awful.client.incwfact(-0.05) end,
+	 		{ description = "Decrease window factor of a client", group = "Layout" }
+	 	},
 		--{
 		--	{ env.mod }, "u", awful.client.urgent.jumpto,
 		--	{ description = "Go to urgent client", group = "Client focus" }
