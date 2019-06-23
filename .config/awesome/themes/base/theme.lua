@@ -103,6 +103,36 @@ theme.icon = {
 	unknown  = theme.path .. "/common/unknown.svg",
 }
 
+-- Widget icons
+--------------------------------------------------------------------------------
+theme.wicon = {
+	battery    = theme.path .. "/widget/battery.svg",
+	wireless   = theme.path .. "/widget/wireless.svg",
+	monitor    = theme.path .. "/widget/monitor.svg",
+	audio      = theme.path .. "/widget/audio.svg",
+	headphones = theme.path .. "/widget/headphones.svg",
+	brightness = theme.path .. "/widget/brightness.svg",
+	keyboard   = theme.path .. "/widget/keyboard.svg",
+	mail       = theme.path .. "/widget/mail.svg",
+	package    = theme.path .. "/widget/package.svg",
+	search     = theme.path .. "/widget/search.svg",
+	mute       = theme.path .. "/widget/mute.svg",
+	up         = theme.path .. "/widget/up.svg",
+	down       = theme.path .. "/widget/down.svg",
+	onscreen   = theme.path .. "/widget/onscreen.svg",
+	resize     = {
+		full       = theme.path .. "/widget/resize/full.svg",
+		horizontal = theme.path .. "/widget/resize/horizontal.svg",
+		vertical   = theme.path .. "/widget/resize/vertical.svg",
+	},
+	updates    = {
+		normal = theme.path .. "/widget/updates/normal.svg",
+		silent = theme.path .. "/widget/updates/silent.svg",
+		weekly = theme.path .. "/widget/updates/weekly.svg",
+		daily = theme.path .. "/widget/updates/daily.svg",
+	},
+}
+
 
 -- Main theme settings
 -- Make it updatabele since it may depends on common
@@ -275,13 +305,15 @@ function theme:init()
 	-- Double icon indicator
 	--------------------------------------------------------------
 	self.gauge.icon.double = {
-		icon1       = self.icon.system,  -- first icon
-		icon2       = self.icon.system,  -- second icon
+		icon1       = self.wicon.down,  -- first icon
+		icon2       = self.wicon.up,  -- second icon
 		is_vertical = true,              -- use vertical gradient (horizontal if false)
-		igap        = 4,                 -- gap between icons
+		igap        = -6,                 -- gap between icons
 		step        = 0.02,              -- icon painting step
 		color       = self.color         -- colors (main used)
 	}
+	
+	
 
 	-- Double value monitor (double progressbar with icon)
 	--------------------------------------------------------------
@@ -542,19 +574,25 @@ function theme:init()
 		end,
 	}
 
+	-- Volume control
+	------------------------------------------------------------
+	self.gauge.audio.red.icon = { volume = self.wicon.audio, mute = self.wicon.mute }
+	self.gauge.audio.blue.icon = self.wicon.headphones
+
 	-- Pulseaudio volume control
 	------------------------------------------------------------
 	self.widget.pulse = {
 		notify = {},  -- redflat notify style (see theme.float.notify)
 		widget = nil, -- audio gauge (usually setted by rc file)
-		audio  = {}   -- style for gauge
-	}
-
+		audio  = {},   -- style for gauge
+		notify = { icon = self.wicon.audio }
+	}	
+	
 	-- Keyboard layout indicator
 	------------------------------------------------------------
 	self.widget.keyboard = {
-		icon         = self.icon.system,  -- widget icon
-		micon        = self.icon,         -- some common menu icons
+		icon         = self.wicon.keyboard, -- widget icon
+		micon        = self.icon,         	-- some common menu icons
 
 		-- list of colors associated with keyboard layouts
 		layout_color = { self.color.icon, self.color.main },
@@ -563,14 +601,16 @@ function theme:init()
 		menu = { width  = 180, color  = { right_icon = self.color.icon }, nohide = true }
 	}
 
+
 	-- Mail indicator
 	------------------------------------------------------------
 	self.widget.mail = {
-		icon        = self.icon.system,  -- widget icon
+		icon        = self.wicon.mail,  -- widget icon
 		notify      = {},                -- redflat notify style (see theme.float.notify)
 		need_notify = true,              -- show notification on new mail
 		firstrun    = true,              -- check mail on wm start/restart
 		color       = self.color,        -- colors (main used)
+		notify = { icon = self.wicon.mail }
 	}
 
 	-- System updates indicator
