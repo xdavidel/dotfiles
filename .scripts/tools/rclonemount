@@ -1,0 +1,25 @@
+#!/bin/sh
+
+pgrep -x dmenu && exit
+
+# check for rclone
+! command -v rclone >>/dev/null && echo "rclone is not installed." && exit
+
+
+getmount() { \
+	[ -z "$chosen" ] && exit 1
+	mp="$(find $1 | dmenu -i -p "Type in mount point.")"
+	[ "$mp" = "" ] && exit 1
+	if [ ! -d "$mp" ]; then
+		mkdiryn=$(printf "No\\nYes" | dmenu -i -p "$mp does not exist. Create it?")
+		[ "$mkdiryn" = "Yes" ] && (mkdir -p "$mp" || sudo -A mkdir -p "$mp")
+	fi
+	}
+
+chosen=$(rclone listremotes | dmenu -i -p "Choose remote")
+[ -z "$chosen" ] && echo "No remote was chosen." && exit
+
+getmount "/mnt /media /mount /home -maxdepth 5 -type d"
+[ -z "$mp" ] && exit
+
+rclone mount "$chosen" "$mp" &
