@@ -5,6 +5,7 @@ alias 	ka="killall" \
 	f="$FILE" \
 	e="$EDITOR" \
 	v="$EDITOR" \
+	q="exit" \
 	x="sxiv -ft *" \
 	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="youtube-dl -xi --audio-format mp3" \
