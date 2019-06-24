@@ -86,6 +86,9 @@ super + {equal,plus}
 # Decrease volume
 super {_,shift +} + minus
 	lmc down {5,15}
+# Mute volume
+super + shift + m
+	lmc mute
 # Seek foward in song
 super + {_,shift +} bracketright
 	lmc forward {5,20}
