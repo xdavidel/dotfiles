@@ -7,7 +7,7 @@ super + shift + Return
 	samedir
 # Close Focused Window
 super + q
-	kill `xdotool getwindowfocus getwindowpid`
+	wmctrl -c :ACTIVE:
 super + shift + q
 	kill -9 `xdotool getwindowfocus getwindowpid`
 super + d
