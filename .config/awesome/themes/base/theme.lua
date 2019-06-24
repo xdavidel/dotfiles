@@ -616,11 +616,11 @@ function theme:init()
 	-- System updates indicator
 	------------------------------------------------------------
 	self.widget.updates = {
-		icon        = self.icon.system,  -- widget icon
-		notify      = {},                -- redflat notify style (see theme.float.notify)
-		need_notify = true,              -- show notification on updates
-		firstrun    = true,              -- check updates on wm start/restart
-		color       = self.color,        -- colors (main used)
+		icon        = self.icon.system,  			 -- widget icon
+		notify      = { icon = self.wicon.package }, -- redflat notify style (see theme.float.notify)
+		need_notify = true,              			 -- show notification on updates
+		firstrun    = true,              			 -- check updates on wm start/restart
+		color       = self.color,        			 -- colors (main used)
 
 		-- redflat key tip settings
 		keytip      = { geometry = { width = 400 } },
@@ -640,12 +640,12 @@ function theme:init()
 
 			-- wibox icons
 			icon         = {
-				package = self.icon.system,                   -- main wibox image
+				package = self.wicon.package,                 -- main wibox image
 				close   = self.base .. "/titlebar/close.svg", -- close button
-				normal  = self.icon.system,                   -- regular notification
-				daily   = self.icon.system,                   -- defer notification for day
-				weekly  = self.icon.system,                   -- defer notification for 7 day
-				silent  = self.icon.system,                   -- disable notification
+				normal  = self.wicon.updates.normal,          -- regular notification
+				daily   = self.wicon.updates.daily,           -- defer notification for day
+				weekly  = self.wicon.updates.weekly,          -- defer notification for 7 day
+				silent  = self.wicon.updates.silent,          -- disable notification
 			},
 
 			-- widget areas height
@@ -1152,7 +1152,6 @@ function theme:init()
 	self.float.decoration.field = {
 		color = self.color  -- colors (secondary used)
 	}
-
 
 	-- Titlebar
 	--------------------------------------------------------------------------------

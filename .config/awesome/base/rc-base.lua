@@ -76,6 +76,20 @@ taglist.buttons = awful.util.table.join(
 local textclock = {}
 textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M", dateformat = "%b  %d  %a" })
 
+
+-- Software update indcator
+--------------------------------------------------------------------------------
+redflat.widget.updates:init({ command = env.updates })
+
+local updates = {}
+updates.widget = redflat.widget.updates()
+
+updates.buttons = awful.util.table.join(
+	awful.button({ }, 1, function () mymenu.mainmenu:toggle() end),
+	awful.button({ }, 2, function () redflat.widget.updates:update(true) end),
+	awful.button({ }, 3, function () redflat.widget.updates:toggle() end)
+)
+
 -- Layoutbox configure
 --------------------------------------------------------------------------------
 local layoutbox = {}
@@ -99,7 +113,7 @@ tray.buttons = awful.util.table.join(
 -- PA volume control
 --------------------------------------------------------------------------------
 local volume = {}
-volume.widget = redflat.widget.pulse(nil, { widget = redflat.gauge.audio.blue.new })
+volume.widget = redflat.widget.pulse(nil, { widget = redflat.gauge.audio.red.new })
 
 -- activate player widget
 redflat.float.player:init({ name = env.player })

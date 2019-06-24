@@ -29,6 +29,8 @@ function env:init(args)
 	self.mod = args.mod or "Mod4"
 	self.alt = args.alt or "Mod1"
 	self.fm = os.getenv("FILE") or args.fm or "pcmanfm"
+	self.player = args.player or "pragha"
+	self.updates = args.updates or "bash -c 'pacman -Qu | grep -v ignored | wc -l'"
 	self.home = os.getenv("HOME")
 	self.themedir = awful.util.get_configuration_dir() .. "themes/" .. theme
 

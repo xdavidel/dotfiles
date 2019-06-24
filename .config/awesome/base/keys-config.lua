@@ -29,6 +29,13 @@ local focus_switch_byd = function(dir)
 	end
 end
 
+local client_swap_byd = function(dir)
+	return function()
+		awful.client.swap.bydirection(dir)
+		if client.focus then client.focus:raise() end
+	end
+end
+
 local function minimize_all()
 	for _, c in ipairs(client.get()) do
 		if current(c, mouse.screen) then c.minimized = true end
@@ -302,10 +309,10 @@ function hotkeys:init(args)
 	-- Global keys
 	--------------------------------------------------------------------------------
 	self.raw.root = {
-		--{
-		--	{ env.mod }, "F1", function() redtip:show() end,
-		--	{ description = "Show hotkeys helper", group = "Main" }
-		--},
+		{
+			{ env.mod }, "s", function() redtip:show() end,
+			{ description = "Show hotkeys helper", group = "Main" }
+		},
 		--{
 			--{ env.mod }, "F2", function () redflat.service.navigator:run() end,
 			--{ description = "Window control mode", group = "Main" }
@@ -355,6 +362,22 @@ function hotkeys:init(args)
 			{ env.mod }, "Down", focus_switch_byd("down"),
 			{ description = "Go to lower client", group = "Client focus" }
 		},
+		{
+			{ env.mod, "Shift"  }, "Down", client_swap_byd("down"),
+			{ description = "Switch windows down", group = "Client focus" }
+		},
+		{
+			{ env.mod, "Shift" }, "Up", client_swap_byd("up"),
+			{ description = "Switch windows up", group = "Client focus" }
+		},
+		{
+			{ env.mod, "Shift"  }, "Left", client_swap_byd("left"),
+			{ description = "Switch windows down", group = "Client focus" }
+		},
+		{
+			{ env.mod, "Shift" }, "Right", client_swap_byd("right"),
+			{ description = "Switch windows up", group = "Client focus" }
+		},
 	 	{
 	 		{ env.mod ,env.alt }, "Right", function () awful.tag.incmwfact( 0.05) end,
 	 		{ description = "Increase master width factor", group = "Layout" }
@@ -364,11 +387,11 @@ function hotkeys:init(args)
 	 		{ description = "Decrease master width factor", group = "Layout" }
 	 	},
 	 	{
-	 		{ env.mod, "Mod1" }, "Up", function () awful.client.incwfact( 0.05) end,
+	 		{ env.mod, env.alt }, "Up", function () awful.client.incwfact( 0.05) end,
 	 		{ description = "Increase window factor of a client", group = "Layout" }
 	 	},
 	 	{
-	 		{ env.mod, "Mod1" }, "Down", function () awful.client.incwfact(-0.05) end,
+	 		{ env.mod, env.alt }, "Down", function () awful.client.incwfact(-0.05) end,
 	 		{ description = "Decrease window factor of a client", group = "Layout" }
 	 	},
 		--{
