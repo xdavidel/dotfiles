@@ -1,0 +1,18 @@
+#!/bin/sh
+# Give fzf list of all unicode characters to copy.
+# Shows the selected character in dunst if running.
+
+! command -v fzf >>/dev/null && exit
+
+chosen=$(grep -v "#" ~/.emoji | fzf)
+
+[ "$chosen" != "" ] || exit
+
+c=$(echo "$chosen" | sed "s/ .*//")
+echo "$c" | tr -d '\n' | command -v xclip >>/dev/null && xclip -selection clipboard || echo "$c"
+command -v notify-send >>/dev/null && notify-send "'$c' copied to clipboard." &
+
+! command -v xclip >>/dev/null && exit
+s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+echo "$s" | tr -d '\n' | xclip
+command -v notify-send >>/dev/null && notify-send "'$s' copied to primary." &
