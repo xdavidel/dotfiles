@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Refresh i3blocks
+pgrep -x i3blocks >>/dev/null && pkill -RTMIN+11 i3blocks
+
+# Check for mpc
+#! command -v mpc >>/dev/null && exit
+
+# Send Notification
+#pgrep -x dunst >>/dev/null && notify-send "Now Playing ♫" "$(mpc current)"
