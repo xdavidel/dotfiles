@@ -8,6 +8,7 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
+export FILEGUI="pcmanfm"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 
 export MPD_HOST="127.0.0.1"

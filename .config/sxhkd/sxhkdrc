@@ -16,6 +16,8 @@ super + shift + d
 	rofi -show run
 super + e
 	$TERMINAL -e $FILE
+super + shift + e
+	$FILEGUI
 super + m
 	mediaplayer
 super + n
@@ -28,7 +30,7 @@ super + shift + a
 	$TERMINAL -e alsamixer
 super + shift + c
 	camtoggle
-super + shift + e
+super + shift + v
 	tutorialvids
 super + w
 	webby | xargs -r $BROWSER
