@@ -1,8 +1,17 @@
 #!/bin/sh
 
-# checks for neccesery tools
-! command -v ip >>/dev/null  && echo "ip tools are missing." && exit
+# Use machine ip and subnet if not passed by argument
+if [ -z "$1" ]; then
+	! command -v ip >>/dev/null  && echo "ip tools are missing." && exit
+	search_ip=$(ip a | grep "inet " | grep -v "127.0.0.1" | awk '{print $2}')
+else
+	! expr "$1" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\/[0-9][0-9]*$' >>/dev/null && echo "Not a valid IP and subnet mask." && exit
+	search_ip="$1"
+fi
+
+echo "Searching network for $search_ip:"
+
+# checks if nmap is installed
 ! command -v nmap>>/dev/null && echo "Nmap is not installed" && exit
 
-ip=$(ip a | grep "inet " | grep -v "127.0.0.1" | awk '{print $2}')
-nmap -snV "$ip" | grep "scan report" | sed -e 's/(//g' -e 's/)//g' | awk '{print $6 "\t" $5}' | sed -e 's/^[ \t]*//'
+nmap -snV "$search_ip" | grep "scan report" | sed -e 's/(//g' -e 's/)//g' | awk '{print $6 "\t" $5}' | sed -e 's/^[ \t]*//'
