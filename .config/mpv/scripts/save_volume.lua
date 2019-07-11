@@ -20,5 +20,8 @@ function load_volume()
 	end
 end
 
+-- load volume on start
+load_volume()
+
+-- save volume on exit
 mp.register_event("shutdown", save_volume)
-mp.register_event("file-loaded", load_volume)
