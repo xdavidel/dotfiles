@@ -96,7 +96,7 @@ bindsym $mod+Mod1+Right		exec --no-startup-id i3resize right
 bindsym $mod+o				sticky 		toggle
 #bindsym $mod+t				split 		toggle
 bindsym $mod+f				fullscreen 	toggle
-bindsym $mod+Shift+space 	floating 	toggle
+bindsym $mod+Shift+f		floating 	toggle
 bindsym $mod+space			focus 		mode_toggle
 
 # move
