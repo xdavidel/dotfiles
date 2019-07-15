@@ -9,6 +9,10 @@ alias 	ka="killall" \
 	x="sxiv -ft *" \
 	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="youtube-dl -xi --audio-format mp3" \
+	l="ls -lh --color=auto --group-directories-first" \
+	ls="ls --color=auto --group-directories-first" \
+	la="ls -A --color=auto --group-directories-first" \
+	ll="ls -lAh --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
 	ffmpeg="ffmpeg -hide_banner"
 
