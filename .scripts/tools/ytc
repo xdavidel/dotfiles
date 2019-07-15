@@ -1,0 +1,12 @@
+#!/bin/sh
+
+command -v fzf >>/dev/null
+
+clist=$(youtube-dl -iF "$1" 2>>/dev/null)
+[ -z clist ] && exit
+
+videof=$(echo "$clist" | grep -i "video only" | fzf --prompt "Video>" | cut -d' ' -f1)
+
+audiof=$(echo "$clist" | grep -i "audio only" | fzf --prompt "Audio>" | cut -d' ' -f1)
+
+youtube-dl -if $videof+$audiof $1
