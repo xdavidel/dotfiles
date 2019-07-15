@@ -4,11 +4,13 @@
 # Adds `~/.scripts` and all subdirectories to $PATH
 export PATH="$PATH:$(du "$HOME/.scripts/" | cut -f2 | tr '\n' ':')"
 export EDITOR="nvim"
+export EDITORGUI="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="vifm"
 export FILEGUI="pcmanfm"
+export MEDIAPLAYER="mpv"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 
 export MPD_HOST="127.0.0.1"
