@@ -3,4 +3,4 @@
 [ -f ~/.xprofile ] && . ~/.xprofile
 
 # execute i3 window manager
-exec i3
+exec awesome
