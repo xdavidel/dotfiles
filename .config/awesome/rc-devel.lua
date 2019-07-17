@@ -11,6 +11,7 @@ lock.autostart = true
 -- Configuration file selection
 --------------------------------------------------------------------------------
 --local rc = "base.rc-base"
+local rc = "rc"
 
 require(rc)
 
@@ -18,4 +19,3 @@ require(rc)
 --------------------------------------------------------------------------------
 local beautiful = require("beautiful")
 beautiful.xresources.set_dpi(96, 1)
-

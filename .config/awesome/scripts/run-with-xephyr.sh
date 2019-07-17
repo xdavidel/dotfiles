@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 Xephyr :3 -ac -screen 1920x1080 &
 XEPHYR_PID=$!
