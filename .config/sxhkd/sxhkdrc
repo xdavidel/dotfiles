@@ -33,9 +33,9 @@ super + shift + c
 super + shift + v
 	tutorialvids
 super + w
-	webby | xargs -r $BROWSER
-super + shift + w
 	$BROWSER
+super + shift + w
+	$BROWSERP
 super + shift + g
 	gimp
 
