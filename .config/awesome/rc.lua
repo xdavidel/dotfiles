@@ -636,29 +636,29 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
 
-    { rule = { class = editorgui },
-          properties = { maximized = true } },
+	-- Maximized
+    --{ rule = { class = editorgui },
+          --properties = { maximized = true } },
 
-    { rule = { class = "Gimp*", role = "gimp-image-window" },
-          properties = { maximized = true } },
+    --{ rule = { class = "Gimp*", role = "gimp-image-window" },
+          --properties = { maximized = true } },
 
-    { rule = { class = "inkscape" },
-          properties = { maximized = true } },
+    --{ rule = { class = "inkscape" },
+          --properties = { maximized = true } },
 
-    { rule = { class = mediaplayer },
-          properties = { maximized = true } },
+    --{ rule = { class = mediaplayer },
+          --properties = { maximized = true } },
 
-    { rule = { class = "Vlc" },
-          properties = { maximized = true } },
+    --{ rule = { class = "Vlc" },
+          --properties = { maximized = true } },
 
-    { rule = { class = "VirtualBox Manager" },
-          properties = { maximized = true } },
+    --{ rule = { class = "VirtualBox Manager" },
+          --properties = { maximized = true } },
 
-    { rule = { class = "VirtualBox Machine" },
-          properties = { maximized = true } },
+    --{ rule = { class = "VirtualBox Machine" },
+          --properties = { maximized = true } },
 
-    { rule = { class = "Xfce4-settings-manager" },
-          properties = { floating = false } },
+    
 
     -- Show titlebar on some window types
     {   rule_any   = { type = {"utility", "splash", "toolbar"} },
