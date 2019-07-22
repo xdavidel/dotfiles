@@ -203,9 +203,6 @@ awful.util.mymainmenu = freedesktop.menu.build({
         -- other triads can be put here
     }
 })
---menubar.utils.terminal = terminal -- Set the Menubar terminal for applications that require it
--- }}}
-
 
 
 -- {{{ Screen
@@ -240,18 +237,6 @@ root.buttons(my_table.join(
 -- {{{ Key bindings
 globalkeys = my_table.join(
 
-    -- {{{ Personal keybindings
-    -- dmenu
-    --awful.key({ modkey, sftkey }, "Return",
-    --function ()
-     --   awful.spawn(string.format("dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'",
-     --   beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
-	--end,
-    --{description = "show dmenu", group = "hotkeys"}),
-
-
-    -- Personal keybindings}}}
-
     -- Hotkeys Awesome
 
     awful.key({ modkey, sftkey  }, "/",      hotkeys_popup.show_help,
@@ -262,27 +247,6 @@ globalkeys = my_table.join(
         {description = "view previous", group = "tag"}),
     awful.key({ modkey, ctlkey  }, "Right",  awful.tag.viewnext,
         {description = "view next", group = "tag"}),
-    --awful.key({ altkey,           }, "Escape", awful.tag.history.restore,
-    --    {description = "go back", group = "tag"}),
-
-     -- Tag browsing alt + tab
-    --awful.key({ altkey,           }, "Tab",   awful.tag.viewnext,
-    --    {description = "view next", group = "tag"}),
-    --awful.key({ altkey, sftkey   }, "Tab",  awful.tag.viewprev,
-    --    {description = "view previous", group = "tag"}),
-
-     -- Tag browsing modkey + tab
-    --awful.key({ modkey,           }, "Tab",   awful.tag.viewnext,
-    --    {description = "view next", group = "tag"}),
-    --awful.key({ modkey, sftkey   }, "Tab",  awful.tag.viewprev,
-    --    {description = "view previous", group = "tag"}),
-
-
-    -- Non-empty tag browsing
-    --awful.key({ modkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
-              --{description = "view  previous nonempty", group = "tag"}),
-   -- awful.key({ modkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
-             -- {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
     awful.key({ altkey,           }, "j",
@@ -349,8 +313,8 @@ globalkeys = my_table.join(
         {description = "focus right", group = "client"}),
 
 
-    --awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
-    --          {description = "show main menu", group = "awesome"}),
+    awful.key({ modkey,           }, "space", function () awful.util.mymainmenu:show() end,
+              {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, sftkey   }, "j", function () awful.client.swap.global_bydirection(  "down")    end,
@@ -370,12 +334,6 @@ globalkeys = my_table.join(
     awful.key({ modkey, sftkey   }, "Right", function () awful.client.swap.global_bydirection( "right")    end,
               {description = "swap with previous client by index", group = "client"}),
 
-    --awful.key({ modkey, ctlkey }, "j", function () awful.screen.focus_relative( 1) end,
-    --          {description = "focus the next screen", group = "screen"}),
-    --awful.key({ modkey, ctlkey }, "k", function () awful.screen.focus_relative(-1) end,
-    --          {description = "focus the previous screen", group = "screen"}),
-    --awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
-    --          {description = "jump to urgent client", group = "client"}),
     awful.key({ ctlkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -402,27 +360,11 @@ globalkeys = my_table.join(
     awful.key({ modkey, sftkey }, "s", function () lain.util.useless_gaps_resize(-1) end,
               {description = "decrement useless gaps", group = "tag"}),
 
-    -- Dynamic tagging
-    --awful.key({ modkey, sftkey }, "n", function () lain.util.add_tag() end,
-    --          {description = "add new tag", group = "tag"}),
-    --awful.key({ modkey, ctlkey }, "r", function () lain.util.rename_tag() end,
-    --          {description = "rename tag", group = "tag"}),
-   -- awful.key({ modkey, sftkey }, "Left", function () lain.util.move_tag(-1) end,
-    --          {description = "move tag to the left", group = "tag"}),
-    --awful.key({ modkey, sftkey }, "Right", function () lain.util.move_tag(1) end,
-    --          {description = "move tag to the right", group = "tag"}),
-    --awful.key({ modkey, sftkey }, "d", function () lain.util.delete_tag() end,
-     --         {description = "delete tag", group = "tag"}),
-
-    -- Standard program
-    --awful.key({ modkey, sftkey }, "r", awesome.restart,
-    --          {description = "reload awesome", group = "awesome"}),
-
     awful.key({ modkey, altkey }, "Left",     function () awful.tag.incmwfact( -0.02)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey, altkey  }, "Right",     function () awful.tag.incmwfact(0.02)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, altkey  }, "Up",     function () awful.client.incwfact(0.02)       end,
+    awful.key({ modkey, altkey  }, "Up",     function () awful.client.incwfact(0.02)        end,
               {description = "decrease master height factor", group = "layout"}),
     awful.key({ modkey, altkey  }, "Down",     function () awful.client.incwfact(-0.02)       end,
               {description = "increase master height factor", group = "layout"}),
@@ -443,25 +385,6 @@ globalkeys = my_table.join(
     --          {description = "select next", group = "layout"}),
     --awful.key({ modkey, ctlkey }, "Down", function () awful.layout.inc( -1)                end,
     --          {description = "select next", group = "layout"}),
-
-    -- Dropdown application
-    --awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
-    --          {description = "dropdown application", group = "super"}),
-
-    -- Widgets popups
-    --awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end,
-    --          {description = "show calendar", group = "widgets"}),
-    --awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
-    --          {description = "show filesystem", group = "widgets"}),
-    --awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
-    --          {description = "show weather", group = "widgets"}),
-
-    -- Default
-    --[[ Menubar
-
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "super"})
-    --]]
 
     awful.key({ altkey }, "x",
               function ()
@@ -637,28 +560,7 @@ awful.rules.rules = {
       properties = { titlebars_enabled = true } },
 
 	-- Maximized
-    --{ rule = { class = editorgui },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = "Gimp*", role = "gimp-image-window" },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = "inkscape" },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = mediaplayer },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = "Vlc" },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = "VirtualBox Manager" },
-          --properties = { maximized = true } },
-
-    --{ rule = { class = "VirtualBox Machine" },
-          --properties = { maximized = true } },
-
-    
+	{ rule = { class = firefox }, properties = { maximized = false} },    
 
     -- Show titlebar on some window types
     {   rule_any   = { type = {"utility", "splash", "toolbar"} },
@@ -760,7 +662,7 @@ client.connect_signal("request::titlebars", function(c)
             awful.titlebar.widget.floatingbutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
+            --awful.titlebar.widget.ontopbutton    (c),
             awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
