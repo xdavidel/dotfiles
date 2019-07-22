@@ -31,6 +31,8 @@ for f in "$SIMPL_ZSH_DIR"/{settings,plugins}/*?.zsh; do
     . "$f" 2>/dev/null
 done
 
+source "$HOME/.config/aliasrc"
+
 # uncomment these lines to disable the multi-line prompt
 # add user@host, and remove the unicode line-wrap characters
 
@@ -41,6 +43,3 @@ done
 
 # load the prompt last
 prompt simpl
-
-# system info and AL ascii art
-al-info
