@@ -5,13 +5,13 @@ batsnum=$(ls /sys/class/power_supply/ | wc -l)
 
 [ "$batsnum" = 0 ] && printf "" && exit
 
-# check for AC
-[ "$batsnum" = 1 ] && [ $(ls /sys/class/power_supply/AC | wc -l) -gt 0 ] && printf "" && exit
-
-
 for i in $(seq 0 $(($batsnum - 1)));
 do
 	capacity=$(cat /sys/class/power_supply/BAT$i/capacity)
+
+	# check for AC
+	[ -z "$capacity" ] && printf "" && exit
+
 	status=$(cat /sys/class/power_supply/BAT$i/status)
 
 	if [ "$status" = "Charging" ]; then
