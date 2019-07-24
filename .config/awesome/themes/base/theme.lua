@@ -76,10 +76,10 @@ theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = 20
 theme.menu_width                                = 180
-theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.svg"
 theme.awesome_icon                              = theme.dir .. "/icons/awesome.svg"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
+theme.menu_submenu								= ""
 
 theme.layout_tile                               = theme.dir .. "/icons/layouts/tile.svg"
 theme.layout_tileleft                           = theme.dir .. "/icons/layouts/tileleft.svg"

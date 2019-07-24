@@ -2,9 +2,10 @@
 
 printf "Beginning upgrade.\\n"
 
-yay -Syu
-pacman -Qu | wc -l > ~/.pacupgrnum
-pkill -RTMIN+8 i3blocks
+command -v xbps-install >>/dev/null && sudo -A xbps-install -yu
+command -v yay >>/dev/null			&& yay -Syu
+
+refupdates
 
 printf "\\nUpgrade complete.\\nPress <Enter> to exit window.\\n\\n"
 read -r

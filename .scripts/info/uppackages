@@ -1,3 +1,6 @@
 #!/bin/sh
 
-command -v pacman >>/dev/null && pacman -Qu | grep -v "\[ignored\]" | wc -l
+command -v pacman >>/dev/null		&& updates=$(pacman -Qu | grep -v "\[ignored\]" | wc -l)
+command -v xbps-install >>/dev/null	&& updates=$(xbps-install -Syun | wc -l)
+printf "$updates"
+
