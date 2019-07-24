@@ -346,7 +346,7 @@ function theme.at_screen_connect(s)
                     id     = 'text_role',
                     widget = wibox.widget.textbox,
                 },
-                forced_width  = 230,
+                forced_width  = 30,
                 layout = wibox.layout.fixed.horizontal,
             },
             left  = 10,
@@ -368,7 +368,7 @@ function theme.at_screen_connect(s)
 
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 28, bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 22, bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
