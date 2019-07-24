@@ -1,0 +1,3 @@
+#!/bin/sh
+
+command -v pacman >>/dev/null && pacman -Qu | grep -v "\[ignored\]" | wc -l

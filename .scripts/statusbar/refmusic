@@ -1,7 +1,9 @@
 #!/bin/sh
 
+pgrep -x awesome >>/dev/null	&& awesome-client 'awesome.emit_signal("refmusic")' && exit
+
 # Refresh i3blocks
-pgrep -x i3blocks >>/dev/null && pkill -RTMIN+11 i3blocks
+pgrep -x i3blocks >>/dev/null	&& pkill -RTMIN+11 i3blocks && exit
 
 # Check for mpc
 #! command -v mpc >>/dev/null && exit

@@ -1,0 +1,28 @@
+#!/bin/sh
+# otf-font-awesome recommanded!
+
+batsnum=$(ls /sys/class/power_supply/ | wc -l)
+
+[ "$batsnum" = 0 ] && printf "" && exit
+
+for i in $(seq 0 $(($batsnum - 1)));
+do
+	capacity=$(cat /sys/class/power_supply/BAT$i/capacity)
+	status=$(cat /sys/class/power_supply/BAT$i/status)
+
+	if [ "$status" = "Charging" ]; then
+		baticon=""
+	else
+
+		case "$capacity" in
+			100|9[0-9])		baticon="" ;;
+			8[0-9]|7[0-9])	baticon="" ;;
+			6[0-9]|5[0-9])	baticon="" ;;
+			4[0-9]|3[0-9])	baticon="" ;;
+			*)				baticon="" ;;
+		esac
+	fi
+
+	printf "$baticon ($capacity)"
+
+done

@@ -15,6 +15,7 @@ local function factory(args)
     local followtag             = args.followtag or false
     local showpopup             = args.showpopup or "on"
     local settings              = args.settings or function() end
+    local updatesignal			= args.updatesignal or "refbar"
     local result				= ""
 
     script.widget:set_markup(script_na_markup)
@@ -61,6 +62,12 @@ local function factory(args)
             settings()
 		end)
     end
+    
+    awesome.connect_signal(updatesignal, function()
+			--naughty.notify { text = "Update" }
+			script.update()
+		end
+	)
 
     if showpopup == "on" then script.attach(script.widget) end
 

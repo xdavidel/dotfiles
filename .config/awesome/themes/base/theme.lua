@@ -94,18 +94,6 @@ theme.layout_fullscreen                         = theme.dir .. "/icons/layouts/f
 theme.layout_magnifier                          = theme.dir .. "/icons/layouts/magnifier.svg"
 theme.layout_floating                           = theme.dir .. "/icons/layouts/floating.svg"
 
-theme.widget_music                              = theme.dir .. "/icons/media/cover.svg"
-theme.widget_music_on                           = theme.dir .. "/icons/media/play.svg"
-theme.widget_music_pause                        = theme.dir .. "/icons/media/pause.svg"
-theme.widget_music_stop                         = theme.dir .. "/icons/media/stop.svg"
-theme.widget_vol                                = theme.dir .. "/icons/media/vol.svg"
-theme.widget_vol_low                            = theme.dir .. "/icons/media/vol_low.svg"
-theme.widget_vol_no                             = theme.dir .. "/icons/media/vol_no.svg"
-theme.widget_vol_mute                           = theme.dir .. "/icons/media/vol_mute.svg"
-theme.widget_vol_mid                            = theme.dir .. "/icons/media/vol_mid.svg"
-
-theme.widget_packs	                            = theme.dir .. "/icons/package.svg"
-
 theme.useless_gap                               = 6
 
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close.svg"
@@ -132,8 +120,7 @@ local separators = lain.util.separators
 
 
 -- Textclock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local clock = awful.widget.watch(
+local clockwidget = awful.widget.watch(
     "date +'%d %b (%a) %R'", 60,
     function(widget, stdout)
         widget:set_markup(" " .. markup.font(theme.font, stdout))
@@ -142,41 +129,31 @@ local clock = awful.widget.watch(
 
 -- Calendar
 theme.cal = lain.widget.cal({
-    attach_to = { clock },
+    attach_to = { clockwidget },
+    week_start = 1,
     notification_preset = {
-        font = "UbuntuMono Nerd Font 11",
+		font = "UbuntuMono Nerd Font 11",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
 })
 
 -- MPD
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
+local mpdscript = lain.widget.script({
+	script_cmd = "musicmpc",
+	notification_preset = { title = "Music module", timeout = 6, text = [[Click to open player]] },
+	updatesignal = "refmusic",
+	settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
+    end
+})
 local mpdwidget = wibox.widget {
-	mpdicon,
-	lain.widget.mpd({
-		settings = function()
-			if mpd_now.state == "play" then
-				mpdicon:set_image(theme.widget_music_on)
-				widget:set_markup(markup.font(theme.font, " " .. markup("#FFFFFF", mpd_now.album) .. " - " .. mpd_now.title))
-			elseif mpd_now.state == "pause" then
-				--widget:set_markup(markup.font(theme.font, " mpd paused "))
-				mpdicon:set_image(theme.widget_music_pause)
-			else
-				widget:set_text("")
-				mpdicon:set_image(theme.widget_music)
-			end
-		end
-	}),
+	wibox.widget.textbox(""),
+	mpdscript,
 	layout = wibox.layout.align.horizontal 
-}
+}	
 mpdwidget:buttons(my_table.join(
     awful.button({ modkey }, 1, function () awful.spawn.with_shell("$TERMINAL -e ncmpcpp") end),
-    --[[awful.button({ }, 1, function ()
-        awful.spawn.with_shell("mpc prev")
-        theme.mpd.update()
-    end),
-    --]]
     awful.button({ }, 2, function ()
         awful.spawn.with_shell("mpc toggle")
         theme.mpd.update()
@@ -185,10 +162,11 @@ mpdwidget:buttons(my_table.join(
     awful.button({ }, 3, function ()
         awful.spawn.with_shell("mpc stop")
         theme.mpd.update()
-    end)))
+    end))
+)
 
 local weatherscript = lain.widget.script({
-	script_cmd = "weather",
+	script_cmd = "forecast",
 	notification_preset = { title = "🌈 Weather module", timeout = 6, text = [[Click for wttr.in forecast
 ☔: Chance of rain/snow
 ❄ : Daily low
@@ -207,24 +185,19 @@ weatherscript.widget:buttons(my_table.join(
 )
 local weatherwidget = wibox.widget { weatherscript.widget, layout = wibox.layout.align.horizontal }
 
---local packswidget = wibox.widget { 
-	--wibox.widget.textbox("📦"), 
-		--lain.widget.script({
-		--script_cmd = [[pacman -Qu | grep -v "\[ignored\]" | wc -l]],
-		--notification_preset = { title = "📦 Upgrade module", timeout = 6, text = [[Left click to upgrade packages
---Middle click to show upgradable packages]] },
-		--settings = function()
-			--widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
-		--end
-	--}), 
-	--layout = wibox.layout.align.horizontal 
---}
-
 -- Available packages - updates every 30 minutes
+local packscript = lain.widget.script({
+	script_cmd = "uppackages",
+	notification_preset = { title = "Updates module", timeout = 6 },
+	updatesignal = "refupdates",
+	settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
+    end
+})
 local packswidget = wibox.widget { 
-	wibox.widget.textbox("📦 "), 
-	awful.widget.watch([[sh -c "pacman -Qu | grep -v "\[ignored\]" | wc -l"]], 60 * 60 / 2),
-	layout = wibox.layout.align.horizontal 
+	wibox.widget.textbox(""),
+	packscript.widget, 
+	layout = wibox.layout.align.horizontal,
 }
 packswidget:buttons(my_table.join(
     awful.button({ }, 1, function ()
@@ -235,30 +208,49 @@ packswidget:buttons(my_table.join(
     end))
 )
 
--- ALSA volume
-local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
-            volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
-            volicon:set_image(theme.widget_vol_low)
-        elseif tonumber(volume_now.level) <= 80 then
-			volicon:set_image(theme.widget_vol_mid)
-		else
-            volicon:set_image(theme.widget_vol)
-        end
-
-        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+-- Network
+local netscript = lain.widget.script({
+	script_cmd = "network",
+	notification_preset = { title = "Network module", timeout = 6, text = [[Click for Network Manager]] },
+	settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
     end
 })
-local volumewidget = wibox.widget { volicon, theme.volume.widget, layout = wibox.layout.align.horizontal }
+netscript.widget:buttons(my_table.join(
+    awful.button({ }, 1, function ()
+        awful.spawn.with_shell("$TERMINAL -e nmtui")
+    end))
+)
+local netwidget = wibox.widget { netscript.widget, layout = wibox.layout.align.horizontal }
+
+-- Battery
+local batscript = lain.widget.script({
+	script_cmd = "bats",
+	notification_preset = { title = "Power module", timeout = 6 },
+	settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
+    end
+})
+local batswidget = wibox.widget { batscript.widget, layout = wibox.layout.align.horizontal }
+
+-- ALSA volume
+local volumescript = lain.widget.script({
+	script_cmd = "audiovol",
+	notification_preset = { title = "Volume module", timeout = 6 },
+	updatesignal = "refvol",
+	settings = function()
+        widget:set_markup(markup.font(theme.font, " " .. script_now.text .. " "))
+    end
+})
+local volumewidget = wibox.widget { volumescript.widget, layout = wibox.layout.align.horizontal }
 
 -- Keyboard
 --TODO: Need more work
-local keylayout = awful.widget.keyboardlayout:new ()
+local keywidget = wibox.widget {
+	wibox.widget.textbox(""), 
+	awful.widget.keyboardlayout:new (), 
+	layout = wibox.layout.align.horizontal 
+}
 
 -- Separators
 local arrow = separators.arrow_left
@@ -391,21 +383,24 @@ function theme.at_screen_connect(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            arrow("alpha", system_colors.magenta_l),
-            wibox.container.background(wibox.container.margin(mpdwidget, 3, 6, 5, 5), system_colors.magenta_l),
-            arrow(system_colors.magenta_l, system_colors.blue_l),
-            wibox.container.background(wibox.container.margin(weatherwidget , 3, 3), system_colors.blue_l),
+            arrow("alpha", system_colors.blue_l),
+            wibox.container.background(wibox.container.margin(mpdwidget, 3, 6, 5, 5), system_colors.blue_l),
             arrow(system_colors.blue_l, system_colors.magenta_l),
-            wibox.container.background(wibox.container.margin(volumewidget, 2, 3), system_colors.magenta_l),
+            wibox.container.background(wibox.container.margin(weatherwidget , 3, 3), system_colors.magenta_l),
             arrow(system_colors.magenta_l, system_colors.blue_l),
-            wibox.container.background(wibox.container.margin(clock, 4, 8), system_colors.blue_l),
+            wibox.container.background(wibox.container.margin(volumewidget, 2, 3), system_colors.blue_l),
+            arrow(system_colors.blue_l, system_colors.magenta_l),
+            wibox.container.background(wibox.container.margin(batswidget, 4, 8), system_colors.magenta_l),
+            arrow(system_colors.magenta_l, system_colors.blue_l),
+            wibox.container.background(wibox.container.margin(clockwidget, 4, 8), system_colors.blue_l),
             arrow(system_colors.blue_l, system_colors.magenta_l),
             wibox.container.background(wibox.container.margin(packswidget, 3, 6),system_colors.magenta_l),
-            arrow(system_colors.magenta_l, "alpha"),            
-            keylayout,
+            arrow(system_colors.magenta_l, system_colors.blue_l),
+            wibox.container.background(wibox.container.margin(keywidget, 10, 0),system_colors.blue_l),
+            arrow(system_colors.blue_l, "alpha"),
+            wibox.container.margin(netwidget, 3, 6),
             wibox.container.margin(layoutwidget, 3, 6, 5, 5),
             wibox.widget.systray(),
-
         },
     }
 end

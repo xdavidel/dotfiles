@@ -1,0 +1,7 @@
+#!/bin/sh
+
+wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }')
+[ -z "$wifiicon" ] && wifiicon=$(sed "s/down//;s/up//" /sys/class/net/e*/operstate)
+[ -z "$wifiicon" ] && wifiicon=""
+
+echo "$wifiicon"
