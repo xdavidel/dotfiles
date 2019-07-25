@@ -6,9 +6,9 @@
 xclip -h >/dev/null 2>&1 || exit
 
 # Check if font list exists
-[ ! -f ~/.font-awesome-list ] && exit
+[ ! -f ~/.local/repo/font-awesome-list ] && exit
 
-chosen=$(cat ~/.font-awesome-list | awk -F_ '{print $1," ",$2}' | dmenu -i -l 20 -fn Monospace-18)
+chosen=$(cat ~/.local/repo/font-awesome-list | awk -F_ '{print $1," ",$2}' | dmenu -i -l 20 -fn Monospace-18)
 
 [ "$chosen" != "" ] || exit
 
