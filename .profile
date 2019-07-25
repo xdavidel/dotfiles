@@ -14,6 +14,8 @@ export FILEGUI="pcmanfm"
 export MEDIAPLAYER="mpv"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 
+export INPUTRC="$HOME/.config/inputrc"
+
 export MPD_HOST="127.0.0.1"
 export MPD_PORT="6600"
 
