@@ -39,6 +39,7 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
+	set ignorecase
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
