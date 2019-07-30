@@ -3,10 +3,10 @@
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
-	u*) pulsemixer --change-volume +"$num" ; refvol;;
-	d*) pulsemixer --change-volume -"$num" ; refvol;;
-	m*) pulsemixer --toggle-mute ; refvol;;
-	truemute) pulsemixer --mute ; refvol;;
+	u*) pulsemixer --change-volume +"$num" ;;
+	d*) pulsemixer --change-volume -"$num" ;;
+	m*) pulsemixer --toggle-mute ;;
+	truemute) pulsemixer --mute ;;
 	play) mpc play ;;
 	n*) mpc next ;;
 	prev) mpc prev ;;
@@ -37,3 +37,5 @@ All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be tru
 i.e. \`lmc r\` for \`lmc restart\`.
 EOF
 esac
+
+refbar &
