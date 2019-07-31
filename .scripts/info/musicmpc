@@ -1,7 +1,0 @@
-#!/bin/sh
-
-! command -v mpc >>/dev/null && echo "no mpc" && exit
-
-# Get current mpd track filename or artist - title if possible.
-songdscp=$(mpc -f "[[%artist% - ]%title%]|[%file%]" 2>/dev/null | grep -v "volume:" | head -n 1 | head -c 30)
-printf "$songdscp..."
