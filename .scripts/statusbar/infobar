@@ -35,35 +35,32 @@ status() { \
 	free -h | awk '/Mem/ {print " " $3 "/" $2}' | sed -e 's/i//g' && echo "$delim"
 
 	# Print cpu heat
-	sensors 2>/dev/null | awk '/^temp1/ {print " " $2 $delim}'
+	sensors 2>/dev/null | awk '/^temp1/ {print " " $2}' | sed -e 's/C//' -e 's/\.[0-9]//' -e "s/$/\ $delim/"
 
-	# Get the volume of ALSA's master volume output.  Show an icon if or
-	# not muted.
-	# amixer get Master | grep -o "[0-9]*%\|\[on\]\|\[off\]" | sed "s/\[on\]//;s/\[off\]//"
+	# Get the volume of Pulseaudio mixer volume output.
 	echo $(audiovol)
 
 	echo "$delim"
 
-	# Wifi quality percentage and  icon if ethernet is connected.
+	# Wifi quality percentage and icon.
 	grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
-	sed "s/down//;s/up//" /sys/class/net/e*/operstate
+	sed "s/down//;s/up//" /sys/class/net/e*/operstate | sed "s/$/\ $delim/"
 
 	# Show unread mail if mutt-wizard is installed.
-	command -v mw >/dev/null 2>&1 &&
-		echo "$delim" &&
-		du -a ~/.local/share/mail/*/INBOX/new/* 2>/dev/null | wc -l | sed 's/^/:/'
-		echo "$delim"
+	# command -v mw >/dev/null 2>&1 &&
+	# 	du -a ~/.local/share/mail/*/INBOX/new/* 2>/dev/null | wc -l | sed 's/^/:/'
+	# 	echo "$delim"
 
 	# Will show all batteries with approximate icon for remaining power.
 	for x in /sys/class/power_supply/BAT?/capacity;
 	do
-	per=$(cat $x)
+	per="$(cat $x)"
 	case "$per" in
-		100|8[0-9])	echo " $per" ;;
-		8[0-9]|6[0-9])	echo " $per" ;;
-		6[0-9]|4[0-9])	echo " $per" ;;
-		4[0-9]|2[0-9])	echo " $per" ;;
-		2[0-9]|[0-9])	echo " $per" ;;
+		100|[8-9][0-9])		echo " $per" ;;
+		[7-8][0-9])			echo " $per" ;;
+		[5-6][0-9])			echo " $per" ;;
+		[3-4][0-9])			echo " $per" ;;
+		[1-2][0-9]|[0-9])	echo " $per" ;;
 		*)		echo "" ;;
 	esac
 	done
