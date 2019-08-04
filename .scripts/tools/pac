@@ -1,0 +1,56 @@
+#!/bin/sh
+
+arch() { \
+	case "$1" in
+		i*) shift 1 && sudo pacman -S "$@" ;;
+		u*) sudo pacman -Su ;;
+		r*) shift 1 && sudo pacman -Rns "$@" ;;
+		m*) sudo pacman -S ;;
+		f*) shift 1 && pacman -Ss "$@" ;;
+		l*) pacman -Q ;;
+		s*) pacman -Qe ;;
+		d*) shift 1 && sudo pacman -Syw "$@" ;;
+		g*) sudo pacman -Syuw --noconfirm ;;
+		o*) pacman -Qdtq ;;
+		c*) sudo pacman -Sc ;;
+	esac
+}
+
+void() { \
+	case "$1" in
+		i*) shift 1 && sudo xbps-install "$@" ;;
+		u*) sudo xbps-install -Su ;;
+		r*) shift 1 && sudo xbps-remove -R "$@" ;;
+		m*) sudo xbps-install -S ;;
+		f*) shift 1 && xbps-query -R "$@" ;;
+		l*) xbps-query -l ;;
+		s*) xbps-query -m ;;
+		d*) shift 1 && sudo xbps-install -D "$@" ;;
+		g*) sudo xbps-install -Syu ;;
+		o*) xbps-query -O ;;
+		c*) sudo xbps-remove -O ;;
+	esac
+}
+
+if [ -z "$1" ]; then
+cat << EOF
+pac: cli for generic package manager
+
+Allowd options:
+install		Install packages
+update		Update system
+remove		Remove packages
+mirror		Update mirrors
+find		Find package in remote repositories
+list		List installed packages
+show		List explicit installed packages
+download	Download only without installation
+getall		Fully Update the system
+orphan		List orphan packages
+cache		Clear manager cache
+
+EOF
+else
+	command -v pacman		>>/dev/null && arch "$@" && exit
+	command -v xbps-install >>/dev/null && void "$@" && exit
+fi
