@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while :; do
+	dwmbar &
+	ssh-agent dwm || break
+done

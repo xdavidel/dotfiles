@@ -1,0 +1,19 @@
+#!/bin/sh
+
+delim="|"
+
+trap 'update' 5
+
+status() { \
+	infobar
+	echo "$delim"
+	date '+%Y %b %d (%a) %I:%M%p'
+}
+
+while :; do
+
+	xsetroot -name "$(status | tr '\n' ' ')" &
+	wait
+	sleep 1m &
+	wait
+done
