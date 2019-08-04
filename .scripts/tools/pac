@@ -22,7 +22,7 @@ void() { \
 		u*) sudo xbps-install -Su ;;
 		r*) shift 1 && sudo xbps-remove -R "$@" ;;
 		m*) sudo xbps-install -S ;;
-		f*) shift 1 && xbps-query -R "$@" ;;
+		f*) shift 1 && xbps-query -Rs "$@" ;;
 		l*) xbps-query -l ;;
 		s*) xbps-query -m ;;
 		d*) shift 1 && sudo xbps-install -D "$@" ;;
