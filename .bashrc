@@ -18,3 +18,5 @@ fi
 alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+
+[ -f "$HOME/.config/bash/pac-completion.bash" ] && source "$HOME/.config/bash/pac-completion.bash"
