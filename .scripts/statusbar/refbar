@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Refresh awesome infobar
-awesome-client 'awesome.emit_signal("refbar")'
+pgrep -x awesome >>/dev/null && awesome-client 'awesome.emit_signal("refbar")'
 
 # Refresh the dwmbar.
 # Send SIGTRAP signal to dwmbar script, which will handle it with a trap.
-pkill -SIGTRAP dwmbar
+pgrep -x dwm >>/dev/null && pkill -SIGTRAP dwmbar
