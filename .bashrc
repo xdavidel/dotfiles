@@ -1,7 +1,14 @@
 #!/bin/bash
 stty -ixon # Disable ctrl-s and ctrl-q
 
-PS1="\[$(tput bold)\]\[$(tput setaf 5)\]\W\[$(tput sgr0)\] > "
+# handle ssh
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+	host="(\h) "
+else
+	host=""
+fi
+
+PS1="$host\[$(tput bold)\]\[$(tput setaf 5)\]\W\[$(tput sgr0)\] > "
 
 set -o vi
 
