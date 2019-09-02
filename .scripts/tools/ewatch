@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+! command -v entr >>/dev/null && echo "entr is not installed" && exit
+
+[ -z "$1" ] && echo "Usage: ewatch <file>" && exit
+
+file=$(readlink -f "$1")
+dir=$(dirname "$file")
+base="${file%.*}"
+
+cd "$dir" || exit
+
+case "$file" in
+	*\.ms) echo "$file" | entr groff -e -ms "$file" -T pdf > "$file.pdf" ;;
+esac

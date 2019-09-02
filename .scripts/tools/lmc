@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 [ -z "$2" ] && num="2" || num="$2"
 

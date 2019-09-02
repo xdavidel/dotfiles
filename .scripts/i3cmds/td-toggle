@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 # If transmission-daemon is running, will ask to kill, else will ask to start.
 if pgrep -x transmission-da >/dev/null ;
 then
@@ -7,4 +8,3 @@ else
 	ifinstalled transmission-cli || exit
 	[ "$(printf "No\\nYes" | dmenu -i -p "Start transmission daemon?")" = "Yes" ] && transmission-daemon && notify-send -i "$PIX/torrent.svg" "tranmission-daemon started."
 fi
-sleep 3 && pkill -RTMIN+7 i3blocks

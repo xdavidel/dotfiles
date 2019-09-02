@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Use machine ip and subnet if not passed by argument
 if [ -z "$1" ]; then

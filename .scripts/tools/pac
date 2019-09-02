@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 arch() { \
 	case "$1" in

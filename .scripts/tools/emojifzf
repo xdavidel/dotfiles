@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 # Give fzf list of all unicode characters to copy.
 # Shows the selected character in dunst if running.
 
 ! command -v fzf >>/dev/null && exit
 
-chosen=$(grep -v "#" ~/.emoji | fzf)
+chosen=$(grep -v "#" ~/.local/repo/emoji | fzf)
 
 [ "$chosen" != "" ] || exit
 

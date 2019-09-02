@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 # Syncs repositories and downloads updates, meant to be run as a cronjob.
 
 ping -q -w 1 -c 1 `ip r | grep -m 1 default | cut -d ' ' -f 3` >/dev/null || exit
@@ -8,7 +9,6 @@ notify-send -i "$PIX/larbs.svg" "Checking for pacakge updates..."
 sudo pacman -Syyuw --noconfirm || notify-send "Error downloading updates.
 
 Check your internet connection, if pacman is already running, or run update manually to see errors."
-refupdates
 
 if pacman -Qu | grep -v "\[ignored\]"
 then

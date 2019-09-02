@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Give this script a .pdf and it will attempt
 # to return a proper .bib citation via doi.

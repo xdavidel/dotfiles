@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 ! command -v mkisofs >/dev/null && echo "This script need cdrtools to be installed!" && exit
 

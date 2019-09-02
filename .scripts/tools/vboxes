@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # make sure virtualbox itself exists
 ! command -v virtualbox >/dev/null && exit

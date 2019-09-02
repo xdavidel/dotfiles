@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 echo "creating a file to work with"
 dd if=/dev/zero of=/var/tmp/infile count=1175000

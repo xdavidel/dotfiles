@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 command -v fzf >>/dev/null \
 	&& find ~/.*rc ~/.config/ ~/.scripts/ -type f \

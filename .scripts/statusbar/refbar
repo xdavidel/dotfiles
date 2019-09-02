@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Refresh awesome infobar
 pgrep -x awesome >>/dev/null && awesome-client 'awesome.emit_signal("refbar")'

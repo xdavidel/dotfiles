@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Set the deliminter character.
 delim="|"
@@ -22,6 +22,9 @@ status() { \
 	# Get current mpd track filename or artist - title if possible.
 	pgrep -x mpd >>/dev/null && mpc -f "[[%artist% - ]%title%]|[%file%]" 2>/dev/null | grep -v "volume:" | head -n 1 && echo "$delim"
 
+	# Number of available updates
+	uppackages && echo "$delim"
+
 	# If the weather report is current, show daily precipitation chance,
 	# low and high.  Don't even bother to understand this one unless you
 	# have all day. Takes the weather report format from wttr.in and makes
@@ -38,9 +41,7 @@ status() { \
 	sensors 2>/dev/null | awk '/^temp1/ {print " " $2}' | sed -e 's/C//' -e 's/\.[0-9]//' -e "s/$/\ $delim/"
 
 	# Get the volume of Pulseaudio mixer volume output.
-	echo $(audiovol)
-
-	echo "$delim"
+	audiovol && echo "$delim"
 
 	# Wifi quality percentage and icon.
 	grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
