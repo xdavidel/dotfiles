@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 command -v fzf >>/dev/null \
-	&& find ~/.*rc ~/.config/ ~/.scripts/ -type f \
+	&& find ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
 	| fzf --preview='[[ $(file --mime {}) =~ binary ]] &&
 	                 echo {} is a binary file ||
 					 (bat --style=numbers --color=always {} ||
