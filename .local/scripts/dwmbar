@@ -1,8 +1,8 @@
-#!/usr/bin/env sh
-
-delim="|"
+#!/bin/sh
 
 trap 'update' 5
+
+delim="|"
 
 status() { \
 	infobar
@@ -10,10 +10,12 @@ status() { \
 	date '+%Y %b %d (%a) %I:%M%p'
 }
 
-while :; do
-
+update() { \
 	xsetroot -name "$(status | tr '\n' ' ')" &
-	wait
+}
+
+while :; do
+	update
 	sleep 1m &
 	wait
 done
