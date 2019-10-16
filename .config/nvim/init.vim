@@ -19,6 +19,10 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'vifm/vifm.vim'
 Plug 'kovetskiy/sxhkd-vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'shougo/deoplete-clangx'
+Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-zsh'
 call plug#end()
 
 set bg=light
@@ -26,6 +30,9 @@ set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
+
+" Auto Complete
+let g:deoplete#enable_at_startup = 1
 
 " Tabs
 set tabstop=4       " number of visual spaces per TAB
