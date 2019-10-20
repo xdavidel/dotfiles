@@ -88,6 +88,18 @@ set shiftwidth=4    " number of spaces to use for autoindent
 " Compile document, be it groff/LaTeX/markdown/etc.
 	map <leader>c :w! \| !compiler <c-r>%<CR>
 
+" insert main function snippet
+	map <leader>main : -1read !snippets <c-r>% main<CR>?X<CR>cw
+
+" insert function snippet
+	map <leader>fn : -1read !snippets <c-r>% fn<CR>k0f)hi
+
+" insert structure snippet
+	map <leader>st : -1read !snippets <c-r>% st<CR>k0fXcw
+
+" insert loop snippet
+	map <leader>loop : -1read !snippets <c-r>% loop<CR>k0fXcw
+
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
 

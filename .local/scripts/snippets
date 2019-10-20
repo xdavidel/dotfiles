@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+file=$(readlink -f "$1")
+dir=$(dirname "$file")
+base="${file%.*}"
+
+cd "$dir" || exit
+
+case "$2" in
+	"main") case "$file" in
+		*\.c) printf "int main(int argc, char **argv) {\n    X\n    return 0;\n}" ;;
+		*\.cpp) printf "int main(int argc, char **argv) {\n    X\n    return 0;\n}" ;;
+		*\.py) printf "def main():\n    X\n\nif __name__ == '__main__':\n    main()" ;;
+		*\.rs) printf "fn main() -> () {\n    X\n}" ;;
+		esac ;;
+	"fn") case "$file" in
+		*\.c) printf "() {\n}" ;;
+		*\.cpp) printf "() {\n}" ;;
+		*\.py) printf "def ():\n    pass" ;;
+		*\.rs) printf "fn () {\n}" ;;
+		esac ;;
+	"st") case "$file" in
+		*\.c) printf "typedef struct X {\n};" ;;
+		*\.cpp) printf "struct X {\n};" ;;
+		*\.py) printf "class X:\n    pass" ;;
+		*\.rs) printf "struct X() {\n}" ;;
+		esac ;;
+
+	"loop") case "$file" in
+		*\.c) printf "while(1) {\n}" ;;
+		*\.cpp) printf "while(true) {\n};" ;;
+		*\.py) printf "while True:\n    pass" ;;
+		*\.rs) printf "loop {\n}" ;;
+		esac ;;
+	*) echo "" ;;
+esac
