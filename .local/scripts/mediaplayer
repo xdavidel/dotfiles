@@ -1,12 +1,11 @@
 #!/usr/bin/env sh
-
 # checks if mpd is installed
-! command -v mpc >/dev/null && echo "mpd is not installed!" && exit 1
+! command -v mpc >>/dev/null && echo "mpd is not installed!" && exit 1
 
 # Start daemon if not runing
-pgrep -x mpd >/dev/null || (mpd && note "Starting mpd daemon..." && sleep 3
+pgrep -x mpd >>/dev/null || $(mpd && note "Starting mpd daemon..." && sleep 3)
 
 command -v ncmpcpp >/dev/null && exec $TERMINAL -e ncmpcpp
 
 # Update media folder
-mpc update >/dev/null
+mpc update >>/dev/null
