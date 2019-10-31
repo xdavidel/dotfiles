@@ -1,7 +1,5 @@
 ## Options section
-# setopt correct												# Auto correct mistakes
-setopt extendedglob											# Extended globbing. Allows using regular expressions with *
-setopt nocaseglob											# Case insensitive globbing
+setopt correct												# Auto correct mistakes
 unsetopt nomatch											# Passes the command as is instead of reporting pattern matching failure
 setopt rcexpandparam                                        # Array expension with parameters
 setopt nocheckjobs                                          # Don't warn about running processes when exiting
@@ -104,6 +102,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Configs alias
+compdef dotconf="git"
 alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Load aliases and shortcuts if existent.
