@@ -13,7 +13,8 @@ setopt autocd                                               # if only directory 
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                          # automatically find new executables in path
+zstyle ':completion:*' rehash true                          # Automatically find new executables in path
+zstyle ':completion:*' menu select							# Enable completion selction by menu
 
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
@@ -51,18 +52,9 @@ bindkey '^H'      backward-kill-word                        # delete previous wo
 bindkey '^[[Z'    undo                                      # Shift+tab undo last action
 
 # Theming section
-autoload -U compinit colors zcalc
+autoload -U compinit colors
 compinit -d
 colors
-
-# enable substitution for prompt
-# setopt prompt_subst
-
-# Prompt (on left side) similar to default bash prompt, or redhat zsh prompt with colors
-
-_prompt_time() {
-	(( (${COLUMNS:-$(tput cols)} / 4) / 4 > 2 )) && echo -ne " %*"
-}
 
 NEWLINE=$'\n'
 
@@ -105,7 +97,7 @@ bindkey -s '^o' 'lfcd\n'
 ## Prompt on right side:
 
 # Right prompt with time and exit status of previous command marked with ✓ or ✗
-RPROMPT="%* %(?.%{$fg[green]%}✓ %{$reset_color%}.%{$fg[red]%}✗ %{$reset_color%})"
+RPROMPT="%{$fg[yellow]%}%* %(?.%{$fg[green]%}OK %{$reset_color%}.%{$fg[red]%}:( %{$reset_color%})"
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
