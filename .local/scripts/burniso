@@ -9,6 +9,8 @@ device=$(ls /dev/sr* 2>/dev/null | dmenu -i -p "Select Device")
 burntype=$(printf "CD\\nDVD" | dmenu -i -p "Select Type")
 [ -z "$burntype" ] && exit
 
-[ "$burntype"="CD" ] && command -v cdrecord >/dev/null && cdrecord -v -sao dev="$device" "$1"
-
-[ "$burntype"="CD" ] && command -v growisofs >/dev/null && growisofs -dvd-compat -Z "$device"="$1"
+case "$burntype" in
+	"CD" )  command -v cdrecord >/dev/null && cdrecord -v -sao dev="$device" "$1" || echo "error: cdrtools is not installed" ;;
+	"DVD" ) command -v growisofs >/dev/null && growisofs -dvd-compat -Z "$device"="$1" || echo "error: dvd+rw-tools is not installed" ;;
+	"*" ) echo "option is not recognizd." ;;
+esac
