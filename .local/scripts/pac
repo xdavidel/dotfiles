@@ -32,6 +32,19 @@ void() { \
 	esac
 }
 
+debi() { \
+	case "$1" in
+		i*) shift 1; command -v sudo >>/dev/null && sudo apt install "$@" || apt install "$@" ;;
+		u*) command -v sudo >>/dev/null && (sudo apt apdate && sudo apt upgrade) || (apt update && apt upgrade) ;;
+		r*) shift 1; command -v sudo >>/dev/null && sudo apt remove "$@" || apt remove "$@" ;;
+		m*) command -v sudo >>/dev/null && sudo apt update || apt update ;;
+		f*) shift 1; apt search "$@" ;;
+		l*) apt list ;;
+		s*) apt list | grep "[installed]" ;;
+		o*) command -v sudo >>/dev/null && sudo apt autoremove || apt autoremove;;
+	esac
+}
+
 if [ -z "$1" ]; then
 cat << EOF
 pac: cli for generic package manager
@@ -53,4 +66,5 @@ EOF
 else
 	command -v pacman		>>/dev/null && arch "$@" && exit
 	command -v xbps-install >>/dev/null && void "$@" && exit
+	command -v apt			>>/dev/null && debi "$@" && exit
 fi
