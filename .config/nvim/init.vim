@@ -7,38 +7,26 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'jreybert/vimagit'
-Plug 'LukeSmithxyz/vimling'
-Plug 'cespare/vim-toml'
-Plug 'vimwiki/vimwiki'
+
+"File support
+"===========================
+Plug 'rust-lang/rust.vim' "rustlang support
+Plug 'kovetskiy/sxhkd-vim' "support for sxhkd config files
+Plug 'cespare/vim-toml' "tomel support
+
+"Extensions
+"===========================
 Plug 'bling/vim-airline'
-Plug 'tpope/vim-commentary'
-Plug 'vifm/vifm.vim'
-Plug 'kovetskiy/sxhkd-vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'shougo/deoplete-clangx'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-zsh'
+Plug 'tpope/vim-surround' "change surround with 'cs<from><to>'
+Plug 'scrooloose/nerdtree' "file system view
+Plug 'junegunn/goyo.vim' "distraction free VIM
+Plug 'jreybert/vimagit' "git for any VIM buffer
+Plug 'tpope/vim-commentary' "enable commenting lines
+Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
+Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
+Plug 'morhetz/gruvbox' "VIM dark theme
+
 call plug#end()
-
-set bg=light
-set go=a
-set mouse=a
-set nohlsearch
-set clipboard=unnamedplus
-
-" Auto Complete
-let g:deoplete#enable_at_startup = 1
-
-" Tabs
-set tabstop=4       " number of visual spaces per TAB
-set softtabstop=4   " number of spaces in tab when editing
-set shiftwidth=4    " number of spaces to use for autoindent
-
 
 " Some basics:
 	nnoremap c "_c
@@ -48,30 +36,125 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	set encoding=utf-8
 	set number relativenumber
 	set ignorecase
+	set bg=dark
+	set go=a
+	set mouse=a
+	set nohlsearch
+	set clipboard=unnamedplus
+	colorscheme gruvbox
+
+"=====================================================================
+
+" Tabs
+set smarttab
+set cindent
+set tabstop=2       " number of visual spaces per TAB
+set softtabstop=2   " number of spaces in tab when editing
+set shiftwidth=2    " number of spaces to use for autoindent
+
+"=====================================================================
+
 " Enable autocompletion:
 	set wildmode=longest,list,full
+
+"=====================================================================
+
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"=====================================================================
 
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
 
+"=====================================================================
+
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
+
+"=====================================================================
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
 
+"=====================================================================
+
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	let g:NERDTreeIgnore = ['^node_modules$']
 
-" vimling:
-	nm <leader>d :call ToggleDeadKeys()<CR>
-	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
-	nm <leader>i :call ToggleIPA()<CR>
-	imap <leader>i <esc>:call ToggleIPA()<CR>a
-	nm <leader>q :call ToggleProse()<CR>
+"=====================================================================
+
+" Coc
+	let g:coc_global_extensions = [
+	\ 'coc-ccls',
+	\ 'coc-rls',
+	\ 'coc-python',
+	\ 'coc-snippets',
+	\ 'coc-pairs',
+	\ 'coc-tsserver',
+	\ 'coc-eslint',
+	\ 'coc-json',
+	\ ]
+
+	set hidden "Some servers have issues with backup files
+	set updatetime=300
+
+	set shortmess+=c "Don't give |ins-completion-menu| messages
+
+	set signcolumn=yes "Always show signcolumns
+
+	inoremap <silent><expr> <TAB>
+			\	pumvisible() ? "\<C-n>" :
+			\	<SID>check_back_space() ? "\<TAB>" :
+			\	coc#refresh()
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1] =~# '\s'
+	endfunction
+
+	inoremap <silent><expr> <c-space> coc#refresh()
+
+	" Use `[g` and `]g` to navigate diagnostics
+	nmap <silent> [g <Plug>(coc-diagnostic-prev)
+	nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+	" Remap keys for gotos
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gy <Plug>(coc-type-definition)
+	nmap <silent> gi <Plug>(coc-implementation)
+	nmap <silent> gr <Plug>(coc-references)
+
+	" Use K to show documentation in preview window
+	nnoremap <silent> K :call <SID>show_documenatation()<CR>
+	function! s:show_documenatation()
+		if (index(['vim', 'help'], &filetype) >= 0)
+			execute 'h '.expend('<cword>')
+		else
+			call CocAction('doHover')
+		endif
+	endfunction
+
+	"Highlight symbol under cursor on CursorHold
+	autocmd CursorHold * silent call CocActionAsync('highlight')
+
+	"Remap for rename current word
+	nmap <F2> <Plug>(coc-rename)
+
+	"Remap for format selected region
+	xmap <leader>f <Plug>(coc-format-selected)
+	nmap <leader>f <Plug>(coc-format-selected)
+
+	"Remap for do codeAction of current line
+	nmap <leader>ac <Plug>(coc-codeaction)
+	"Autofix current line problem
+	nmap <leader>qf <Plug>(coc-fix-current)
+
+"=====================================================================
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -79,14 +162,22 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l
 
+"=====================================================================
+
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck %<CR>
+
+"=====================================================================
 
 " Replace all is aliased to S.
 	nnoremap S :%s//g<Left><Left>
 
+"=====================================================================
+
 " Compile document, be it groff/LaTeX/markdown/etc.
 	map <leader>c :w! \| !compiler <c-r>%<CR>
+
+"=====================================================================
 
 " insert main function snippet
 	map <leader>main : -1read !snippets <c-r>% main<CR>?X<CR>cw
@@ -100,8 +191,12 @@ set shiftwidth=4    " number of spaces to use for autoindent
 " insert loop snippet
 	map <leader>loop : -1read !snippets <c-r>% loop<CR>k0fXcw
 
+"=====================================================================
+
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
+
+"=====================================================================
 
 " Ensure files are read as what I want:
 	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
@@ -110,17 +205,25 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
 	autocmd BufRead,BufNewFile *.tex set filetype=tex
 
+"=====================================================================
+
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 	vnoremap <C-c> "+y
 	map <C-p> "+P
+
+"=====================================================================
 
 " Enable Goyo by default for mutt writting
 	" Goyo's width will be the line limit in mutt.
 	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
 	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo \| set bg=light
 
+"=====================================================================
+
 " Automatically deletes all trailing whitespace on save.
 	autocmd BufWritePre * %s/\s\+$//e
+
+"=====================================================================
 
 " When shortcut files are updated, renew bash and vifm configs with new material:
 	autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles !shortcuts
@@ -128,10 +231,17 @@ set shiftwidth=4    " number of spaces to use for autoindent
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
+" Update binds when sxhkdrc is updated.
+	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+"=====================================================================
+
 " Navigating with guides
 	inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	vnoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 	map <leader><leader> <Esc>/<++><Enter>"_c4l
+
+"=====================================================================
 
 """HTML
 	autocmd FileType html inoremap ,b <b></b><Space><++><Esc>FbT>i
@@ -178,6 +288,7 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	autocmd FileType html inoremap ò &ograve;
 	autocmd FileType html inoremap ù &ugrave;
 
+"=====================================================================
 
 "MARKDOWN
 	autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
@@ -196,9 +307,10 @@ set shiftwidth=4    " number of spaces to use for autoindent
 	autocmd Filetype rmd inoremap ,p ```{python}<CR>```<CR><CR><esc>2kO
 	autocmd Filetype rmd inoremap ,c ```<cr>```<cr><cr><esc>2kO
 
+"=====================================================================
+
 """.xml
 	autocmd FileType xml inoremap ,e <item><Enter><title><++></title><Enter><guid<space>isPermaLink="false"><++></guid><Enter><pubDate><Esc>:put<Space>=strftime('%a, %d %b %Y %H:%M:%S %z')<Enter>kJA</pubDate><Enter><link><++></link><Enter><description><![CDATA[<++>]]></description><Enter></item><Esc>?<title><enter>cit
 	autocmd FileType xml inoremap ,a <a href="<++>"><++></a><++><Esc>F"ci"
 
-" Update binds when sxhkdrc is updated.
-	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+"=====================================================================
