@@ -125,7 +125,7 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-local mytextclock = wibox.widget.textclock("%Y %b %d (%a) %I:%M %p", 60, "+3")
+local mytextclock = wibox.widget.textclock("%Y %b %d (%a) %I:%M %p", 60, "+2")
 
 local showdesktop = wibox.widget.textbox(" ")
 showdesktop:buttons(gears.table.join(
