@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 command -v fzf >>/dev/null \
-	&& find .bash* .*profile ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
+	&& find .*profile .tmux.conf ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
 	| fzf --preview='[[ $(file --mime {}) =~ binary ]] &&
 	                 echo {} is a binary file ||
 					 (bat --style=numbers --color=always {} ||
