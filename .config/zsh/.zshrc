@@ -9,10 +9,13 @@ setopt appendhistory                                        # Immediately append
 setopt histignorealldups                                    # If a new command is a duplicate, remove the older one
 setopt autocd                                               # if only directory path is entered, cd there.
 
+autoload -U compinit colors
+compinit
+colors
+
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # Colored completion (different colors for dirs/files/etc)
 zstyle ':completion:*' rehash true                          # Automatically find new executables in path
-zstyle ':completion:*' menu select							# Enable completion selction by menu
 
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
@@ -49,10 +52,6 @@ bindkey '^[[1;5C' forward-word                              #
 bindkey '^H'      backward-kill-word                        # delete previous word with ctrl+backspace
 bindkey '^[[Z'    undo                                      # Shift+tab undo last action
 
-# Theming section
-autoload -U compinit colors
-compinit -d
-colors
 
 NEWLINE=$'\n'
 
