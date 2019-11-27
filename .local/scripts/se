@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
-command -v fzf >>/dev/null \
-	&& find ~/.*profile ~/.tmux.conf ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
+! command -v fzf >>/dev/null && echo "fzf is not installed" && exit 127
+
+find ~/.*profile ~/.tmux.conf ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
 	| fzf --preview='[[ $(file --mime {}) =~ binary ]] &&
 	                 echo {} is a binary file ||
 					 (bat --style=numbers --color=always {} ||
