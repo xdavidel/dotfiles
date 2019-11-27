@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# Get input video files and compress them using ffmpeg
+
+# ffmpeg is required
+! command -v ffmpeg /dev/null >>/dev/null && echo "ffmpeg is not installed" && exit 127
+
+choice=$(command -v fzf >/dev/null && \
+	printf "Bad\nLow\nMedium\nGood\nHigh" |
+	fzf --prompt "Choose Quality >" || "Good")
+
+case "$choice" in
+	"Bad")		quality=30 ;;
+	"Low")		quality=28 ;;
+	"Medium") quality=25 ;;
+	"Good")		quality=23 ;;
+	"High")		quality=18 ;;
+	*) quality=23;;
+esac
+
+for file in "$@"; do
+	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "out-$file"
+done
