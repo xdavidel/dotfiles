@@ -76,7 +76,7 @@ zle -N zle-line-init
 # Use beam shape cursor for each new prompt.
 preexec() { echo -ne '\e[0m\e[5 q' ;}
 
-# Use lf to switch directories and bind it to ctrl-o
+# Use lf to switch directories
 lfcd () {
 	tmp="$(mktemp)"
 	lf -last-dir-path="$tmp" "$@"
@@ -86,7 +86,20 @@ lfcd () {
 		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
 	fi
 }
-bindkey -s '^o' 'lfcd\n'
+
+# use vifm to switch directories
+vifmcd () {
+	tmp="$(mktemp)"
+	vifm --choose-dir "$tmp" "$@"
+	if [ -f "$tmp" ]; then
+		dir="$(cat "$tmp")"
+		rm -f "$tmp"
+		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+	fi
+}
+
+# bind ctrl-o to switch directories using file manager
+bindkey -s '^o' 'vifmcd\n'
 
 # Print a greeting message when shell is started
 #echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
