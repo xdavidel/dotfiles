@@ -52,21 +52,22 @@ bindkey '^[[1;5C' forward-word                              #
 bindkey '^H'      backward-kill-word                        # delete previous word with ctrl+backspace
 bindkey '^[[Z'    undo                                      # Shift+tab undo last action
 
-
 NEWLINE=$'\n'
 
 # keymap changed binding
 function zle-keymap-select zle-line-init {
 	if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
 		echo -ne '\e[1 q'
-		PROMPT="%F{magenta}${PWD/#$HOME/~}%{$reset_color%}${NEWLINE}%{$bg[red]%}[N]%{$reset_color%} > "
+		VIMODE="%{$bg[red]%}[N]"
 	elif [[ ${KEYMAP} == main ]] ||
 		[[ ${KEYMAP} == viins ]] ||
 		[[ ${KEYMAP} = '' ]] ||
 		[[ $1 = 'beam' ]]; then
 		echo -ne '\e[5 q'
-		PROMPT="%F{magenta}${PWD/#$HOME/~}%{$reset_color%}${NEWLINE}%{$bg[green]%}[I]%{$reset_color%} > "
+		VIMODE="%{$bg[green]%}[I]"
 	fi
+
+	PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} > "
 	zle reset-prompt
 }
 
@@ -107,7 +108,8 @@ bindkey -s '^o' 'vifmcd\n'
 ## Prompt on right side:
 
 # Right prompt with time and exit status of previous command marked with ✓ or ✗
-RPROMPT="%{$fg[yellow]%}%* %(?.%{$fg[green]%}OK %{$reset_color%}.%{$fg[red]%}:( %{$reset_color%})"
+# RPROMPT="%(?.%{$fg[green]%}[OK].%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
+RPROMPT="%(?..%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
