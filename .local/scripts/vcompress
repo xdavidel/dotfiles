@@ -2,6 +2,8 @@
 
 # Get input video files and compress them using ffmpeg
 
+compdir="compressed"
+
 # ffmpeg is required
 ! command -v ffmpeg /dev/null >>/dev/null && echo "ffmpeg is not installed" && exit 127
 
@@ -18,6 +20,17 @@ case "$choice" in
 	*) quality=23;;
 esac
 
+delbigger=$(command -v fzf >/dev/null && \
+	printf "Yes\nNo" |
+	fzf --prompt "Delete bigger files? " || "Yes")
+
+ [ ! -d "$compdir" ] && mkdir -p "$compdir"
+
 for file in "$@"; do
-	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "out-$file"
+	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$compdir/$file"
+
+	[ "$delbigger" = "Yes" ] && \
+		rm -f $(du -b "$file" "$compdir/$file" | sort -r | head -n 1 | cut -f2) && \
+		mv "$file" "$compdir/$file" 2>/dev/null
+
 done
