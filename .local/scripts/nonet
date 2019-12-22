@@ -3,7 +3,7 @@
 groupname="nonet"
 
 # If no group exists create it
-! grep "$groupname" /etc/group && sudo groupadd "$groupname"
+! grep "$groupname" /etc/group >/dev/null && sudo groupadd "$groupname"
 
 # if current user no in the group - add it
 ! (groups | grep "$groupname" >>/dev/null) && sudo usermod -aG "$groupname" "$USER" >>/dev/null && echo "User $USER was not in the $groupname group. A reboot is required." && exit
@@ -12,6 +12,6 @@ groupname="nonet"
 sudo systemctl start iptables.service >>/dev/null
 
 # add iptable rule if not exists
-sudo iptables -C OUTPUT -m owner --gid-owner nonet -j REJECT >>/dev/null || sudo iptables -A OUTPUT -m owner --gid-owner nonet -j REJECT
+sudo iptables -C OUTPUT -m owner --gid-owner nonet -j REJECT 2>/dev/null || sudo iptables -A OUTPUT -m owner --gid-owner nonet -j REJECT
 
 sg "$groupname" "$@"
