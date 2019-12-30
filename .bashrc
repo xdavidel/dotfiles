@@ -1,29 +1,8 @@
 #!/bin/bash
 stty -ixon # Disable ctrl-s and ctrl-q
 
-# handle ssh
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-	host="(\h) "
-else
-	host=""
-fi
-
-PS1="$host\[$(tput bold)\]\[$(tput setaf 5)\]\W\[$(tput sgr0)\] > "
-
-set -o vi
-
-if type ueberzug &>/dev/null; then
-	if [ -f ~/.config/vifm/scripts/vifmrun ]; then
-		alias vifm='~/.config/vifm/scripts/vifmrun'
-	fi
-fi
-
-if type wal &>/dev/null; then
-	alias cb='wal -i'
-fi
+export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 1)\]]\[$(tput setaf 5)\] \W\[$(tput setaf 7)\]\n\[$(tput sgr0)\]> "
 
 alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
-
-[ -f "$HOME/.config/bash/pac-completion.bash" ] && source "$HOME/.config/bash/pac-completion.bash"
