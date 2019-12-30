@@ -18,6 +18,9 @@ Control-a: beginning-of-line
 
 $endif
 
+# Fast vi mode switching
+set keyseq-timeout 1
+
 # Single tab completion
 set show-all-if-ambiguous on
 set completion-ignore-case On
