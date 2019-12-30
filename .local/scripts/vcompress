@@ -2,8 +2,6 @@
 
 # Get input video files and compress them using ffmpeg
 
-compdir="compressed"
-
 # ffmpeg is required
 ! command -v ffmpeg /dev/null >>/dev/null && echo "ffmpeg is not installed" && exit 127
 
@@ -24,13 +22,18 @@ delbigger=$(command -v fzf >/dev/null && \
 	printf "Yes\nNo" |
 	fzf --prompt "Delete bigger files? " || "Yes")
 
- [ ! -d "$compdir" ] && mkdir -p "$compdir"
 
-for file in "$@"; do
-	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$compdir/$file"
+for name in "$@"; do
+	file=$(readlink -f "$name")
+	dir=$(dirname "$file")
+	outdir="$dir/compressed"
+	filename=$(basename "$file")
+
+	[ ! -d "$outdir" ] && mkdir -p "$outdir"
+
+	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$outdir/$filename"
 
 	[ "$delbigger" = "Yes" ] && \
-		rm -f $(du -b "$file" "$compdir/$file" | sort -r | head -n 1 | cut -f2) && \
-		mv "$file" "$compdir/$file" 2>/dev/null
-
+		rm -f $(du -b "$file" "$outdir/$filename" | sort -r | head -n 1 | cut -f2) && \
+		mv "$file" "$outdir/$filename" 2>/dev/null
 done
