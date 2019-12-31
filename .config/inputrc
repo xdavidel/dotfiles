@@ -3,8 +3,8 @@ $include /etc/inputrc
 set editing-mode vi
 $if mode=vi
 set show-mode-in-prompt on
-set vi-cmd-mode-string "[N] \1\e[2 q\2"
-set vi-ins-mode-string "[I] \1\e[6 q\2"
+set vi-cmd-mode-string "\e[41m[N]\e[m \1\e[2 q\2"
+set vi-ins-mode-string "\e[42m[I]\e[m \1\e[6 q\2"
 
 set keymap vi-command
 # these are for vi-command mode
@@ -20,6 +20,10 @@ $endif
 
 # Fast vi mode switching
 set keyseq-timeout 1
+
+# Search history for partial commands completions
+"\e[A": history-search-backward
+"\e[B": history-search-forward
 
 # Single tab completion
 set show-all-if-ambiguous on
