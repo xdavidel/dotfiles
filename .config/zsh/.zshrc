@@ -66,7 +66,7 @@ function zle-keymap-select zle-line-init {
 		VIMODE="%{$bg[green]%}[I]"
 	fi
 
-	PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} > "
+	PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} %% "
 	zle reset-prompt
 }
 
