@@ -1,11 +1,50 @@
+set -g user (whoami)
+set -g host (hostname)
+set -g dir (pwd | sed -e "s|^$HOME|~|")
+
 function fish_prompt -d "change fish defualt prompt"
-    set_color purple
-    
-    set directory_path (pwd | sed -e "s|^$HOME|~|")
 
-	echo -n (basename $directory_path)
+	set_color --bold
+	set_color red
+	echo -n "["
 
-    set_color normal
+	set_color yellow
+	echo -n $user
 
-    echo -n " > "
+	set_color green
+	echo -n "@"
+
+	set_color blue
+	echo -n $host
+
+	set_color red
+	echo -n "]"
+
+	set_color purple
+	echo (basename $dir)
+	set_color normal
+
+	# Do nothing if not in vi mode
+  if test "$fish_key_bindings" = "fish_vi_key_bindings"
+		set_color --bold
+
+		switch $fish_bind_mode
+			case default
+				set_color -b red
+				echo -n "[N]"
+			case insert
+				set_color -b green
+				echo -n "[I]"
+			case replace-one
+				set_color -b green
+				echo -n "[R]"
+			case visual
+				set_color -b brmagenta
+				echo -n "[V]"
+			end
+		set_color normal
+  end
+
+	echo -n " > "
+
 end

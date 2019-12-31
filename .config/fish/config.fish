@@ -1,27 +1,12 @@
 fish_vi_key_bindings
 
+# Set the cursor shapes for the different vi modes.
+set fish_cursor_default     block      blink
+set fish_cursor_insert      line       blink
+set fish_cursor_replace_one underscore blink
+set fish_cursor_visual      block
+
 export EDITOR=vim
 
-if type -q lsd
-	alias l='lsd -l'
-	alias ls='lsd'
-	alias ll='lsd -la'
-	alias la='lsd -a'
-else
-	alias l='ls -lh'
-	alias la='ls -A'
-	alias ll='ls -lAh'
-end
-
-if type -q ueberzug
-	if test -e ~/.config/vifm/scripts/vifmrun
-		alias vifm='~/.config/vifm/scripts/vifmrun'
-	end
-end
-
-if type -q wal
-	alias cb='wal -i'
-end
-
 alias dotconf='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
+alias q='exit'
