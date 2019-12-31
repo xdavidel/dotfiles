@@ -115,9 +115,8 @@ RPROMPT="%(?..%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# Configs alias
+# Configs git completions
 compdef dotconf="git"
-alias dotconf='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Load aliases and shortcuts if existent.
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"

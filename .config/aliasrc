@@ -1,6 +1,7 @@
 #!/bin/sh
 
-alias 	ka="killall" \
+alias \
+	ka="killall" \
 	calcurse="calcurse -D ~/.config/calcurse" \
 	f="$FILE" \
 	e="$EDITOR" \
@@ -13,6 +14,7 @@ alias 	ka="killall" \
 	ls="ls -F --color=auto --group-directories-first" \
 	la="ls -AF --color=auto --group-directories-first" \
 	ll="ls -gGAFh --color=auto --group-directories-first" \
+	dotconf="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" \
 	grep="grep --color=auto" \
 	ffmpeg="ffmpeg -hide_banner"
 
