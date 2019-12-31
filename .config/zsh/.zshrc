@@ -1,13 +1,12 @@
 ## Options section
-setopt correct												# Auto correct mistakes
-unsetopt nomatch											# Passes the command as is instead of reporting pattern matching failure
-setopt rcexpandparam                                        # Array expension with parameters
-setopt nocheckjobs                                          # Don't warn about running processes when exiting
-setopt numericglobsort                                      # Sort filenames numerically when it makes sense
-setopt nobeep                                               # No beep
-setopt appendhistory                                        # Immediately append history instead of overwriting
-setopt histignorealldups                                    # If a new command is a duplicate, remove the older one
-setopt autocd                                               # if only directory path is entered, cd there.
+unsetopt nomatch					# Passes the command as is instead of reporting pattern matching failure
+setopt rcexpandparam      # Array expension with parameters
+setopt nocheckjobs        # Don't warn about running processes when exiting
+setopt numericglobsort    # Sort filenames numerically when it makes sense
+setopt nobeep             # No beep
+setopt appendhistory      # Immediately append history instead of overwriting
+setopt histignorealldups  # If a new command is a duplicate, remove the older one
+setopt autocd             # if only directory path is entered, cd there.
 
 autoload -U compinit colors
 compinit
@@ -41,14 +40,14 @@ bindkey '^[[3~'   delete-char                               # Delete key
 bindkey '^?'      backward-delete-char                      # Delete key
 bindkey '^[[C'    forward-char                              # Right key
 bindkey '^[[D'    backward-char                             # Left key
-bindkey '^[[5~'   history-beginning-search-backward         # Page up key
-bindkey '^[[6~'   history-beginning-search-forward          # Page down key
+bindkey '\e[A'		history-search-backward										# Page up key
+bindkey '\e[B'		history-search-forward										# Page down key
+bindkey '^[[5~'		history-beginning-search-backward					# Page up key
+bindkey '^[[6~'		history-beginning-search-forward					# Page down key
 
 # Navigate words with ctrl+arrow keys
-bindkey '^[Oc'    forward-word                              #
-bindkey '^[Od'    backward-word                             #
-bindkey '^[[1;5D' backward-word                             #
-bindkey '^[[1;5C' forward-word                              #
+bindkey '^[Oc'    forward-word                              # Ctrl + Right key
+bindkey '^[Od'    backward-word                             # Ctrl + Left key
 bindkey '^H'      backward-kill-word                        # delete previous word with ctrl+backspace
 bindkey '^[[Z'    undo                                      # Shift+tab undo last action
 
