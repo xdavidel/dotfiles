@@ -57,7 +57,7 @@ status() { \
 	do
 		per="$(cat $x)"
 		if [ $(cat /sys/class/power_supply/BAT?/status) = 'Charging' ]; then
-			echo "$per"
+			echo " $per"
 		else
 			case "$per" in
 				100|[8-9][0-9])		echo " $per" ;;
