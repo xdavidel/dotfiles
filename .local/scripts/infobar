@@ -9,7 +9,7 @@ delim="|"
 testweather() { \
 	[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
 		ping -q -c 1 1.1.1.1 >/dev/null &&
-		curl -s "wttr.in/$location" > "$HOME/.local/share/weatherreport" &&
+		curl -s "wttr.in" > "$HOME/.local/share/weatherreport" &&
 		notify-send "🌞 Weather" "New weather forecast for today." &&
 		refbar
 		}
@@ -55,15 +55,19 @@ status() { \
 	# Will show all batteries with approximate icon for remaining power.
 	for x in /sys/class/power_supply/BAT?/capacity;
 	do
-	per="$(cat $x)"
-	case "$per" in
-		100|[8-9][0-9])		echo " $per" ;;
-		[7-8][0-9])			echo " $per" ;;
-		[5-6][0-9])			echo " $per" ;;
-		[3-4][0-9])			echo " $per" ;;
-		[1-2][0-9]|[0-9])	echo " $per" ;;
-		*)		echo "" ;;
-	esac
+		per="$(cat $x)"
+		if [ $(cat /sys/class/power_supply/BAT?/status) = 'Charging' ]; then
+			echo "$per"
+		else
+			case "$per" in
+				100|[8-9][0-9])		echo " $per" ;;
+				[7-8][0-9])			echo " $per" ;;
+				[5-6][0-9])			echo " $per" ;;
+				[3-4][0-9])			echo " $per" ;;
+				[1-2][0-9]|[0-9])	echo " $per" ;;
+				*)		echo "" ;;
+			esac
+		fi
 	done
 }
 
