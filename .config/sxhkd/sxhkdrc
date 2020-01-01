@@ -15,7 +15,7 @@ super + d
 super + shift + d
 	rofi -show run
 super + e
-	$TERMINAL -e $FILEGUI
+	$FILEGUI
 super + shift + e
 	$FILEGUI
 super + m
