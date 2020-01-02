@@ -186,6 +186,57 @@ local taglist_buttons = gears.table.join(
     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
+-- input is a client which we want to move
+local function get_tags_menu_items(c)
+  local output = {}
+	local move_to_menu = {}
+	local action_menu = {
+		{"  Close", function() c:kill() end},
+		{"  Maximize", function() c.maximized = true end},
+		{"  Minimize", function() c.minimized = true end},
+		{"  Restore",
+		function()
+			c.minimized = false
+			c.maximized = false
+			c:raise()
+		end},
+	}
+
+	-- iterate through all tags
+  for _, tag in pairs(root.tags()) do
+    -- create a menu item for each tag which consists of:
+    --   * item title (first table element, we use tag's name here)
+    --   * callback function which will be executed on item selection
+    -- and then append this item to the output table
+		table.insert(move_to_menu, {
+      "" .. " #" .. tag.name,
+      function ()
+        -- callback function is simple: just move client to the selected tag
+        c:move_to_tag(tag)
+      end,
+    })
+  end
+
+
+
+	table.insert(output, {
+		" Running Programs",
+		awful.menu.client_list
+	})
+
+	table.insert(output, {
+		" Move To Tag",
+		move_to_menu
+	})
+
+	table.insert(output, {
+		" Action",
+		action_menu
+	})
+
+  return output
+end
+
 local tasklist_buttons = gears.table.join(
     awful.button({ }, 1,
 	function (c)
@@ -200,8 +251,10 @@ local tasklist_buttons = gears.table.join(
     end),
 
 	awful.button({ }, 3,
-	function()
-		awful.menu.client_list({ theme = { width = 250 } })
+	function(c)
+		local tags_menu = awful.menu.new(get_tags_menu_items(c))
+		tags_menu:show()
+		-- awful.menu.client_list({ theme = { width = 250 } })
     end),
 
 	awful.button({ }, 4,
