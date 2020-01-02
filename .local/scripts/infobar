@@ -12,7 +12,7 @@ testweather() { \
 		curl -s "wttr.in" > "$HOME/.local/share/weatherreport" &&
 		notify-send "🌞 Weather" "New weather forecast for today." &&
 		refbar
-		}
+}
 
 # Here is the (big) function that outputs the appearance of the statusbar. It
 # can really be broken down into many submodules which I've commented and
@@ -47,16 +47,11 @@ status() { \
 	grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
 	sed "s/down//;s/up//" /sys/class/net/e*/operstate | sed "s/$/\ $delim/"
 
-	# Show unread mail if mutt-wizard is installed.
-	# command -v mw >/dev/null 2>&1 &&
-	# 	du -a ~/.local/share/mail/*/INBOX/new/* 2>/dev/null | wc -l | sed 's/^/:/'
-	# 	echo "$delim"
-
 	# Will show all batteries with approximate icon for remaining power.
 	for x in /sys/class/power_supply/BAT?/capacity;
 	do
 		per="$(cat $x)"
-		if [ $(cat /sys/class/power_supply/BAT?/status) = 'Charging' ]; then
+		if [ ! $(cat /sys/class/power_supply/BAT?/status) = 'Discharging' ]; then
 			echo " $per"
 		else
 			case "$per" in
