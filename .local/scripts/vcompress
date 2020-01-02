@@ -5,6 +5,10 @@
 # ffmpeg is required
 ! command -v ffmpeg /dev/null >>/dev/null && echo "ffmpeg is not installed" && exit 127
 
+green=`tput setaf 2`
+blue=`tput setaf 4`
+reset=`tput sgr0`
+
 choice=$(command -v fzf >/dev/null && \
 	printf "Bad\nLow\nMedium\nGood\nHigh" |
 	fzf --prompt "Choose Quality >" || "Good")
@@ -18,11 +22,6 @@ case "$choice" in
 	*) quality=23;;
 esac
 
-delbigger=$(command -v fzf >/dev/null && \
-	printf "Yes\nNo" |
-	fzf --prompt "Delete bigger files? " || "Yes")
-
-
 for name in "$@"; do
 	file=$(readlink -f "$name")
 	dir=$(dirname "$file")
@@ -31,9 +30,7 @@ for name in "$@"; do
 
 	[ ! -d "$outdir" ] && mkdir -p "$outdir"
 
-	[ -f "$file" ] && ffmpeg -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$outdir/$filename"
-
-	[ "$delbigger" = "Yes" ] && \
-		rm -f $(du -b "$file" "$outdir/$filename" | sort -r | head -n 1 | cut -f2) && \
-		mv "$file" "$outdir/$filename" 2>/dev/null
+	echo "${blue}Compressing $file${reset}"
+	[ -f "$file" ] && ffmpeg -loglevel error -hide_banner -stats -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$outdir/$filename"
+	echo "${green}Summerize results:\n$(du -h "$file" "$outdir/$filename")${reset}\n"
 done
