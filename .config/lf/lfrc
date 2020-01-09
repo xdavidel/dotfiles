@@ -9,13 +9,13 @@ set scrolloff 10
 cmd open ${{
     case $(file --mime-type $f -b) in
     	text/troff) man ./ $f;;
-        text/*) $EDITOR $fx;;
-	image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
-	image/*) rotdir $f | setsid sxiv -ai >/dev/null 2>&1 & ;;
-	audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
-	video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
-	application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
-        *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+      text/*) $EDITOR $fx;;
+			image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
+			image/*) rotdir $f | setsid sxiv -ai >/dev/null 2>&1 & ;;
+			audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
+			video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
+			application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
+      *) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
     esac
 }}
 
@@ -45,6 +45,22 @@ cmd copyto ${{
 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
+cmd fullpreview ${{
+set -f
+	case $(file --mime-type $f -b) in
+		audio/*)					mediainfo "$f" | less ;;
+		image/*)					drawimg "$f" ;;
+		video/*)					CACHE=$(mktemp /tmp/thumb_cache.XXXXX)
+												ffmpegthumbnailer -i "$f" -o $CACHE -s 0
+												drawimg "$CACHE" && rm "$CACHE" ;;
+		inode/*)					ls "$f/" | less ;;
+		application/pdf)  pdftotext -l 10 -nopgbrk -q -- "$f" - | less;;
+		text/html)				w3m -dump "$f" | less ;;
+		text/*)						"$EDITOR" -R "$f" ;;
+    *)								file --mime-type "$f" | less ;;
+    esac
+}}
+
 # Bindings
 map c $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ~/.config/directories | fzf)"
@@ -61,3 +77,4 @@ map x $$f
 map X !$f
 map o &mimeopen $f
 map O $mimeopen --ask $f
+map v fullpreview
