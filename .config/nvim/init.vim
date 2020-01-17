@@ -29,19 +29,19 @@ Plug 'morhetz/gruvbox' "VIM dark theme
 call plug#end()
 
 " Some basics:
-	nnoremap c "_c
-	set nocompatible
-	filetype plugin on
-	syntax on
-	set encoding=utf-8
-	set number relativenumber
-	set ignorecase
-	set bg=dark
-	set go=a
-	set mouse=a
-	set nohlsearch
-	set clipboard=unnamedplus
-	colorscheme gruvbox
+nnoremap c "_c
+set nocompatible
+filetype plugin on
+syntax on
+set encoding=utf-8
+set number relativenumber
+set ignorecase
+set bg=dark
+set go=a
+set mouse=a
+set nohlsearch
+set clipboard=unnamedplus
+colorscheme gruvbox
 
 "=====================================================================
 
@@ -233,6 +233,9 @@ set shiftwidth=2    " number of spaces to use for autoindent
 
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+" Update binds when sxhkdrc is updated.
+	autocmd BufWritePost ~/.config/bspwm/bspwmrc !~/.config/bspwm/bspwmrc
 
 "=====================================================================
 

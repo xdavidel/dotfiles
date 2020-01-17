@@ -1,0 +1,60 @@
+# bspwm binds
+
+# Focus on window in direction
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+super + {Left,Down,Up,Right}
+	bspc node -f {west,south,north,east}
+
+# Send window to desktop
+super + shift + {0-9}
+	bspc node -d {0-9} && bspunhide
+
+# Send window to desktop and swap to desktop
+super + control + {0-9}
+	bspc node -d {0-9} && bspunhide && bspc desktop -f {0-9}
+
+# Toggle fullscreen on and off
+super + f
+	bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
+
+# Toggle fullscreen on and off
+super + t
+	bspc node -t tiled
+
+# Toggle floating on and off
+super + o
+	bspc node focused.tiled -t floating || bspc node focused.floating -t tiled
+
+# Swap window with direction
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# Swap window with direction
+super + shift + {Left,Down,Up,Right}
+	bspc node -s {west,south,north,east}
+
+# Focus on desktop
+super + {0-9}
+	bspc desktop -f {0-9}
+
+# Expand/Shrink window
+super + alt + h
+	bspc node -z right -20 0 ; bspc node -z left -20 0
+super + alt + l
+	bspc node -z right +20 0 ; bspc node -z left +20 0
+super + alt + k
+	bspc node -z bottom 0 -20 ; bspc node -z top 0 -20
+super + alt + j
+	bspc node -z bottom 0 +20 ; bspc node -z top 0 +20
+
+# Expand/Shrink window
+super + alt + Left
+	bspc node -z right -20 0 ; bspc node -z left -20 0
+super + alt + Down
+	bspc node -z bottom 0 +20 ; bspc node -z top 0 +20
+super + alt + Up
+	bspc node -z bottom 0 -20 ; bspc node -z top 0 -20
+super + alt + Right
+	bspc node -z right +20 0 ; bspc node -z left +20 0
