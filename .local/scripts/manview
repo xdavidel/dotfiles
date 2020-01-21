@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ -z "$2" ]; then
-	man -k "$1" | awk '{print $1}' | uniq | fzf -i --preview='man {}' | xargs -r man
+	man -k "$1" | awk '{gsub(/\(\w+\)/,"");$2="-"; print $0}' | sort -u -t- -k1,1| fzf -i --bind='Ctrl-p:toggle-preview' --preview-window=up:hidden --preview="echo {} | cut -f 1 -d ' ' | xargs -r man" | awk '{print $1}' | xargs -r man
 else
-	man -k "$1" | awk '{print $1}' | uniq | dmenu -i -l 20 | xargs -r man -Tpdf | ifne zathura -
+	man -k "$1" | awk '{gsub(/\(\w+\)/,"");$2="-"; print $0}' | sort -u -t- -k1,1 | dmenu -i -l 20 | awk '{print $1}' | xargs -r man -Tpdf | ifne zathura -
 fi
