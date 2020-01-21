@@ -99,9 +99,9 @@ super + {_,shift +} bracketleft
 	lmc back {5,20}
 
 # Function keys
-# Show readme
+# Show man help
 super + F1
-	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
+	manview "." "GUI"
 super + F2
 	refreshsession
 # Change display

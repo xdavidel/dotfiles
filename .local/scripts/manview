@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
 
-man -Tpdf $(man -k . | awk '{print $1}' | uniq | dmenu -l 20) | zathura -
+if [ -z "$2" ]; then
+	man -k "$1" | awk '{print $1}' | uniq | fzf -i --preview='man {}' | xargs -r man
+else
+	man -k "$1" | awk '{print $1}' | uniq | dmenu -i -l 20 | xargs -r man -Tpdf | ifne zathura -
+fi
