@@ -1,6 +1,6 @@
 # Basic vars
 set shell sh
-set previewer ~/.config/lf/scope
+set previewer ~/.local/scripts/preview
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
