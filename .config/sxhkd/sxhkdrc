@@ -17,7 +17,7 @@ super + shift + d
 super + e
 	$FILEGUI
 super + shift + e
-	$FILEGUI
+	$FILE
 super + m
 	mediaplayer
 super + n
