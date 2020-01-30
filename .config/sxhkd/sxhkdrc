@@ -47,7 +47,7 @@ super + shift + grave
 super + Scroll_Lock
 	killall screenkey || screenkey
 super + shift + Escape
-	prompt "Exit Xorg?" "closesession"
+	prompt "Close session?" "closesession"
 super + Insert
 	showclip
 super + shift + x
