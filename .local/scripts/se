@@ -3,11 +3,6 @@
 ! command -v fzf >>/dev/null && echo "fzf is not installed" && exit 127
 
 find ~/.*profile ~/.tmux.conf ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
-	| fzf --preview='[[ $(file --mime {}) =~ binary ]] &&
-	                 echo {} is a binary file ||
-					 (bat --style=numbers --color=always {} ||
-					 highlight -O ansi -l {} ||
-					 coderay {} ||
-					 rougify {} ||
-					 cat {}) 2> /dev/null | head -500' \
+	| fzf --preview='preview {}' \
+				--bind='Ctrl-p:toggle-preview' \
 	| xargs -r $EDITOR

@@ -31,5 +31,5 @@ case "${FILE_PATH}" in
   *.rar)	unrar l "${FILE_PATH}" ;;
   *.7z)		7z l "${FILE_PATH}" ;;
   *.pdf)	pdftotext "${FILE_PATH}" - ;;
-  *)			echo "Type: ${MIMETYPE}\n" && handle_mime ;;
+  *)			printf "Type: ${MIMETYPE}\n\n" && handle_mime ;;
 esac
