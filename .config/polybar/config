@@ -353,6 +353,7 @@ ramp-capacity-foreground = ${colors.darkyellow}
 
 ; Full
 format-full = <label-full>
+format-full-padding = 1
 format-full-underline = ${colors.darkmagenta}
 format-full-foreground = ${colors.darkyellow}
 format-full-background = ${colors.background-alt}
