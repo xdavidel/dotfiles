@@ -7,6 +7,14 @@ super + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -f {west,south,north,east}
 
+# Focus next/prev window
+super + {_,shift +} Tab
+	bspc node -f {next,prev}.local
+
+# Focus next/prev desktop
+super + control + {Left,Right}
+	bspc desktop -f {prev,next}
+
 # Send window to desktop
 super + shift + {0-9}
 	bspc node -d {0-9} && bspunhide
@@ -17,15 +25,19 @@ super + control + {0-9}
 
 # Toggle fullscreen on and off
 super + f
-	bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
-
-# Toggle fullscreen on and off
-super + t
-	bspc node -t tiled
+	bspfullscreen
 
 # Toggle floating on and off
-super + o
-	bspc node focused.tiled -t floating || bspc node focused.floating -t tiled
+super + shift + f
+	bspfloating
+
+# Preselect window
+control + alt + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# Cancel preselection
+control + alt + BackSpace
+	bspc node -p cancel
 
 # Swap window with direction
 super + shift + {h,j,k,l}
