@@ -24,7 +24,6 @@ Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
 Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
-Plug 'morhetz/gruvbox' "VIM dark theme
 
 call plug#end()
 
@@ -41,7 +40,6 @@ set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
-colorscheme gruvbox
 
 "=====================================================================
 
@@ -103,7 +101,7 @@ set shiftwidth=2    " number of spaces to use for autoindent
 
 	set shortmess+=c "Don't give |ins-completion-menu| messages
 
-	set signcolumn=yes "Always show signcolumns
+	" set signcolumn=yes "Always show signcolumns
 
 	inoremap <silent><expr> <TAB>
 			\	pumvisible() ? "\<C-n>" :
