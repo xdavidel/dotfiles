@@ -1,42 +1,43 @@
 ! special
-*.foreground:   #f2e6c9
-*.background:   #272929
-*.cursorColor:  #c5c8c6
+*.foreground: #D8DEE9
+*.background: #1d1f21
+
+*.cursorColor:#c5c8c6
 
 ! black
-*.color0:       #1d2021
-*.color8:       #373b41
+*.color0:     #000000
+*.color8:     #4D4D4D
 
 ! red
-*.color1:       #cc241d
-*.color9:       #a54242
+*.color1:     #FF5555
+*.color9:     #FF6E67
 
 ! green
-*.color2:       #5F9E0E
-*.color10:      #8c9440
+*.color2:     #7EEd17
+*.color10:    #5AF78E
 
 ! yellow
-*.color3:       #d79921
-*.color11:      #f0c674
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
 
 ! blue
-*.color4:       #5f819d
-*.color12:      #7197E7
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
 
 ! magenta
-*.color5:       #750775
-*.color13:      #A77AC4
+*.color5:     #A77AC4
+*.color13:    #FF79C6
 
 ! cyan
-*.color6:       #5e8d87
-*.color14:      #8abeb7
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
 
 ! white
-*.color7:       #f2e6c9
-*.color15:      #c5c8c6
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
 !! Transparency (0-1):
-st.alpha: 0.95
+st.alpha: 0.90
 st.font: Monospace-11;
 
 ! st.termname: st-256color
