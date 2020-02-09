@@ -1,11 +1,8 @@
 # bspwm binds
 
 # Focus on window in direction
-super + {h,j,k,l}
-	bspc node -f {west,south,north,east}
-
-super + {Left,Down,Up,Right}
-	bspc node -f {west,south,north,east}
+super + {_,shift + } {Left,Down,Up,Right,h,j,k,l}
+	bspc node -{f,s} {west,south,north,east,west,south,north,east}
 
 # Focus next/prev window
 super + {_,shift +} Tab
@@ -15,58 +12,32 @@ super + {_,shift +} Tab
 super + control + {Left,Right}
 	bspc desktop -f {prev,next}
 
-# Send window to desktop
-super + shift + {0-9}
-	bspc node -d {0-9} && bspunhide
+# Focus / Send window to desktop
+super + {_,shift + } {1-9,0}
+	bspc {desktop -f,node -d} ^{1-9,10} && bspunhide
 
-# Send window to desktop and swap to desktop
-super + control + {0-9}
-	bspc node -d {0-9} && bspunhide && bspc desktop -f {0-9}
-
-# Toggle fullscreen on and off
-super + f
-	bspfullscreen
-
-# Toggle floating on and off
-super + shift + f
-	bspfloating
+# Toggle fullscreen / floating on and off
+super + {_,shift + } f
+	{bspfullscreen,bspfloating}
 
 # Preselect window
 control + alt + {Left,Down,Up,Right}
 	bspc node -p {west,south,north,east}
 
 # Cancel preselection
-control + alt + BackSpace
+control + alt + z
 	bspc node -p cancel
 
-# Swap window with direction
-super + shift + {h,j,k,l}
-	bspc node -s {west,south,north,east}
-
-# Swap window with direction
-super + shift + {Left,Down,Up,Right}
-	bspc node -s {west,south,north,east}
-
-# Focus on desktop
-super + {0-9}
-	bspc desktop -f {0-9}
+# Make a window sticky mode on / off
+super + o
+	bspc node -g sticky={on,off}
 
 # Expand/Shrink window
-super + alt + h
+super + alt + {h,Left}
 	bspc node -z right -20 0 ; bspc node -z left -20 0
-super + alt + l
+super + alt + {l,Right}
 	bspc node -z right +20 0 ; bspc node -z left +20 0
-super + alt + k
+super + alt + {k,Up}
 	bspc node -z bottom 0 -20 ; bspc node -z top 0 -20
-super + alt + j
+super + alt + {j,Down}
 	bspc node -z bottom 0 +20 ; bspc node -z top 0 +20
-
-# Expand/Shrink window
-super + alt + Left
-	bspc node -z right -20 0 ; bspc node -z left -20 0
-super + alt + Down
-	bspc node -z bottom 0 +20 ; bspc node -z top 0 +20
-super + alt + Up
-	bspc node -z bottom 0 -20 ; bspc node -z top 0 -20
-super + alt + Right
-	bspc node -z right +20 0 ; bspc node -z left +20 0
