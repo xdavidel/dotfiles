@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-pgrep -x awesome >/dev/null && echo "awesome.quit()" | awesome-client && exit
-pgrep -x bspwm >/dev/null && bspc quit && exit
-pgrep -x i3 >/dev/null && i3-msg exit && exit
+pgrep -x awesome >/dev/null && echo "awesome.quit()" | awesome-client
+pgrep -x bspwm >/dev/null && bspc quit
+pgrep -x i3 >/dev/null && i3-msg exit
