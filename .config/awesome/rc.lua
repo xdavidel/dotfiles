@@ -107,13 +107,13 @@ local exitmenu = {
 
 local mymainmenu = freedesktop.menu.build({
     before = {
-        { "Awesome", myawesomemenu	},
+        { "Awesome", myawesomemenu			},
 				{ "Monitor", xrandr.normmenu()  }
     },
     after = {
-		{ "Run",		"dmenu_run"		},
-        { "Terminal",	terminal		},
-        { "Exit",		exitmenu		},
+			{ "Run",			"dmenu_run"	},
+      { "Terminal",	terminal		},
+      { "Exit",			exitmenu		},
     }
 })
 awful.util.mymainmenu = mymainmenu
@@ -245,6 +245,8 @@ local function get_tags_menu_items(c)
   return output
 end
 
+local tags_menu = awful.menu.new(get_tags_menu_items(c))
+
 local tasklist_buttons = gears.table.join(
     awful.button({ }, 1,
 	function (c)
@@ -252,16 +254,15 @@ local tasklist_buttons = gears.table.join(
 			c.minimized = true
         else
 			c:emit_signal("request::activate",
-							"tasklist",
-                            {raise = true}
-            )
-        end
-    end),
+				"tasklist",
+        {raise = true}
+      )
+    end
+  end),
 
 	awful.button({ }, 3,
 	function(c)
-		local tags_menu = awful.menu.new(get_tags_menu_items(c))
-		tags_menu:show()
+		tags_menu:toggle()
 		-- awful.menu.client_list({ theme = { width = 250 } })
     end),
 
@@ -774,6 +775,9 @@ client.connect_signal("request::titlebars", function(c)
     }
 	awful.titlebar.hide(c)
 end)
+
+
+
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
