@@ -91,18 +91,18 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "edit config", editor_cmd .. " " .. awesome.conffile							},
-   { "restart", awesome.restart														},
-   { "quit", function() awesome.quit() end											},
+   { " hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { " edit config", editor_cmd .. " " .. awesome.conffile							},
+   { " restart", awesome.restart														},
+   { " quit", function() awesome.quit() end											},
 }
 
 local exitmenu = {
-   { "Lock", "lockscreen"													},
-   { "Logout", "closesession"												},
-   { "Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"				},
-   { "Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"				},
-   { "Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"	},
+   { " Lock", "lockscreen"													},
+   { " Logout", "closesession"												},
+   { " Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"				},
+   { " Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"				},
+   { " Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"	},
 }
 
 local mymainmenu = freedesktop.menu.build({
@@ -222,8 +222,6 @@ local function get_tags_menu_items(c)
     })
   end
 
-
-
 	table.insert(output, {
 		" Running Programs",
 		awful.menu.client_list
@@ -237,6 +235,11 @@ local function get_tags_menu_items(c)
 	table.insert(output, {
 		" Action",
 		action_menu
+	})
+
+	table.insert(output, {
+		" Swap Monitor",
+		function() awful.client.movetoscreen(c) end
 	})
 
   return output
@@ -480,6 +483,10 @@ globalkeys = gears.table.join(
 	-- Monitor options
     awful.key({ modkey		      }, "s", function () xrandr.xrandr() end,
               {description = "Monitor options", group = "awesome"}),
+
+	-- Move to monitor
+    awful.key({ modkey, sftkey	}, "s", awful.client.movetoscreen ,
+              {description = "Move to monitor", group = "awesome"}),
 
 	-- Show / Hide wibox
     awful.key({ modkey			  }, "b",
