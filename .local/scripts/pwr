@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Will show all batteries with approximate icon for remaining power.
+for x in /sys/class/power_supply/BAT?/capacity;
+	do
+		per="$(cat $x 2>/dev/null)"
+	if [ ! $(cat /sys/class/power_supply/BAT?/status 2>/dev/null) = 'Discharging' ]; then
+		echo " $per"
+	else
+		case "$per" in
+			100|[8-9][0-9])		echo " $per" ;;
+			[7-8][0-9])			echo " $per" ;;
+			[5-6][0-9])			echo " $per" ;;
+			[3-4][0-9])			echo " $per" ;;
+			[1-2][0-9]|[0-9])	echo " $per" ;;
+			*)		echo "" ;;
+		esac
+	fi
+done

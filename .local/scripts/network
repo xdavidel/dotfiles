@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# Wifi quality percentage and icon.
+grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
+sed "s/down//;s/up//" /sys/class/net/e*/operstate
