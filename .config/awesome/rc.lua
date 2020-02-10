@@ -263,7 +263,6 @@ local tasklist_buttons = gears.table.join(
 	awful.button({ }, 3,
 	function(c)
 		tags_menu:toggle()
-		-- awful.menu.client_list({ theme = { width = 250 } })
     end),
 
 	awful.button({ }, 4,
@@ -321,22 +320,22 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
-		layout  = {
-			spacing_widget = {
-				{
-					forced_width  = 5,
-					forced_height = 24,
-					thickness     = 0,
-					widget        = wibox.widget.separator
+			layout  = {
+				spacing_widget = {
+					{
+						forced_width  = 5,
+						forced_height = 24,
+						thickness     = 0,
+						widget        = wibox.widget.separator
+					},
+					valign = 'center',
+					halign = 'center',
+					widget = wibox.container.place,
 				},
-				valign = 'center',
-				halign = 'center',
-				widget = wibox.container.place,
+				spacing = 1,
+				layout  = wibox.layout.fixed.horizontal
 			},
-			spacing = 1,
-			layout  = wibox.layout.fixed.horizontal
-		},
-		widget_template = {
+			widget_template = {
         {
             {
                 {
@@ -362,15 +361,13 @@ awful.screen.connect_for_each_screen(function(s)
         widget = wibox.container.background,
         create_callback = function(self, c, index, objects) --luacheck: no unused args
             local tooltip = awful.tooltip({
-				objects = { self },
-				timer_function = function()
-					return c.name
-				end,
-			})
-		end
-		},
-
-
+							objects = { self },
+							timer_function = function()
+								return c.name
+							end,
+						})
+				end
+			},
     }
 
     -- Create the wibox
@@ -506,13 +503,13 @@ globalkeys = gears.table.join(
 		end,
               {description = "toggle bottom wibox bar", group = "wibox"}),
 
-	awful.key({ modkey, ctlkey	  }, "b",
-		function ()
-			for s in screen do
-				s.mytopwibox.visible = not s.mytopwibox.visible
-				s.mybottomwibox.visible = not s.mybottomwibox.visible
-			end
-		end,
+		awful.key({ modkey, ctlkey	  }, "b",
+			function ()
+				for s in screen do
+					s.mytopwibox.visible = not s.mytopwibox.visible
+					s.mybottomwibox.visible = not s.mybottomwibox.visible
+				end
+			end,
               {description = "toggle wibox bars", group = "wibox"}),
 
     -- Standard program
@@ -525,12 +522,12 @@ globalkeys = gears.table.join(
     awful.key({ modkey, altkey    }, "Down",	function () awful.client.incwfact(0.05)		end,
               {description = "increase client height", group = "layout"}),
 
-	awful.key({ modkey, altkey    }, "j", function () awful.client.focus.byidx( 1)			end,
+		awful.key({ modkey, altkey    }, "j", function () awful.client.focus.byidx( 1)			end,
               {description = "select next client", group = "client"}),
     awful.key({ modkey, altkey    }, "k", function () awful.client.focus.byidx(-1)			end,
               {description = "select previous client", group = "client"}),
 
-	awful.key({ modkey, ctlkey    }, "j", function () awful.layout.inc( 1)					end,
+		awful.key({ modkey, ctlkey    }, "j", function () awful.layout.inc( 1)					end,
               {description = "select next layout", group = "layout"}),
     awful.key({ modkey, ctlkey    }, "k", function () awful.layout.inc(-1)					end,
               {description = "select previous layout", group = "layout"}),
@@ -546,9 +543,6 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"})
-    -- Menubar
-    -- awful.key({ modkey }, "b", function() menubar.show() end,
-    --           {description = "show the menubar", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -677,6 +671,16 @@ awful.rules.rules = {
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
     },
+		{ rule_any =
+			{
+				class = {"Polybar"}
+			},
+			properties = {	skip_taskbar = true,
+											border_width = 0,
+											ontop = true,
+											focusable = false
+			}
+		},
 
     -- Floating clients.
     { rule_any = {
@@ -727,6 +731,10 @@ client.connect_signal("manage", function (c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
+		-- if c.class == "Polybar" then
+		-- 	c:unmanage()
+		-- end
+
     if awesome.startup
       and not c.size_hints.user_position
       and not c.size_hints.program_position then
@@ -775,9 +783,6 @@ client.connect_signal("request::titlebars", function(c)
     }
 	awful.titlebar.hide(c)
 end)
-
-
-
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
