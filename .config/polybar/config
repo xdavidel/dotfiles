@@ -1,22 +1,22 @@
 [colors]
-black = ${xrdb:color0:#1d2021}
-darkred = ${xrdb:color1:#cc241d}
-darkgreen = ${xrdb:color2:#98971a}
-darkyellow = ${xrdb:color3:#d79921}
-darkblue = ${xrdb:color4:#458588}
+black				= ${xrdb:color0:#1d2021}
+darkred			= ${xrdb:color1:#cc241d}
+darkgreen		= ${xrdb:color2:#98971a}
+darkyellow	= ${xrdb:color3:#d79921}
+darkblue		= ${xrdb:color4:#458588}
 darkmagenta = ${xrdb:color5:#b16286}
-darkcyan = ${xrdb:color6:#689d6a}
-lightgray = ${xrdb:color7:#a89984}
-gray = ${xrdb:color8:#928374}
-red = ${xrdb:color9:#fb4934}
-green = ${xrdb:color10:#b8bb26}
-yellow = ${xrdb:color11:#fabd2f}
-blue = ${xrdb:color12:#83a598}
-magenta = ${xrdb:color13:#d3869b}
-cyan = ${xrdb:color14:#8ec07c}
-white = ${xrdb:color15:#ebdbb2}
-background = ${xrdb:background:#1d1f21}
-foreground = ${xrdb:foreground:#d8dee9}
+darkcyan		= ${xrdb:color6:#689d6a}
+lightgray		= ${xrdb:color7:#a89984}
+gray				= ${xrdb:color8:#928374}
+red					= ${xrdb:color9:#fb4934}
+green				= ${xrdb:color10:#b8bb26}
+yellow			= ${xrdb:color11:#fabd2f}
+blue				= ${xrdb:color12:#83a598}
+magenta			= ${xrdb:color13:#d3869b}
+cyan				= ${xrdb:color14:#8ec07c}
+white				= ${xrdb:color15:#ebdbb2}
+background	= ${xrdb:background:#1d1f21}
+foreground	= ${xrdb:foreground:#d8dee9}
 
 background-alt = #3d3d3d
 
@@ -48,10 +48,10 @@ font-0 = Inconsolata:size=12;1
 font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
-; Other modules: xkeyboard filesystem xbacklight backlight-acpi cpu memory temperature powermenu weather
+; Other modules: xkeyboard filesystem xbacklight backlight-acpi cpu memory temperature powermenu
 modules-left = bspwm i3 ewmh xwindow
 ;modules-center =
-modules-right = mpd weather cpu memory temperature volume wlan eth battery xbacklight date
+modules-right = mpd weather cpu memory temperature volume wlan eth battery date
 
 tray-position = right
 tray-padding = 1
@@ -64,11 +64,6 @@ wm-restack = bspwm
 
 ; scroll-up = bspwm-desknext
 ; scroll-down = bspwm-deskprev
-
-[module/weather]
-type = interval/weather
-exec = weather
-interval = 5000
 
 [module/xwindow]
 type = internal/xwindow
@@ -234,7 +229,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format-prefix = ""
-format-prefix-foreground = ${colors.blue}
+format-prefix-foreground = ${colors.green}
 format-underline = ${colors.darkmagenta}
 format-padding = 1
 format-background = ${colors.background-alt}
@@ -248,6 +243,14 @@ format-prefix = " "
 format-padding = 1
 format-background = ${colors.background-alt}
 format-prefix-foreground = ${colors.darkcyan}
+format-underline = ${colors.darkmagenta}
+
+[module/weather]
+type = custom/script
+exec = weather
+internal = 3600
+format-padding = 1
+format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
 
 [module/wlan]
