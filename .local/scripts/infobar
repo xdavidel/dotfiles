@@ -10,7 +10,7 @@ testweather() { \
 	[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
 		ping -q -c 1 1.1.1.1 >/dev/null &&
 		curl -s "wttr.in" > "$HOME/.local/share/weatherreport" &&
-		notify-send "🌞 Weather" "New weather forecast for today." &&
+		notify-send " Weather" "New weather forecast for today." &&
 		refbar
 }
 
@@ -45,7 +45,7 @@ status() { \
 
 	# Wifi quality percentage and icon.
 	grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
-	sed "s/down//;s/up//" /sys/class/net/e*/operstate | sed "s/$/\ $delim/"
+	sed "s/down//;s/up//" /sys/class/net/e*/operstate | tr '\n' ' ' | sed "s/ //g;s/$/\ $delim /"
 
 	# Will show all batteries with approximate icon for remaining power.
 	for x in /sys/class/power_supply/BAT?/capacity;

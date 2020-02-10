@@ -66,7 +66,7 @@ local theme = {
     bg_urgent       = system_colors.red_d,
     bg_systray      = system_colors.background,
     border_normal   = system_colors.black_l,
-    border_focus    = system_colors.magenta_l,
+    border_focus    = system_colors.white_d,
     border_width    = dpi(3),
     useless_gap     = dpi(4),
 }

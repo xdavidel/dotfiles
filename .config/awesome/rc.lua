@@ -1,16 +1,21 @@
 -- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-require("awful.autofocus")
+local gears					= require("gears")
+local awful					= require("awful")
+											require("awful.autofocus")
+
 -- Widget and layout library
-local wibox = require("wibox")
+local wibox					=	require("wibox")
+
 -- Theme handling library
-local beautiful = require("beautiful")
+local beautiful			= require("beautiful")
+
 -- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
+local naughty				= require("naughty")
+local menubar				= require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
+-- Externals scripts
+local xrandr				= require("xrandr")
 local freedesktop   = require("freedesktop")
 
 -- Enable hotkeys help widget for VIM and other apps
@@ -87,7 +92,6 @@ awful.layout.layouts = {
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome"										},
    { "edit config", editor_cmd .. " " .. awesome.conffile							},
    { "restart", awesome.restart														},
    { "quit", function() awesome.quit() end											},
@@ -103,7 +107,8 @@ local exitmenu = {
 
 local mymainmenu = freedesktop.menu.build({
     before = {
-        { "Awesome",	myawesomemenu	},
+        { "Awesome", myawesomemenu	},
+				{ "Monitor", xrandr.normmenu()  }
     },
     after = {
 		{ "Run",		"dmenu_run"		},
@@ -471,6 +476,10 @@ globalkeys = gears.table.join(
 	-- Open context menu
     awful.key({ modkey		      }, "space", function () mymainmenu:toggle() end,
               {description = "show context menu", group = "awesome"}),
+
+	-- Monitor options
+    awful.key({ modkey		      }, "s", function () xrandr.xrandr() end,
+              {description = "Monitor options", group = "awesome"}),
 
 	-- Show / Hide wibox
     awful.key({ modkey			  }, "b",
