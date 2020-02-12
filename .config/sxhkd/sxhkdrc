@@ -47,13 +47,13 @@ super + shift + grave
 super + Scroll_Lock
 	killall screenkey || screenkey
 super + shift + Escape
-	prompt "Close session?" "closesession"
+	managesession l
+super + shift + x
+	managesession p
+super + shift + BackSpace
+	managesession r
 super + Insert
 	showclip
-super + shift + x
-	prompt "Shutdown computer?" "sudo -A shutdown -h now"
-super + shift + BackSpace
-	prompt "Reboot computer?" "sudo -A shutdown -h now"
 super + x
 	lockscreen
 XF86Launch1

@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+if [ -z "$1" ]; then
+	cat << EOF
+managesession: manage linux sessions
+
+Allowed options:
+logout		Kill user session
+poweroff	Shut down the PC
+reboot		Restart the system
+
+EOF
+
+else
+	command -v wmctrl >>/dev/null && active_wm=$(wmctrl -m | awk '/Name: / {printf "%s\n", $NF}')
+
+	case "$1" in
+		l*)
+			case "$active_wm" in
+				"Openbox") closecmd="openbox --exit" ;;
+				"i3") closecmd="i3-msg exit" ;;
+				"bspwm") closecmd="bspc quit";;
+				"awesome") closecmd="awesome-client awesome.quit()" ;;
+				"*") closecmd="pkill -u $USER" ;;
+			esac
+
+			prompt "Close sessions?" "$closecmd" ;;
+		p*)
+			prompt "Shutdown PC?" "sudo -A shutdown -h now" ;;
+		r*)
+			prompt "Restart PC?" "sudo -A reboot" ;;
+	esac
+fi

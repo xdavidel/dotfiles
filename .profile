@@ -12,7 +12,7 @@ export READER="zathura"
 export FILE="vifm"
 export FILEGUI="pcmanfm"
 export MEDIAPLAYER="mpv"
-export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
+export SUDO_ASKPASS="$HOME/.local/scripts/dmenupass"
 
 # No place like home
 export INPUTRC="$HOME/.config/inputrc"
