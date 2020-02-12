@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+echo "Private: $(ip addr | awk '/inet / {sub(/\/.*/, "", $2); print $2}' | tr '\n' ' ')"
+echo "Public: $(curl -s ifconfig.me)"

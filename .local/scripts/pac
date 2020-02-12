@@ -3,13 +3,14 @@
 arch() { \
 	case "$1" in
 		i*) shift 1 && sudo pacman -S "$@" ;;
-		u*) sudo pacman -Su ;;
+		u*) yay -Su --noconfirm || sudo pacman -Su --noconfirm ;;
 		r*) shift 1 && sudo pacman -Rns "$@" ;;
 		m*) sudo pacman -S ;;
 		f*) shift 1 && pacman -Ss "$@" ;;
 		l*) pacman -Q ;;
 		s*) pacman -Qe ;;
 		d*) shift 1 && sudo pacman -Syw "$@" ;;
+		q*) yay -Qqu || pacman -Qqu ;;
 		g*) sudo pacman -Syuw --noconfirm ;;
 		o*) pacman -Qdtq ;;
 		c*) sudo pacman -Sc ;;
@@ -26,7 +27,7 @@ void() { \
 		l*) xbps-query -l ;;
 		s*) xbps-query -m ;;
 		d*) shift 1 && sudo xbps-install -D "$@" ;;
-		g*) sudo xbps-install -Syu ;;
+		q*) sudo xbps-install -un ;;
 		o*) xbps-query -O ;;
 		c*) sudo xbps-remove -O ;;
 	esac
@@ -41,6 +42,7 @@ debi() { \
 		f*) shift 1; apt search "$@" ;;
 		l*) apt list ;;
 		s*) apt list | grep "[installed]" ;;
+		q*) apt list --upgradable ;;
 		o*) command -v sudo >>/dev/null && sudo apt autoremove || apt autoremove;;
 	esac
 }
@@ -58,7 +60,8 @@ find		Find package in remote repositories
 list		List installed packages
 show		List explicit installed packages
 download	Download only without installation
-getall		Fully Update the system
+getall		Download all available updates without installation
+query		Query for updated
 orphan		List orphan packages
 cache		Clear manager cache
 

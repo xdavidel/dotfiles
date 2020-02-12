@@ -48,9 +48,55 @@ font-0 = Inconsolata:size=12;1
 font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
-modules-left = bspwm i3 ewmh xwindow
+; modules-left = bspwm i3 ewmh xwindow
+modules-left = ewmh
 ;modules-center =
-modules-right = mpd weather cpu memory temperature volume network power date
+modules-right = mpd weather updates cpu memory temperature volume network power
+
+tray-position = right
+tray-padding = 1
+tray-background = ${colors.background-alt}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+wm-restack = bspwm
+
+; scroll-up = bspwm-desknext
+; scroll-down = bspwm-deskprev
+
+[bar/bottom]
+monitor = ${env:MONITOR:}
+monitor-fallback =
+enable-ipc = true
+width = 100%
+height = 32
+offset-x = 0
+offset-y = 0
+radius = 0.0
+
+bottom = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = ${colors.white}
+
+padding = 0
+
+module-margin-left = 0
+module-margin-right = 1
+
+font-0 = Inconsolata:size=12;1
+font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
+font-2 = FontAwesome5Free:style=Solid:size=10;0
+
+modules-left = powermenu xwindow
+modules-right = xkeyboard date
 
 tray-position = right
 tray-padding = 1
@@ -65,25 +111,44 @@ wm-restack = bspwm
 ; scroll-down = bspwm-deskprev
 
 [module/xwindow]
+; type = custom/ipc
+; hook-0 = xdotool getactivewindow getwindowname
+; format-prefix = "📦 "
+; format-underline = #268bd2
+; format-background = ${colors.background-alt}
+; format-padding = 1
+; initial = 1
+; type = custom/script
+; exec = xdotool getactivewindow getwindowname
+; interval = 2
 type = internal/xwindow
 label = %title:0:45:...%
 format-foreground = ${colors.blue}
+click-left = pgrep -x dunst >/dev/null && notify-send -u low "This Month" "$(cal)"
+
+[module/updates]
+type = custom/ipc
+hook-0 = pac q | wc -l
+hook-1 = pac
+format-prefix = " "
+format-prefix-foreground = #C9A244
+format-underline = ${colors.darkmagenta}
+format-background = ${colors.background-alt}
+format-padding = 1
+initial = 1
+click-left = pac q && notify-send "Available updates" "$(pac q)"
+click-right = $TERMINAL -e pac u
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.gray}
-format-prefix-underline = ${colors.darkmagenta}
+format-padding = 1
+format-background = ${colors.background-alt}
+format-underline = ${colors.darkmagenta}
+format-prefix = "  "
 
 label-layout = %layout%
-label-layout-underline = ${colors.darkmagenta}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.darkmagenta}
-label-indicator-underline = ${colors.darkmagenta}
 
 [module/filesystem]
 type = internal/fs
@@ -225,14 +290,15 @@ type = internal/backlight
 card = intel_backlight
 
 [module/cpu]
-type = internal/cpu
-interval = 2
+type = custom/script
+exec = top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
+interval = 4
 format-prefix = " "
 format-prefix-foreground = ${colors.green}
 format-underline = ${colors.darkmagenta}
 format-padding = 1
 format-background = ${colors.background-alt}
-label = %percentage:2%%
+click-left = notify-send " CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)"
 
 [module/memory]
 type = custom/script
@@ -243,6 +309,7 @@ format-padding = 1
 format-background = ${colors.background-alt}
 format-prefix-foreground = ${colors.darkcyan}
 format-underline = ${colors.darkmagenta}
+click-left = notify-send " Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)"
 
 [module/weather]
 type = custom/script
@@ -260,6 +327,8 @@ format-padding = 1
 format-foreground = ${colors.magenta}
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
+click-left = notify-send "My IPs" "$(ips)"
+click-right = $TERMINAL -e nmtui
 
 [module/power]
 type = custom/script
@@ -270,10 +339,12 @@ format-foreground = ${colors.white}
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
 
+
 [module/date]
 type = custom/script
 exec = date '+%Y %b %d (%a) %I:%M %p'
-click-left = $TERMINAL -e calcurse
+click-left = pgrep -x dunst >/dev/null && notify-send -u low "This Month" "$(cal)"
+click-right = $TERMINAL -e calcurse
 interval = 60
 label = %output%
 format-prefix = " "
@@ -327,29 +398,21 @@ ramp-foreground = ${colors.red}
 [module/powermenu]
 type = custom/menu
 
-format-spacing = 1
+format-padding = 1
+format-background = ${colors.background-alt}
+format-underline = ${colors.darkmagenta}
 
-label-open = 
-label-open-foreground = ${colors.darkmagenta}
-label-close =  cancel
-label-close-foreground = ${colors.darkmagenta}
+label-open = 
+; label-open-foreground = ${colors.darkmagenta}
+label-close = cancel
+; label-close-foreground = ${colors.darkmagenta}
 label-separator = |
-label-separator-foreground = ${colors.gray}
+label-separator-foreground = ${colors.darkmagenta}
 
 menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
+menu-0-0-exec = notify-send "reboot"
 menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
+menu-0-1-exec = notify-send "poweroff"
 
 [settings]
 screenchange-reload = true
