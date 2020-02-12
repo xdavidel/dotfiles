@@ -53,13 +53,6 @@ modules-left = ewmh
 ;modules-center =
 modules-right = mpd weather updates cpu memory temperature volume network power
 
-tray-position = right
-tray-padding = 1
-tray-background = ${colors.background-alt}
-tray-offset-x = 0
-tray-offset-y = 0
-tray-scale = 1.0
-
 wm-restack = bspwm
 
 ; scroll-up = bspwm-desknext

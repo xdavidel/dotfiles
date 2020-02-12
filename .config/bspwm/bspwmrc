@@ -23,6 +23,7 @@ if [ $(bspc query --monitors | wc -l) -gt 1 ]; then
 else
 	bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 	polybar -r top &
+	polybar -r bottom &
 fi
 
 # Start workspaces on the main monitor.
