@@ -51,7 +51,7 @@ font-2 = FontAwesome5Free:style=Solid:size=10;0
 ; modules-left = bspwm i3 ewmh xwindow
 modules-left = ewmh
 ;modules-center =
-modules-right = mpd weather updates cpu memory temperature volume network power
+modules-right = mpd weather updates memory temperature volume network power
 
 wm-restack = bspwm
 
@@ -311,6 +311,8 @@ internal = 3600
 format-padding = 1
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
+click-left = notify-send "Last Weather Update" "$(stat -c %y ~/.local/share/weatherreport | cut -d' ' -f1)"
+click-right = $TERMINAL -e less ~/.local/share/weatherreport
 
 [module/network]
 type = custom/script

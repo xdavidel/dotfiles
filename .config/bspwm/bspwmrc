@@ -49,4 +49,5 @@ bspc config external_rules_command "$(which floaters)"
 pgrep sxhkd | xargs kill 2>/dev/null
 sxhkd ~/.config/bspwm/bspwmrc-keys &
 
+bspc rule -a Zathura state=tiled
 # bspc rule -a firefox desktop='^2'
