@@ -18,7 +18,7 @@ handle_mime() { \
 			cat "${FILE_PATH}" ;;
 		application/zip) atool --list -- "${FILE_PATH}" ;;
 		application/*) file --brief "${FILE_PATH}" | tr ',' '\n' ;;
-		image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" ;;
+		image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || pixterm -s 2 -d 0 -tc "${HEIGHT}" "${FILE_PATH}" ;;
 		video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" ;;
 		*/pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
 		*opendocument*) odt2txt "${FILE_PATH}" ;;
