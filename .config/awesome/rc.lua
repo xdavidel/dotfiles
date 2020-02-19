@@ -191,36 +191,39 @@ local taglist_buttons = gears.table.join(
     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
 
+local currentclient
+local tags = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 " }
 -- input is a client which we want to move
-local function get_tags_menu_items(c)
-  local output = {}
+local function get_tags_menu_items()
 	local move_to_menu = {}
-	local action_menu = {
-		{"  Close", function() c:kill() end},
-		{"  Maximize", function() c.maximized = true end},
-		{"  Minimize", function() c.minimized = true end},
-		{"  Restore",
-		function()
-			c.minimized = false
-			c.maximized = false
-			c:raise()
-		end},
-	}
-
 	-- iterate through all tags
-  for _, tag in pairs(root.tags()) do
+	for index,tag in ipairs(tags) do
     -- create a menu item for each tag which consists of:
     --   * item title (first table element, we use tag's name here)
     --   * callback function which will be executed on item selection
     -- and then append this item to the output table
 		table.insert(move_to_menu, {
-      "" .. " #" .. tag.name,
+      "" .. " #" .. tag,
       function ()
         -- callback function is simple: just move client to the selected tag
-        c:move_to_tag(tag)
+        currentclient:move_to_tag(awful.tag.find_by_name(awful.screen.focused(),tag))
       end,
     })
   end
+
+	local action_menu = {
+		{"  Close", function() currentclient:kill() end},
+		{"  Maximize", function() currentclient.maximized = true end},
+		{"  Minimize", function() currentclient.minimized = true end},
+		{"  Restore",
+		function()
+			currentclient.minimized = false
+			currentclient.maximized = false
+			currentclient:raise()
+		end},
+	}
+
+  local output = {}
 
 	table.insert(output, {
 		" Running Programs",
@@ -239,13 +242,13 @@ local function get_tags_menu_items(c)
 
 	table.insert(output, {
 		" Swap Monitor",
-		function() awful.client.movetoscreen(c) end
+		function() awful.client.movetoscreen(currentclient) end
 	})
 
   return output
 end
 
-local tags_menu = awful.menu.new(get_tags_menu_items(c))
+local tags_menu = awful.menu.new(get_tags_menu_items())
 
 local tasklist_buttons = gears.table.join(
     awful.button({ }, 1,
@@ -262,6 +265,7 @@ local tasklist_buttons = gears.table.join(
 
 	awful.button({ }, 3,
 	function(c)
+		currentclient = c
 		tags_menu:toggle()
     end),
 
@@ -296,7 +300,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 " }, s, awful.layout.layouts[1])
+    awful.tag(tags, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -413,7 +417,8 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 2, function () naughty.notify({ preset = naughty.config.presets.critical, title = "Test", text = tags[3].name }) end)
     -- awful.button({ }, 4, awful.tag.viewnext),
     -- awful.button({ }, 5, awful.tag.viewprev)
 ))
