@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+[ -z "$1" ] && factor=1 || factor=$1
+[ "$factor" -gt 2 ] 2>/dev/null || [ "$factor" -lt 0 ] 2>/dev/null && echo "Error, scale is between [0-2]" && exit 1
+
+for interface in $(xrandr --query | grep -w "connected" | awk '{print $1}'); do
+	xrandr --output "$interface" --scale "$factor"x"$factor"
+done

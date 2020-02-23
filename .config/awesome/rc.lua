@@ -105,10 +105,19 @@ local exitmenu = {
    { " Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"	},
 }
 
+local scaledisplaymenu = {
+   { "50%",  "scale 0.5"	},
+   { "70%",  "scale 0.7"	},
+   { "85%",  "scale 0.85"	},
+   { "100%", "scale 1"		},
+   { "120%", "scale 1.2"	},
+}
+
 local mymainmenu = freedesktop.menu.build({
     before = {
         { "Awesome", myawesomemenu			},
-				{ "Monitor", xrandr.normmenu()  }
+				{ "Monitor", xrandr.normmenu()  },
+				{ "Scale", scaledisplaymenu  }
     },
     after = {
 			{ "Run",			"dmenu_run"	},
