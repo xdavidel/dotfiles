@@ -21,7 +21,7 @@ cmd open ${{
 
 cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 
-cmd delete ${{
+cmd delete_prompt ${{
 	set -f
 	printf "%s\n\t" "$fx"
 	printf "delete?[y/n]"
@@ -61,6 +61,8 @@ set -f
     esac
 }}
 
+cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+
 cmd bulkrename ${{
 	index=$(mktemp /tmp/lf-bulk-rename-index.XXXXXXXXXX)
 	if [ -n "${fs}" ]; then
@@ -89,19 +91,81 @@ cmd bulkrename ${{
 	rm $index $index_edit
 }}
 
-# Bindings
-map b bulkrename
+cmd fzf_jump ${{
+  res="$(find . -maxdepth 3 | fzf --header='Jump to location')"
+	if [ -f "$res" ]; then
+		cmd="select"
+	elif [ -d "$res" ]; then
+	  cmd="cd"
+	fi
+	lf -remote "send $id $cmd \"$res\""
+}}
+
+cmd chmod ${{
+	echo -n "Mode Bits: "
+	read ans
+
+	for file in "$fx"; do
+		chmod $ans $file
+	done
+}}
+
+cmd zip %zip -r "$f.zip" "$f"
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+cmd unarchive ${{
+  case "$f" in
+	  *.zip) unzip "$f" ;;
+		*.tar.gz) tar -xzvf "$f" ;;
+		*.tar.bz2) tar -xjvf "$f" ;;
+		*.tar) tar -xvf "$f" ;;
+		*) echo -n "Unsupported format" ;;
+	esac
+}}
+
+# Remove some defaults
 map gh
-map g top
-map D delete
-map C copyto
-map M moveto
-map a push %mkdir<space>
+map m
+map d
+map g
+map c
+
+# Movement
+map gg top
+map G bottom
+map gh cd
+map gd cd ~/Downloads
+map gs cd ~/.local/scripts
+map gr cd ~/.local/repo
+map gc cd ~/.config
+
+# Bindings
+map <esc> unselect
+map cw bulkrename
+map ch chmod
+map dD delete
+map dd cut
+map D %rm -f $f
+map H set hidden!
 map r push :rename<space>
 map <enter> shell
 map R reload
+map f fzf_jump
 map x $$f
 map X !$f
+map v fullpreview
+map md push %mkdir<space>
+map mf push %touch<space>
+map C copyto
+map M moveto
 map o &mimeopen $f
 map O $mimeopen --ask $f
-map v fullpreview
+
+# Archives
+map az zip
+map at tar
+map ag targz
+map ab targz
+map au unarchive
