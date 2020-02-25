@@ -79,6 +79,7 @@ set shiftwidth=2    " number of spaces to use for autoindent
 
 " Nerd tree
 	map <leader>n :NERDTreeToggle<CR>
+	map <C-b> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 	let g:NERDTreeIgnore = ['^node_modules$']
 
