@@ -91,18 +91,25 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
-   { " hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { " edit config", editor_cmd .. " " .. awesome.conffile							},
-   { " restart", awesome.restart														},
-   { " quit", function() awesome.quit() end											},
+   { " Titlebars",
+		function()
+			for _,c in ipairs(client.get()) do
+				awful.titlebar.toggle(c)
+			end
+		end
+		},
+   { " Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { " Edit Config", editor_cmd .. " " .. awesome.conffile														},
+   { " Restart", awesome.restart																											},
+   { " Quit", function() awesome.quit() end																					},
 }
 
 local exitmenu = {
-   { " Lock", "lockscreen"													},
-   { " Logout", "closesession"												},
-   { " Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"				},
-   { " Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"				},
-   { " Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"	},
+   { " Lock", "lockscreen"																														},
+   { " Logout", "closesession"																												},
+   { " Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"											},
+   { " Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"												},
+   { " Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"						},
 }
 
 local scaledisplaymenu = {
@@ -568,6 +575,7 @@ clientkeys = gears.table.join(
 			end,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey,           }, "t", function(c) awful.titlebar.toggle(c) end    ,
+
               {description = "toggle titlebar", group = "client"}),
     awful.key({ modkey, sftkey    }, "t",
 		function()
