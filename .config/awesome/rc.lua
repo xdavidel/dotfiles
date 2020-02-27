@@ -442,30 +442,23 @@ globalkeys = gears.table.join(
     awful.key({ modkey, ctlkey    }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
 
-	awful.key({ modkey,           }, "Down",
-        function ()
-            awful.client.focus.global_bydirection( "down")
-        end,
-        {description = "focus next down", group = "client"}
-    ),
-    awful.key({ modkey,           }, "Up",
-        function ()
-            awful.client.focus.global_bydirection( "up")
-        end,
-        {description = "focus next up", group = "client"}
-    ),
-    awful.key({ modkey,           }, "Left",
-        function ()
-            awful.client.focus.global_bydirection( "left")
-        end,
-        {description = "focus next left", group = "client"}
-    ),
-    awful.key({ modkey,           }, "Right",
-        function ()
-            awful.client.focus.global_bydirection( "right")
-        end,
-        {description = "focus next right", group = "client"}
-    ),
+		awful.key({ modkey,           }, "Down", function () awful.client.focus.global_bydirection( "down") end,
+        {description = "focus next down", group = "client"}),
+    awful.key({ modkey,           }, "Up", function () awful.client.focus.global_bydirection( "up") end,
+        {description = "focus next up", group = "client"}),
+    awful.key({ modkey,           }, "Left", function () awful.client.focus.global_bydirection( "left") end,
+        {description = "focus next left", group = "client"}),
+    awful.key({ modkey,           }, "Right", function () awful.client.focus.global_bydirection( "right") end,
+        {description = "focus next right", group = "client"}),
+
+		awful.key({ modkey,           }, "j", function () awful.client.focus.global_bydirection( "down") end,
+        {description = "focus next down", group = "client"}),
+    awful.key({ modkey,           }, "k", function () awful.client.focus.global_bydirection( "up") end,
+        {description = "focus next up", group = "client"}),
+    awful.key({ modkey,           }, "h", function () awful.client.focus.global_bydirection( "left") end,
+        {description = "focus next left", group = "client"}),
+    awful.key({ modkey,           }, "l", function () awful.client.focus.global_bydirection( "right") end,
+        {description = "focus next right", group = "client"}),
 
     -- Layout manipulation
     awful.key({ modkey, sftkey    }, "Up", function () awful.client.swap.global_bydirection( "up" )		  end,
@@ -534,10 +527,14 @@ globalkeys = gears.table.join(
     awful.key({ modkey, altkey    }, "Down",	function () awful.client.incwfact(0.05)		end,
               {description = "increase client height", group = "layout"}),
 
-		awful.key({ modkey, altkey    }, "j", function () awful.client.focus.byidx( 1)			end,
-              {description = "select next client", group = "client"}),
-    awful.key({ modkey, altkey    }, "k", function () awful.client.focus.byidx(-1)			end,
-              {description = "select previous client", group = "client"}),
+		awful.key({ modkey, altkey    }, "j", function (c) awful.client.moveresize(0,20,0,0)			end,
+              {description = "move floating client down", group = "client"}),
+    awful.key({ modkey, altkey    }, "k", function (c) awful.client.moveresize(0,-20,0,0)			end,
+              {description = "move floating client up", group = "client"}),
+		awful.key({ modkey, altkey    }, "l", function (c) awful.client.moveresize(20,0,0,0)			end,
+              {description = "move floating client right", group = "client"}),
+    awful.key({ modkey, altkey    }, "h", function (c) awful.client.moveresize(-20,0,0,0)			end,
+              {description = "move floating client left", group = "client"}),
 
 		awful.key({ modkey, ctlkey    }, "j", function () awful.layout.inc( 1)					end,
               {description = "select next layout", group = "layout"}),
@@ -564,7 +561,11 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, sftkey	  }, "f", awful.client.floating.toggle                     ,
+    awful.key({ modkey, sftkey	  }, "f",
+			function (c)
+				c.floating = not c.floating
+				c:raise()
+			end,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey,           }, "t", function(c) awful.titlebar.toggle(c) end    ,
               {description = "toggle titlebar", group = "client"}),
