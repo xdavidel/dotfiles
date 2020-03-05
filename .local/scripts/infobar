@@ -37,8 +37,8 @@ status() { \
 	# Print used memory
 	free -h | awk '/Mem/ {print " " $3 "/" $2}' | sed -e 's/i//g' && echo "$delim"
 
-	# Print cpu heat
-	sensors 2>/dev/null | awk '/^temp1/ {print " " $2}' | sed -e 's/C//' -e 's/\.[0-9]//' -e "s/$/\ $delim/"
+	# Print cpu heat (only the higher)
+	sensors 2>/dev/null | grep -vi 'N/A' | awk '/^temp1/ {print " " $2}' | sort -nr | head -n 1 | sed -e "s/C//;s/\.[0-9]//;s/$/\ $delim/"
 
 	# Get the volume of Pulseaudio mixer volume output.
 	audiovol && echo "$delim"
