@@ -3,15 +3,15 @@
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
-	u*) pulsemixer --change-volume +"$num" ;;
-	d*) pulsemixer --change-volume -"$num" ;;
-	m*) pulsemixer --toggle-mute ;;
-	truemute) pulsemixer --mute ;;
-	play) mpc play ;;
-	n*) mpc next ;;
-	prev) mpc prev ;;
-	t*) mpc toggle ;;
-	p*) mpc pause ; pauseallmpv ;;
+	u*) pulsemixer --change-volume +"$num" && refbar &;;
+	d*) pulsemixer --change-volume -"$num" && refbar &;;
+	m*) pulsemixer --toggle-mute && refbar & ;;
+	truemute) pulsemixer --mute && refbar & ;;
+	play) mpc play && refbar &;;
+	n*) mpc next && refbar & ;;
+	prev) mpc prev && refbar & ;;
+	t*) mpc toggle && refbar &;;
+	p*) mpc pause && refbar & ;;
 	f*) mpc seek +"$num" ;;
 	b*) mpc seek -"$num" ;;
 	r*) mpc seek 0% ;;
@@ -37,5 +37,3 @@ All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be tru
 i.e. \`lmc r\` for \`lmc restart\`.
 EOF
 esac
-
-refbar &
