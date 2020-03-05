@@ -148,7 +148,7 @@ map ch chmod
 map dD delete
 map dd cut
 map D %rm -f $f
-map H set hidden!
+map . set hidden!
 map r push :rename<space>
 map <enter> shell
 map R reload
