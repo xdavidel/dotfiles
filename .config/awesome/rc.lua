@@ -120,11 +120,24 @@ local scaledisplaymenu = {
    { "120%", "scale 1.2"	},
 }
 
+local dpimenu = {
+   { "60",  "dpiset 60"  },
+   { "80",  "dpiset 80"  },
+   { "100", "dpiset 100" },
+   { "120", "dpiset 120" },
+   { "120", "dpiset 140" },
+}
+
+local monitormenu = {
+	{"Choose", xrandr.normmenu()},
+	{"Scale", scaledisplaymenu},
+	{"DPI", dpimenu},
+}
+
 local mymainmenu = freedesktop.menu.build({
     before = {
-        { "Awesome", myawesomemenu			},
-				{ "Monitor", xrandr.normmenu()  },
-				{ "Scale", scaledisplaymenu  }
+        { "Awesome", myawesomemenu		},
+				{ "Monitor", monitormenu			},
     },
     after = {
 			{ "Run",			"dmenu_run"	},
