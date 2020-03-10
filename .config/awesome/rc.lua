@@ -125,7 +125,8 @@ local dpimenu = {
    { "80",  "dpiset 80"  },
    { "100", "dpiset 100" },
    { "120", "dpiset 120" },
-   { "120", "dpiset 140" },
+   { "140", "dpiset 140" },
+   { "160", "dpiset 160" },
 }
 
 local monitormenu = {
