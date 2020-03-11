@@ -1,6 +1,6 @@
 configuration {
 	modi: "window,run,ssh,drun";
-	font: "mono 20";
+	font: "mono 16";
 	hide-scrollbar: true;
   show-icons: true;
 	theme: "default";
