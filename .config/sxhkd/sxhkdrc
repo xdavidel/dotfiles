@@ -13,7 +13,7 @@ super + shift + q
 super + d
 	dmenu_run -fn 'mono:pixelsize=25'
 super + shift + d
-	rofi -show run
+	rofi -show run -disable-history -sort
 super + e
 	$FILEGUI
 super + shift + e
@@ -41,9 +41,9 @@ super + shift + g
 
 # Et cetera...
 super + grave
-	dmenuunicode
+	menurepo "$HOME/.local/repo/emoji"
 super + shift + grave
-	dmenufontaw
+	menurepo "$HOME/.local/repo/font-awesome-list"
 super + Scroll_Lock
 	killall screenkey || screenkey
 super + shift + Escape

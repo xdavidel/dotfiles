@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# Must have xclip installed to even show menu.
+xclip -h &>/dev/null || exit 1
+
+# Repo list must be specified
+[ -z "$1" ] && exit 1
+
+if command -v rofi >>/dev/null ; then
+	chosen=$(sed "s/\s*#.*//g; /$^/ d" "$1" | rofi -p "Choose" -i -dmenu -no-custom -disable-history)
+elif command -v dmenu >> /dev/null ; then
+	chosen=$(sed "s/\s*#.*//g; /$^/ d" "$1" | dmenu -i -l 20 -fn Monospace-18)
+else
+		note "Rofi / Dmenu does not exist in path." && exit 1
+fi
+
+[ "$chosen" != "" ] || exit
+
+c=$(echo "$chosen" | sed "s/ .*//")
+echo "$c" | tr -d '\n' | xclip -selection clipboard
+notify-send "'$c' copied to clipboard." &
+
+s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+echo "$s" | tr -d '\n' | xclip
+notify-send "'$s' copied to primary." &
