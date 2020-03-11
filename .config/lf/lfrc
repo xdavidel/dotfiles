@@ -160,8 +160,8 @@ map md push %mkdir<space>
 map mf push %touch<space>
 map C copyto
 map M moveto
-map o &mimeopen $f
-map O $mimeopen --ask $f
+map o &mimeopen "$f"
+map O $mimeopen --ask "$f"
 
 # Archives
 map az zip
