@@ -53,8 +53,9 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = os.getenv("TERMINAL") or "st"
-editor = os.getenv("EDITOR") or "nvim"
+terminal	= os.getenv("TERMINAL") or "st"
+editor		= os.getenv("EDITOR") or "nvim"
+homedir		= os.getenv("HOME")
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -372,32 +373,25 @@ awful.screen.connect_for_each_screen(function(s)
 			widget_template = {
         {
             {
-                {
-                    id     = 'icon_role',
-                    widget = wibox.widget.imagebox,
-                },
-                {
-                    id     = 'text_role',
-                    widget = wibox.widget.textbox,
-                },
-                forced_width  = 30,
-                layout = wibox.layout.align.horizontal,
+							id     = 'icon_role',
+							widget = wibox.widget.imagebox,
             },
-            left		= 10,
-            right		= 10,
-						top			= 5,
-						bottom	= 5,
-            widget	= wibox.container.margin
+            widget	= wibox.container.margin,
+						margins = 4,
         },
         id     = 'background_role',
         widget = wibox.container.background,
         create_callback = function(self, c, index, objects) --luacheck: no unused args
-            local tooltip = awful.tooltip({
-							objects = { self },
-							timer_function = function()
-								return c.name
-							end,
-						})
+					-- default icon when none is found (ex. simple terminal)
+					if not c.icon then
+						self:get_children_by_id('icon_role')[1].image = awful.util.get_configuration_dir() .. 'gear.svg'
+					end
+          local tooltip = awful.tooltip({
+						objects = { self },
+						timer_function = function()
+							return c.name
+						end,
+					})
 				end
 			},
     }
