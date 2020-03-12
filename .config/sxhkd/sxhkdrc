@@ -13,7 +13,7 @@ super + shift + q
 super + d
 	dmenu_run -fn 'mono:pixelsize=25'
 super + shift + d
-	rofi -show run -disable-history -sort
+	rofi -show drun -disable-history -sort
 super + e
 	$FILEGUI
 super + shift + e
