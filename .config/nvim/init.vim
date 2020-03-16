@@ -23,6 +23,7 @@ Plug 'junegunn/goyo.vim' "distraction free VIM
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
 
 call plug#end()
@@ -40,6 +41,7 @@ set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
+set termguicolors
 
 "=====================================================================
 
@@ -84,6 +86,16 @@ set shiftwidth=2    " number of spaces to use for autoindent
 	let g:NERDTreeIgnore = ['^node_modules$']
 
 "=====================================================================
+
+" Colors Highlights
+	let g:Hexokinase_refreshEvents = ['TextChanged', 'InsertLeave']
+	let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names' ]
+	let g:Hexokinase_highlighters = [ 'backgroundfull' ]
+
+	autocmd VimEnter * HexokinaseTurnOn
+
+"=====================================================================
+
 
 " Coc
 	let g:coc_global_extensions = [
