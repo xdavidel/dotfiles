@@ -3,6 +3,7 @@
 alias \
 	ka="killall" \
 	calcurse="calcurse -D ~/.config/calcurse" \
+	tmux="tmux -f ~/.config/tmux/tmux.conf" \
 	f="$FILE" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -16,5 +17,6 @@ alias \
 	ll="ls -gGAFh --color=auto --group-directories-first" \
 	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
 	grep="grep --color=auto" \
+	vimdiff="nvim -d" \
 	ffmpeg="ffmpeg -hide_banner" \
 	fr="manview ."
