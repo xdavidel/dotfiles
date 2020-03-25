@@ -2,7 +2,7 @@
 
 ! command -v fzf >>/dev/null && echo "fzf is not installed" && exit 127
 
-find ~/.*profile ~/.tmux.conf ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
+find ~/.*profile ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
 	| fzf --query="$1" --preview='preview {}' \
 				--bind='Ctrl-p:toggle-preview' \
 	| xargs -r $EDITOR
