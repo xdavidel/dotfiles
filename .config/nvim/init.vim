@@ -147,7 +147,7 @@ set smartindent
 	nnoremap <silent> K :call <SID>show_documenatation()<CR>
 	function! s:show_documenatation()
 		if (index(['vim', 'help'], &filetype) >= 0)
-			execute 'h '.expend('<cword>')
+			execute 'h '.expand('<cword>')
 		else
 			call CocAction('doHover')
 		endif
