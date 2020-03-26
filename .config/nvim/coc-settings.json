@@ -10,5 +10,16 @@
 				}
 			}
 		}
-	}
+	},
+	"pairs.enableCharacters": [],
+	"suggest.noselect":false,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"javascript",
+		"typescript",
+		"typescriptreact",
+		"javascriptreact",
+		"json",
+		"typescript.tsk",
+		"c"
+	]
 }
