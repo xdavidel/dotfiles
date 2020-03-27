@@ -11,7 +11,7 @@ reset=`tput sgr0`
 
 choice=$(command -v fzf >/dev/null && \
 	printf "Bad\nLow\nMedium\nGood\nHigh" |
-	fzf --prompt "Choose Quality >" || "Good")
+	fzf --prompt "Choose Quality >")
 
 case "$choice" in
 	"Bad")		quality=30 ;;
@@ -19,7 +19,7 @@ case "$choice" in
 	"Medium") quality=25 ;;
 	"Good")		quality=23 ;;
 	"High")		quality=18 ;;
-	*) quality=23;;
+	*) exit 1;;
 esac
 
 for name in "$@"; do
