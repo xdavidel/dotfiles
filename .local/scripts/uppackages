@@ -3,4 +3,4 @@
 command -v pacman >>/dev/null		&& updates=$(pacman -Qu | grep -v "\[ignored\]" | wc -l)
 command -v xbps-install >>/dev/null	&& updates=$(xbps-install -Sun | wc -l)
 
-[ "$updates" -gt 0 ] && echo " $updates" || exit 1
+[ "$updates" -gt 0 ] && echo "📦 $updates" || exit 1
