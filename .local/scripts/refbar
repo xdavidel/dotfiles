@@ -1,8 +1,21 @@
 #!/usr/bin/env sh
 
-# Refresh awesome infobar
-pgrep -x awesome >>/dev/null && awesome-client 'awesome.emit_signal("refbar")'
-
-# Refresh the dwmbar.
-# Send SIGTRAP signal to dwmbar script, which will handle it with a trap.
-pgrep -x dwm >>/dev/null && pkill -SIGTRAP dwmbar
+case "$1" in
+	volume)
+		awesome-client 'awesome.emit_signal("refvol")' 2>/dev/null &
+		polybar-msg hook volume 1 >/dev/null 2>&1 &
+		;;
+	pack)
+		awesome-client 'awesome.emit_signal("refpac")' 2>/dev/null &
+		polybar-msg hook updates 1 >/dev/null 2>&1 &
+		;;
+	music)
+		awesome-client 'awesome.emit_signal("refmusic")' 2>/dev/null &
+		polybar-msg hook music 1 >/dev/null 2>&1 &
+		;;
+	*)
+		awesome-client 'awesome.emit_signal("refbar")' 2>/dev/null &
+		# Send SIGTRAP signal to dwmbar script, which will handle it with a trap.
+		pkill -SIGTRAP dwmbar &
+		;;
+esac

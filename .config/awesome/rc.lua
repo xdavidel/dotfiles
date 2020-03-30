@@ -157,54 +157,338 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-local mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
--- Create a textclock widget
--- local mytextclock = wibox.widget.textclock("%Y %b %d (%a) %I:%M %p", 60, "+2")
 
-local mytextclock = awful.widget.watch(
+local altbackground = '#3d3d3d'
+local emptyspace = wibox.widget.separator({
+	visible = false
+})
+local myseparator = wibox.widget.separator({
+	orientation = "vertical",
+	forced_width = 20,
+})
+
+local desktoptext = wibox.widget.textbox("💻")
+desktoptext:buttons(
+	gears.table.join(
+		desktoptext:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				mouse.screen.selected_tag.selected = false
+			end
+		)
+	)
+)
+local showdesktop = wibox.container.background(
+	wibox.container.margin(
+		desktoptext,
+		5,
+		5,
+		0,
+		0
+	),
+	altbackground
+)
+
+local clockscript = awful.widget.watch(
 	"clock",
 	60,
 	function(widget, stdout)
 		widget:set_markup(stdout)
 	end
 )
+local mytextclock = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			clockscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
 
-local showdesktop = wibox.widget.textbox("💻 ")
-showdesktop:buttons(gears.table.join(
-showdesktop:buttons(),
-awful.button({}, 1, nil,
-	function ()
-		mouse.screen.selected_tag.selected = false
-	end)
-))
+local keyboardlayout = awful.widget.keyboardlayout()
+local mykeyboardlayout = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			wibox.widget {
+				wibox.widget.textbox(""),
+				keyboardlayout,
+				layout  = wibox.layout.align.horizontal
+			},
+			7,
+			0,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
 
-local emptyspace = wibox.widget.separator({
-	visible = false
-})
 
-local myseparator = wibox.widget.separator({
-	orientation = "vertical",
-	forced_width = 20,
-})
 
-local infocmd = "infobar"
--- Info bar, refreshes after 60 seconds
-local myinfo = awful.widget.watch(
-	infocmd,
-	60,
-	function(widget, stdout)
-		widget:set_markup(stdout)
+-- local infocmd = "infobar"
+-- local myinfo = awful.widget.watch(
+-- 	infocmd,
+-- 	60,
+-- 	function(widget, stdout)
+-- 		widget:set_markup(stdout)
+-- 	end
+-- )
+-- awesome.connect_signal("refbar",
+-- 	function()
+-- 		awful.spawn.easy_async_with_shell(infocmd,
+-- 		function(out)
+-- 			myinfo:set_markup(out)
+-- 		end)
+-- 	end
+-- )
+
+local musiccmd = "music"
+local musicscript = awful.widget.watch(
+		musiccmd,
+		1000
+)
+local mymusic = wibox.container.margin(
+	musicscript,
+	0,
+	10,
+	0,
+	0
+)
+awesome.connect_signal("refmusic",
+	function()
+		awful.spawn.easy_async_with_shell(
+			musiccmd,
+			function(out)
+				musicscript:set_text(out)
+			end
+		)
 	end
 )
-awesome.connect_signal("refbar",
+
+local updatescmd = "uppackages"
+local updatesscript = awful.widget.watch(
+	updatescmd,
+	1000,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			myupdates.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local myupdates = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			updatesscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
+awesome.connect_signal("refupdates",
 	function()
-		awful.spawn.easy_async_with_shell(infocmd,
+		awful.spawn.easy_async_with_shell(updatescmd,
 		function(out)
-			myinfo:set_markup(out)
+			updatesscript:set_markup(out)
 		end)
 	end
+)
+
+local weathercmd = "weather"
+local weatherscript = awful.widget.watch(
+	weathercmd,
+	1000,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			myweather.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local myweather = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			weatherscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
+awesome.connect_signal("refweather",
+	function()
+		awful.spawn.easy_async_with_shell(weathercmd,
+		function(out)
+			weatherscript:set_text(out)
+		end)
+	end
+)
+
+local memorycmd = "memory"
+local memoryscript = awful.widget.watch(
+	memorycmd,
+	30,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			mymemory.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local mymemory = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			memoryscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
+
+
+local heatcmd = "heat"
+local heatscript = awful.widget.watch(
+	heatcmd,
+	60,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			myheat.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local myheat = wibox.container.background(
+	heatscript,
+	altbackground
+)
+
+
+local volcmd = "audiovol"
+local volscript = awful.widget.watch(
+	volcmd,
+	1000,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			myvol.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local myvol = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			volscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
+awesome.connect_signal("refvol",
+	function()
+		awful.spawn.easy_async_with_shell(volcmd,
+		function(out)
+			volscript:set_markup(out)
+		end)
+	end
+)
+
+local netcmd = "network"
+local netscript = awful.widget.watch(
+	netcmd,
+	20,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			mynet.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local mynet = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			netscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
+)
+
+
+local batcmd = "battery"
+local batscript = awful.widget.watch(
+	batcmd,
+	10,
+	function(widget, stdout)
+		if string.len(stdout) <= 0 then
+			mybat.visible = false
+		end
+		widget:set_text(stdout)
+	end
+)
+local mybat = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			batscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
 )
 
 
@@ -420,8 +704,14 @@ awful.screen.connect_for_each_screen(function(s)
 		s.emptyspace,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-			myinfo,
-			myseparator,
+			mymusic,
+			myupdates,
+			myweather,
+			mymemory,
+			myheat,
+			myvol,
+			mynet,
+			mybat,
             s.mylayoutbox,
         },
     }
@@ -436,11 +726,9 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
-            myseparator,
+            mykeyboardlayout,
 			mytextclock,
-			myseparator,
 			showdesktop,
         },
     }

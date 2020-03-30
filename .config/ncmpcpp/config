@@ -271,7 +271,7 @@ current_item_inactive_column_suffix = $/r$(end)
 ## Note: Custom command that will be executed each time song changes. Useful for
 ## notifications etc.
 ##
-execute_on_song_change = "refbar"
+execute_on_song_change = "refbar music"
 #
 ##
 ## Note: Custom command that will be executed each time player state
@@ -279,7 +279,7 @@ execute_on_song_change = "refbar"
 ## state (either unknown, play, pause, or stop) for its duration.
 ##
 #
-#execute_on_player_state_change = ""
+execute_on_player_state_change = "refbar music"
 #
 #playlist_show_mpd_host = no
 #
