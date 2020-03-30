@@ -3,72 +3,31 @@
 # Set the deliminter character.
 delim="|"
 
-# testweather checks to see if the most recent forecast is up to date.  If it
-# isn't, it downloads a new weather forecast, then signals to update the
-# statusbar. Gets weather report from wttr.in.
-testweather() { \
-	[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
-		ping -q -c 1 1.1.1.1 >/dev/null &&
-		curl -s "wttr.in" > "$HOME/.local/share/weatherreport" &&
-		notify-send " Weather" "New weather forecast for today." &&
-		refbar
-}
-
-# Here is the (big) function that outputs the appearance of the statusbar. It
-# can really be broken down into many submodules which I've commented and
-# explained.
 status() { \
 
 	# Get current mpd track filename or artist - title if possible.
-	pgrep -x mpd >>/dev/null && mpc -f "[[%artist% - ]%title%]|[%file%]" 2>/dev/null | grep -v "volume:" | head -n 1 | sed -e 's/.mp3//g' && echo "$delim"
+	music && echo "$delim"
 
 	# Number of available updates
 	uppackages && echo "$delim"
 
-	# If the weather report is current, show daily precipitation chance,
-	# low and high.  Don't even bother to understand this one unless you
-	# have all day. Takes the weather report format from wttr.in and makes
-	# it look like how I want it for the status bar.
-	[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] &&
-		sed '16q;d' "$HOME/.local/share/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/ /g" | tr -d '\n' &&
-		sed '13q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ",$1 "°","",$2 "°"}' | grep "" &&  # check if not empty
-		echo "$delim"
+	weather && echo "$delim"
 
 	# Print used memory
-	free -h | awk '/Mem/ {print " " $3 "/" $2}' | sed -e 's/i//g' && echo "$delim"
+	memory && echo "$delim"
 
 	# Print cpu heat (only the higher)
-	sensors 2>/dev/null | grep -vi 'N/A' | awk '/^temp1/ {print " " $2}' | sort -nr | head -n 1 | sed -e "s/C//;s/\.[0-9]//;s/$/\ $delim/"
+	heat && echo "$delim"
 
 	# Get the volume of Pulseaudio mixer volume output.
 	audiovol && echo "$delim"
 
 	# Wifi quality percentage and icon.
-	grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }'
-	sed "s/down//;s/up//" /sys/class/net/e*/operstate | tr '\n' ' ' | sed "s/ //g;s/$/\ $delim /"
+	network && echo "$delim"
 
 	# Will show all batteries with approximate icon for remaining power.
-	for x in /sys/class/power_supply/BAT?/capacity;
-	do
-		per="$(cat $x)"
-		if [ ! $(cat /sys/class/power_supply/BAT?/status) = 'Discharging' ]; then
-			echo " $per"
-		else
-			case "$per" in
-				100|[8-9][0-9])		echo " $per" ;;
-				[7-8][0-9])			echo " $per" ;;
-				[5-6][0-9])			echo " $per" ;;
-				[3-4][0-9])			echo " $per" ;;
-				[1-2][0-9]|[0-9])	echo " $per" ;;
-				*)		echo "" ;;
-			esac
-		fi
-	done
+	battery
 }
 
 echo -n "$(status | tr '\n' ' ')"
-wait
-
-# Check to see if new weather report is needed.
-testweather &
 wait

@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
-[ "$(pulsemixer --get-mute)" = "1" ] && echo "" && exit
+[ "$(pulsemixer --get-mute)" = "1" ] && echo "🔇" && exit
 
 vol=$(pulsemixer --get-volume | awk '{print $1}')
 
 if [ "$vol" -gt "70" ]; then
-	icon=""
+	icon="🔊"
 elif [ "$vol" -lt "30" ]; then
-	icon=""
+	icon="🔈"
 else
-	icon=""
+	icon="🔉"
 fi
 
 echo "$icon $vol%"

@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-[ "$(stat -c %y "$HOME/.local/share/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
-	curl -s "wttr.in" > "$HOME/.local/share/weatherreport" &&
-	notify-send " Weather" "New weather forecast for today." &&
+[ "$(stat -c %y "$HOME/.cache/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] &&
+	curl -s "wttr.in" > "$HOME/.cache/weatherreport" &&
+	command -v notify-send >/dev/null && notify-send "⛅ Weather" "New weather forecast for today." &&
 	refbar
 
-sed '16q;d' "$HOME/.local/share/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/ /g" | tr -d '\n' &&
-sed '13q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ",$1 "°","",$2 "°"}' | grep ""
+sed '16q;d' "$HOME/.cache/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/☔ /g" | tr -d '\n' &&
+sed '13q;d' "$HOME/.cache/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " 🌙",$1 "°","🌞",$2 "°"}'

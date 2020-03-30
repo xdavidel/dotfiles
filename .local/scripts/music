@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Get current mpd track filename or artist - title if possible.
+pgrep -x mpd >>/dev/null && mpc -f "[[%artist% - ]%title%]|[%file%]" 2>/dev/null | grep -v "volume:" | head -n 1 | sed -e 's/.mp3//g' | grep '.'

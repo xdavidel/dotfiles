@@ -92,25 +92,25 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 local myawesomemenu = {
-   { " Titlebars",
+   { "Titlebars",
 		function()
 			for _,c in ipairs(client.get()) do
 				awful.titlebar.toggle(c)
 			end
 		end
 		},
-   { " Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { " Edit Config", editor_cmd .. " " .. awesome.conffile														},
-   { " Restart", awesome.restart																											},
-   { " Quit", function() awesome.quit() end																					},
+   { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { "Edit Config", editor_cmd .. " " .. awesome.conffile														},
+   { "Restart", awesome.restart																											},
+   { "Quit", function() awesome.quit() end																					},
 }
 
 local exitmenu = {
-   { " Lock", "lockscreen"																														},
-   { " Logout", "closesession"																												},
-   { " Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"											},
-   { " Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"												},
-   { " Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"						},
+   { "Lock", "lockscreen"																														},
+   { "Logout", "closesession"																												},
+   { "Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'"											},
+   { "Restart", "prompt 'Reboot computer?' 'sudo -A reboot'"												},
+   { "Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'"						},
 }
 
 local scaledisplaymenu = {
@@ -161,9 +161,17 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-local mytextclock = wibox.widget.textclock("%Y %b %d (%a) %I:%M %p", 60, "+2")
+-- local mytextclock = wibox.widget.textclock("%Y %b %d (%a) %I:%M %p", 60, "+2")
 
-local showdesktop = wibox.widget.textbox(" ")
+local mytextclock = awful.widget.watch(
+	"clock",
+	60,
+	function(widget, stdout)
+		widget:set_markup(stdout)
+	end
+)
+
+local showdesktop = wibox.widget.textbox("💻 ")
 showdesktop:buttons(gears.table.join(
 showdesktop:buttons(),
 awful.button({}, 1, nil,
@@ -234,7 +242,7 @@ local function get_tags_menu_items()
     --   * callback function which will be executed on item selection
     -- and then append this item to the output table
 		table.insert(move_to_menu, {
-      "" .. " #" .. tag,
+      " #" .. tag,
       function ()
         -- callback function is simple: just move client to the selected tag
         currentclient:move_to_tag(awful.tag.find_by_name(awful.screen.focused(),tag))
@@ -243,10 +251,10 @@ local function get_tags_menu_items()
   end
 
 	local action_menu = {
-		{"  Close", function() currentclient:kill() end},
-		{"  Maximize", function() currentclient.maximized = true end},
-		{"  Minimize", function() currentclient.minimized = true end},
-		{"  Restore",
+		{"Close", function() currentclient:kill() end},
+		{"Maximize", function() currentclient.maximized = true end},
+		{"Minimize", function() currentclient.minimized = true end},
+		{"Restore",
 		function()
 			currentclient.minimized = false
 			currentclient.maximized = false
@@ -257,22 +265,22 @@ local function get_tags_menu_items()
   local output = {}
 
 	table.insert(output, {
-		" Running Programs",
+		"Running Programs",
 		awful.menu.client_list
 	})
 
 	table.insert(output, {
-		" Move To Tag",
+		"Move To Tag",
 		move_to_menu
 	})
 
 	table.insert(output, {
-		" Action",
+		"Action",
 		action_menu
 	})
 
 	table.insert(output, {
-		" Swap Monitor",
+		"Swap Monitor",
 		function() awful.client.movetoscreen(currentclient) end
 	})
 

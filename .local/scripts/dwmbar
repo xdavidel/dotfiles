@@ -7,7 +7,7 @@ delim="|"
 status() { \
 	infobar
 	echo "$delim"
-	date '+%Y %b %d (%a) %I:%M%p'
+	clock
 }
 
 update() { \
