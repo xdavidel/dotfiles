@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-[ "$(stat -c %y "$HOME/.cache/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] || [ "$1" == "-f" ] &&
+[ "$(stat -c %y "$HOME/.cache/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] || [ ! -z "$1" ] &&
 	curl -s "wttr.in" > "$HOME/.cache/weatherreport" &&
 	command -v notify-send >/dev/null && notify-send "⛅ Weather" "New weather forecast for today." &&
 	refbar
