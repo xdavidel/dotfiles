@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+sensors 2>/dev/null | grep -vi 'N/A' | awk '/^temp1/ {print "🌡️ " $2}' | sort -nr | head -n 1 | sed -e "s/C//;s/\.[0-9]//" | grep "."

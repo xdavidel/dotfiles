@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+case $BLOCK_BUTTON in
+    1) notify-send "Memory" "" ;;
+    2) notify-send "Memory" "" ;;
+    3) notify-send "Memory" "" ;;
+esac
+
+# Print used memory
+free -h | awk '/Mem/ {print "🧠 " $3 "/" $2}' | sed -e 's/i//g'
