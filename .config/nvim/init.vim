@@ -4,6 +4,7 @@ if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ~/.config/nvim/autoload/
 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin('~/.config/nvim/plugged')
@@ -16,7 +17,7 @@ Plug 'cespare/vim-toml' "tomel support
 
 "Extensions
 "===========================
-Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround' "change surround with 'cs<from><to>'
 Plug 'scrooloose/nerdtree' "file system view
 Plug 'junegunn/goyo.vim' "distraction free VIM
