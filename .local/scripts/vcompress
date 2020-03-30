@@ -32,5 +32,5 @@ for name in "$@"; do
 
 	echo "${blue}Compressing $file${reset}"
 	[ -f "$file" ] && ffmpeg -loglevel error -hide_banner -stats -i "$file" -vcodec libx265 -crf "$quality" -map_metadata 0 -preset veryfast "$outdir/$filename"
-	echo "${green}Summerize results:\n$(du -h "$file" "$outdir/$filename")${reset}\n"
+	printf "${green}Summerize results:\n$(du -h "$file" "$outdir/$filename")${reset}\n"
 done
