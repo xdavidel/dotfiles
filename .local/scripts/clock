@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# date '+%Y %b %d (%a) %I:%M%p' | sed 's/AM/ 🌅/;s/PM/ 🌇/'
+t=$(date '+%Y %b %d (%a) %H:%M')
+
+case $(echo "$t" | awk '{print $5}' | cut -d ':' -f1) in
+	0[1-5]|2[0-4]) icon="🌃" ;;
+	0[5-8]) icon="🌅" ;;
+	0[8-9]|1[0-6]) icon="🌄" ;;
+	1[6-9]|20) icon="🌇" ;;
+	*) icon="⏰" ;;
+esac
+
+echo "$t $icon"
