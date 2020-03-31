@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
 case "$1" in
-	volume)
+	v*)
 		awesome-client 'awesome.emit_signal("refvol")' 2>/dev/null &
 		polybar-msg hook volume 1 >/dev/null 2>&1 &
 		;;
-	pack)
-		awesome-client 'awesome.emit_signal("refpac")' 2>/dev/null &
+	u*)
+		awesome-client 'awesome.emit_signal("refupdates")' 2>/dev/null &
 		polybar-msg hook updates 1 >/dev/null 2>&1 &
 		;;
-	music)
+	m)
 		awesome-client 'awesome.emit_signal("refmusic")' 2>/dev/null &
 		polybar-msg hook music 1 >/dev/null 2>&1 &
 		;;
