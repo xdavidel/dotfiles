@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Flatten a directory by moving all sub files to the root directory
+find . -type f -exec mv {} ./ \; 2>/dev/null
