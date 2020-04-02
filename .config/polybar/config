@@ -51,7 +51,7 @@ font-2 = FontAwesome5Free:style=Solid:size=10;0
 ; modules-left = bspwm i3 ewmh xwindow
 modules-left = ewmh
 ;modules-center =
-modules-right = mpd weather updates memory temperature volume network power
+modules-right = mpd updates weather memory temperature volume network power
 
 wm-restack = bspwm
 
@@ -120,14 +120,14 @@ format-foreground = ${colors.blue}
 click-left = pgrep -x dunst >/dev/null && notify-send -u low "This Month" "$(cal)"
 
 [module/updates]
-type = custom/script
-exec = uppackages
-internal = 120
+type = custom/ipc
+hook-0 = uppackages
+initial = 1
 format-underline = ${colors.darkmagenta}
 format-background = ${colors.background-alt}
 format-padding = 1
-click-left = pac q && notify-send "Available updates" "$(pac q)"
-click-right = $TERMINAL -e pac u
+click-left = uppackages 1
+click-right = uppackages 3
 
 [module/xkeyboard]
 type = internal/xkeyboard
