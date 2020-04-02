@@ -1,0 +1,66 @@
+#!/bin/sh
+
+NUM="${2:-5}"
+
+# Comment the following line to use Alsa.
+PULSE=true
+
+if [ "$PULSE" ]; then
+	toggle() { pulsemixer --toggle-mute ;}
+	mute() { pulsemixer --mute ;}
+	up() { pulsemixer --change-volume +"$NUM" ;}
+	down() { pulsemixer --change-volume -"$NUM" ;}
+	control() { pulsemixer ;}
+	state() { pulsemixer --get-mute ;}
+	get() { pulsemixer --get-volume | awk '{print $1}' ;}
+else
+	volstat="$(amixer get Master)"
+	toggle() { amixer sset Master toggle ;}
+	mute() { amixer sset Master mute ;}
+	up() { amixer sset Master "$NUM"%+ ;}
+	down() { amixer sset Master "$NUM"%- ;}
+	control() { alsamixer ;}
+	state() { amixer get Master | grep "\[off\]" && echo 1 || echo 0 ;}
+	get() { amixer get Master | grep -o "\[[0-9]\+%\]" | sed "s/[^0-9]*//g;1q" ;}
+fi
+
+case "$1" in
+	toggle) toggle && refbar volume & ;;
+	mute) mute && refbar volume & ;;
+	up) up && refbar volume & ;;
+	down) down && refbar volume & ;;
+	control) control ;;
+	state) state ;;
+	get) get ;;
+	play) mpc play && refbar music & ;;
+	next) mpc next && refbar music & ;;
+	prev) mpc prev && refbar music & ;;
+	pause) mpc toggle && refbar music & ;;
+	forward) mpc seek +"$NUM" ;;
+	backward) mpc seek -"$NUM" ;;
+	replay) mpc seek 0% ;;
+	*) cat << EOF
+dmc: cli music interface for mpd and pulse for those with divine intellect too
+grand to remember the mpc/amixer/pulsemixer commands.
+
+Allowed options:
+  toggle	Toggle pause
+  mute		Toggle mute
+  up NUM	Increase volume (2 secs default)
+  down NUM	Decrease volume (2 secs default)
+  control	Open Mixer
+  state		Get mute state
+  get		Get audio level
+  play		Play from playlist
+  next		Next track
+  prev		Previous track
+  pause		Toggle pause / play
+  foward NUM	Seek foward in song (2 secs default)
+  back NUM	Seek back in song (2 secs default)
+  replay	Restart current song
+  all else	Print this message
+
+All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be truncated,
+i.e. \`lmc r\` for \`lmc restart\`.
+EOF
+esac

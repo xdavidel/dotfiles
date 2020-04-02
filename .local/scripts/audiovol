@@ -1,8 +1,20 @@
 #!/usr/bin/env sh
 
-[ "$(pulsemixer --get-mute)" = "1" ] && echo "🔇" && exit
+[ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
-vol=$(pulsemixer --get-volume | awk '{print $1}')
+case $BLOCK_BUTTON in
+	1) setsid "$TERMINAL" -e dmc control & ;;
+	2) dmc toggle & ;;
+	4) dmc up & ;;
+	5) dmc down & ;;
+	3) pgrep -x dunst >/dev/null && notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
+- Middle click to mute.
+- Scroll to change."
+esac
+
+[ "$(dmc state)" = "1" ] && echo "🔇" && exit
+
+vol=$(dmc get)
 
 if [ "$vol" -gt "70" ]; then
 	icon="🔊"

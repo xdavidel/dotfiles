@@ -1,6 +1,17 @@
 #!/usr/bin/env sh
 
-command -v pacman >>/dev/null		&& updates=$(pacman -Qu | grep -v "\[ignored\]" | wc -l)
-command -v xbps-install >>/dev/null	&& updates=$(xbps-install -Sun | wc -l)
+[ ! -z "$1" ] && BLOCK_BUTTON="$1"
+
+command -v yay >/dev/null && upcmd="yay" || upcmd="pacman"
+
+case $BLOCK_BUTTON in
+	1) $TERMINAL -e "$upcmd" -Su --noconfirm --needed && refbar updates ;;
+	2) pgrep -x dunst >/dev/null && notify-send "$("$upcmd" -Qu)" ;;
+	3) pgrep -x dunst >/dev/null && notify-send "Upgrade module" "📦: number of upgradable packages
+- Left click to upgrade packages
+- Middle click to show upgradable packages" ;;
+esac
+
+updates=$(pacman -Qu | grep -v "\[ignored\]" | wc -l)
 
 [ "$updates" -gt 0 ] && echo "📦 $updates" || exit 1

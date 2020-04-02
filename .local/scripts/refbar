@@ -9,7 +9,7 @@ case "$1" in
 		awesome-client 'awesome.emit_signal("refupdates")' 2>/dev/null &
 		polybar-msg hook updates 1 >/dev/null 2>&1 &
 		;;
-	m)
+	m*)
 		awesome-client 'awesome.emit_signal("refmusic")' 2>/dev/null &
 		polybar-msg hook music 1 >/dev/null 2>&1 &
 		;;

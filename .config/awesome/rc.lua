@@ -192,8 +192,9 @@ local showdesktop = wibox.container.background(
 	altbackground
 )
 
+local clockcmd = "clock"
 local clockscript = awful.widget.watch(
-	"clock",
+	clockcmd,
 	60,
 	function(widget, stdout)
 		widget:set_markup(stdout)
@@ -214,6 +215,29 @@ local mytextclock = wibox.container.margin(
 	10,
 	0,
 	0
+)
+mytextclock:buttons(
+	gears.table.join(
+		mytextclock:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(clockcmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(clockcmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(clockcmd .. " 3")
+			end
+		)
+	)
 )
 
 local keyboardlayout = awful.widget.keyboardlayout()
@@ -269,6 +293,41 @@ local mymusic = wibox.container.margin(
 	0,
 	0
 )
+mymusic:buttons(
+	gears.table.join(
+		mymusic:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(musiccmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(musiccmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(musiccmd .. " 3")
+			end
+		),
+		awful.button(
+			{}, 4, nil,
+			function ()
+				awful.spawn(musiccmd .. " 4")
+			end
+		),
+		awful.button(
+			{}, 5, nil,
+			function ()
+				awful.spawn(musiccmd .. " 5")
+			end
+		)
+	)
+)
 awesome.connect_signal("refmusic",
 	function()
 		awful.spawn.easy_async_with_shell(
@@ -281,6 +340,7 @@ awesome.connect_signal("refmusic",
 )
 
 local updatescmd = "uppackages"
+local myupdates
 local updatesscript = awful.widget.watch(
 	updatescmd,
 	1000,
@@ -291,7 +351,7 @@ local updatesscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local myupdates = wibox.container.margin(
+myupdates = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			updatesscript,
@@ -306,6 +366,29 @@ local myupdates = wibox.container.margin(
 	10,
 	0,
 	0
+)
+myupdates:buttons(
+	gears.table.join(
+		myupdates:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(updatescmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(updatescmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(updatescmd .. " 3")
+			end
+		)
+	)
 )
 awesome.connect_signal("refupdates",
 	function()
@@ -343,6 +426,29 @@ local myweather = wibox.container.margin(
 	0,
 	0
 )
+myweather:buttons(
+	gears.table.join(
+		myweather:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(weathercmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(weathercmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(weathercmd .. " 3")
+			end
+		)
+	)
+)
 awesome.connect_signal("refweather",
 	function()
 		awful.spawn.easy_async_with_shell(weathercmd,
@@ -379,6 +485,29 @@ local mymemory = wibox.container.margin(
 	0,
 	0
 )
+mymemory:buttons(
+	gears.table.join(
+		mymemory:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(memorycmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(memorycmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(memorycmd .. " 3")
+			end
+		)
+	)
+)
 
 
 local heatcmd = "heat"
@@ -399,6 +528,7 @@ local myheat = wibox.container.background(
 
 
 local volcmd = "audiovol"
+local myvol
 local volscript = awful.widget.watch(
 	volcmd,
 	1000,
@@ -409,7 +539,7 @@ local volscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local myvol = wibox.container.margin(
+myvol = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			volscript,
@@ -424,6 +554,41 @@ local myvol = wibox.container.margin(
 	10,
 	0,
 	0
+)
+myvol:buttons(
+	gears.table.join(
+		myvol:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(volcmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 2, nil,
+			function ()
+				awful.spawn(volcmd .. " 2")
+			end
+		),
+		awful.button(
+			{}, 4, nil,
+			function ()
+				awful.spawn(volcmd .. " 4")
+			end
+		),
+		awful.button(
+			{}, 5, nil,
+			function ()
+				awful.spawn(volcmd .. " 5")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(volcmd .. " 3")
+			end
+		)
+	)
 )
 awesome.connect_signal("refvol",
 	function()
@@ -460,6 +625,23 @@ local mynet = wibox.container.margin(
 	10,
 	0,
 	0
+)
+mynet:buttons(
+	gears.table.join(
+		mynet:buttons(),
+		awful.button(
+			{}, 1, nil,
+			function ()
+				awful.spawn(netcmd .. " 1")
+			end
+		),
+		awful.button(
+			{}, 3, nil,
+			function ()
+				awful.spawn(netcmd .. " 3")
+			end
+		)
+	)
 )
 
 

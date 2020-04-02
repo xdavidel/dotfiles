@@ -249,14 +249,11 @@ hook-0 = music
 initial = 1
 format-padding = 1
 
-click-left = $TERMINAL -e ncmpcpp
-click-right = lmc toggle
-
-label-song =  %artist% - %title%
-label-song-maxlen = 70
-label-song-ellipsis = true
-
-format-paused-foreground = ${colors.gray}
+click-left = music 1
+click-right = music 3
+click-middle = music 2
+scroll-up = music 4
+scroll-down = music 5
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -299,7 +296,8 @@ format-padding = 1
 format-background = ${colors.background-alt}
 format-prefix-foreground = ${colors.darkcyan}
 format-underline = ${colors.darkmagenta}
-click-left = notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)"
+click-left = memory 1
+click-right = memory 3
 
 [module/weather]
 type = custom/script
@@ -308,8 +306,8 @@ internal = 3600
 format-padding = 1
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
-click-left = notify-send "Last Weather Update" "$(stat -c %y ~/.local/share/weatherreport | cut -d' ' -f1)"
-click-right = $TERMINAL -e less ~/.local/share/weatherreport
+click-left = weather 1
+click-right = weather 3
 
 [module/network]
 type = custom/script
@@ -319,8 +317,8 @@ format-padding = 1
 format-foreground = ${colors.magenta}
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
-click-left = notify-send "My IPs" "$(ips)"
-click-right = $TERMINAL -e nmtui
+click-left = network 1
+click-right = network 3
 
 [module/power]
 type = custom/script
@@ -335,8 +333,8 @@ format-underline = ${colors.darkmagenta}
 [module/date]
 type = custom/script
 exec = clock
-click-left = pgrep -x dunst >/dev/null && notify-send -u low "This Month" "$(cal)"
-click-right = $TERMINAL -e calcurse
+click-left = clock 1
+click-right = clock 3
 interval = 60
 label = %output%
 format-underline = ${colors.darkmagenta}
@@ -350,6 +348,11 @@ initial = 1
 format-underline = ${colors.darkmagenta}
 format-background = ${colors.background-alt}
 format-padding = 1
+click-left = audiovol 1
+click-middle = audiovol 2
+click-right = audiovol 3
+scroll-up = audiovol 4
+scroll-down = audiovol 5
 
 [module/temperature]
 type = custom/heat
