@@ -1,6 +1,6 @@
 #!/bin/sh
 
 while :; do
-	dwmbar &
+	command -v dwmblocks >/dev/null && dwmblocks || dwmbar &
 	ssh-agent dwm || break
 done
