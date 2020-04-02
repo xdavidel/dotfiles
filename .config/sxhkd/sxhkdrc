@@ -96,7 +96,7 @@ super {_,shift +} + minus
 	dmc down {5,15}
 # Mute volume
 super + shift + m
-	dmc mute
+	dmc toggle
 
 # Function keys
 # Show man help
