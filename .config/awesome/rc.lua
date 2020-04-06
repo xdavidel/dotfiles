@@ -400,6 +400,7 @@ awesome.connect_signal("refupdates",
 )
 
 local weathercmd = "weather"
+local myweather
 local weatherscript = awful.widget.watch(
 	weathercmd,
 	1000,
@@ -410,7 +411,7 @@ local weatherscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local myweather = wibox.container.margin(
+myweather = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			weatherscript,
