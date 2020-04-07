@@ -20,6 +20,12 @@ super + {_,shift + } {1-9,0}
 super + {_,shift + } f
 	{bspfullscreen,bspfloating}
 
+# Layout changing
+super + {t,m}
+	bspc desktop -l {tiled,monocle}
+super + control + {j,k}
+	bspc desktop -l {right,left}
+
 # Preselect window
 control + alt + {Left,Down,Up,Right}
 	bspc node -p {west,south,north,east}

@@ -971,6 +971,8 @@ globalkeys = gears.table.join(
               {description = "Set grid layout", group = "layout"}),
     awful.key({ modkey			  }, "s", function() awful.layout.set(awful.layout.suit.spiral) end,
               {description = "Set spiral layout", group = "layout"}),
+    awful.key({ modkey			  }, "m", function() awful.layout.set(awful.layout.suit.max) end,
+              {description = "Set max layout", group = "layout"}),
 
 
 	awful.key({ modkey,           }, "Tab",

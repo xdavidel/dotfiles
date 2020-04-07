@@ -37,6 +37,10 @@ bspc config focused_border_color $(xrdb -query | awk '/color7/ {print $2}')
 bspc config window_gap 8
 bspc config top_padding 30
 bspc config focus_follows_pointer true
+bspc config single_monocle true
+bspc config gapless_monocle true
+bspc config top_monocle_padding -5
+bspc config bottom_monocle_padding -5
 
 dropdownname="dropdown"
 bspc query -N -n .hidden >/dev/null || setsid $TERMINAL -n "$dropdownname" -e dropdown >/dev/null 2>&1 &

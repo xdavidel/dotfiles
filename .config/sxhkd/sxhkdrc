@@ -18,7 +18,7 @@ super + e
 	$FILEGUI
 super + shift + e
 	$FILE
-super + m
+super + p
 	mediaplayer
 super + n
 	$TERMINAL -e newsboat
@@ -74,8 +74,8 @@ super + Delete
 	dmenurecord kill
 
 # Pause audio
-super + {_,shift +} p
-	dmc {pause,play}
+super + shift + p
+	dmc pause
 # Changes to next/previous tracks
 super + {comma,period}
 	dmc {prev,next}
