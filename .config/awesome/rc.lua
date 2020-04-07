@@ -71,17 +71,17 @@ ctlkey = "Control"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
     awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.nw,
     awful.layout.suit.floating,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
@@ -964,6 +964,15 @@ globalkeys = gears.table.join(
     awful.key({ modkey, sftkey    }, "Right", function () awful.client.swap.global_bydirection( "right" )  end,
               {description = "swap with the client to the right", group = "client"}),
 
+	-- Layout changing
+    awful.key({ modkey			  }, "t", function() awful.layout.set(awful.layout.suit.tile) end,
+              {description = "Set tiling layout", group = "layout"}),
+    awful.key({ modkey			  }, "g", function() awful.layout.set(awful.layout.suit.fair.horizontal) end,
+              {description = "Set grid layout", group = "layout"}),
+    awful.key({ modkey			  }, "s", function() awful.layout.set(awful.layout.suit.spiral) end,
+              {description = "Set spiral layout", group = "layout"}),
+
+
 	awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -978,11 +987,11 @@ globalkeys = gears.table.join(
               {description = "show context menu", group = "awesome"}),
 
 	-- Monitor options
-    awful.key({ modkey		      }, "s", function () xrandr.xrandr() end,
+    awful.key({ modkey, altkey	  }, "s", function () xrandr.xrandr() end,
               {description = "Monitor options", group = "awesome"}),
 
 	-- Move to monitor
-    awful.key({ modkey, sftkey	}, "s", awful.client.movetoscreen ,
+    awful.key({ modkey, sftkey	  }, "s", awful.client.movetoscreen ,
               {description = "Move to monitor", group = "awesome"}),
 
 	-- Show / Hide wibox
@@ -1061,10 +1070,10 @@ clientkeys = gears.table.join(
 				c:raise()
 			end,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey,           }, "t", function(c) awful.titlebar.toggle(c) end    ,
+    -- awful.key({ altkey,           }, "t", function(c) awful.titlebar.toggle(c) end    ,
 
-              {description = "toggle titlebar", group = "client"}),
-    awful.key({ modkey, sftkey    }, "t",
+    --           {description = "toggle titlebar", group = "client"}),
+    awful.key({ altkey				}, "t",
 		function()
 			for _,c in ipairs(client.get()) do
 				awful.titlebar.toggle(c)
