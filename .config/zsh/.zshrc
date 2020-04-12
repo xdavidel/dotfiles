@@ -22,8 +22,8 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/cache
 
 HISTFILE=~/.cache/zsh/history
-HISTSIZE=1000
-SAVEHIST=500
+HISTSIZE=10000
+SAVEHIST=10000
 WORDCHARS=${WORDCHARS//\/[&.;]}                             # Don't consider certain characters part of the word
 
 ## Keybindings section
@@ -99,7 +99,13 @@ vifmcd () {
 }
 
 # bind ctrl-o to switch directories using file manager
-bindkey -s '^o' 'vifmcd\n'
+bindkey -s '^o' 'lfcd\n'
+
+# bind ctrl-a to open calculator
+bindkey -s '^a' 'bc -l\n'
+
+# bind ctrl-f to fuzzy open folders
+bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # Print a greeting message when shell is started
 #echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
