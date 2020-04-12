@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 [ -z "$1" ] && factor=100 || factor=$1
-xrandr --dpi "$factor" && refreshsession
+xrandr --dpi "$factor" && managesession f

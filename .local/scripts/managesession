@@ -22,7 +22,7 @@ else
 				"i3") cmd="i3-msg exit" ;;
 				"bspwm") cmd="bspc quit";;
 				"awesome") cmd="awesome-client awesome.quit()" ;;
-				"dwm") cmd="pkill dwm" ;;
+				"dwm") cmd="dwmc quit" ;;
 				"*") cmd="pkill -u $USER" ;;
 			esac
 
@@ -33,7 +33,7 @@ else
 				"i3") i3-msg restart ;;
 				"bspwm") bspc wm -r ;;
 				"awesome") echo "awesome.restart()" | awesome-client ;;
-				"dwm") dwmc quit ;;
+				"dwm") dwmc restart ;;
 			esac ;;
 
 		p*)
