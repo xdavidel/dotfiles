@@ -38,13 +38,13 @@
 
 !! Transparency (0-1):
 st.alpha: 0.90
-st.font: Monospace-11;
+/* st.font: Monospace-11; */
 
 ! st.termname: st-256color
 ! st.borderpx: 2
 
 !! Set a default font and font size as below:
-!! *.font: Monospace-14;
+*.font: Monospace-12;
 
 
 !! URXVT
@@ -61,4 +61,4 @@ URxvt*scrollTtyKeypress: true
 URxvt.scrollBar: false
 
 ! URxvt font
-URxvt.font: 9x15
+urxvt*font:    xft:mono
