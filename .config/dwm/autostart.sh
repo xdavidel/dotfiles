@@ -1,3 +1,9 @@
 #!/usr/bin/env sh
 
-command -v dwmblocks >/dev/null && dwmblocks || dwmbar &
+if command -v dwmblocks >/dev/null;
+then
+	killall dwmblocks
+	dwmblocks &
+else
+	dwmbar &
+fi
