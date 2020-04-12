@@ -7,6 +7,7 @@ managesession: manage linux sessions
 Allowed options:
 logout		Kill user session
 poweroff	Shut down the PC
+fresh		Refresh the session
 reboot		Restart the system
 
 EOF
@@ -17,14 +18,24 @@ else
 	case "$1" in
 		l*)
 			case "$active_wm" in
-				"Openbox") closecmd="openbox --exit" ;;
-				"i3") closecmd="i3-msg exit" ;;
-				"bspwm") closecmd="bspc quit";;
-				"awesome") closecmd="awesome-client awesome.quit()" ;;
-				"*") closecmd="pkill -u $USER" ;;
+				"Openbox") cmd="openbox --exit" ;;
+				"i3") cmd="i3-msg exit" ;;
+				"bspwm") cmd="bspc quit";;
+				"awesome") cmd="awesome-client awesome.quit()" ;;
+				"dwm") cmd="pkill dwm" ;;
+				"*") cmd="pkill -u $USER" ;;
 			esac
 
-			prompt "Close sessions?" "$closecmd" ;;
+			prompt "Close sessions?" "$cmd" ;;
+		f*)
+			case "$active_wm" in
+				"Openbox") openbox --restart ;;
+				"i3") i3-msg restart ;;
+				"bspwm") bspc wm -r ;;
+				"awesome") echo "awesome.restart()" | awesome-client ;;
+				"dwm") dwmc quit ;;
+			esac ;;
+
 		p*)
 			prompt "Shutdown PC?" "sudo -A shutdown -h now" ;;
 		r*)

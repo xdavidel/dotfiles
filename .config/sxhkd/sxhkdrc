@@ -103,7 +103,7 @@ super + shift + m
 super + F1
 	manview "." "GUI"
 super + F2
-	refreshsession
+	managesession f
 # Change display
 super + F3
 	displayselect
