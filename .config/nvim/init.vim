@@ -19,7 +19,7 @@ Plug 'cespare/vim-toml' "tomel support
 "===========================
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround' "change surround with 'cs<from><to>'
-Plug 'scrooloose/nerdtree' "file system view
+Plug 'preservim/nerdtree' "file system view
 Plug 'junegunn/goyo.vim' "distraction free VIM
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
