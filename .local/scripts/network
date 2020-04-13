@@ -4,7 +4,7 @@
 
 case $BLOCK_BUTTON in
 	1) $TERMINAL -e nmtui ;;
-	3) pgrep -x dunst >/dev/null && notify-send "🌐 Network module" "\- Click to connect
+	3) pidof dunst >/dev/null && notify-send "🌐 Network module" "\- Click to connect
 📡: no wifi connection
 📶: wifi connection with quality
 ❎: no ethernet

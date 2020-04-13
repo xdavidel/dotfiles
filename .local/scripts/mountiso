@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-pgrep -x dmenu && exit
+pidof dmenu && exit
 
 getmount() { \
 	mp="$(find $1 | dmenu -i -p "Type in mount point.")"

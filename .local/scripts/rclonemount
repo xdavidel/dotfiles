@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-pgrep -x dmenu && exit
+pidof dmenu && exit
 
 # check for rclone
 ! command -v rclone >>/dev/null && echo "rclone is not installed." && exit

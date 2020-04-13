@@ -15,7 +15,7 @@ showweather() {\
 case $BLOCK_BUTTON in
     1) $TERMINAL -e less -Srf "$HOME/.cache/weatherreport" ;;
     2) getforecast && showweather ;;
-    3) pgrep -x dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
+    3) pidof dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
 ☔: Chance of rainsnow
 ❄: Daily low

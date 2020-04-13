@@ -4,7 +4,7 @@
 # If they're in /etc/fstab, they'll be mounted automatically.
 # Otherwise, you'll be prompted to give a mountpoint from already existsing directories.
 # If you input a novel directory, it will prompt you to create that directory.
-pgrep -x dmenu && exit
+pidof dmenu && exit
 
 getmount() { \
 	[ -z "$chosen" ] && exit 1

@@ -6,7 +6,7 @@
 # Anything else, it search it.
 browser=${BROWSER:-firefox}
 
-pgrep -x dmenu && exit
+pidof dmenu && exit
 
 choice=$(echo "🦆" | dmenu -i -p "Search DuckDuckGo:") || exit 1
 

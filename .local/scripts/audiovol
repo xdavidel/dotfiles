@@ -7,7 +7,7 @@ case $BLOCK_BUTTON in
 	2) dmc toggle & ;;
 	4) dmc up & ;;
 	5) dmc down & ;;
-	3) pgrep -x dunst >/dev/null && notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
+	3) pidof dunst >/dev/null && notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
 - Middle click to mute.
 - Scroll to change."
 esac
