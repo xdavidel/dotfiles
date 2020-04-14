@@ -21,6 +21,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 export WGETRC="$HOME/.config/wget/wgetrc"
 export CARGO_HOME="$HOME/.local/share/cargo"
 export RUSTUP_HOME="$HOME/.local/share/rustup"
+export GOPATH="$HOME/.local/share/go"
 export PYLINTHOME="$HOME/.cache/pylint"
 
 export MPD_HOST="127.0.0.1"
