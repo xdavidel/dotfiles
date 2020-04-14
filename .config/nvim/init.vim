@@ -37,6 +37,7 @@ syntax on
 set encoding=utf-8
 set number relativenumber
 set ignorecase
+set smartcase
 set bg=dark
 set go=a
 set mouse=a
@@ -237,6 +238,7 @@ set smartindent
 
 " Automatically deletes all trailing whitespace on save.
 	autocmd BufWritePre * %s/\s\+$//e
+	autocmd BufWritePre * %s/\n\+\%$//e
 
 "=====================================================================
 
