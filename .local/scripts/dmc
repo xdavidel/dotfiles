@@ -6,13 +6,13 @@ NUM="${2:-5}"
 PULSE=true
 
 if [ "$PULSE" ]; then
-	toggle() { pulsemixer --toggle-mute ;}
-	mute() { pulsemixer --mute ;}
-	up() { pulsemixer --change-volume +"$NUM" ;}
-	down() { pulsemixer --change-volume -"$NUM" ;}
+	toggle() { pamixer -t ;}
+	mute() { pamixer -m ;}
+	up() { pamixer --allow-boost -i "$NUM" ;}
+	down() { pamixer --allow-boost -d "$NUM" ;}
 	control() { pulsemixer ;}
-	state() { pulsemixer --get-mute ;}
-	get() { pulsemixer --get-volume | awk '{print $1}' ;}
+	state() { pamixer --get-mute | sed 's/true/1/g;s/false/0/g' ;}
+	get() { pamixer --get-volume ;}
 else
 	volstat="$(amixer get Master)"
 	toggle() { amixer sset Master toggle ;}
