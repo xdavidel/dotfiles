@@ -512,6 +512,7 @@ mymemory:buttons(
 
 
 local heatcmd = "heat"
+local myheat
 local heatscript = awful.widget.watch(
 	heatcmd,
 	60,
@@ -522,11 +523,22 @@ local heatscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local myheat = wibox.container.background(
-	heatscript,
-	altbackground
+myheat = wibox.container.margin(
+	wibox.container.background(
+		wibox.container.margin(
+			heatscript,
+			5,
+			5,
+			0,
+			0
+		),
+		altbackground
+	),
+	0,
+	10,
+	0,
+	0
 )
-
 
 local volcmd = "audiovol"
 local myvol
@@ -601,6 +613,7 @@ awesome.connect_signal("refvol",
 )
 
 local netcmd = "network"
+local mynet
 local netscript = awful.widget.watch(
 	netcmd,
 	20,
@@ -611,7 +624,7 @@ local netscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local mynet = wibox.container.margin(
+mynet = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			netscript,
@@ -647,6 +660,7 @@ mynet:buttons(
 
 
 local batcmd = "battery"
+local mybat
 local batscript = awful.widget.watch(
 	batcmd,
 	10,
@@ -657,7 +671,7 @@ local batscript = awful.widget.watch(
 		widget:set_text(stdout)
 	end
 )
-local mybat = wibox.container.margin(
+mybat = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			batscript,
