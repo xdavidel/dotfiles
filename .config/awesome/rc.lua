@@ -156,7 +156,6 @@ local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
 
 -- {{{ Wibar
 
@@ -240,13 +239,14 @@ mytextclock:buttons(
 	)
 )
 
+-- Keyboard map indicator and switcher
 local keyboardlayout = awful.widget.keyboardlayout()
 local mykeyboardlayout = wibox.container.margin(
 	wibox.container.background(
 		wibox.container.margin(
 			wibox.widget {
-				wibox.widget.textbox(""),
 				keyboardlayout,
+				wibox.widget.textbox("⌨ "),
 				layout  = wibox.layout.align.horizontal
 			},
 			7,
