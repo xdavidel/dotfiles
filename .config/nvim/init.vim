@@ -24,7 +24,8 @@ Plug 'junegunn/goyo.vim' "distraction free VIM
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
 
 call plug#end()
@@ -93,18 +94,13 @@ set smartindent
 "=====================================================================
 
 " Colors Highlights
-	let g:Hexokinase_refreshEvents = ['TextChanged', 'InsertLeave']
-	let g:Hexokinase_optInPatterns = ['full_hex', 'triple_hex', 'rgb', 'rgba', 'hsl', 'hsla', 'colour_names' ]
-	let g:Hexokinase_highlighters = [ 'backgroundfull' ]
-
-	autocmd VimEnter * HexokinaseTurnOn
+	lua require 'colorizer'.setup()
 
 "=====================================================================
 
 
 " Coc
 	let g:coc_global_extensions = [
-	\ 'coc-ccls',
 	\ 'coc-rls',
 	\ 'coc-python',
 	\ 'coc-snippets',
