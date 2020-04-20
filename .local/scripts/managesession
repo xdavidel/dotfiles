@@ -22,8 +22,8 @@ else
 				"i3") cmd="i3-msg exit" ;;
 				"bspwm") cmd="bspc quit";;
 				"awesome") cmd="awesome-client awesome.quit()" ;;
-				"dwm") cmd="dwmc quit" ;;
-				"*") cmd="pkill -u $USER" ;;
+				"dwm") cmd="kill -TERM $(pidof dwm)" ;;
+				"*") cmd="kill $(pidof $active_wm) || pkill -u $USER" ;;
 			esac
 
 			prompt "Close sessions?" "$cmd" ;;
@@ -33,7 +33,7 @@ else
 				"i3") i3-msg restart ;;
 				"bspwm") bspc wm -r ;;
 				"awesome") echo "awesome.restart()" | awesome-client ;;
-				"dwm") dwmc restart ;;
+				"dwm") kill -HUP $(pidof dwm) ;;
 			esac ;;
 
 		p*)
