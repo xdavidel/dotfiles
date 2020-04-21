@@ -24,8 +24,7 @@ Plug 'junegunn/goyo.vim' "distraction free VIM
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
-" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'norcalli/nvim-colorizer.lua'
+Plug 'ap/vim-css-color'
 Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
 
 call plug#end()
@@ -44,7 +43,7 @@ set go=a
 set mouse=a
 set nohlsearch
 set clipboard=unnamedplus
-set termguicolors
+" set termguicolors
 set noerrorbells
 set incsearch
 
@@ -92,12 +91,6 @@ set smartindent
 	let g:NERDTreeIgnore = ['^node_modules$']
 
 "=====================================================================
-
-" Colors Highlights
-	lua require 'colorizer'.setup()
-
-"=====================================================================
-
 
 " Coc
 	let g:coc_global_extensions = [
