@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[ ! -z "$1" ] && BLOCK_BUTTON="$1"
+
+case $BLOCK_BUTTON in
+	1) xkb-switch -n >/dev/null ;;
+	3) pidof dunst >/dev/null && notify-send "⌨ Keyboard layout module" "\- Right click to switch to next layout" ;;
+esac
+
+xkb-switch | sed 's/us/En/g;s/il/He/g' &
