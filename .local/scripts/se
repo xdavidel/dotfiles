@@ -5,4 +5,5 @@
 find ~/.*profile ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
 	| fzf --query="$1" --preview='preview {}' \
 				--bind='Ctrl-p:toggle-preview' \
+				--preview-window='up:70%:wrap' \
 	| xargs -r $EDITOR
