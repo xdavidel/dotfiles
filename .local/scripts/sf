@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+grep "$1" ~/.local/scripts/* | cut -d':' -f1 | uniq | fzf --preview='preview {}' --bind='Ctrl-p:toggle-preview' --preview-window='up:70%:wrap' | xargs -r $EDITOR
