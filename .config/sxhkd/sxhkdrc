@@ -1,134 +1,203 @@
 # Basic binds
 
-# - Open terminal
+# Open terminal
 super + Return
 	$TERMINAL
+
+# Open a terminal at current directory
 super + shift + Return
 	samedir
+
 # Close Focused Window
 super + q
 	wmctrl -c :ACTIVE:
+
+# Force Close focused window
 super + shift + q
 	kill -9 `xdotool getwindowfocus getwindowpid`
+
+# Open dmenu
 super + d
 	dmenu_run -fn 'mono:pixelsize=25'
+
+# Open Rofi
 super + shift + d
 	rofi -show drun -disable-history -sort
+
+# Open GUI file browser
 super + e
 	$FILEGUI
+
+# Open terminal file browser
 super + shift + e
 	$FILE
+
+# Open default media player
 super + p
 	mediaplayer
+
+# Open Newsboat
 super + n
 	$TERMINAL -e newsboat
+
+# Open Htop
 super + i
 	$TERMINAL -e htop
+
+# Open calcurse
 super + y
 	$TERMINAL -e calcurse
+
+# Open audio mixer
 super + shift + a
-	$TERMINAL -e alsamixer
+	$TERMINAL -e pulsemixer
+
+# Toggle Camera
 super + shift + c
 	camtoggle
+
+# Open luke smith tutorial videos
 super + shift + v
 	tutorialvids
+
+# Open default web browser
 super + w
 	$BROWSER
+
+# Open default web browser in incognito
 super + shift + w
 	$BROWSERP
 
-# Et cetera...
+# Open keybinds menu
+super + slash
+	keybinds
+
+# Open emoji selector
 super + grave
 	menurepo "$HOME/.local/repo/emoji"
+
+# Open awesome font selector
 super + shift + grave
 	menurepo "$HOME/.local/repo/font-awesome-list"
+
+# Toggle screenkey
 super + Scroll_Lock
 	killall screenkey || screenkey
+
+# Close current session
 super + shift + Escape
 	managesession l
+
+# Shut down
 super + shift + x
 	managesession p
+
+# Reboot
 super + shift + BackSpace
 	managesession r
+
+# Show clipboard
 super + Insert
 	showclip
+
+# Lock
 super + x
 	lockscreen
+
 XF86Launch1
 	xset dpms force off
 
-# Recording
 # Take screenshot
 Print
 	maim pic-full-$(date '+%y%m%d-%H%M-%S').png
+
 # Pick screenshot type
 shift + Print
 	maimpick
+
 # Record audio or video
 super + Print
 	dmenurecord
-# kill active recording
+
+# Kill active recording
 super + Delete
 	dmenurecord kill
 
 # Pause audio
 super + shift + p
 	dmc pause
+
 # Changes to next/previous tracks
 super + {comma,period}
 	dmc {prev,next}
+
 # Restart track
 super + shift + less
 	dmc replay
+
 # Seek foward in song
 super + {_,shift +} bracketright
 	dmc forward {5,20}
+
 # Seek backward in song
 super + {_,shift +} bracketleft
 	dmc back {5,20}
+
 # Increase volume
 super + {equal,plus}
 	dmc up {5,15}
+
 # Decrease volume
 super {_,shift +} + minus
 	dmc down {5,15}
+
 # Mute volume
 super + shift + m
 	dmc toggle
 
-# Function keys
 # Show man help
 super + F1
 	manview "." "GUI"
+
 super + F2
 	managesession f
+
 # Change display
 super + F3
 	displayselect
+
 # Hibernate
 super + F4
 	prompt 'Hibernate computer?' 'sudo systemctl suspend'
+
 # Restart/rescan wifi/eth networks
 super + F5
 	sudo -A systemctl restart NetworkManager
+
 # Start torrent daemon/open interface
 super + F6
 	torwrap
+
 # toggle torrent daemon
 super + F7
 	td-togggle
+
 # sync email
 super + F8
 	mailsync
+
 # Mount a USB drive or Android device
 super + F9
 	dmenumount
+
 # Unmount a USB drive or Android device
 super + F10
 	dmenuumount
+
 # Search with Duckduckgo
 super + F11
 	ducksearch
+
 # Network Manager interface
 super + F12
 	$TERMINAL -e nmtui
