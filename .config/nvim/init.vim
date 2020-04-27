@@ -46,6 +46,7 @@ set clipboard=unnamedplus
 " set termguicolors
 set noerrorbells
 set incsearch
+set noemoji "emoji fix
 
 "=====================================================================
 
