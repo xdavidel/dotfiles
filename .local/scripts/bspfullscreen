@@ -1,9 +1,2 @@
 #!/bin/env sh
-if [ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ]; then
-  bspc node focused.tiled -t fullscreen
-  bsphide
-else
-  bspc node focused.fullscreen -t tiled
-  bspunhide
-fi
-
+[ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ] && bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
