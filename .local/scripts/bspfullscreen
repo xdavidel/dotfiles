@@ -1,2 +1,4 @@
 #!/bin/env sh
-[ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ] && bspc node focused.tiled -t fullscreen || bspc node focused.fullscreen -t tiled
+[ -z "$(bspc query -N -n .focused.fullscreen -d focused)" ] && \
+	bspc node focused.tiled -t fullscreen || \
+	bspc node focused.fullscreen -t tiled

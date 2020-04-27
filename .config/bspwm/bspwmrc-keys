@@ -18,7 +18,11 @@ super + {_,shift + } {1-9,0}
 
 # Toggle fullscreen / floating on and off
 super + {_,shift + } f
-	bspc node -t{bspfullscreen,bspfloating}
+	{bspfullscreen,bspfloating}
+
+# Next monitor / move to next monitor
+super + {_,shift + } s
+	bspc {monitor -f,node -m} next
 
 # Layout changing
 super + {t,u}

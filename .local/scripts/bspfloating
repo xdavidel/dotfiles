@@ -1,7 +1,5 @@
 #!/bin/env sh
 
-if [ -z "$(bspc query -N -n .focused.floating -d focused)" ]; then
-  bspc node focused.tiled -t floating
-else
-  bspc node focused.floating -t tiled
-fi
+[ -z "$(bspc query -N -n .focused.floating -d focused)" ] && \
+	bspc node focused.tiled -t floating || \
+	bspc node focused.floating -t tiled

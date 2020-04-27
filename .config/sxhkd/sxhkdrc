@@ -26,31 +26,31 @@ super + shift + d
 
 # Open GUI file browser
 super + e
-	$FILEGUI
+	sedsid $FILEGUI
 
 # Open terminal file browser
 super + shift + e
-	$FILE
+	setsid $FILE
 
 # Open default media player
 super + p
-	mediaplayer
+	setsid mediaplayer
 
 # Open Newsboat
 super + n
-	$TERMINAL -e newsboat
+	setsid $TERMINAL -e newsboat
 
 # Open Htop
 super + i
-	$TERMINAL -e htop
+	setsid $TERMINAL -e htop
 
 # Open calcurse
 super + y
-	$TERMINAL -e calcurse
+	setsid $TERMINAL -e calcurse
 
 # Open audio mixer
 super + shift + a
-	$TERMINAL -e pulsemixer
+	setsid $TERMINAL dmc control
 
 # Toggle Camera
 super + shift + c
