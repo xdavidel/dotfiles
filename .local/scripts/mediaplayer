@@ -6,7 +6,7 @@
 # Start daemon if not runing
 pidof mpd >>/dev/null || $(mpd && note "Starting mpd daemon...")
 
-command -v ncmpcpp >/dev/null && exec $TERMINAL -e ncmpcpp
+command -v ncmpcpp >/dev/null && setsid $TERMINAL -e ncmpcpp
 
 # Update media folder
 mpc update >>/dev/null
