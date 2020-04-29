@@ -1,0 +1,10 @@
+command=~/.local/scripts/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+# AUR package: xkb-switch
+[keyboardlayout]
+interval=persist
+
+[clock]
+interval=30

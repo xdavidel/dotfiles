@@ -1,8 +1,8 @@
 # #---Basic Definitions---# #
 # Needed for i3-gaps
 for_window [class="^.*"] border pixel 4
-gaps inner 8
-gaps outer 8
+gaps inner 5
+gaps outer 5
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
 
@@ -37,6 +37,7 @@ set_from_resource $darkwhite	color7  	#f2e6c9
 set_from_resource $white		color15 	#f1f1f1
 set $transparent							#00000000
 
+# Top bar
 bar {
 	font pango:mono 12
 	colors {
@@ -50,6 +51,16 @@ bar {
 		}
 	status_command i3blocks
 	position top
+	mode dock
+	modifier None
+}
+
+# Bottom bar
+bar {
+	font pango:mono 12
+	workspace_buttons no
+	status_command i3blocks -c ~/.config/i3blocks/config-bottom
+	position bottom
 	mode dock
 	modifier None
 }

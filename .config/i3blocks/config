@@ -2,11 +2,6 @@ command=~/.local/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
-[record]
-command=cat /tmp/recordingicon
-interval=once
-signal=9
-
 [music]
 label=🎼
 interval=once
@@ -28,45 +23,16 @@ signal=7
 interval=3600
 signal=5
 
-[mailbox]
-label=📬
-interval=180
-signal=12
-
 [memory]
 interval=30
-
-#[cpu]
-#interval=15
-#label=💻
 
 [audiovol]
 interval=once
 signal=10
 
-#[disk]
-#interval=60
-#command=disk /
-
-#[disk]
-#interval=60
-#command=disk /home 🏠
-
 [battery]
 command=battery
 interval=5
 
-[clock]
-interval=30
-
-# AUR package: xkb-switch
-[keymap]
-label=📖
-command=bash -c 'xkb-switch;xkb-switch -W'
-interval=persist
-
 [network]
 interval=10
-
-#[help]
-#interval=once
