@@ -89,7 +89,7 @@ font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
 modules-left = powermenu xwindow
-modules-right = xkeyboard date
+modules-right = keyboard date
 
 tray-position = right
 tray-padding = 1
@@ -129,16 +129,15 @@ format-padding = 1
 click-left = uppackages 1
 click-right = uppackages 3
 
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
+[module/keyboard]
+type = custom/ipc
+hook-0 = keyboardlayout
+initial = 1
 format-padding = 1
 format-background = ${colors.background-alt}
 format-underline = ${colors.darkmagenta}
-format-prefix = " ⌨ "
-
-label-layout = %layout%
+click-left = keyboardlayout 1
+click-right = keyboardlayout 3
 
 [module/filesystem]
 type = internal/fs

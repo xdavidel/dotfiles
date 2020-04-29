@@ -16,3 +16,5 @@ unclutter &		# Remove mouse when idle
 xcompmgr &		# xcompmgr for transparency
 dunst &			# dunst for notifications
 numlockx on &
+
+keyboardwatch & # watch keyboard layout

@@ -4,7 +4,8 @@ markup=pango
 
 # AUR package: xkb-switch
 [keyboardlayout]
-interval=persist
+interval=once
+signal=3
 
 [clock]
 interval=30

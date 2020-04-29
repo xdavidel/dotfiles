@@ -25,6 +25,11 @@ case "$1" in
 		pkill -RTMIN+5 dwmblocks >/dev/null 2>&1 &
 		pkill -RTMIN+5 i3blocks >/dev/null 2>&1 &
 		;;
+	k*)
+		polybar-msg hook keyboard 1 >/dev/null 2>&1 &
+		pkill -RTMIN+3 dwmblocks >/dev/null 2>&1 &
+		pkill -RTMIN+3 i3blocks >/dev/null 2>&1 &
+		;;
 	*)
 		awesome-client 'awesome.emit_signal("refbar")' 2>/dev/null &
 		# Send SIGTRAP signal to dwmbar script, which will handle it with a trap.

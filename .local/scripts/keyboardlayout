@@ -8,8 +8,3 @@ case $BLOCK_BUTTON in
 esac
 
 echo "$(xkb-switch | sed 's/us/En/g;s/il/He/g;s/^/ 📖 /g')"
-
-xkb-switch -W | while read -r Layout
-do
-	echo "$Layout" | sed 's/us/En/g;s/il/He/g;s/^/ 📖 /g'
-done
