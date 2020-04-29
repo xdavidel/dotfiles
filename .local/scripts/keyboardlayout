@@ -7,4 +7,9 @@ case $BLOCK_BUTTON in
 	3) pidof dunst >/dev/null && notify-send "⌨ Keyboard layout module" "\- Right click to switch to next layout" ;;
 esac
 
-xkb-switch | sed 's/us/En/g;s/il/He/g' &
+echo "$(xkb-switch | sed 's/us/En/g;s/il/He/g;s/^/ 📖 /g')"
+
+xkb-switch -W | while read -r Layout
+do
+	echo "$Layout" | sed 's/us/En/g;s/il/He/g;s/^/ 📖 /g'
+done
