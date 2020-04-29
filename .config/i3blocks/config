@@ -1,4 +1,4 @@
-command=~/.scripts/statusbar/$BLOCK_NAME
+command=~/.local/scripts/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
@@ -13,12 +13,10 @@ interval=once
 signal=11
 
 [news]
-label=📰
 interval=once
 signal=6
 
 [pacpackages]
-label=📦
 interval=once
 signal=8
 
@@ -35,15 +33,14 @@ label=📬
 interval=180
 signal=12
 
-#[memory]
-#interval=30
-#label=🧠
+[memory]
+interval=30
 
 #[cpu]
 #interval=15
 #label=💻
 
-[volume]
+[audiovol]
 interval=once
 signal=10
 
@@ -56,11 +53,10 @@ signal=10
 #command=disk /home 🏠
 
 [battery]
-command=battery BAT0
+command=battery
 interval=5
 
 [clock]
-label=📅
 interval=30
 
 # AUR package: xkb-switch
@@ -69,7 +65,7 @@ label=📖
 command=bash -c 'xkb-switch;xkb-switch -W'
 interval=persist
 
-[internet]
+[network]
 interval=10
 
 #[help]
