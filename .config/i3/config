@@ -52,6 +52,7 @@ bar {
 	status_command i3blocks
 	position top
 	mode dock
+	hidden_state hide
 	modifier None
 }
 
@@ -62,6 +63,7 @@ bar {
 	status_command i3blocks -c ~/.config/i3blocks/config-bottom
 	position bottom
 	mode dock
+	hidden_state hide
 	modifier None
 }
 
@@ -109,6 +111,7 @@ bindsym $mod+o				sticky 		toggle
 bindsym $mod+f				fullscreen 	toggle
 bindsym $mod+Shift+f		floating 	toggle
 bindsym $mod+space			focus 		mode_toggle
+bindsym $mod+b				bar mode	toggle
 
 # move
 bindsym $mod+Shift+h		move left 	30
