@@ -3,7 +3,6 @@ separator_block_width=15
 markup=pango
 
 [music]
-label=🎼
 interval=once
 signal=11
 
