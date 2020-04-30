@@ -3,7 +3,7 @@
 # If refreshing bspwm, remove all previous rules to prevent doubling up.
 bspc rule -r "*"
 
-killall bspsubfullscreen; bspsubfullscreen &
+killall -q bspsubfullscreen; bspsubfullscreen &
 
 killall -q polybar
 while pidof polybar >/dev/null; do sleep 1; done
