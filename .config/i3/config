@@ -5,6 +5,7 @@ gaps inner 5
 gaps outer 5
 set $term --no-startup-id $TERMINAL
 set $mod Mod4
+set $alt Mod1
 
 # #---Dropdown Windows---# #
 for_window [instance="dropdown_*"] floating enable
@@ -97,13 +98,13 @@ bindsym $mod+Right 			focus right
 
 # resize
 bindsym $mod+Shift+y		exec --no-startup-id i3resize left
-bindsym $mod+Mod1+Left		exec --no-startup-id i3resize left
+bindsym $mod+$alt+Left		exec --no-startup-id i3resize left
 bindsym $mod+Shift+u		exec --no-startup-id i3resize down
-bindsym $mod+Mod1+Down		exec --no-startup-id i3resize down
+bindsym $mod+$alt+Down		exec --no-startup-id i3resize down
 bindsym $mod+Shift+i		exec --no-startup-id i3resize up
-bindsym $mod+Mod1+Up		exec --no-startup-id i3resize up
+bindsym $mod+$alt+Up		exec --no-startup-id i3resize up
 bindsym $mod+Shift+o		exec --no-startup-id i3resize right
-bindsym $mod+Mod1+Right		exec --no-startup-id i3resize right
+bindsym $mod+$alt+Right		exec --no-startup-id i3resize right
 
 # toggle
 bindsym $mod+o				sticky 		toggle
@@ -138,6 +139,9 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
+bindsym $mod+Ctrl+Right	workspace next_on_output
+bindsym $mod+Ctrl+Left	workspace prev_on_output
+
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
