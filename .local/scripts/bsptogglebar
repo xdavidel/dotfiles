@@ -1,0 +1,16 @@
+#!/bin/env sh
+
+# $1 can hold required padding
+padding="${1:-30}"
+# NUM="${2:-5}"
+
+if [ $(bspc config top_padding) = 0 ]; then
+	# no bar state
+	bspc config top_padding "$padding"
+	bspc config bottom_padding "$padding"
+	polybar-msg cmd show
+else
+	bspc config top_padding 0
+	bspc config bottom_padding 0
+	polybar-msg cmd hide
+fi

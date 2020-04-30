@@ -38,6 +38,10 @@ control + alt + {Left,Down,Up,Right}
 super + o
 	bspc node -g sticky={on,off}
 
+# Toggle bar
+super + b
+	bsptogglebar
+
 # Expand/Shrink window
 super + alt + {h,Left}
 	bspc node -z right -30 0 ; bspc node -z left -30 0
