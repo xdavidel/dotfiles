@@ -355,8 +355,9 @@ scroll-up = audiovol 4
 scroll-down = audiovol 5
 
 [module/temperature]
-type = custom/heat
+type = custom/script
 exec = heat
+interval = 10.0
 format-underline = ${colors.darkmagenta}
 format-background = ${colors.background-alt}
 format-padding = 1

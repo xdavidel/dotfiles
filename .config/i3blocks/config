@@ -7,17 +7,9 @@ label=🎼
 interval=once
 signal=11
 
-[news]
-interval=once
-signal=6
-
-[pacpackages]
+[uppackages]
 interval=once
 signal=8
-
-[torrent]
-interval=20
-signal=7
 
 [weather]
 interval=3600
@@ -26,13 +18,15 @@ signal=5
 [memory]
 interval=30
 
+[heat]
+interval=10
+
 [audiovol]
 interval=once
 signal=10
 
-[battery]
-command=battery
-interval=5
-
 [network]
 interval=10
+
+[battery]
+interval=5
