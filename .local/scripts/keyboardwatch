@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+xkb-switch -W | while read -r Layout
+do
+	refbar keyboard &
+done &
