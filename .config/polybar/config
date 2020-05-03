@@ -51,7 +51,7 @@ font-2 = FontAwesome5Free:style=Solid:size=10;0
 ; modules-left = bspwm i3 ewmh xwindow
 modules-left = ewmh
 ;modules-center =
-modules-right = mpd updates weather memory temperature volume network power
+modules-right = mpd updates news weather memory temperature volume network power
 
 wm-restack = bspwm
 
@@ -128,6 +128,16 @@ format-background = ${colors.background-alt}
 format-padding = 1
 click-left = uppackages 1
 click-right = uppackages 3
+
+[module/news]
+type = custom/ipc
+hook-0 = news
+initial = 1
+format-underline = ${colors.darkmagenta}
+format-background = ${colors.background-alt}
+format-padding = 1
+click-left = news 1
+click-right = news 3
 
 [module/keyboard]
 type = custom/ipc

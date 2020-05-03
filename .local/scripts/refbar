@@ -30,6 +30,11 @@ case "$1" in
 		pkill -RTMIN+3 dwmblocks >/dev/null 2>&1 &
 		pkill -RTMIN+3 i3blocks >/dev/null 2>&1 &
 		;;
+	n*)
+		polybar-msg hook news 1 >/dev/null 2>&1 &
+		pkill -RTMIN+6 dwmblocks >/dev/null 2>&1 &
+		pkill -RTMIN+6 i3blocks >/dev/null 2>&1 &
+		;;
 	*)
 		awesome-client 'awesome.emit_signal("refbar")' 2>/dev/null &
 		# Send SIGTRAP signal to dwmbar script, which will handle it with a trap.
