@@ -26,6 +26,7 @@ Plug 'tpope/vim-commentary' "enable commenting lines
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
 Plug 'ap/vim-css-color'
 Plug 'ctrlpvim/ctrlp.vim' "fuzzy find files
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
