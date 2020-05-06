@@ -10,14 +10,18 @@ alias \
 	q="exit" \
 	x="sxiv -ft *" \
 	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
-	yta="youtube-dl -xi --audio-format mp3" \
+	yta="youtube-dl -xi -f bestaudio/best --audio-format mp3" \
 	..="cd .." \
 	l="ls -gGhF --color=auto --group-directories-first" \
 	ls="ls -F --color=auto --group-directories-first" \
 	la="ls -AF --color=auto --group-directories-first" \
 	ll="ls -gGAFh --color=auto --group-directories-first" \
+	cp="cp -iv" \
+	rm="rm -iv" \
+	rm="rm -vI" \
 	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
 	grep="grep --color=auto" \
+	diff="diff --color=auto" \
 	vimdiff="nvim -d" \
 	ffmpeg="ffmpeg -hide_banner" \
 	fr="manview ."
