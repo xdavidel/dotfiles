@@ -1,5 +1,3 @@
-# Basic binds
-
 # Open terminal
 super + Return
 	$TERMINAL
@@ -31,10 +29,6 @@ super + e
 # Open terminal file browser
 super + shift + e
 	setsid $FILE
-
-# Open default media player
-super + p
-	setsid mediaplayer
 
 # Open Newsboat
 super + n
@@ -104,6 +98,7 @@ super + Insert
 super + x
 	lockscreen
 
+# Screen off
 XF86Launch1
 	xset dpms force off
 
@@ -124,7 +119,7 @@ super + Delete
 	dmenurecord kill
 
 # Pause audio
-super + shift + p
+super + p
 	dmc pause
 
 # Changes to next/previous tracks
@@ -148,12 +143,12 @@ super + {equal,plus}
 	dmc up {5,15}
 
 # Decrease volume
-super {_,shift +} + minus
+super + {_,shift +} minus
 	dmc down {5,15}
 
-# Mute volume
-super + shift + m
-	dmc toggle
+# Mute volume / Media Player
+super {_,shift +} + m
+	{dmc toggle,mediaplayer}
 
 # Show man help
 super + F1
