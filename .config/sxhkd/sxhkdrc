@@ -67,12 +67,12 @@ super + slash
 	keybinds
 
 # Open emoji selector
-super + grave
-	menurepo "$HOME/.local/repo/emoji"
+super + {_,shift +} semicolon
+	menurepo "$HOME/.local/repo/emoji" "{_,paste}"
 
 # Open awesome font selector
-super + shift + grave
-	menurepo "$HOME/.local/repo/font-awesome-list"
+super + {_,shift +} grave
+	menurepo "$HOME/.local/repo/font-awesome-list" "{_,paste}"
 
 # Toggle screenkey
 super + Scroll_Lock
