@@ -24,7 +24,7 @@ super + shift + d
 
 # Open GUI file browser
 super + e
-	sedsid $FILEGUI
+	setsid $FILEGUI
 
 # Open terminal file browser
 super + shift + e
