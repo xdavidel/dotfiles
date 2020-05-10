@@ -57,13 +57,13 @@ NEWLINE=$'\n'
 function zle-keymap-select zle-line-init {
 	if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
 		echo -ne '\e[1 q'
-		VIMODE="%{$bg[red]%}[N]"
+		VIMODE="%{$bg[red]%}%B[N]%b"
 	elif [[ ${KEYMAP} == main ]] ||
 		[[ ${KEYMAP} == viins ]] ||
 		[[ ${KEYMAP} = '' ]] ||
 		[[ $1 = 'beam' ]]; then
 		echo -ne '\e[5 q'
-		VIMODE="%{$bg[green]%}[I]"
+		VIMODE="%{$bg[green]%}%B[I]%b"
 	fi
 
 	PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} %% "
