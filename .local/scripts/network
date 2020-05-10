@@ -3,13 +3,14 @@
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
 case $BLOCK_BUTTON in
-	1) $TERMINAL -e nmtui ;;
+	1) setsid "$TERMINAL" -e nmtui ;;
 	3) pidof dunst >/dev/null && notify-send "🌐 Network module" "\- Click to connect
 📡: no wifi connection
 📶: wifi connection with quality
 ❎: no ethernet
 🌐: ethernet working
 " ;;
+	6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 # Wifi quality percentage and icon.

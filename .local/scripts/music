@@ -14,5 +14,6 @@ case $BLOCK_BUTTON in
 - Scroll changes track.";;  # right click, pause/unpause
     4) mpc prev 2>/dev/null   | filter ;;  # scroll up, previous
     5) mpc next 2>/dev/null   | filter ;;  # scroll down, next
+    6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
     *) mpc status 2>/dev/null | filter ;;
 esac

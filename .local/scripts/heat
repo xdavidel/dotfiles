@@ -8,6 +8,7 @@ case $BLOCK_BUTTON in
 	3) notify-send "🖥 CPU module " "\- Shows CPU temperature.
 - Click to show intensive processes.
 - Middle click to open htop." ;;
+	6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 sensors 2>/dev/null | grep -vi 'N/A' | awk '/^temp1/ {print "🌡️ " $2}' | sort -nr | head -n 1 | sed -e "s/C//;s/\.[0-9]//" | grep "."

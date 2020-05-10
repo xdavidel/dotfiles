@@ -20,6 +20,7 @@ case $BLOCK_BUTTON in
 ☔: Chance of rainsnow
 ❄: Daily low
 🌞: Daily high" ;;
+    6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 [ "$(stat -c %y "$HOME/.cache/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ]  && getforecast

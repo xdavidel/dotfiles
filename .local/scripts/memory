@@ -6,6 +6,7 @@ case $BLOCK_BUTTON in
 	1) pidof dunst >/dev/null && notify-send "🧠 Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
 	3) pidof dunst >/dev/null && notify-send "🧠 Memory module" "\- Shows Memory Used/Total.
 - Click to show memory hogs." ;;
+	6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 # Print used memory

@@ -7,6 +7,7 @@ case $BLOCK_BUTTON in
 	2) $TERMINAL -e calcurse -D ~/.config/calcurse ;;
 	3) pidof dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
 - Middle click opens calcurse if installed" ;;
+	6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 # date '+%Y %b %d (%a) %I:%M%p' | sed 's/AM/ 🌅/;s/PM/ 🌇/'
