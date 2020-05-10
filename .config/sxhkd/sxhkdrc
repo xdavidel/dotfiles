@@ -50,10 +50,6 @@ super + shift + a
 super + shift + c
 	camtoggle
 
-# Open luke smith tutorial videos
-super + shift + v
-	tutorialvids
-
 # Open default web browser
 super + w
 	$BROWSER
