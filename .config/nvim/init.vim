@@ -21,7 +21,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround' "change surround with 'cs<from><to>'
 Plug 'preservim/nerdtree' "file system view
 Plug 'junegunn/goyo.vim' "distraction free VIM
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "fzf Hook
 Plug 'junegunn/fzf.vim' "Fuzzy file finder
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
