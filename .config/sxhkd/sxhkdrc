@@ -90,6 +90,10 @@ super + shift + BackSpace
 super + Insert
 	showclip
 
+# Color picker
+super + shift + Insert
+	pickcolor &
+
 # Lock
 super + x
 	lockscreen
