@@ -20,81 +20,88 @@ for_window [instance="dropdown_*"] move position center
 
 # Set Xresources colors:
 
+set_from_resource $background	background
 set_from_resource $darkblack	color0
-set_from_resource $black		color8
-set_from_resource $darkred		color1
-set_from_resource $red			color9
+set_from_resource $black	color8
+set_from_resource $darkred	color1
+set_from_resource $red		color9
 set_from_resource $darkgreen	color2
-set_from_resource $green		color10
+set_from_resource $green	color10
 set_from_resource $darkyellow	color3
-set_from_resource $yellow		color11
-set_from_resource $darkblue		color4
-set_from_resource $blue			color12
+set_from_resource $yellow	color11
+set_from_resource $darkblue	color4
+set_from_resource $blue		color12
 set_from_resource $darkmagenta	color5
-set_from_resource $magenta		color13
-set_from_resource $darkcyan		color6
-set_from_resource $cyan			color14
+set_from_resource $magenta	color13
+set_from_resource $darkcyan	color6
+set_from_resource $cyan		color14
 set_from_resource $darkwhite	color7
-set_from_resource $white		color15
-set $transparent				#00000000
+set_from_resource $white	color15
+set $transparent		#00000000
 
 # Top bar
 bar {
 	font pango:mono 12
 	colors {
-		background 			$darkblack
-		statusline 			$darkwhite
-		separator 			$cyan
-		focused_workspace  	$darkmagenta	$darkmagenta		$white
-        active_workspace   	$blue 			$blue				$white
-      	inactive_workspace 	$darkblack 		$darkblack			$white
-        urgent_workspace   	$darkyellow		$darkyellow			$darkwhite
+		background 		$backgroundE0
+		statusline 		$darkwhite
+		focused_workspace  	$darkmagenta 	$darkmagenta		$white
+		active_workspace   	$blue 		$blue			$white
+		inactive_workspace 	$backgroundE0 	$backgroundE0		$white
+		urgent_workspace   	$darkyellow	$darkyellow		$darkwhite
 	}
 	status_command i3blocks
+	i3bar_command i3bar -t
 	position top
 	mode dock
 	hidden_state hide
 	modifier None
+	tray_output none
 }
 
 # Bottom bar
 bar {
 	font pango:mono 12
+	colors {
+		background 		$backgroundE0
+		statusline 		$darkwhite
+	}
 	workspace_buttons no
 	status_command i3blocks -c ~/.config/i3blocks/config-bottom
 	position bottom
 	mode dock
 	hidden_state hide
 	modifier None
+	i3bar_command i3bar -t
 }
 
-# class						BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
-client.focused				$red			$red		$white		$darkmagenta	$darkmagenta
-client.unfocused			$transparent	$blue		$white		$transparent	$transparent
+# class				BORDER		BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
+client.focused			$red		$red		$white		$darkred	$darkred
+client.unfocused		$transparent	$blue		$white		$transparent	$transparent
 client.focused_inactive		$transparent	$blue		$darkwhite	$transparent	$transparent
-client.urgent				$darkred		$darkred	$white		$darkred		$darkred
-client.background			$black
+client.urgent			$darkred	$darkred	$white		$darkred	$darkred
+client.background		$black
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # change gaps
 bindsym $mod+Shift+t		gaps inner current set 8; gaps outer current set 8
-bindsym $mod+t				gaps inner current set 0; gaps outer current set 0
-bindsym $mod+z				gaps outer current plus 5
+bindsym $mod+t			gaps inner current set 0; gaps outer current set 0
+bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
-bindsym $mod+s				gaps inner current plus 5
+bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s		gaps inner current minus 5
 
 # focus
-bindsym $mod+h				focus left
-bindsym $mod+Left 			focus left
-bindsym $mod+j				focus down
-bindsym $mod+Down 			focus down
-bindsym $mod+k				focus up
-bindsym $mod+Up 			focus up
-bindsym $mod+l				focus right
-bindsym $mod+Right 			focus right
+bindsym $mod+h			focus left
+bindsym $mod+Left 		focus left
+bindsym $mod+j			focus down
+bindsym $mod+Down 		focus down
+bindsym $mod+k			focus up
+bindsym $mod+Up 		focus up
+bindsym $mod+l			focus right
+bindsym $mod+Right 		focus right
 
 # resize
 bindsym $mod+Shift+y		exec --no-startup-id i3resize left
@@ -107,10 +114,10 @@ bindsym $mod+Shift+o		exec --no-startup-id i3resize right
 bindsym $mod+$alt+Right		exec --no-startup-id i3resize right
 
 # toggle
-bindsym $mod+o				sticky 		toggle
-bindsym $mod+f				fullscreen 	toggle
+bindsym $mod+o			sticky 		toggle
+bindsym $mod+f			fullscreen 	toggle
 bindsym $mod+Shift+f		floating 	toggle
-bindsym $mod+b				bar mode	toggle
+bindsym $mod+b			bar mode	toggle
 
 # move
 bindsym $mod+Shift+h		move left 	30
@@ -122,7 +129,7 @@ bindsym $mod+Shift+Up		move up 	30
 bindsym $mod+Shift+l		move right 	30
 bindsym $mod+Shift+Right	move right 	30
 
-bindsym $mod+Escape			workspace prev
+bindsym $mod+Escape		workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

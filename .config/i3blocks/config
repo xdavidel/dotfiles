@@ -21,7 +21,7 @@ signal=5
 [memory]
 interval=30
 
-[heat]
+[cpu]
 interval=10
 
 [audiovol]

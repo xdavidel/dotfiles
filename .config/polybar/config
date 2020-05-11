@@ -49,9 +49,9 @@ font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
 ; modules-left = bspwm i3 ewmh xwindow
-modules-left = ewmh
+modules-left = ewmh xwindow
 ;modules-center =
-modules-right = mpd updates news weather memory temperature volume network power
+modules-right = mpd updates news weather memory cpu volume network power
 
 wm-restack = bspwm
 
@@ -88,7 +88,7 @@ font-0 = Inconsolata:size=12;1
 font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
-modules-left = powermenu xwindow
+modules-left = powermenu
 modules-right = keyboard date
 
 tray-position = right
@@ -289,14 +289,14 @@ card = intel_backlight
 
 [module/cpu]
 type = custom/script
-exec = top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
-interval = 4
-format-prefix = "🖥 "
-format-prefix-foreground = ${colors.green}
+exec = cpu
+interval = 8
 format-underline = ${colors.darkmagenta}
 format-padding = 1
 format-background = ${colors.background-alt}
-click-left = notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)"
+click-left = cpu 1
+click-middle = cpu 2
+click-right = cpu 3
 
 [module/memory]
 type = custom/script
