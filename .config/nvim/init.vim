@@ -24,6 +24,7 @@ Plug 'junegunn/goyo.vim' "distraction free VIM
 Plug 'junegunn/fzf.vim' "Fuzzy file finder
 Plug 'jreybert/vimagit' "git for any VIM buffer
 Plug 'tpope/vim-commentary' "enable commenting lines
+Plug 'unblevable/quick-scope' "highlight navigation
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
 Plug 'ap/vim-css-color' "Color highlights
 Plug 'vimwiki/vimwiki' "A personal wiki using vim
@@ -47,6 +48,7 @@ set clipboard+=unnamedplus
 set noerrorbells
 set incsearch
 set noemoji "emoji fix
+set expandtab
 
 " treat dash separated words as a word text object"
 set iskeyword+=-
@@ -157,6 +159,12 @@ cmap w!! w !sudo tee %
 	\ call fzf#vim#grep(
 	\   'git grep --line-number '.shellescape(<q-args>), 0,
 	\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+"=====================================================================
+
+" Quickscope
+
+        let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 "=====================================================================
 
@@ -277,7 +285,7 @@ cmap w!! w !sudo tee %
 
 " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
 	vnoremap <C-c> "+y
-	map <C-v> "+P
+	" map <C-v> "+P
 
 "=====================================================================
 
