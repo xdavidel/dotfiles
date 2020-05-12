@@ -2,18 +2,18 @@
 
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
-filter() { mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ' ' | sed 's/ $/\n/' ;}
-
 case $BLOCK_BUTTON in
-    1) mpc status 2>/dev/null | filter && setsid "$TERMINAL" -e ncmpcpp & ;;  # right click, pause/unpause
-    2) mpc toggle 2>/dev/null | filter ;;  # right click, pause/unpause
-    3) mpc status 2>/dev/null | filter && notify-send "🎵 Music module" "\- Shows mpd song playing.
+    1) setsid mediaplayer & ;;
+    2) mpc toggle 2>/dev/null && refbar music & ;;  # right click, pause/unpause
+    3) mpc status 2>/dev/null && notify-send "🎵 Music module" "\- Shows mpd song playing.
 - Italic when paused.
 - Left click opens ncmpcpp.
 - Middle click pauses.
-- Scroll changes track.";;  # right click, pause/unpause
-    4) mpc prev 2>/dev/null   | filter ;;  # scroll up, previous
-    5) mpc next 2>/dev/null   | filter ;;  # scroll down, next
+- Scroll changes track.";;
+    4) mpc prev 2>/dev/null && refbar music & ;;  # scroll up, previous
+    5) mpc next 2>/dev/null && refbar music & ;;  # scroll down, next
     6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
-    *) mpc status 2>/dev/null | filter ;;
 esac
+
+# Get current mpd track filename or artist - title if possible.
+mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/(.*)//g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ';' | awk -F ';' 'length($0)>44 {print $2 " " substr($1,1,41) "..."} {print $2 " " $1}' | sed 's/ \+/ /g;s/ $//g'
