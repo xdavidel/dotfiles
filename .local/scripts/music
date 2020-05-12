@@ -2,7 +2,7 @@
 
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
-filter() { mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ' ' | sed 's/ $//' ;}
+filter() { mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ' ' | sed 's/ $/\n/' ;}
 
 case $BLOCK_BUTTON in
     1) mpc status 2>/dev/null | filter && setsid "$TERMINAL" -e ncmpcpp & ;;  # right click, pause/unpause
