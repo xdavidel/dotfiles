@@ -45,10 +45,10 @@ bar {
 	colors {
 		background 		$backgroundE0
 		statusline 		$darkwhite
-		focused_workspace  	$darkmagenta 	$darkmagenta		$white
-		active_workspace   	$blue 		$blue			$white
-		inactive_workspace 	$backgroundE0 	$backgroundE0		$white
-		urgent_workspace   	$darkyellow	$darkyellow		$darkwhite
+		focused_workspace 	$darkmagenta 	$darkmagenta	$white
+		active_workspace   	$blue 		$blue		$white
+		inactive_workspace 	$backgroundE0 	$backgroundE0	$white
+		urgent_workspace   	$darkyellow	$darkyellow	$darkwhite
 	}
 	status_command i3blocks
 	i3bar_command i3bar -t
@@ -86,12 +86,12 @@ client.background		$black
 floating_modifier $mod
 
 # change gaps
-bindsym $mod+Shift+t		gaps inner current set 8; gaps outer current set 8
-bindsym $mod+t			gaps inner current set 0; gaps outer current set 0
-bindsym $mod+z			gaps outer current plus 5
-bindsym $mod+Shift+z		gaps outer current minus 5
-bindsym $mod+s			gaps inner current plus 5
-bindsym $mod+Shift+s		gaps inner current minus 5
+bindsym $mod+$alt+v     	gaps inner current set 5; gaps outer current set 5
+bindsym $mod+$alt+0		gaps inner current set 0; gaps outer current set 0
+# bindsym $mod+z		gaps outer current plus 5
+# bindsym $mod+Shift+z		gaps outer current minus 5
+bindsym $mod+v			gaps inner current plus 5
+bindsym $mod+Shift+v		gaps inner current minus 5
 
 # focus
 bindsym $mod+h			focus left
@@ -132,7 +132,7 @@ bindsym $mod+Shift+Right	move right 	30
 bindsym $mod+Escape		workspace prev
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 
 set $ws1 "1"
 set $ws2 "2"
