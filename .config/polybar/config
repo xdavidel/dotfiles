@@ -1,24 +1,24 @@
 [colors]
-black				= ${xrdb:color0:#1d2021}
-darkred			= ${xrdb:color1:#cc241d}
-darkgreen		= ${xrdb:color2:#98971a}
-darkyellow	= ${xrdb:color3:#d79921}
-darkblue		= ${xrdb:color4:#458588}
-darkmagenta = ${xrdb:color5:#b16286}
-darkcyan		= ${xrdb:color6:#689d6a}
-lightgray		= ${xrdb:color7:#a89984}
-gray				= ${xrdb:color8:#928374}
-red					= ${xrdb:color9:#fb4934}
-green				= ${xrdb:color10:#b8bb26}
-yellow			= ${xrdb:color11:#fabd2f}
-blue				= ${xrdb:color12:#83a598}
-magenta			= ${xrdb:color13:#d3869b}
-cyan				= ${xrdb:color14:#8ec07c}
-white				= ${xrdb:color15:#ebdbb2}
-background	= ${xrdb:background:#1d1f21}
-foreground	= ${xrdb:foreground:#d8dee9}
+black           = ${xrdb:color0:#1d2021}
+darkred         = ${xrdb:color1:#cc241d}
+darkgreen       = ${xrdb:color2:#98971a}
+darkyellow      = ${xrdb:color3:#d79921}
+darkblue        = ${xrdb:color4:#458588}
+darkmagenta     = ${xrdb:color5:#b16286}
+darkcyan        = ${xrdb:color6:#689d6a}
+lightgray       = ${xrdb:color7:#a89984}
+gray            = ${xrdb:color8:#928374}
+red             = ${xrdb:color9:#fb4934}
+green           = ${xrdb:color10:#b8bb26}
+yellow          = ${xrdb:color11:#fabd2f}
+blue            = ${xrdb:color12:#83a598}
+magenta         = ${xrdb:color13:#d3869b}
+cyan            = ${xrdb:color14:#8ec07c}
+white           = ${xrdb:color15:#ebdbb2}
+background      = ${xrdb:background:#1d1f21}
+foreground      = ${xrdb:foreground:#d8dee9}
 
-background-alt = #3d3d3d
+background-alt  = #3d3d3d
 
 [bar/top]
 monitor = ${env:MONITOR:}
@@ -49,14 +49,10 @@ font-1 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;0
 font-2 = FontAwesome5Free:style=Solid:size=10;0
 
 ; modules-left = bspwm i3 ewmh xwindow
-modules-left = ewmh xwindow
-;modules-center =
-modules-right = mpd updates news weather memory cpu volume network power
+modules-left = bspwm xwindow
+modules-right = music updates news weather memory cpu volume network power
 
 wm-restack = bspwm
-
-; scroll-up = bspwm-desknext
-; scroll-down = bspwm-deskprev
 
 [bar/bottom]
 monitor = ${env:MONITOR:}
@@ -99,9 +95,6 @@ tray-offset-y = 0
 tray-scale = 1.0
 
 wm-restack = bspwm
-
-; scroll-up = bspwm-desknext
-; scroll-down = bspwm-deskprev
 
 [module/xwindow]
 ; type = custom/ipc
@@ -206,7 +199,6 @@ enable-scroll = false
 label-focused = %index%
 label-focused-foreground = ${colors.black}
 label-focused-background = ${colors.darkmagenta}
-; label-focused-underline= ${colors.lightgray}
 label-focused-padding-right = 1
 label-focused-padding-left = 1
 
@@ -253,7 +245,7 @@ label-urgent = %index%
 label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
-[module/mpd]
+[module/music]
 type = custom/ipc
 hook-0 = music
 initial = 1
