@@ -14,48 +14,48 @@ local themes_path = gfs.get_themes_dir()
 local homedir = os.getenv("HOME")
 
 local system_colors = {
-	foreground 	= xrdb.foreground 	or '#f2e6c9',
-	background 	= xrdb.background 	or '#272929',
-	cursor 		= xrdb.cursorColor 	or '#c5c8c6',
+    foreground      = xrdb.foreground       or '#f2e6c9',
+    background      = xrdb.background       or '#272929',
+    cursor          = xrdb.cursorColor      or '#c5c8c6',
 
-	-- black
-	black_d		= xrdb.color0	 	or '#1d2021',
-	black_l		= xrdb.color8	 	or '#373b41',
+    -- black
+    black_d         = xrdb.color0           or '#1d2021',
+    black_l         = xrdb.color8           or '#373b41',
 
-	-- red
-	red_d 		= xrdb.color1		or '#cc241d',
-	red_l 		= xrdb.color9 		or '#a54242',
+    -- red
+    red_d           = xrdb.color1           or '#cc241d',
+    red_l           = xrdb.color9           or '#a54242',
 
-	-- green
-	green_d		= xrdb.color2		or '#5F9E0E',
-	green_l		= xrdb.color10		or '#8c9440',
+    -- green
+    green_d         = xrdb.color2           or '#5F9E0E',
+    green_l         = xrdb.color10          or '#8c9440',
 
-	-- yellow
-	yellow_d	= xrdb.color3		or '#d79921',
-	yellow_l	= xrdb.color11		or '#f0c674',
+    -- yellow
+    yellow_d        = xrdb.color3           or '#d79921',
+    yellow_l        = xrdb.color11          or '#f0c674',
 
-	-- blue
-	blue_d		= xrdb.color4		or '#5f819d',
-	blue_l		= xrdb.color12		or '#7197E7',
+    -- blue
+    blue_d          = xrdb.color4           or '#5f819d',
+    blue_l          = xrdb.color12          or '#7197E7',
 
-	-- magenta
-	magenta_d	= xrdb.color5		or '#750775',
-	magenta_l	= xrdb.color13		or '#A77AC4',
+    -- magenta
+    magenta_d       = xrdb.color5           or '#750775',
+    magenta_l       = xrdb.color13          or '#A77AC4',
 
-	-- cyan
-	cyan_d		= xrdb.color6		or '#5e8d87',
-	cyan_l		= xrdb.color14		or '#8abeb7',
+    -- cyan
+    cyan_d          = xrdb.color6           or '#5e8d87',
+    cyan_l          = xrdb.color14          or '#8abeb7',
 
-	-- white
-	white_d		= xrdb.color7		or '#f2e6c9',
-	white_l		= xrdb.color15		or '#c5c8c6',
+    -- white
+    white_d         = xrdb.color7           or '#f2e6c9',
+    white_l         = xrdb.color15          or '#c5c8c6',
 }
 
 local theme = {
     dir             = homedir .. "/.config/awesome/themes/base",
     wallpaper       = homedir .. "/.config/wall.png",
-    font            = "mono 12",
-    taglist_font    = "sans 12",
+    font            = "mono 10",
+    taglist_font    = "mono 10",
     fg_normal       = system_colors.foreground,
     fg_focus        = system_colors.black_d,
     fg_urgent       = system_colors.foreground,
@@ -66,7 +66,7 @@ local theme = {
     bg_urgent       = system_colors.red_d,
     bg_systray      = system_colors.background,
     border_normal   = system_colors.black_l,
-    border_focus    = system_colors.white_d,
+    border_focus    = system_colors.red_d,
     border_width    = dpi(3),
     useless_gap     = dpi(4),
 }
