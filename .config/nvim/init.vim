@@ -255,8 +255,9 @@ cmap w!! w !sudo tee %
 
 "=====================================================================
 
-" Check file in shellcheck:
-	map <leader>s :!clear && shellcheck %<CR>
+" Check file in checkbashisms:
+	map <leader>s : !checkbashisms -xfp %<CR>
+
 
 "=====================================================================
 
