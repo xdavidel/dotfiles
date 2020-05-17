@@ -49,6 +49,12 @@ set noerrorbells
 set incsearch
 set noemoji "emoji fix
 set expandtab
+set smarttab
+set cindent
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set shiftwidth=4    " number of spaces to use for autoindent
+set smartindent
 
 " treat dash separated words as a word text object"
 set iskeyword+=-
