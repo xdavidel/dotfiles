@@ -327,7 +327,7 @@ local newscmd = "news"
 local mynews
 local newsscript = awful.widget.watch(
     newscmd,
-    0,
+    1000,
     function(widget, stdout)
         if string.len(stdout) <= 1 then
             mynews.visible = false
