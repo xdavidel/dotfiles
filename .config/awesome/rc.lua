@@ -234,17 +234,17 @@ mytextclock:buttons(
 )
 
 -- Keyboard map indicator and switcher
-local keyboardlayout = awful.widget.keyboardlayout()
+local keyboardcmd = "keyboardlayout"
+local keyboardscript = awful.widget.watch(
+    keyboardcmd,
+    1000
+)
 local mykeyboardlayout = wibox.container.margin(
     wibox.container.background(
         wibox.container.margin(
-            wibox.widget {
-                keyboardlayout,
-                wibox.widget.textbox("⌨ "),
-                layout  = wibox.layout.align.horizontal
-            },
-            7,
+            keyboardscript,
             0,
+            10,
             0,
             0
         ),
@@ -254,6 +254,27 @@ local mykeyboardlayout = wibox.container.margin(
     10,
     0,
     0
+)
+mykeyboardlayout:buttons(
+    gears.table.join(
+        mykeyboardlayout:buttons(),
+        awful.button(
+            {}, 1, nil,
+            function () awful.spawn(keyboardcmd .. " 1") end
+        ),
+        awful.button(
+            {}, 3, nil,
+            function () awful.spawn(keyboardcmd .. " 3") end
+        )
+    )
+)
+awesome.connect_signal("refkeyboard",
+    function()
+        awful.spawn.easy_async_with_shell(
+            keyboardcmd,
+            function(out) keyboardscript:set_text(out) end
+        )
+    end
 )
 
 local musiccmd = "music"
@@ -298,6 +319,59 @@ awesome.connect_signal("refmusic",
         awful.spawn.easy_async_with_shell(
             musiccmd,
             function(out) musicscript:set_text(out) end
+        )
+    end
+)
+
+local newscmd = "news"
+local mynews
+local newsscript = awful.widget.watch(
+    newscmd,
+    0,
+    function(widget, stdout)
+        if string.len(stdout) <= 0 then
+            mynews.visible = false
+        end
+            widget:set_text(stdout)
+    end
+)
+mynews = wibox.container.margin(
+    wibox.container.background(
+        wibox.container.margin(
+            newsscript,
+            5,
+            5,
+            0,
+            0
+        ),
+        altbackground
+    ),
+    0,
+    10,
+    0,
+    0
+)
+mynews:buttons(
+    gears.table.join(
+        mynews:buttons(),
+        awful.button(
+            {}, 1, nil,
+            function () awful.spawn(newscmd .. " 1") end
+        ),
+        awful.button(
+            {}, 2, nil,
+            function () awful.spawn(newscmd .. " 2") end
+        ),
+        awful.button(
+            {}, 3, nil,
+            function () awful.spawn(newscmd .. " 3") end
+        )
+    )
+)
+awesome.connect_signal("refnews",
+    function()
+        awful.spawn.easy_async_with_shell(newscmd,
+            function(out) newsscript:set_markup(out) end
         )
     end
 )
@@ -858,6 +932,7 @@ awful.screen.connect_for_each_screen(function(s)
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 mymusic,
+                mynews,
                 myupdates,
                 myweather,
                 mymemory,
