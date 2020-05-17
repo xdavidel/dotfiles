@@ -329,10 +329,10 @@ local newsscript = awful.widget.watch(
     newscmd,
     0,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             mynews.visible = false
         end
-            widget:set_text(stdout)
+        widget:set_text(stdout)
     end
 )
 mynews = wibox.container.margin(
@@ -382,7 +382,7 @@ local updatesscript = awful.widget.watch(
     updatescmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             myupdates.visible = false
         end
             widget:set_text(stdout)
@@ -435,7 +435,7 @@ local weatherscript = awful.widget.watch(
     weathercmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             myweather.visible = false
         end
         widget:set_text(stdout)
@@ -487,7 +487,7 @@ local memoryscript = awful.widget.watch(
     memorycmd,
     30,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             mymemory.visible = false
         end
         widget:set_text(stdout)
@@ -534,7 +534,7 @@ local heatscript = awful.widget.watch(
     heatcmd,
     60,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             myheat.visible = false
         end
         widget:set_text(stdout)
@@ -563,7 +563,7 @@ local cpuscript = awful.widget.watch(
     cpucmd,
     10,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             mycpu.visible = false
         end
         widget:set_text(stdout)
@@ -592,7 +592,7 @@ local volscript = awful.widget.watch(
     volcmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             myvol.visible = false
         end
         widget:set_text(stdout)
@@ -653,7 +653,7 @@ local netscript = awful.widget.watch(
     netcmd,
     20,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             mynet.visible = false
         end
         widget:set_text(stdout)
@@ -696,7 +696,7 @@ local batscript = awful.widget.watch(
     batcmd,
     10,
     function(widget, stdout)
-        if string.len(stdout) <= 0 then
+        if string.len(stdout) <= 1 then
             mybat.visible = false
         end
         widget:set_text(stdout)
