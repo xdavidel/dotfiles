@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[ -z "$1" ] && exit
+
+script=$1
+shift
+
+wmctrl -l -x | grep "dropdown_$script" && i3 "[instance=\"dropdown_$script\"] scratchpad show; [instance=\"dropdown_$script\"] move position center" || i3 "exec --no-startup-id $TERMINAL -n dropdown_$script $@"
