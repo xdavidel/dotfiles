@@ -556,6 +556,31 @@ myheat = wibox.container.margin(
     0,
     0
 )
+myheat:buttons(
+    gears.table.join(
+        myheat:buttons(),
+        awful.button(
+            {}, 1, nil,
+            function () awful.spawn(heatcmd .. " 1") end
+        ),
+        awful.button(
+            {}, 2, nil,
+            function () awful.spawn(heatcmd .. " 2") end
+        ),
+        awful.button(
+            {}, 4, nil,
+            function () awful.spawn(heatcmd .. " 4") end
+        ),
+        awful.button(
+            {}, 5, nil,
+            function () awful.spawn(heatcmd .. " 5") end
+        ),
+        awful.button(
+            {}, 3, nil,
+            function () awful.spawn(heatcmd .. " 3") end
+        )
+    )
+)
 
 local cpucmd = "cpu"
 local mycpu
@@ -584,6 +609,31 @@ mycpu = wibox.container.margin(
     10,
     0,
     0
+)
+mycpu:buttons(
+    gears.table.join(
+        mycpu:buttons(),
+        awful.button(
+            {}, 1, nil,
+            function () awful.spawn(cpucmd .. " 1") end
+        ),
+        awful.button(
+            {}, 2, nil,
+            function () awful.spawn(cpucmd .. " 2") end
+        ),
+        awful.button(
+            {}, 4, nil,
+            function () awful.spawn(cpucmd .. " 4") end
+        ),
+        awful.button(
+            {}, 5, nil,
+            function () awful.spawn(cpucmd .. " 5") end
+        ),
+        awful.button(
+            {}, 3, nil,
+            function () awful.spawn(cpucmd .. " 3") end
+        )
+    )
 )
 
 local volcmd = "audiovol"
