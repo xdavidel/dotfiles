@@ -10,7 +10,7 @@ local wibox                          = require("wibox")
 local beautiful                      = require("beautiful")
 
 -- Notification library
-local naughty                        = require("naughty")
+-- local naughty                        = require("naughty")
 local menubar                        = require("menubar")
 local hotkeys_popup                  = require("awful.hotkeys_popup")
 
@@ -23,12 +23,20 @@ local freedesktop                    = require("freedesktop")
 -- require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
+function handle_errors(title, text)
+    awful.spawn(
+        "notify-send " ..
+        title ..
+        " " ..
+        text ..
+        " -u critical"
+    )
+end
+
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-    title = "Oops, there were errors during startup!",
-    text = awesome.startup_errors })
+    handle_errors("Oops, there were errors during startup!", awesome.startup_errors)
 end
 
 -- Handle runtime errors after startup
@@ -40,10 +48,7 @@ do
         if in_error then return end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-            title = "Oops, an error happened!",
-            text = tostring(err) })
-        in_error = false
+        handle_errors("Oops, an error happened!", tostring(err))
     end)
 end
 -- }}}
@@ -71,21 +76,13 @@ ctlkey = "Control"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
     awful.layout.suit.spiral,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
-    -- awful.layout.suit.corner.nw,
     awful.layout.suit.floating,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -977,6 +974,7 @@ awful.screen.connect_for_each_screen(function(s)
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 s.mytaglist,
+                s.mypromptbox,
             },
             s.emptyspace,
             { -- Right widgets
@@ -999,7 +997,6 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = wibox.layout.fixed.horizontal,
                 mylauncher,
                 myseparator,
-                s.mypromptbox,
             },
             s.mytasklist, -- Middle widget
             { -- Right widgets
@@ -1403,7 +1400,12 @@ awful.rules.rules = {
                 "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
             }
       },
-      properties = { floating = true }},
+            properties =
+            {
+                floating = true,
+                placement = awful.placement.centered,
+            }
+      },
 
     -- Add titlebars to normal clients and dialogs
     {
@@ -1475,6 +1477,25 @@ end)
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
+
+-- fix fullscreen
+client.connect_signal("request::activate",
+    function(c)
+        if c.fullscreen then
+            c.ontop = true
+            c.fullscreen = true
+        end
+    end)
+
+-- disable transparentcy on fullscreen
+-- client.connect_signal("property::fullscreen",
+--     function(c)
+--         if c.fullscreen then
+--             awesome.spawn("killall xcompmgr")
+--         else
+--             awesome.spawn("xcompmgr")
+--         end
+--     end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
