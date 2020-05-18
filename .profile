@@ -14,6 +14,8 @@ export FILEGUI="pcmanfm"
 export MEDIAPLAYER="mpv"
 export SUDO_ASKPASS="$HOME/.local/scripts/dmenupass"
 
+export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
+
 # No place like home
 export LESSHISTFILE="-"
 export XDG_CACHE_HOME="$HOME/.cache"
