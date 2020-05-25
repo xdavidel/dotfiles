@@ -161,9 +161,9 @@ super + F2
 super + F3
 	displayselect
 
-# Hibernate
-super + F4
-	prompt 'Hibernate computer?' 'sudo systemctl suspend'
+# Suspend
+super {_,shift +} + F4
+	{prompt 'Suspend computer?' 'sudo systemctl suspend', prompt 'Hibernate computer?' 'sudo systemctl hibernate'}
 
 # Restart/rescan wifi/eth networks
 super + F5
