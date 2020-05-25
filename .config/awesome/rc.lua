@@ -156,7 +156,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibar
 
-local altbackground = '#3d3d3d'
+local alpha = 'CC'
+local altbackground = '#4d4d4d' .. alpha
+
 local emptyspace = wibox.widget.separator({
     visible = false
 })
@@ -164,6 +166,9 @@ local myseparator = wibox.widget.separator({
     orientation = "vertical",
     forced_width = 20,
 })
+
+
+local mysystray = wibox.widget.systray()
 
 local desktoptext = wibox.widget.textbox("💻")
 desktoptext:buttons(
@@ -965,8 +970,8 @@ awful.screen.connect_for_each_screen(function(s)
         }
 
         -- Create the wibox
-        s.mytopwibox = awful.wibar({ position = "top", screen = s })
-        s.mybottomwibox = awful.wibar({ position = "bottom", screen = s })
+        s.mytopwibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal .. alpha })
+        s.mybottomwibox = awful.wibar({ position = "bottom", screen = s,bg = beautiful.bg_normal .. alpha })
 
         -- Add widgets to the wibox
         s.mytopwibox:setup {
@@ -1004,7 +1009,7 @@ awful.screen.connect_for_each_screen(function(s)
                 mykeyboardlayout,
                 mytextclock,
                 showdesktop,
-                wibox.widget.systray(),
+                mysystray,
             },
         }
     end
