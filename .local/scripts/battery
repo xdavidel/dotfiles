@@ -20,7 +20,8 @@ do
 	status=$(sed "s/Discharging/🔋/;s/Not charging/🛑/;s/Charging/🔌/;s/Unknown/♻️/;s/Full/⚡/" "$battery"/status)
 
 	# If it is discharging and 25% or less, we will add a ❗ as a warning.
-	 [ "$capacity" -le 25 ] && [ "$status" = "🔋" ] && warn="❗"
+	 [ "$capacity" -le 25 ] && [ "$status" = "🔋" ] && warn="❗" && \
+         pidof dunst >/dev/null && notify-send -u critical "Battery critically low."
 
 	printf "%s%s%s%% " "$status" "$warn" "$capacity"
 	unset warn
