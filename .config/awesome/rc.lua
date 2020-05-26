@@ -339,9 +339,7 @@ local newsscript = awful.widget.watch(
     newscmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            mynews.visible = false
-        end
+        mynews.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -381,7 +379,10 @@ mynews:buttons(
 awesome.connect_signal("refnews",
     function()
         awful.spawn.easy_async_with_shell(newscmd,
-            function(out) newsscript:set_markup(out) end
+            function(out)
+                mynews.visible = string.len(out) > 1 and true or false
+                newsscript:set_markup(out)
+            end
         )
     end
 )
@@ -392,10 +393,8 @@ local updatesscript = awful.widget.watch(
     updatescmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            myupdates.visible = false
-        end
-            widget:set_text(stdout)
+        myupdates.visible = string.len(stdout) > 1 and true or false
+        widget:set_text(stdout)
     end
 )
 myupdates = wibox.container.margin(
@@ -434,7 +433,10 @@ myupdates:buttons(
 awesome.connect_signal("refupdates",
     function()
         awful.spawn.easy_async_with_shell(updatescmd,
-            function(out) updatesscript:set_markup(out) end
+            function(out)
+                myupdates.visible = string.len(out) > 1 and true or false
+                updatesscript:set_markup(out)
+            end
         )
     end
 )
@@ -445,9 +447,7 @@ local weatherscript = awful.widget.watch(
     weathercmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            myweather.visible = false
-        end
+        myweather.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -487,23 +487,25 @@ myweather:buttons(
 awesome.connect_signal("refweather",
     function()
         awful.spawn.easy_async_with_shell(weathercmd,
-            function(out) weatherscript:set_text(out) end
+            function(out)
+                myweather.visible = string.len(stdout) > 1 and true or false
+                weatherscript:set_text(out)
+            end
         )
     end
 )
 
 local memorycmd = "memory"
+local mymemory
 local memoryscript = awful.widget.watch(
     memorycmd,
     30,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            mymemory.visible = false
-        end
+        mymemory.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
-local mymemory = wibox.container.margin(
+mymemory = wibox.container.margin(
     wibox.container.background(
         wibox.container.margin(
             memoryscript,
@@ -544,9 +546,7 @@ local heatscript = awful.widget.watch(
     heatcmd,
     60,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            myheat.visible = false
-        end
+        myheat.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -598,9 +598,7 @@ local cpuscript = awful.widget.watch(
     cpucmd,
     10,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            mycpu.visible = false
-        end
+        mycpu.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -652,9 +650,7 @@ local volscript = awful.widget.watch(
     volcmd,
     1000,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            myvol.visible = false
-        end
+        myvol.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -702,7 +698,10 @@ myvol:buttons(
 awesome.connect_signal("refvol",
     function()
         awful.spawn.easy_async_with_shell(volcmd,
-            function(out) volscript:set_markup(out) end
+            function(out)
+                myvol.visible = string.len(out) > 1 and true or false
+                volscript:set_markup(out)
+            end
         )
     end
 )
@@ -713,9 +712,7 @@ local netscript = awful.widget.watch(
     netcmd,
     20,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            mynet.visible = false
-        end
+        mynet.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
@@ -756,9 +753,7 @@ local batscript = awful.widget.watch(
     batcmd,
     10,
     function(widget, stdout)
-        if string.len(stdout) <= 1 then
-            mybat.visible = false
-        end
+        mybat.visible = string.len(stdout) > 1 and true or false
         widget:set_text(stdout)
     end
 )
