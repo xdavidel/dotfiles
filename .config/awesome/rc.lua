@@ -67,6 +67,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal        = os.getenv("TERMINAL") or "st"
+files           = os.getenv("FILEGUI") or "pcmanfm"
 editor          = os.getenv("EDITOR") or "nvim"
 homedir         = os.getenv("HOME")
 editor_cmd = terminal .. " -e " .. editor
@@ -148,6 +149,7 @@ local mymainmenu = freedesktop.menu.build({
     },
     after = {
         { "Run", "dmenu_run"         },
+      { "Files", files               },
       { "Terminal", terminal         },
       { "Exit", exitmenu             },
     }
