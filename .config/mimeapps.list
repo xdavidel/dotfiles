@@ -5,13 +5,10 @@ text/plain=text.desktop;
 text/x-shellscript=text.desktop;
 application/postscript=pdf.desktop;
 application/pdf=pdf.desktop;
-image/png=sxiv.desktop;img.desktop;
-image/jpeg=sxiv.desktop;img.desktop;
-image/gif=sxiv.desktop;img.desktop;
+image/png=img.desktop;
+image/jpeg=img.desktop;
+image/gif=img.desktop;
 application/rss+xml=rss.desktop;
 video/x-matroska=video.desktop;
 inode/directory=file.desktop;
 x-scheme-handler/lbry=lbry.desktop;
-
-[Added Associations]
-image/png=img.desktop;sxiv.desktop;
