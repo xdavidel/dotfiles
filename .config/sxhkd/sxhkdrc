@@ -136,7 +136,7 @@ super + {_,shift +} bracketright
 
 # Seek backward in song
 super + {_,shift +} bracketleft
-	dmc back {5,20}
+	dmc backward {5,20}
 
 # Increase volume
 super + {equal,plus}
