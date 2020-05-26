@@ -10,7 +10,7 @@ local wibox                          = require("wibox")
 local beautiful                      = require("beautiful")
 
 -- Notification library
--- local naughty                        = require("naughty")
+local naughty                        = require("naughty")
 local menubar                        = require("menubar")
 local hotkeys_popup                  = require("awful.hotkeys_popup")
 
@@ -23,6 +23,7 @@ local freedesktop                    = require("freedesktop")
 -- require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
+-- Using notify-send
 function handle_errors(title, text)
     awful.spawn(
         "notify-send " ..
@@ -36,7 +37,10 @@ end
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    handle_errors("Oops, there were errors during startup!", awesome.startup_errors)
+    naughty.notify({ preset = naughty.config.presets.critical,
+                     title = "Oops, there were errors during startup!",
+                     text = awesome.startup_errors })
+    -- handle_errors("Oops, there were errors during startup!", awesome.startup_errors)
 end
 
 -- Handle runtime errors after startup
@@ -48,7 +52,11 @@ do
         if in_error then return end
         in_error = true
 
-        handle_errors("Oops, an error happened!", tostring(err))
+        naughty.notify({ preset = naughty.config.presets.critical,
+                         title = "Oops, an error happened!",
+                         text = tostring(err) })
+        -- handle_errors("Oops, an error happened!", tostring(err))
+        in_error = false
     end)
 end
 -- }}}
@@ -1162,17 +1170,17 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
-        -- Open context menu
-    awful.key({ modkey                }, "space",
+    -- Open context menu
+    awful.key({ modkey                }, "BackSpace",
         function () mymainmenu:toggle() end,
         {description = "show context menu", group = "awesome"}),
 
-        -- Monitor options
+    -- Monitor options
     awful.key({ modkey, altkey    }, "s",
         function () xrandr.xrandr() end,
         {description = "Monitor options", group = "awesome"}),
 
-        -- Show / Hide wibox
+    -- Show / Hide wibox
     awful.key({ modkey,           }, "b",
         function ()
             for s in screen do
@@ -1197,16 +1205,16 @@ globalkeys = gears.table.join(
         {description = "increase client height", group = "layout"}),
 
     awful.key({ modkey, altkey    }, "j",
-        function (c) awful.client.moveresize(0,20,0,0) end,
+        function () awful.client.moveresize(0,20,0,0) end,
         {description = "move floating client down", group = "client"}),
     awful.key({ modkey, altkey    }, "k",
-        function (c) awful.client.moveresize(0,-20,0,0) end,
+        function () awful.client.moveresize(0,-20,0,0) end,
         {description = "move floating client up", group = "client"}),
     awful.key({ modkey, altkey    }, "l",
-        function (c) awful.client.moveresize(20,0,0,0) end,
+        function () awful.client.moveresize(20,0,0,0) end,
         {description = "move floating client right", group = "client"}),
     awful.key({ modkey, altkey    }, "h",
-        function (c) awful.client.moveresize(-20,0,0,0) end,
+        function () awful.client.moveresize(-20,0,0,0) end,
         {description = "move floating client left", group = "client"}),
 
     awful.key({ modkey, ctlkey    }, "j",
@@ -1251,6 +1259,12 @@ clientkeys = gears.table.join(
             end
         end,
         {description = "toggle titlebar", group = "client"}),
+
+    awful.key({ modkey,           }, "space",
+        function (c)
+            c:swap(awful.client.getmaster())
+        end,
+        {description = "move to master", group = "client"}),
 
     awful.key({ modkey, ctlkey        }, "Up",
         function (c)
@@ -1506,3 +1520,8 @@ client.connect_signal("request::activate",
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- {{{debug
+prt = function(...) naughty.notify{text=" " .. table.concat({...}, '\t') .. " ", bg="blue"} end
+col = function(str) naughty.notify{text="     \n     ", bg=str} end
+--}}}
