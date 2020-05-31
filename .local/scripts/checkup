@@ -10,9 +10,8 @@ sudo pacman -Syyuw --noconfirm || note "Error downloading updates.
 
 Check your internet connection, if pacman is already running, or run update manually to see errors."
 
-if pacman -Qu | grep -v "\[ignored\]"
-then
-	note "Package updates available."
-else
-	note "Repository sync complete. No new packages for update."
-fi
+pacman -Qu | grep -v "\[ignored\]" && \
+    note "Package updates available." || \
+    note "Repository sync complete. No new packages for update."
+
+refbar u &
