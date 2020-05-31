@@ -490,7 +490,7 @@ awesome.connect_signal("refweather",
     function()
         awful.spawn.easy_async_with_shell(weathercmd,
             function(out)
-                myweather.visible = string.len(stdout) > 1 and true or false
+                myweather.visible = string.len(out) > 1 and true or false
                 weatherscript:set_text(out)
             end
         )
@@ -1038,6 +1038,10 @@ globalkeys = gears.table.join(
         {description = "view previous", group = "tag"}),
     awful.key({ modkey, ctlkey    }, "Right",  awful.tag.viewnext,
         {description = "view next", group = "tag"}),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+        {description = "go back", group = "tag"}),
+
+
 
     -- focus by direction
     -- awful.key({ modkey,           }, "Down",
