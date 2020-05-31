@@ -84,6 +84,11 @@ cmap w!! w !sudo tee %
 
 "=====================================================================
 
+" Toggle from ltr to rtl
+	map <leader>l :setlocal rightleft!<CR>
+
+"=====================================================================
+
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
 
