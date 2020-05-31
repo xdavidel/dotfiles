@@ -28,6 +28,7 @@ Plug 'unblevable/quick-scope' "highlight navigation
 Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
 Plug 'ap/vim-css-color' "Color highlights
 Plug 'vimwiki/vimwiki' "A personal wiki using vim
+Plug 'ChristianChiarulli/codi.vim' "An Interactive Scratchpad for Hackers (virtual text fork)
 
 call plug#end()
 
@@ -58,9 +59,6 @@ set smartindent
 
 " treat dash separated words as a word text object"
 set iskeyword+=-
-
-" You can't stop me
-cmap w!! w !sudo tee %
 
 "=====================================================================
 
@@ -263,7 +261,6 @@ cmap w!! w !sudo tee %
 " Check file in checkbashisms:
 	map <leader>s : !checkbashisms -xfp %<CR>
 
-
 "=====================================================================
 
 " Replace all is aliased to S.
@@ -290,8 +287,17 @@ cmap w!! w !sudo tee %
 
 "=====================================================================
 
+" Codi
+    let g:codi#virtual_text_prefix = " "
+
+    let g:codi#aliases = {
+        \ 'javascript.jsx': 'javascript',
+    \ }
+
+"=====================================================================
+
 " Save file as sudo on files that require root permission
-	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+    cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 "=====================================================================
 
