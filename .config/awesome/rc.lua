@@ -1032,6 +1032,23 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    awful.key({ modkey, altkey    }, "Return",
+        function()
+            local found = false
+            for i, c in pairs(client.get()) do
+                if c.instance == "dropdown" then
+                    found = true
+                    c.hidden = not c.hidden
+                    client.focus = c
+                    c:raise()
+                    break
+                end
+            end
+            if not found then
+                awful.spawn(terminal .. " -n dropdown")
+            end
+        end,
+        {description="Toggle dropdown terminal", group="awesome"}),
     awful.key({ modkey, sftkey    }, "/",      hotkeys_popup.show_help,
         {description="show help", group="awesome"}),
     awful.key({ modkey, ctlkey    }, "Left",   awful.tag.viewprev,
@@ -1389,6 +1406,15 @@ awful.rules.rules = {
             focusable = false
         }
     },
+    {
+        rule = { instance = 'dropdown*' },
+        properties = {
+            floating  = true,
+            hidden = true,
+            sticky = true,
+            placement = awful.placement.centered,
+        },
+    },
 
     -- Floating clients.
     {
@@ -1442,10 +1468,6 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     if not awesome.startup then awful.client.setslave(c) end
-
-    -- if c.class == "Polybar" then
-    --      c:unmanage()
-    -- end
 
     if awesome.startup
       and not c.size_hints.user_position
