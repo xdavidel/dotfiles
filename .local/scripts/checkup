@@ -1,17 +1,15 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # Syncs repositories and downloads updates, meant to be run as a cronjob.
 
 ping -q -w 1 -c 1 `ip r | grep -m 1 default | cut -d ' ' -f 3` >/dev/null || exit
 
-note "Checking for pacakge updates..."
+notify-send "Checking for pacakge updates..."
 
-sudo pacman -Syyuw --noconfirm || note "Error downloading updates.
+sudo pacman -Syyuw --noconfirm || notify-send "Error downloading updates.
 
 Check your internet connection, if pacman is already running, or run update manually to see errors."
 
 pacman -Qu | grep -v "\[ignored\]" && \
-    note "Package updates available." || \
-    note "Repository sync complete. No new packages for update."
-
-refbar u &
+    notify-send "Package updates available." || \
+    notify-send "Repository sync complete. No new packages for update."

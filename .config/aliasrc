@@ -3,6 +3,7 @@
 alias \
 	ka="killall" \
 	calcurse="calcurse -D ~/.config/calcurse" \
+	newsboat="newsboat && refbar news" \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
 	f="$FILE" \
 	e="$EDITOR" \
