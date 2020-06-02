@@ -61,6 +61,25 @@ do
 end
 -- }}}
 
+
+-- {{{ Helper functions
+
+-- On the fly useless gaps change (from lain)
+function useless_gaps_resize(thatmuch, s, t)
+    local scr = s or awful.screen.focused()
+    local tag = t or scr.selected_tag
+    local delta = tonumber(thatmuch)
+    if delta == 0 then
+        -- reset to default
+        tag.gap = beautiful.useless_gap
+    else
+        tag.gap = tag.gap + tonumber(thatmuch)
+    end
+    awful.layout.arrange(scr)
+end
+
+-- }}}
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
@@ -1100,6 +1119,14 @@ globalkeys = gears.table.join(
         {description = "focus next down", group = "client"}),
     awful.key({ modkey,           }, "k",
         function () awful.client.focus.byidx( -1) end,
+        {description = "focus next up", group = "client"}),
+
+    -- gaps
+    awful.key({ modkey,           }, "v", function() useless_gaps_resize(4) end,
+        {description = "focus next down", group = "client"}),
+    awful.key({ modkey, sftkey    }, "v", function() useless_gaps_resize(-4) end,
+        {description = "focus next up", group = "client"}),
+    awful.key({ modkey, altkey    }, "v", function() useless_gaps_resize(0) end,
         {description = "focus next up", group = "client"}),
 
     -- Layout manipulation
