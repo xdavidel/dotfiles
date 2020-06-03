@@ -132,7 +132,7 @@ local myawesomemenu = {
 
 local exitmenu = {
    { "Lock", "lockscreen" },
-   { "Logout", "closesession" },
+   { "Logout", "managesession logout" },
    { "Sleep", "prompt 'Hibernate computer?' 'sudo -A suspend'" },
    { "Restart", "prompt 'Reboot computer?' 'sudo -A reboot'" },
    { "Shutdown", "prompt 'Shutdown computer?' 'sudo -A shutdown -h now'" },
