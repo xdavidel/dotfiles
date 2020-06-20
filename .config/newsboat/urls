@@ -1,3 +1,19 @@
-http://lukesmith.xyz/rss.xml
+# YouTube
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "~Brodie Robertson (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "~DistroTube (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "~Chris Titus Tech (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxHAlbZQNFU2LgEtiqd2Maw "~Jason Turner (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w "~LiveOverflow (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw "~ThePrimeagen (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCs6KfncB4OV6Vug4o_bzijg "~Techlore (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCS97tchJDq17Qms3cux8wcA "~Chrisatmachine (YouTube)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkK9UDm_ZNrq_rIXCz3xCGA "~Bryan Lunduke (YouTube)"
+
+# Blogs
+https://lukesmith.xyz/rss.xml "~Luke Smith (Blog)"
+https://lunduke.com/index.xml "~Bryan Lunduke (Blog)"
+
+# Tech News
 https://www.archlinux.org/feeds/news/ "Arch"
