@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# check for task-spooler existence
+! command -v tsp >>/dev/null && note "task-spooler is not installed" && exit
+
 # $1 is a url; $2 is a command
 [ -z "$1" ] && exit
 base="$(basename "$1")"
