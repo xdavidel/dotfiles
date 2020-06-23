@@ -6,7 +6,6 @@ setopt numericglobsort    # Sort filenames numerically when it makes sense
 setopt nobeep             # No beep
 setopt appendhistory      # Immediately append history instead of overwriting
 setopt histignorealldups  # If a new command is a duplicate, remove the older one
-setopt autocd             # if only directory path is entered, cd there.
 
 autoload -U compinit colors
 compinit
