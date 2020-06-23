@@ -1,10 +1,25 @@
 #!/bin/sh
 
+# Colorize commands
+alias \
+	l="ls -gGhF --color=auto --group-directories-first" \
+	ls="ls -F --color=auto --group-directories-first" \
+	la="ls -AF --color=auto --group-directories-first" \
+	ll="ls -gGAFh --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
+
+# Command extensions
+alias \
+	cp="cp -i" \
+	mv="mv -i" \
+	rm="rm -I" \
+	newsboat="newsboat && refbar news" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Shortcuts
 alias \
 	ka="killall" \
-	calcurse="calcurse -D ~/.config/calcurse" \
-	newsboat="newsboat && refbar news" \
-	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
 	f="$FILE" \
 	e="$EDITOR" \
 	v="$EDITOR" \
@@ -13,16 +28,10 @@ alias \
 	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="youtube-dl -xi -f bestaudio/best --audio-format mp3" \
 	..="cd .." \
-	l="ls -gGhF --color=auto --group-directories-first" \
-	ls="ls -F --color=auto --group-directories-first" \
-	la="ls -AF --color=auto --group-directories-first" \
-	ll="ls -gGAFh --color=auto --group-directories-first" \
-	cp="cp -iv" \
-	rm="rm -iv" \
-	rm="rm -vI" \
 	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
 	vimdiff="nvim -d" \
-	ffmpeg="ffmpeg -hide_banner" \
 	fr="manview ."
+
+# Menual config
+	calcurse="calcurse -D ~/.config/calcurse" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
