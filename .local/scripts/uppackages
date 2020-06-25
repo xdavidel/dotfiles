@@ -5,7 +5,7 @@
 command -v yay >/dev/null && upcmd="yay" || upcmd="pacman"
 
 case $BLOCK_BUTTON in
-	1) $TERMINAL -e "$upcmd" -Su --noconfirm --needed && refbar updates ;;
+	1) $TERMINAL -e "$upcmd" -Su --noconfirm --needed ; refbar u & ;;
 	2) pidof dunst >/dev/null && notify-send "$("$upcmd" -Qu)" ;;
 	3) pidof dunst >/dev/null && notify-send "Upgrade module" "📦: number of upgradable packages
 - Left click to upgrade packages
