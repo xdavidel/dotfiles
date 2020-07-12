@@ -266,11 +266,16 @@ mytextclock:buttons(
 
 -- Keyboard map indicator and switcher
 local keyboardcmd = "keyboardlayout"
+local mykeyboardlayout
 local keyboardscript = awful.widget.watch(
     keyboardcmd,
-    1000
+    1000,
+    function(widget, stdout)
+        mykeyboardlayout.visible = string.len(stdout) > 1 and true or false
+        widget:set_text(stdout)
+    end
 )
-local mykeyboardlayout = wibox.container.margin(
+mykeyboardlayout = wibox.container.margin(
     wibox.container.background(
         wibox.container.margin(
             keyboardscript,
@@ -303,7 +308,9 @@ awesome.connect_signal("refkeyboard",
     function()
         awful.spawn.easy_async_with_shell(
             keyboardcmd,
-            function(out) keyboardscript:set_text(out) end
+            function(out)
+                mykeyboardlayout.visible = string.len(out) > 1 and true or false
+                keyboardscript:set_text(out) end
         )
     end
 )
