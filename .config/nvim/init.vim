@@ -48,7 +48,7 @@ set nohlsearch
 set clipboard+=unnamedplus
 set noerrorbells
 set incsearch
-set noemoji "emoji fix
+set noemoji         " emoji fix
 set expandtab
 set smarttab
 set cindent
@@ -56,14 +56,20 @@ set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4    " number of spaces to use for autoindent
 set smartindent
+set nowrap          " disable line wrapping
+set iskeyword+=-    " treat dash separated words as a word text object
 
+" Backups & undos
+set noswapfile
+set nobackup
+set undofile        " default dir is ~/.local/share/nvim/undo
+
+" Colors
 set bg=dark
 if has('termguicolors')
     set termguicolors
 endif
 
-" treat dash separated words as a word text object"
-set iskeyword+=-
 
 "=====================================================================
 
@@ -73,13 +79,16 @@ set iskeyword+=-
 	function! ToggleColorScheme()
         if (g:focuscolour)
             colorscheme default
+            set colorcolumn=
             let g:focuscolour = 0
         else
             try
                 colorscheme gruvbox-material
+                set colorcolumn=80
                 let g:focuscolour = 1
             catch
                 colorscheme default
+                set colorcolumn=
                 let g:focuscolour = 0
             endtry
         endif
@@ -215,7 +224,6 @@ set iskeyword+=-
 	\ 'coc-json',
 	\ ]
 
-	set nobackup                            " This is recommended by coc
 	set nowritebackup                       " This is recommended by coc
 
 	set hidden "Some servers have issues with backup files
