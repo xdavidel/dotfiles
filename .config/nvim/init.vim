@@ -29,6 +29,7 @@ Plug 'neoclide/coc.nvim', {'branch' : 'release' } "VSCode like auto completions
 Plug 'ap/vim-css-color' "Color highlights
 Plug 'vimwiki/vimwiki' "A personal wiki using vim
 Plug 'ChristianChiarulli/codi.vim' "An Interactive Scratchpad for Hackers (virtual text fork)
+Plug 'sainnhe/gruvbox-material' " Gruvbox Color scheme
 
 call plug#end()
 
@@ -41,7 +42,6 @@ set encoding=utf-8
 set number relativenumber
 set ignorecase
 set smartcase
-set bg=dark
 set go=a
 set mouse=a
 set nohlsearch
@@ -57,8 +57,35 @@ set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4    " number of spaces to use for autoindent
 set smartindent
 
+set bg=dark
+if has('termguicolors')
+    set termguicolors
+endif
+
 " treat dash separated words as a word text object"
 set iskeyword+=-
+
+"=====================================================================
+
+" Toggle Color Scheme
+    let g:focuscolour = 0
+
+	function! ToggleColorScheme()
+        if (g:focuscolour)
+            colorscheme default
+            let g:focuscolour = 0
+        else
+            try
+                colorscheme gruvbox-material
+                let g:focuscolour = 1
+            catch
+                colorscheme default
+                let g:focuscolour = 0
+            endtry
+        endif
+    endfunc
+
+    nnoremap <silent> <C-W> :call ToggleColorScheme()<CR>
 
 "=====================================================================
 
