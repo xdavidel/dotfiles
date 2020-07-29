@@ -95,6 +95,7 @@ endif
     endfunc
 
     nnoremap <silent> <C-W> :call ToggleColorScheme()<CR>
+    inoremap <silent> <C-W> <ESC>:call ToggleColorScheme()<CR>a
 
 "=====================================================================
 
@@ -209,7 +210,7 @@ endif
 
 " Quickscope
 
-        let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+    let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 "=====================================================================
 
