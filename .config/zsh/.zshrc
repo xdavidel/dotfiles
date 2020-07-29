@@ -113,7 +113,7 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # Right prompt with time and exit status of previous command marked with ✓ or ✗
 # RPROMPT="%(?.%{$fg[green]%}[OK].%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
-RPROMPT="%(?..%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
+RPROMPT="%(?..%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*%{$reset_color%}"
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
