@@ -50,6 +50,10 @@ autocmd VimEnter *
 
 " Some basics:
 set iskeyword+=-    " treat dash separated words as a word text object
+set incsearch
+set ignorecase
+set smartcase
+
 if !exists('g:vscode')
     nnoremap c "_c
     set nocompatible
@@ -57,14 +61,11 @@ if !exists('g:vscode')
     syntax on
     set encoding=utf-8
     set number relativenumber
-    set ignorecase
-    set smartcase
     set go=a
     set mouse=a
     set nohlsearch
     set clipboard+=unnamedplus
     set noerrorbells
-    set incsearch
     set noemoji         " emoji fix
     set expandtab
     set smarttab
