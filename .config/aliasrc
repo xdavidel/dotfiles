@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
 # Colorize commands
 alias \
 	l="ls -gGhF --color=auto --group-directories-first" \
@@ -29,7 +32,6 @@ alias \
 	yta="youtube-dl -xi -f bestaudio/best --audio-format mp3" \
 	..="cd .." \
 	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
-	vimdiff="nvim -d" \
 	fr="manview ."
 
 # Menual config
