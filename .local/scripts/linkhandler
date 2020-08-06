@@ -22,6 +22,6 @@ case "$1" in
 	*springer.com*)
 		setsid curl -sO "$(curl -s "$scihub$*" | grep -Po "(?<=location.href=').+.pdf")" >/dev/null 2>&1 & ;;
 	*)
-		if [ -f "$1" ]; then "$TERMINAL" -e "$EDITOR $1"
+		if [ -f "$1" ]; then "$TERMINAL" -e "$EDITOR" "$1"
 		else setsid "$BROWSER" "$1" >/dev/null 2>&1 & fi ;;
 esac
