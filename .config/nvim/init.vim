@@ -164,12 +164,6 @@ if &diff
     highlight! link DiffText MatchParen
 endif
 
-" Easymotion
-"=====================================================================
-map <leader><leader>f <Plug>(easymotion-overwin-f)
-map <leader><leader>j <Plug>(easymotion-overwin-line)
-map <leader><leader>k <Plug>(easymotion-overwin-line)
-map <leader><leader>w <Plug>(easymotion-overwin-w)
 
 " When not runing in VScode Client
 "=====================================================================
@@ -402,4 +396,10 @@ if !exists('g:vscode')
     autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
     autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
 
+    " Easymotion
+    "=====================================================================
+    map <leader><leader>f <Plug>(easymotion-overwin-f)
+    map <leader><leader>j <Plug>(easymotion-overwin-line)
+    map <leader><leader>k <Plug>(easymotion-overwin-line)
+    map <leader><leader>w <Plug>(easymotion-overwin-w)
 endif
