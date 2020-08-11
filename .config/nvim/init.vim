@@ -32,12 +32,15 @@ if !exists('g:vscode')
     Plug 'junegunn/goyo.vim'            " distraction free VIM
     Plug 'preservim/nerdtree'           " file system view
     Plug 'vim-airline/vim-airline'      " status/tabline for vim.
+    Plug 'easymotion/vim-easymotion'    " simpler way to use motions
 
     "File support
     "===========================
     Plug 'rust-lang/rust.vim'           " rustlang support
     Plug 'kovetskiy/sxhkd-vim'          " support for sxhkd config files
     Plug 'cespare/vim-toml'             " tomel support
+else
+    Plug 'asvetliakov/vim-easymotion'   " vscode simpler way to use motions
 endif
 
 call plug#end()
@@ -161,6 +164,12 @@ if &diff
     highlight! link DiffText MatchParen
 endif
 
+" Easymotion
+"=====================================================================
+map <leader><leader>f <Plug>(easymotion-overwin-f)
+map <leader><leader>j <Plug>(easymotion-overwin-line)
+map <leader><leader>k <Plug>(easymotion-overwin-line)
+map <leader><leader>w <Plug>(easymotion-overwin-w)
 
 " When not runing in VScode Client
 "=====================================================================
