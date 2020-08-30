@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Autostart Pulseaudio if installed and not already started by init.
+# Chromium/Brave doesn't automatically start Pulse for some reason.
+[ -x /usr/bin/pulseaudio ] &&
+    ! pidof pulseaudio >/dev/null &&
+    setsid -f pulseaudio --start >/dev/null 2>&1
+
 setbg & # Set default background
 sxhkd & # Bind keys
 
