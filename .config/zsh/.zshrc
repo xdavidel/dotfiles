@@ -1,5 +1,5 @@
 ## Options section
-unsetopt nomatch					# Passes the command as is instead of reporting pattern matching failure
+unsetopt nomatch          # Passes the command as is instead of reporting pattern matching failure
 setopt rcexpandparam      # Array expension with parameters
 setopt nocheckjobs        # Don't warn about running processes when exiting
 setopt numericglobsort    # Sort filenames numerically when it makes sense
@@ -39,10 +39,10 @@ bindkey '^[[3~'   delete-char                               # Delete key
 bindkey '^?'      backward-delete-char                      # Delete key
 bindkey '^[[C'    forward-char                              # Right key
 bindkey '^[[D'    backward-char                             # Left key
-bindkey '\e[A'		history-search-backward										# Page up key
-bindkey '\e[B'		history-search-forward										# Page down key
-bindkey '^[[5~'		history-beginning-search-backward					# Page up key
-bindkey '^[[6~'		history-beginning-search-forward					# Page down key
+bindkey '\e[A'    history-search-backward                   # Page up key
+bindkey '\e[B'    history-search-forward                    # Page down key
+bindkey '^[[5~'   history-beginning-search-backward         # Page up key
+bindkey '^[[6~'   history-beginning-search-forward          # Page down key
 
 # Navigate words with ctrl+arrow keys
 bindkey '^[Oc'    forward-word                              # Ctrl + Right key
@@ -54,19 +54,25 @@ NEWLINE=$'\n'
 
 # keymap changed binding
 function zle-keymap-select zle-line-init {
-	if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-		echo -ne '\e[1 q'
-		VIMODE="%{$bg[red]%}%B[N]%b"
-	elif [[ ${KEYMAP} == main ]] ||
-		[[ ${KEYMAP} == viins ]] ||
-		[[ ${KEYMAP} = '' ]] ||
-		[[ $1 = 'beam' ]]; then
-		echo -ne '\e[5 q'
-		VIMODE="%{$bg[green]%}%B[I]%b"
-	fi
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q'
+        VIMODE="%{$bg[red]%}%B[N]%b"
+    elif [[ ${KEYMAP} == main ]] ||
+        [[ ${KEYMAP} == viins ]] ||
+        [[ ${KEYMAP} = '' ]] ||
+        [[ $1 = 'beam' ]]; then
+        echo -ne '\e[5 q'
+        VIMODE="%{$bg[green]%}%B[I]%b"
+    fi
 
-	PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} %% "
-	zle reset-prompt
+    if [[ -n ${VIRTUAL_ENV} ]]; then
+        VENV="%F{cyan}(venv)"
+    else
+        VENV=""
+    fi
+
+    PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}] ${VENV}%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} %% "
+    zle reset-prompt
 }
 
 zle -N zle-keymap-select
@@ -77,24 +83,24 @@ preexec() { echo -ne '\e[0m\e[5 q' ;}
 
 # Use lf to switch directories
 lfcd () {
-	tmp="$(mktemp)"
-	lf -last-dir-path="$tmp" "$@"
-	if [ -f "$tmp" ]; then
-		dir="$(cat "$tmp")"
-		rm -f "$tmp"
-		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-	fi
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
 }
 
 # use vifm to switch directories
 vifmcd () {
-	tmp="$(mktemp)"
-	vifm --choose-dir "$tmp" "$@"
-	if [ -f "$tmp" ]; then
-		dir="$(cat "$tmp")"
-		rm -f "$tmp"
-		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-	fi
+    tmp="$(mktemp)"
+    vifm --choose-dir "$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
 }
 
 # bind ctrl-o to switch directories using file manager
