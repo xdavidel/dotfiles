@@ -367,13 +367,31 @@ if !exists('g:vscode')
     "Autofix current line problem
     nmap <leader>qf <Plug>(coc-fix-current)
 
-
     " Shortcutting split navigation, saving a keypress:
     "=================================================================
-    map <C-h> <C-w>h
-    map <C-j> <C-w>j
-    map <C-k> <C-w>k
-    map <C-l> <C-w>l
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
+
+    " Terminal window navigation
+    "=================================================================
+    tnoremap <C-h> <C-\><C-N><C-w>h
+    tnoremap <C-j> <C-\><C-N><C-w>j
+    tnoremap <C-k> <C-\><C-N><C-w>k
+    tnoremap <C-l> <C-\><C-N><C-w>l
+    inoremap <C-h> <C-\><C-N><C-w>h
+    inoremap <C-j> <C-\><C-N><C-w>j
+    inoremap <C-k> <C-\><C-N><C-w>k
+    inoremap <C-l> <C-\><C-N><C-w>l
+    tnoremap <Esc> <C-\><C-n>
+
+    " Use alt + hjkl to resize windows
+    "=================================================================
+    nnoremap <silent> <M-k>    :resize -2<CR>
+    nnoremap <silent> <M-j>    :resize +2<CR>
+    nnoremap <silent> <M-l>    :vertical resize -2<CR>
+    nnoremap <silent> <M-h>    :vertical resize +2<CR>
 
     " Codi
     "=================================================================
@@ -402,4 +420,5 @@ if !exists('g:vscode')
     map <leader><leader>j <Plug>(easymotion-overwin-line)
     map <leader><leader>k <Plug>(easymotion-overwin-line)
     map <leader><leader>w <Plug>(easymotion-overwin-w)
+
 endif
