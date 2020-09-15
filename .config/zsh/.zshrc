@@ -52,6 +52,30 @@ bindkey '^[[Z'    undo                                      # Shift+tab undo las
 
 NEWLINE=$'\n'
 
+# display git status in prompt
+function git_status {
+    local statc="%{%F{green}%B%}" # assume clean
+    local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+
+    if [ -n "$bname" ]; then
+        local rs="$(git status --porcelain -b 2>/dev/null)"
+        if $(echo "$rs" | grep -v '^##' &> /dev/null); then # is dirty
+            statc="%{%F{red}%B%}"
+        elif $(echo "$rs" | grep '^## .*diverged' &> /dev/null); then # has diverged
+            statc="%{%F{red}%B%}"
+        elif $(echo "$rs" | grep '^## .*behind' &> /dev/null); then # is behind
+            statc="%{%F{cyan}%B%}"
+        elif $(echo "$rs" | grep '^## .*ahead' &> /dev/null); then # is ahead
+            statc="%{%F{cyan}%B%}"
+        else # is clean
+            statc="%{%F{green}%B%}"
+        fi
+
+        echo -n "$statc($bname)%{%b%f%}"
+    fi
+}
+
+
 # keymap changed binding
 function zle-keymap-select zle-line-init {
     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
@@ -71,7 +95,7 @@ function zle-keymap-select zle-line-init {
         VENV=""
     fi
 
-    PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}] ${VENV}%F{magenta} ${PWD/#$HOME/~}%b%{$reset_color%}${NEWLINE}${VIMODE}%{$reset_color%} %% "
+    PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}] ${VENV}%}%F{magenta} ${PWD/#$HOME/~}%{%b%f%} $(git_status)${NEWLINE}${VIMODE}%{$reset_color%} %% "
     zle reset-prompt
 }
 
