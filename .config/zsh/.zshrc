@@ -24,6 +24,7 @@ HISTFILE=~/.cache/zsh/history
 HISTSIZE=10000
 SAVEHIST=10000
 WORDCHARS=${WORDCHARS//\/[&.;]}                             # Don't consider certain characters part of the word
+GIT_COLORS=0
 
 ## Keybindings section
 # vi mode
@@ -54,27 +55,27 @@ NEWLINE=$'\n'
 
 # display git status in prompt
 function git_status {
-    local statc="%{%F{green}%B%}" # assume clean
+    local statc="%{%b%f%}" # assume none
     local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
     if [ -n "$bname" ]; then
-        local rs="$(git status --porcelain -b 2>/dev/null)"
-        if $(echo "$rs" | grep -v '^##' &> /dev/null); then # is dirty
-            statc="%{%F{red}%B%}"
-        elif $(echo "$rs" | grep '^## .*diverged' &> /dev/null); then # has diverged
-            statc="%{%F{red}%B%}"
-        elif $(echo "$rs" | grep '^## .*behind' &> /dev/null); then # is behind
-            statc="%{%F{cyan}%B%}"
-        elif $(echo "$rs" | grep '^## .*ahead' &> /dev/null); then # is ahead
-            statc="%{%F{cyan}%B%}"
-        else # is clean
-            statc="%{%F{green}%B%}"
+        if [ "$GIT_COLORS" == 1 ]; then
+            local rs="$(git status --porcelain -b 2>/dev/null)"
+            if $(echo "$rs" | grep -v '^##' &> /dev/null); then # is dirty
+                statc="%{%F{red}%B%}"
+            elif $(echo "$rs" | grep '^## .*diverged' &> /dev/null); then # has diverged
+                statc="%{%F{red}%B%}"
+            elif $(echo "$rs" | grep '^## .*behind' &> /dev/null); then # is behind
+                statc="%{%F{cyan}%B%}"
+            elif $(echo "$rs" | grep '^## .*ahead' &> /dev/null); then # is ahead
+                statc="%{%F{cyan}%B%}"
+            else # is clean
+                statc="%{%F{green}%B%}"
+            fi
         fi
-
         echo -n "$statc($bname)%{%b%f%}"
     fi
 }
-
 
 # keymap changed binding
 function zle-keymap-select zle-line-init {
@@ -127,6 +128,10 @@ vifmcd () {
     fi
 }
 
+gclrs () {
+    [ "$GIT_COLORS" == 0 ] && GIT_COLORS=1 || GIT_COLORS=0
+}
+
 # bind ctrl-o to switch directories using file manager
 bindkey -s '^o' 'lfcd\n'
 
@@ -135,6 +140,9 @@ bindkey -s '^a' 'bc -l\n'
 
 # bind ctrl-f to fuzzy open folders
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+
+# bind ctrl-g to toggle git colors
+bindkey -s '^g' 'gclrs\n'
 
 # Print a greeting message when shell is started
 #echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
