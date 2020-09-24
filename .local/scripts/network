@@ -14,5 +14,5 @@ case $BLOCK_BUTTON in
 esac
 
 # Wifi quality percentage and icon.
-grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }'
-sed 's/down/❎/;s/up/🌐/' /sys/class/net/e*/operstate
+grep "^\s*w" /proc/net/wireless 2>/dev/null | awk '{ print "📶", int($3 * 100 / 70) "%" }'
+sed 's/down/❎/;s/up/🌐/' /sys/class/net/e*/operstate 2>/dev/null
