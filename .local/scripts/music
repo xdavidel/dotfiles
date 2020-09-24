@@ -16,4 +16,4 @@ case $BLOCK_BUTTON in
 esac
 
 # Get current mpd track filename or artist - title if possible.
-mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/(.*)//g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ';' | awk -F ';' 'length($0)>44 {print $2 " " substr($1,1,41) "..."} {print $2 " " $1}' | sed 's/ \+/ /g;s/ $//g'
+pidof mpd >/dev/null && mpc 2>/dev/null | sed "/^volume:/d;s/\\&/&amp;/g;s/(.*)//g;s/\\[paused\\].*/⏸/g;s/\\[playing\\].*/▶/g" | tr '\n' ';' | awk -F ';' 'length($0)>44 {print $2 " " substr($1,1,41) "..."} {print $2 " " $1}' | sed 's/ \+/ /g;s/ $//g' || exit 1

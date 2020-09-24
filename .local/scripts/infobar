@@ -8,6 +8,9 @@ status() { \
 	# Get current mpd track filename or artist - title if possible.
 	music && echo "$delim"
 
+    # get rss news
+    news && echo "$delim"
+
 	# Number of available updates
 	uppackages && echo "$delim"
 
@@ -16,8 +19,8 @@ status() { \
 	# Print used memory
 	memory && echo "$delim"
 
-	# Print cpu heat (only the higher)
-	heat && echo "$delim"
+	# Print cpu usage
+	cpu && echo "$delim"
 
 	# Get the volume of Pulseaudio mixer volume output.
 	audiovol && echo "$delim"
