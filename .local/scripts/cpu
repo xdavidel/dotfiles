@@ -3,7 +3,8 @@
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
 case $BLOCK_BUTTON in
-	1) notify-send "💻 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)\\n(100% per core)" ;;
+	1) notify-send "💻 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | \
+        head)\\n(100% per core)" ;;
 	2) setsid "$TERMINAL" -e htop & ;;
 	3) notify-send "💻 CPU module " "\- Shows CPU temperature.
 - Click to show intensive processes.
@@ -11,4 +12,10 @@ case $BLOCK_BUTTON in
 	6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-top -wbn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{printf "💻 %.2d%%\n", 100 - $1}'
+TOP="$(top -wbn1)"
+if [ -n "$TOP" ]; then
+    echo "$TOP" | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | \
+        awk '{printf "💻 %.2d%%\n", 100 - $1}'
+else
+    exit 1
+fi
