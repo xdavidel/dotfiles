@@ -1,0 +1,5 @@
+# Insert any special character without performing its associated action (#65)
+- key:
+    Ctrl: L
+  binding:
+    ClearScreen:
