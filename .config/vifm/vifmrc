@@ -11,7 +11,12 @@ set smartcase
 set nohlsearch
 set incsearch
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
-colorscheme luke
+colorscheme Default
+
+" Don't do too many requests to slow file systems
+if !has('win')
+  set slowfs=curlftpfs
+endif
 
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -41,33 +46,34 @@ nmap <space> tj
 nmap q ZQ
 nnoremap cb :!wal -i %f<cr>
 
+nnoremap . za
+
+nnoremap gh :cd<CR>
+nnoremap gd :cd ~/Downloads<CR>
+nnoremap gs :cd ~/.local/scripts<CR>
+nnoremap gr :cd ~/.local/repo<CR>
+nnoremap gc :cd ~/.config<CR>
+
 fileview */ tree %c -L 1 --dirsfirst
 fileview ../ tree %c -L 1 --dirsfirst
-fileviewer *.html w3m -dump %c
 filextype *.html,*.htm firefox %f 2>/dev/null &
 
-fileviewer *.docx docx2txt %c -
-fileviewer *.odt odt2txt %c -
-
 filetype *.csv,*.xlsx sc-im %c
-fileviewer *.csv sed "s/,,,,/,,-,,/g;s/,,/ /g" %c | column -t | sed "s/ - /  /g" | cut -c -%pw
 
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus mpv --no-audio-display --input-ipc-server=/tmp/mpvsoc$(date +%%s) %c
 filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu,*.epub zathura %f 2>/dev/null &,
-fileviewer *.pdf pdftotext -l 1 -nopgbrk %c -
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.qt,*.divx,*.as[fx],*mp3,*.flac mediafile %c
 filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,*.as[fx] mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) %f 2>/dev/null &,
 
 fileview *.zip,*.rar,*.tar.gz atool -l %f
 filetype *.zip,*.rar,*.tar.gz ext %f
 
-fileviewer *.[1-8] man ./%c | col -b
 filetype *.[1-8] man ./%c
 
-fileviewer *.jpg,*.jpeg,*.png,*.ico vifmimg draw %px %py %pw %ph %c %pc vifmimg clear
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.ico,*.gif,*.xpm  rotdir %f 2>/dev/null | sxiv -ia 2>/dev/null &
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.ico,*.gif,*.xpm rotdir %f 2>/dev/null | sxiv -ia 2>/dev/null &
 
 filextype *.svg inkscape %f 2>/dev/null &
 filextype *.xcf gimp %f 2>/dev/null &
+
+fileviewer * preview
 
 set vifminfo=dhistory,chistory,tui,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks
