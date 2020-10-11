@@ -33,6 +33,3 @@ alias \
 	..="cd .." \
 	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
 	fr="manview ."
-
-# Menual config
-	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
