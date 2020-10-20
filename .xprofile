@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# Autostart Pulseaudio if installed and not already started by init.
-# Chromium/Brave doesn't automatically start Pulse for some reason.
-[ -x /usr/bin/pulseaudio ] &&
-    ! pidof pulseaudio >/dev/null &&
-    setsid -f pulseaudio --start >/dev/null 2>&1
+# Fix Gnome Apps Slow  Start due to failing services
+# Add this when you include flatpak in your system
+dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
 setbg & # Set default background
 sxhkd & # Bind keys
@@ -18,9 +16,10 @@ xmodmap -e 'keycode 135 = Super_R' &
 # set cursor speed
 xset r rate 300 50 &  # Set xrate speed
 
-unclutter &		# Remove mouse when idle
-xcompmgr &		# xcompmgr for transparency
-dunst &			# dunst for notifications
+unclutter &		       # Remove mouse when idle
+xcompmgr &		       # xcompmgr for transparency
+dunst &			       # dunst for notifications
+xdg-user-dirs-update & # xdg directories
 numlockx on &
 
-keyboardwatch & # watch keyboard layout
+keyboardwatch &        # watch keyboard layout
