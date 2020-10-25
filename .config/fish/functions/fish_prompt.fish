@@ -1,6 +1,8 @@
+#!/usr/bin/fish
+
 set -g user (whoami)
-set -g host (hostname)
-set -g dir (pwd | sed -e "s|^$HOME|~|")
+set -g host (prompt_hostname)
+set -g dir ($PWD | sed -e "s|^$HOME|~|")
 
 function fish_prompt -d "change fish defualt prompt"
 
@@ -21,7 +23,11 @@ function fish_prompt -d "change fish defualt prompt"
 	echo -n "]"
 
 	set_color purple
-	echo (basename $dir)
+    if test "$PWD" != "$HOME"
+        printf " %s\n" (echo $PWD|sed -e 's|/private||' -e "s|^$HOME|~|")
+    else
+        echo ' ~'
+    end
 	set_color normal
 
 	# Do nothing if not in vi mode

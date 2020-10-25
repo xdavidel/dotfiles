@@ -91,12 +91,12 @@ function zle-keymap-select zle-line-init {
     fi
 
     if [[ -n ${VIRTUAL_ENV} ]]; then
-        VENV="%F{cyan}(venv)"
+        VENV="%F{cyan} (venv)"
     else
         VENV=""
     fi
 
-    PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}] ${VENV}%}%F{magenta} ${PWD/#$HOME/~}%{%b%f%} $(git_status)${NEWLINE}${VIMODE}%{$reset_color%} %% "
+    PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M%F{red}]${VENV}%}%F{magenta} ${PWD/#$HOME/~}%{%b%f%} $(git_status)${NEWLINE}${VIMODE}%{$reset_color%} %% "
     zle reset-prompt
 }
 
