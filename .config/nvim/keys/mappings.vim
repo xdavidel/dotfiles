@@ -8,6 +8,9 @@ nnoremap <Space> <Nop>
 vnoremap < <gv
 vnoremap > >gv
 
+" Capital Y should behave like this
+nnoremap Y y$
+
 if exists('g:vscode')
   " Simulate same TAB behavior in VSCode
   nmap <Tab> :Tabnext<CR>
