@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Set the deliminter character.
+delim="|"
+
+if pidof Xorg; then
+    status() { \
+        # TODO: not sure what i want in this mode...
+    }
+
+else
+    status() { \
+
+        # Get current mpd track filename or artist - title if possible.
+        music && echo "$delim"
+
+        # get rss news
+        news && echo "$delim"
+
+        # Number of available updates
+        uppackages && echo "$delim"
+
+        weather && echo "$delim"
+
+        # Print used memory
+        memory && echo "$delim"
+
+        # Print cpu usage
+        cpu && echo "$delim"
+
+        # Get the volume of Pulseaudio mixer volume output.
+        audiovol && echo "$delim"
+
+        # Wifi quality percentage and icon.
+        network && echo "$delim"
+
+        # Will show all batteries with approximate icon for remaining power.
+        battery && echo "$delim"
+
+        # Time and date
+        clock
+    }
+fi
+
+echo -n "$(status | tr '\n' ' ')"
