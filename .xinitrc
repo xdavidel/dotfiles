@@ -2,5 +2,5 @@
 
 [ -f ~/.xprofile ] && . ~/.xprofile
 
-# execute i3 window manager
+# execute window manager / desktop
 exec awesome
