@@ -32,7 +32,7 @@ super + shift + e
 
 # Open Newsboat
 super + n
-	setsid $TERMINAL -e newsboat
+	setsid $TERMINAL -e newsboat && refbar news
 
 # Open Htop
 super + i
