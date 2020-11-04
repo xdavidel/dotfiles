@@ -31,7 +31,7 @@ function fish_prompt -d "change fish defualt prompt"
 	set_color normal
 
 	# Do nothing if not in vi mode
-  if test "$fish_key_bindings" = "fish_vi_key_bindings"
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
 		set_color --bold
 
 		switch $fish_bind_mode
@@ -49,8 +49,7 @@ function fish_prompt -d "change fish defualt prompt"
 				echo -n "[V]"
 			end
 		set_color normal
-  end
+    end
 
 	echo -n " > "
-
 end
