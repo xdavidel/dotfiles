@@ -41,6 +41,7 @@ let g:which_key_map['v'] = [ '<C-W>v'                               , 'split rig
 let g:which_key_map['W'] = [ 'w'                                    , 'write'  ]
 let g:which_key_map['z'] = [ 'Goyo'                                 , 'zen'  ]"
 let g:which_key_map['o'] = [ ':setlocal spell! spelllang=en_us'     , 'spell check'  ]"
+let g:which_key_map['M'] = [ ':MaximizerToggle!'                    , 'Toggle Max'  ]"
 
 " Group mappings
 
@@ -185,6 +186,31 @@ let g:which_key_map.w = {
   \ 'e' : ['<plug>(wiki-export)'                   , 'ncdu'],
   \ 'u' : ['<plug>(wiki-list-uniq)'                , 'ncdu'],
   \ 'U' : ['<plug>(wiki-list-uniq-local)'          , 'ncdu'],
+  \ }
+
+" d is for debug
+let g:which_key_map.d = {
+  \ 'name' : '+debug' ,
+  \ 'd' : [':call vimspector#Launch()'                                  , 'Launch'],
+  \ 'c' : [':call GotoWindow(g:vimspector_session_windows.code)'        , 'Goto Code'],
+  \ 't' : [':call GotoWindow(g:vimspector_session_windows.tagpage)'     , 'Goto Tag'],
+  \ 'v' : [':call GotoWindow(g:vimspector_session_windows.variables)'   , 'Goto Variables'],
+  \ 'w' : [':call GotoWindow(g:vimspector_session_windows.watches)'     , 'Goto Watches'],
+  \ 's' : [':call GotoWindow(g:vimspector_session_windows.stack_trace)' , 'Goto Stacktrace'],
+  \ 'o' : [':call GotoWindow(g:vimspector_session_windows.output)'      , 'Goto Output'],
+  \ 'e' : [':call vimspector#Reset()'                                   , 'Reset'],
+  \ 'l' : ['<Plug>VimspectorStepInto'                                   , 'Step Into'],
+  \ 'j' : ['<Plug>VimspectorStepOver'                                   , 'Step Over'],
+  \ 'k' : ['<Plug>VimspectorStepOut'                                    , 'Step Out'],
+  \ 'n' : ['<Plug>VimspectorRunToCursor'                                , 'Run to Cursor'],
+  \ 'r' : [':call vimspector#Continue()'                                , 'Continue'],
+  \ 'R' : ['<Plug>VimspectorRestart'                                    , 'Restart'],
+  \ 'b' : {
+  \     'name' : '+break',
+  \     'p' : ['<Plug>VimspectorToggleBreakpoint'                       , 'Toggle Beakpoint'],
+  \     'c' : ['<Plug>VimspectorToggleConditionalBreakpoint'            , 'Toggle Conditinal Breakpoint'],
+  \     'x' : [':call vimspector#CleanLineBreakpoint()'                 , 'Clean Line Breakpoint'],
+  \     },
   \ }
 
 " Register which key map

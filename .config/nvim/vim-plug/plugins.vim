@@ -28,10 +28,13 @@ call plug#begin('$RTP/autoload/plugged')
     Plug 'metakirby5/codi.vim'          " Interactive Scratchpad for Hackers
     Plug 'junegunn/goyo.vim'            " distraction free VIM
     Plug 'preservim/nerdtree'           " file system view
-    Plug 'vim-airline/vim-airline'      " status/tabline for vim.
+"    Plug 'vim-airline/vim-airline'      " status/tabline for vim.
+    Plug 'itchyny/lightline.vim'
     Plug 'easymotion/vim-easymotion'    " simpler way to use motions
     Plug 'airblade/vim-rooter'          " Have the file system follow you around
     Plug 'liuchengxu/vim-which-key'     " See what keys do like in emacs
+    Plug 'puremourning/vimspector'      " Debugging in vim
+    Plug 'szw/vim-maximizer'            " Maximizing vim windows
 
     "File support
     "===========================
