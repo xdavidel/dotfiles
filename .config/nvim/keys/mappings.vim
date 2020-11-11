@@ -5,7 +5,7 @@ let mapleader=" "
 nnoremap <Space> <Nop>
 
 " currently does work in which-key
-nnoremap <leader>c :w! \| !compiler <c-r>%<CR>
+nnoremap <leader>c :w! \| !compiler "<c-r>%"<CR>
 nnoremap <leader>b :!checkbashisms -xfp %<CR>
 
 " Better indenting
