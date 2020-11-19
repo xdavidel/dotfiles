@@ -1,4 +1,5 @@
 #!/bin/sh
+
 while read file
 do
         case "$1" in
@@ -21,13 +22,16 @@ do
 	"f")
 		convert -flop "$file" "$file" ;;
 	"y")
-		echo -n "$file" | xclip -selection clipboard &&
+		echo -n "$file" | tr -d '\n' | xclip -selection clipboard &&
 		notify-send "$file copied to clipboard" & ;;
 	"Y")
-		echo -n "$(readlink -f "$file")" | xclip -selection clipboard &&
+		readlink -f "$file" | tr -d '\n' | xclip -selection clipboard &&
 			notify-send "$(readlink -f "$file") copied to clipboard" & ;;
 	"d")
 		[ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && rm "$file" && notify-send "$file deleted." ;;
-	"g")	ifinstalled gimp && gimp "$file" & ;;
-        esac
+	"g")
+        ifinstalled gimp && setsid -f gimp "$file" & ;;
+    "i")
+        notify-send "File Information" "$(mediainfo "$file")" ;;
+    esac
 done
