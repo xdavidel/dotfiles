@@ -136,7 +136,7 @@ gclrs () {
 bindkey -s '^o' 'lfcd\n'
 
 # bind ctrl-a to open calculator
-bindkey -s '^a' 'bc -l\n'
+bindkey -s '^a' 'bc -lq\n'
 
 # bind ctrl-f to fuzzy open folders
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
