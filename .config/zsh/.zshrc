@@ -1,4 +1,5 @@
 ## Options section
+unsetopt PROMPT_SP        # Don't ttempt to preserve a partial line
 unsetopt nomatch          # Passes the command as is instead of reporting pattern matching failure
 setopt rcexpandparam      # Array expension with parameters
 setopt nocheckjobs        # Don't warn about running processes when exiting
