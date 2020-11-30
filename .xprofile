@@ -4,8 +4,14 @@
 # Add this when you include flatpak in your system
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
-setbg & # Set default background
-sxhkd & # Bind keys
+# Set default background
+setbg &
+
+# Load Colorscheme
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources &
+
+# Bind keys
+sxhkd &
 
 # Set hebrew layout change with Alt+Shift
 setxkbmap -option grp:alt_shift_toggle us,il &
@@ -14,12 +20,22 @@ setxkbmap -option grp:alt_shift_toggle us,il &
 xmodmap -e 'keycode 135 = Super_R' &
 
 # set cursor speed
-xset r rate 300 50 &  # Set xrate speed
+xset r rate 300 50 &
 
-unclutter &		       # Remove mouse when idle
-xcompmgr &		       # xcompmgr for transparency
-dunst &			       # dunst for notifications
-xdg-user-dirs-update & # xdg directories
+# Remove mouse when idle
+unclutter &
+
+# xcompmgr for transparency
+xcompmgr &
+
+# dunst for notifications
+dunst &
+
+# xdg directories
+xdg-user-dirs-update &
+
+# start numlock
 numlockx on &
 
-keyboardwatch &        # watch keyboard layout
+# watch keyboard layout
+keyboardwatch &
