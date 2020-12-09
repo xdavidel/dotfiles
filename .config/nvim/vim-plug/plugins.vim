@@ -35,6 +35,7 @@ call plug#begin('$RTP/autoload/plugged')
     Plug 'liuchengxu/vim-which-key'     " See what keys do like in emacs
     Plug 'puremourning/vimspector'      " Debugging in vim
     Plug 'szw/vim-maximizer'            " Maximizing vim windows
+    Plug 'jreybert/vimagit'             " Git interface inspired by emacs magit
 
     "File support
     "===========================
