@@ -1,49 +1,48 @@
-*.foreground:   #eaeaea
-*.background:   #1d1f21
-*.cursorColor:  #eaeaea
+#define black      #111111
+#define gray       #666666
+#define red        #d36265
+#define orange     #ef8171
+#define green      #aece91
+#define lightgreen #cfefb3
+#define khaki      #e7e18c
+#define yellow     #fff796
+#define blue       #5297cf
+#define lightblue  #74b8ef
+#define purple     #75507b
+#define magenta    #ad7fa8
+#define darkcyan   #06989a
+#define cyan       #34e2e2
+#define lightgray  #bebebe
+#define white      #ffffff
+#define foreground #eaeaea
+#define background #1d1f21
 
-! black
-*.color0:       #111111
-*.color8:       #666666
+*.foreground:   foreground
+*.background:   background
+*.cursorColor:  foreground
 
-! red
-*.color1:       #d36265
-*.color9:       #ef8171
-
-! green
-*.color2:       #aece91
-*.color10:      #cfefb3
-
-! yellow
-*.color3:       #e7e18c
-*.color11:      #fff796
-
-! blue
-*.color4:       #5297cf
-*.color12:      #74b8ef
-
-! magenta
-*.color5:       #75507b
-*.color13:      #ad7fa8
-
-! cyan
-*.color6:       #06989a
-*.color14:      #34e2e2
-
-! white
-*.color7:       #bebebe
-*.color15:      #ffffff
+*.color0:   black
+*.color8:   gray
+*.color1:   red
+*.color9:   orange
+*.color2:   green
+*.color10:  lightgreen
+*.color3:   khaki
+*.color11:  yellow
+*.color4:   blue
+*.color12:  lightblue
+*.color5:   purple
+*.color13:  magenta
+*.color6:   darkcyan
+*.color14:  cyan
+*.color7:   lightgray
+*.color15:  white
 
 !! Transparency (0-1):
 st.alpha: 0.70
-/* st.font: Monospace-11; */
-
-! st.termname: st-256color
-! st.borderpx: 2
 
 !! Set a default font and font size as below:
 *.font: Monospace-12;
-
 
 !! URXVT
 ! do not scroll with output
