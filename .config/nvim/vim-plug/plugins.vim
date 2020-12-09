@@ -22,7 +22,8 @@ call plug#begin('$RTP/autoload/plugged')
        \ { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'             " Fuzzy file finder
     Plug 'ap/vim-css-color'             " Color highlights
-    Plug 'sainnhe/gruvbox-material'     " Gruvbox Color scheme
+    " Plug 'sainnhe/gruvbox-material'     " Gruvbox Color scheme
+    " Plug 'drewtempelmeyer/palenight.vim'
     Plug 'neoclide/coc.nvim',           " auto completions
        \ {'branch' : 'release' }
     Plug 'metakirby5/codi.vim'          " Interactive Scratchpad for Hackers
