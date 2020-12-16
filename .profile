@@ -2,7 +2,7 @@
 # Profile file. Runs on login.
 
 # Adds `~/.scripts` and all subdirectories to $PATH
-export PATH="$PATH:$HOME/.local/scripts/"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/scripts"
 export EDITOR="nvim"
 export EDITORGUI="nvim"
 export TERMINAL="st"
