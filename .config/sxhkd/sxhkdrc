@@ -62,6 +62,9 @@ super + shift + w
 super + slash
 	keybinds
 
+super + ctrl + End
+	pidof -s xcompmgr && killall xcompmgr || xcompmgr &
+
 # Open emoji selector
 super + {_,shift +} semicolon
 	menurepo "$HOME/.local/repo/emoji" "{_,paste}"
