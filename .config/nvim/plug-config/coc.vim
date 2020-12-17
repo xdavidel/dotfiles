@@ -1,9 +1,6 @@
 let g:coc_global_extensions = [
-   \ 'coc-rls',
    \ 'coc-snippets',
    \ 'coc-sh',
-   \ 'coc-tsserver',
-   \ 'coc-python',
    \ 'coc-vimlsp',
    \ ]
 
