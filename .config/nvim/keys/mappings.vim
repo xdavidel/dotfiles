@@ -69,9 +69,6 @@ else
   nnoremap <silent> <M-h>    :vertical resize -2<CR>
   nnoremap <silent> <M-l>    :vertical resize +2<CR>
 
-  nnoremap <silent> <C-W> :call ToggleColorScheme()<CR>
-  inoremap <silent> <C-W> <ESC>:call ToggleColorScheme()<CR>
-
   vnoremap <C-c> "+y
 
   "Replace all is aliased to S

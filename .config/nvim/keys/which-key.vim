@@ -27,170 +27,163 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 " Single mappings
-let g:which_key_map['/'] = [ ':call Comment()'                      , 'comment'  ]
-let g:which_key_map['.'] = [ ':e $MYVIMRC'                          , 'open init'  ]
-let g:which_key_map[';'] = [ ':Commands'                            , 'commands'  ]
-let g:which_key_map['='] = [ '<C-W>='                               , 'balance windows'  ]
-let g:which_key_map['d'] = [ ':Bdelete'                             , 'delete buffer' ]
-let g:which_key_map['h'] = [ '<C-W>s'                               , 'split below' ]
-let g:which_key_map['m'] = [ ':call WindowSwap#EasyWindowSwap()'    , 'move window'  ]
-let g:which_key_map['n'] = [ ':NERDTreeToggle'                      , 'Nerd tree'  ]
-let g:which_key_map['p'] = [ ':Files'                               , 'search files'  ]
-let g:which_key_map['q'] = [ 'q'                                    , 'quit'  ]
-let g:which_key_map['v'] = [ '<C-W>v'                               , 'split right' ]
-let g:which_key_map['W'] = [ 'w'                                    , 'write'  ]
-let g:which_key_map['z'] = [ 'Goyo'                                 , 'zen'  ]"
-let g:which_key_map['o'] = [ ':setlocal spell! spelllang=en_us'     , 'spell check'  ]"
+let g:which_key_map['/'] = [ ':call Comment()'                      , 'Comment'  ]
+let g:which_key_map['.'] = [ ':e $MYVIMRC'                          , 'Open Init'  ]
+let g:which_key_map[';'] = [ ':Commands'                            , 'Commands'  ]
+let g:which_key_map['='] = [ '<C-W>='                               , 'Balance Windows'  ]
+let g:which_key_map['d'] = [ ':Bdelete'                             , 'Delete Buffer' ]
+let g:which_key_map['h'] = [ ':split'                               , 'Split Below' ]
+let g:which_key_map['n'] = [ ':NERDTreeToggle'                      , 'Nerdtree'  ]
+let g:which_key_map['p'] = [ ':Files'                               , 'Search Files'  ]
+let g:which_key_map['q'] = [ 'q'                                    , 'Quit'  ]
+let g:which_key_map['v'] = [ ':vs'                                  , 'Split Right' ]
+let g:which_key_map['z'] = [ 'Goyo'                                 , 'Zen'  ]"
+let g:which_key_map['o'] = [ ':setlocal spell! spelllang=en_us'     , 'Spellcheck'  ]"
 let g:which_key_map['M'] = [ ':MaximizerToggle!'                    , 'Toggle Max'  ]"
 
 " Group mappings
 
 " a is for actions
 let g:which_key_map.a = {
-  \ 'name' : '+actions' ,
-  \ 'c' : [':ColorizerToggle'        , 'colorizer'],
-  \ 'e' : [':CocCommand explorer'    , 'explorer'],
-  \ 'l' : [':Bracey'                 , 'start live server'],
-  \ 'L' : [':BraceyStop'             , 'stop live server'],
-  \ 'n' : [':set nonumber!'          , 'line-numbers'],
-  \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
-  \ 'R' : [':setlocal rightleft!'    , 'Toggle ltr-rtl'],
-  \ 's' : [':let @/ = ""'            , 'remove search highlight'],
-  \ 'v' : [':Codi'                   , 'virtual repl on'],
-  \ 'V' : [':Codi!'                  , 'virtual repl off'],
-  \ 'w' : [':StripWhitespace'        , 'strip whitespace'],
+  \ 'name' : '+Actions' ,
+  \ 'r' : [':set norelativenumber!'    , 'relative line nums'],
+  \ 'R' : [':setlocal rightleft!'      , 'Toggle LTR-RTL'],
+  \ 's' : [':let @/ = ""'              , 'Remove Search Highlight'],
+  \ 't' : [':call ToggleColorScheme()' , 'Theme Toggle'],
+  \ 'v' : [':!Codi'                    , 'Virtual Repl Toggle'],
+  \ 'w' : [':StripWhitespace'          , 'Strip Whitespace'],
   \ }
 
 " b is for buffer
 let g:which_key_map.b = {
-  \ 'name' : '+buffer' ,
-  \ '1' : ['b1'        , 'buffer 1'],
-  \ '2' : ['b2'        , 'buffer 2'],
-  \ 'd' : [':Bdelete'  , 'delete-buffer'],
-  \ 'f' : ['bfirst'    , 'first-buffer'],
-  \ 'h' : ['Startify'  , 'home-buffer'],
-  \ 'l' : ['blast'     , 'last-buffer'],
-  \ 'n' : ['bnext'     , 'next-buffer'],
-  \ 'p' : ['bprevious' , 'previous-buffer'],
-  \ '?' : ['Buffers'   , 'fzf-buffer'],
+  \ 'name' : '+Buffer' ,
+  \ '1' : ['b1'        , 'Buffer 1'],
+  \ '2' : ['b2'        , 'Buffer 2'],
+  \ 'd' : [':Bdelete'  , 'Delete Buffer'],
+  \ 'f' : ['bfirst'    , 'First Buffer'],
+  \ 'h' : ['Startify'  , 'Home Buffer'],
+  \ 'l' : ['blast'     , 'Last Buffer'],
+  \ 'n' : ['bnext'     , 'Next Buffer'],
+  \ 'p' : ['bprevious' , 'Previous Buffer'],
+  \ '?' : ['Buffers'   , 'Fzf Buffer'],
   \ }
 
 " f is for find and replace
 let g:which_key_map.f = {
-  \ 'name' : '+find & replace' ,
-  \ 'b' : [':Farr --source=vimgrep'    , 'buffer'],
-  \ 'p' : [':Farr --source=rgnvim'     , 'project'],
+  \ 'name' : '+Find & Replace' ,
+  \ 'b' : [':Farr --source=vimgrep'    , 'Buffer'],
+  \ 'p' : [':Farr --source=rgnvim'     , 'Project'],
   \ }
 
 " s is for search
 let g:which_key_map.s = {
-  \ 'name' : '+search' ,
-  \ '/' : [':History/'              , 'history'],
-  \ ';' : [':Commands'              , 'commands'],
-  \ 'a' : [':Ag'                    , 'text Ag'],
-  \ 'b' : [':BLines'                , 'current buffer'],
-  \ 'B' : [':Buffers'               , 'open buffers'],
-  \ 'c' : [':Commits'               , 'commits'],
-  \ 'C' : [':BCommits'              , 'buffer commits'],
-  \ 'f' : [':Files'                 , 'files'],
-  \ 'g' : [':GFiles'                , 'git files'],
-  \ 'G' : [':GFiles?'               , 'modified git files'],
-  \ 'h' : [':History'               , 'file history'],
-  \ 'H' : [':History:'              , 'command history'],
-  \ 'l' : [':Lines'                 , 'lines'] ,
-  \ 'm' : [':Marks'                 , 'marks'] ,
-  \ 'M' : [':Maps'                  , 'normal maps'] ,
-  \ 'p' : [':Helptags'              , 'help tags'] ,
-  \ 'P' : [':Tags'                  , 'project tags'],
-  \ 's' : [':CocList snippets'      , 'snippets'],
-  \ 'S' : [':Colors'                , 'color schemes'],
-  \ 't' : [':Rg'                    , 'text Rg'],
-  \ 'T' : [':BTags'                 , 'buffer tags'],
-  \ 'w' : [':Windows'               , 'search windows'],
-  \ 'y' : [':Filetypes'             , 'file types'],
+  \ 'name' : '+Search' ,
+  \ '/' : [':History/'              , 'History'],
+  \ ';' : [':Commands'              , 'Commands'],
+  \ 'a' : [':Ag'                    , 'Text Ag'],
+  \ 'b' : [':BLines'                , 'Current Buffer'],
+  \ 'B' : [':Buffers'               , 'Open Buffers'],
+  \ 'c' : [':Commits'               , 'Commits'],
+  \ 'C' : [':BCommits'              , 'Buffer Commits'],
+  \ 'f' : [':Files'                 , 'Files'],
+  \ 'g' : [':GFiles'                , 'Git Files'],
+  \ 'G' : [':GFiles?'               , 'Modified Git Files'],
+  \ 'h' : [':History'               , 'File History'],
+  \ 'H' : [':History:'              , 'Command History'],
+  \ 'l' : [':Lines'                 , 'Lines'] ,
+  \ 'm' : [':Marks'                 , 'Marks'] ,
+  \ 'M' : [':Maps'                  , 'Normal Maps'] ,
+  \ 'p' : [':Helptags'              , 'Help Tags'] ,
+  \ 'P' : [':Tags'                  , 'Project Tags'],
+  \ 's' : [':CocList snippets'      , 'Snippets'],
+  \ 'S' : [':Colors'                , 'Color Schemes'],
+  \ 't' : [':Rg'                    , 'Text Rg'],
+  \ 'T' : [':BTags'                 , 'Buffer Tags'],
+  \ 'w' : [':Windows'               , 'Search Windows'],
+  \ 'y' : [':Filetypes'             , 'File Types'],
   \ 'z' : [':FZF'                   , 'FZF'],
   \ }
 
 " l is for language server protocol
 let g:which_key_map.l = {
-  \ 'name' : '+lsp' ,
-  \ '.' : [':CocConfig'                          , 'config'],
-  \ ';' : ['<Plug>(coc-refactor)'                , 'refactor'],
-  \ 'a' : ['<Plug>(coc-codeaction)'              , 'line action'],
-  \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'selected action'],
-  \ 'b' : [':CocNext'                            , 'next action'],
-  \ 'B' : [':CocPrev'                            , 'prev action'],
-  \ 'c' : [':CocList commands'                   , 'commands'],
-  \ 'd' : ['<Plug>(coc-definition)'              , 'definition'],
-  \ 'D' : ['<Plug>(coc-declaration)'             , 'declaration'],
-  \ 'e' : [':CocList extensions'                 , 'extensions'],
-  \ 'f' : ['<Plug>(coc-format-selected)'         , 'format selected'],
-  \ 'F' : ['<Plug>(coc-format)'                  , 'format'],
-  \ 'h' : ['<Plug>(coc-float-hide)'              , 'hide'],
-  \ 'i' : ['<Plug>(coc-implementation)'          , 'implementation'],
-  \ 'I' : [':CocList diagnostics'                , 'diagnostics'],
-  \ 'j' : ['<Plug>(coc-float-jump)'              , 'float jump'],
-  \ 'l' : ['<Plug>(coc-codelens-action)'         , 'code lens'],
-  \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'next diagnostic'],
-  \ 'N' : ['<Plug>(coc-diagnostic-next-error)'   , 'next error'],
-  \ 'o' : ['<Plug>(coc-openlink)'                , 'open link'],
-  \ 'O' : [':CocList outline'                    , 'outline'],
-  \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'prev diagnostic'],
-  \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'   , 'prev error'],
-  \ 'q' : ['<Plug>(coc-fix-current)'             , 'quickfix'],
-  \ 'r' : ['<Plug>(coc-rename)'                  , 'rename'],
-  \ 'R' : ['<Plug>(coc-references)'              , 'references'],
-  \ 's' : [':CocList -I symbols'                 , 'references'],
-  \ 'S' : [':CocList snippets'                   , 'snippets'],
-  \ 't' : ['<Plug>(coc-type-definition)'         , 'type definition'],
-  \ 'u' : [':CocListResume'                      , 'resume list'],
-  \ 'U' : [':CocUpdate'                          , 'update CoC'],
-  \ 'z' : [':CocDisable'                         , 'disable CoC'],
-  \ 'Z' : [':CocEnable'                          , 'enable CoC'],
+  \ 'name' : '+Lsp' ,
+  \ '.' : [':CocConfig'                          , 'Coc Config'],
+  \ ';' : ['<Plug>(coc-refactor)'                , 'Refactor'],
+  \ 'a' : ['<Plug>(coc-codeaction)'              , 'Line Action'],
+  \ 'A' : ['<Plug>(coc-codeaction-selected)'     , 'Selected Action'],
+  \ 'b' : [':CocNext'                            , 'Next Action'],
+  \ 'B' : [':CocPrev'                            , 'Prev Action'],
+  \ 'c' : [':CocList commands'                   , 'Commands'],
+  \ 'd' : ['<Plug>(coc-definition)'              , 'Definition'],
+  \ 'D' : ['<Plug>(coc-declaration)'             , 'Declaration'],
+  \ 'e' : [':CocList extensions'                 , 'Extensions'],
+  \ 'f' : ['<Plug>(coc-format-selected)'         , 'Format Selected'],
+  \ 'F' : ['<Plug>(coc-format)'                  , 'Format'],
+  \ 'h' : ['<Plug>(coc-float-hide)'              , 'Hide'],
+  \ 'i' : ['<Plug>(coc-implementation)'          , 'Implementation'],
+  \ 'I' : [':CocList diagnostics'                , 'Diagnostics'],
+  \ 'j' : ['<Plug>(coc-float-jump)'              , 'Float Jump'],
+  \ 'l' : ['<Plug>(coc-codelens-action)'         , 'Code Lens'],
+  \ 'n' : ['<Plug>(coc-diagnostic-next)'         , 'Next Diagnostic'],
+  \ 'N' : ['<Plug>(coc-diagnostic-next-error)'   , 'Next Error'],
+  \ 'o' : ['<Plug>(coc-openlink)'                , 'Open Link'],
+  \ 'O' : [':CocList outline'                    , 'Outline'],
+  \ 'p' : ['<Plug>(coc-diagnostic-prev)'         , 'Prev Diagnostic'],
+  \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'   , 'Prev Error'],
+  \ 'q' : ['<Plug>(coc-fix-current)'             , 'Quickfix'],
+  \ 'r' : ['<Plug>(coc-rename)'                  , 'Rename'],
+  \ 'R' : ['<Plug>(coc-references)'              , 'References'],
+  \ 's' : [':CocList -I symbols'                 , 'Symbols'],
+  \ 'S' : [':CocList snippets'                   , 'Snippets'],
+  \ 't' : ['<Plug>(coc-type-definition)'         , 'Type Definition'],
+  \ 'u' : [':CocListResume'                      , 'Resume List'],
+  \ 'U' : [':CocUpdate'                          , 'Update CoC'],
+  \ 'z' : [':CocDisable'                         , 'Disable CoC'],
+  \ 'Z' : [':CocEnable'                          , 'Enable CoC'],
   \ }
 
 " T is for tabs
 let g:which_key_map.T = {
-  \ 'name' : '+tabline' ,
-  \ 'b' : [':XTabListBuffers'         , 'list buffers'],
-  \ 'd' : [':XTabCloseBuffer'         , 'close buffer'],
-  \ 'D' : [':XTabDeleteTab'           , 'close tab'],
-  \ 'h' : [':XTabHideBuffer'          , 'hide buffer'],
-  \ 'i' : [':XTabInfo'                , 'info'],
-  \ 'l' : [':XTabLock'                , 'lock tab'],
-  \ 'm' : [':XTabMode'                , 'toggle mode'],
+  \ 'name' : '+Tabs' ,
   \ 'n' : [':tabNext'                 , 'next tab'],
-  \ 'N' : [':XTabMoveBufferNext'      , 'buffer->'],
   \ 't' : [':tabnew'                  , 'new tab'],
   \ 'p' : [':tabprevious'             , 'prev tab'],
-  \ 'P' : [':XTabMoveBufferPrev'      , '<-buffer'],
-  \ 'x' : [':XTabPinBuffer'           , 'pin buffer'],
   \ }
 
 " w is for wiki
 let g:which_key_map.w = {
-  \ 'name' : '+wiki' ,
-  \ 'w' : ['<Plug>VimwikiIndex'                    , 'ncdu'],
-  \ 'n' : ['<plug>(wiki-open)'                     , 'ncdu'],
-  \ 'j' : ['<plug>(wiki-journal)'                  , 'ncdu'],
-  \ 'R' : ['<plug>(wiki-reload)'                   , 'ncdu'],
-  \ 'c' : ['<plug>(wiki-code-run)'                 , 'ncdu'],
-  \ 'b' : ['<plug>(wiki-graph-find-backlinks)'     , 'ncdu'],
-  \ 'g' : ['<plug>(wiki-graph-in)'                 , 'ncdu'],
-  \ 'G' : ['<plug>(wiki-graph-out)'                , 'ncdu'],
-  \ 'l' : ['<plug>(wiki-link-toggle)'              , 'ncdu'],
-  \ 'd' : ['<plug>(wiki-page-delete)'              , 'ncdu'],
-  \ 'r' : ['<plug>(wiki-page-rename)'              , 'ncdu'],
-  \ 't' : ['<plug>(wiki-page-toc)'                 , 'ncdu'],
-  \ 'T' : ['<plug>(wiki-page-toc-local)'           , 'ncdu'],
-  \ 'e' : ['<plug>(wiki-export)'                   , 'ncdu'],
-  \ 'u' : ['<plug>(wiki-list-uniq)'                , 'ncdu'],
-  \ 'U' : ['<plug>(wiki-list-uniq-local)'          , 'ncdu'],
+  \ 'name' : '+Wiki' ,
+  \ 'w' : ['<Plug>VimwikiIndex'                    , 'Wiki Index'],
+  \ 'n' : ['<plug>(wiki-open)'                     , 'Open Wiki'],
+  \ 'j' : ['<plug>(wiki-journal)'                  , 'Journal'],
+  \ 'R' : ['<plug>(wiki-reload)'                   , 'Reload Wiki'],
+  \ 'c' : ['<plug>(wiki-code-run)'                 , 'Run Code'],
+  \ 'b' : ['<plug>(wiki-graph-find-backlinks)'     , 'Graph Find Backlinks'],
+  \ 'g' : ['<plug>(wiki-graph-in)'                 , 'Graph In'],
+  \ 'i' : ['<plug>VimwikiDiaryIndex'               , 'Open Diary'],
+  \ 'G' : ['<plug>(wiki-graph-out)'                , 'Graph Out'],
+  \ 'l' : ['<plug>(wiki-link-toggle)'              , 'Toggle Link'],
+  \ 'd' : ['<plug>(wiki-page-delete)'              , 'Delete Page'],
+  \ 'r' : ['<plug>(wiki-page-rename)'              , 'Rename Page'],
+  \ 's' : ['<plug>VimwikiUISelect'                 , 'Select Wiki'],
+  \ 't' : ['<plug>(wiki-page-toc)'                 , 'Table'],
+  \ 'T' : ['<plug>(wiki-page-toc-local)'           , 'Local Table'],
+  \ 'e' : ['<plug>(wiki-export)'                   , 'Export Wiki'],
+  \ 'u' : ['<plug>(wiki-list-uniq)'                , 'Uniq List'],
+  \ 'U' : ['<plug>(wiki-list-uniq-local)'          , 'Local Uniq List'],
+  \ ' ' : {
+  \     'name' : '+Diary',
+  \     'i' : ['<Plug>VimwikiDiaryGenerateLinks'     , 'Update Diary Links' ],
+  \     'm' : ['<Plug>VimwikiMakeTomorrowDiaryNote'  , 'Create Note For Tomorrow' ],
+  \     't' : ['<Plug>VimwikiTabMakeDiaryNote'       , 'Create Note In a Tab' ],
+  \     'w' : ['<Plug>VimwikiMakeDiaryNote'          , 'Create Note' ],
+  \     'y' : ['<Plug>VimwikiMakeYesterdayDiaryNote' , 'Create Note For Yesterday' ],
+  \     },
   \ }
 
 " d is for debug
 let g:which_key_map.d = {
-  \ 'name' : '+debug' ,
+  \ 'name' : '+Debug' ,
   \ 'd' : [':call vimspector#Launch()'                                  , 'Launch'],
   \ 'c' : [':call GotoWindow(g:vimspector_session_windows.code)'        , 'Goto Code'],
   \ 't' : [':call GotoWindow(g:vimspector_session_windows.tagpage)'     , 'Goto Tag'],
