@@ -1,0 +1,8 @@
+#!/bin/sh
+
+command -v vim >/dev/null && cmd="vim"
+command -v vim >/dev/null && cmd="nvim"
+
+[ -z "$cmd" ] && echo "vim / neovim is missing" && exit 1
+
+$cmd -c VimwikiIndex
