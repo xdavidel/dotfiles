@@ -14,9 +14,6 @@ alias \
 
 # Command extensions
 alias \
-	cp="cp -i" \
-	mv="mv -i" \
-	rm="rm -I" \
 	newsboat="newsboat && refbar news" \
 	ffmpeg="ffmpeg -hide_banner"
 
