@@ -16,9 +16,15 @@ let g:vimwiki_key_mappings =
 " Filetypes enabled for
 let g:vimwiki_filetypes = ['markdown']
 
-let g:vimwiki_list = [{'path': '~/.config/nvim/wiki',
+let wiki = {'path': '~/Documents/wiki',
   \ 'syntax': 'markdown', 'ext': '.md', 'exclude_files':
-  \ ['**/README.md', '**/Readme.md'] }]
+  \ ['**/README.md', '**/Readme.md'] }
+
+let pwiki = {'path': '~/Documents/private',
+  \ 'syntax': 'markdown', 'ext': '.md', 'exclude_files':
+  \ ['**/README.md', '**/Readme.md'] }
+
+let g:vimwiki_list = [wiki, pwiki]
 
 let g:vimwiki_diary_months = {
   \ 1: 'January', 2: 'February', 3: 'March',
