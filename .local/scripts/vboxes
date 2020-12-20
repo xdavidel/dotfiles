@@ -7,7 +7,7 @@
 ! command -v vboxmanage >/dev/null && exit
 
 # output the list of virtual machines
-vm=$(vboxmanage list vms | awk '{print $1}' | cut -d"\"" -f 2 | sort -f | dmenu -i -p "Which machine?")
+vm=$(vboxmanage list vms | awk '{print $1}' | cut -d"\"" -f 2 | sort -f | rofi -dmenu -theme dmenu -p "Which machine?")
 
 [ -z "$vm" ] && exit
 vboxmanage startvm "$vm"

@@ -4,7 +4,7 @@
 
 [ ! "$1" ] && echo "Run on files" && exit
 
-name=$(echo "" | dmenu -i -p "Enter ISO name")
+name=$(echo "" | rofi -dmenu -theme dmenu -i -p "Enter ISO name")
 
 [ -z "$name" ] && exit
 

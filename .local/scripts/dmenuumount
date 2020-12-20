@@ -1,24 +1,24 @@
 #!/usr/bin/env sh
 
-# A dmenu prompt to unmount drives.
+# A prompt to unmount drives.
 # Provides you with mounted partitions, select one to unmount.
 # Drives mounted at /, /boot and /home will not be options to unmount.
 
 unmountusb() {
 	[ -z "$drives" ] && exit
-	chosen=$(echo "$drives" | dmenu -i -p "Unmount which drive?" | awk '{print $1}')
+	chosen=$(echo "$drives" | rofi -dmenu -theme dmenu -i -p "Unmount which drive?" | awk '{print $1}')
 	[ -z "$chosen" ] && exit
 	sudo -A umount "$chosen" && pidof dunst && notify-send -i "$PIX/usb.svg" "$chosen unmounted."
 	}
 
 unmountandroid() { \
-	chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | dmenu -i -p "Unmount which device?")
+	chosen=$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | rofi -dmenu -theme dmenu -i -p "Unmount which device?")
 	[ -z "$chosen" ] && exit
 	fusermount -u "$chosen" && pidof dunst && notify-send -i "$PIX/android.svg" "$chosen unmounted."
 	}
 
 asktype() { \
-	case $(printf "USB\\nAndroid" | dmenu -i -p "Unmount a USB drive or Android device?") in
+	case $(printf "USB\\nAndroid" | rofi -dmenu -theme dmenu -i -p "Unmount a USB drive or Android device?") in
 		USB) unmountusb ;;
 		Android) unmountandroid ;;
 	esac

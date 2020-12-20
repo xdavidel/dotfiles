@@ -19,7 +19,7 @@ case "$1" in
 	h*) choice="hibernate" ;;
 	r*) choice="reboot" ;;
 	s*) choice="shutdown" ;;
-	*) choice="$(echo "$cmds" | cut -d'	' -f 1 | dmenu)" || exit 1 ;;
+	*) choice="$(echo "$cmds" | cut -d'	' -f 1 | rofi -dmenu -theme dmenu)" || exit 1 ;;
 esac
 
 `echo "$cmds" | grep "^$choice	" | cut -d '	' -f2-`

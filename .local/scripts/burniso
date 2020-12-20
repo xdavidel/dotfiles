@@ -2,11 +2,11 @@
 
 [ -z "$1" ] && echo "Run on ISO!" && exit
 
-device=$(ls /dev/sr* 2>/dev/null | dmenu -i -p "Select Device")
+device=$(ls /dev/sr* 2>/dev/null | rofi -dmenu -theme dmenu -i -p "Select Device")
 [ -z "$device" ] && exit
 
 
-burntype=$(printf "CD\\nDVD" | dmenu -i -p "Select Type")
+burntype=$(printf "CD\\nDVD" | rofi -dmenu -theme dmenu -i -p "Select Type")
 [ -z "$burntype" ] && exit
 
 case "$burntype" in

@@ -1,9 +1,8 @@
 configuration {
-	modi: "window,run,ssh,drun";
-	font: "mono 16";
-	hide-scrollbar: true;
-  show-icons: true;
-	theme: "default";
+    modi: "window,run,ssh,drun";
+    font: "mono 14";
+    hide-scrollbar: true;
+    theme: "default";
 }
 
 /* vim:ft=css
