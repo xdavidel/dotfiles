@@ -155,7 +155,7 @@ super {_,shift +} + m
 
 # Show man help
 super + F1
-	manview "." "GUI"
+	setsid $TERMINAL -e manview
 
 super + F2
 	managesession f
