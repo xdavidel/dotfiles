@@ -16,7 +16,7 @@ super + shift + q
 
 # Open dmenu
 super + d
-	dmenu_run -fn 'mono:pixelsize=25'
+	rofi -show run -theme dmenu -sort
 
 # Open Rofi
 super + shift + d
