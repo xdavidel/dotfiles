@@ -2,16 +2,14 @@
 
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
-command -v yay >/dev/null && upcmd="yay" || upcmd="pacman"
-
 case $BLOCK_BUTTON in
-	1) $TERMINAL -e "$upcmd" -Su --noconfirm --needed ; refbar u & ;;
-	2) pidof dunst >/dev/null && notify-send "$("$upcmd" -Qu)" ;;
+    1) setsid $TERMINAL -e pac u ; refbar u & ;;
+	2) pidof dunst >/dev/null && notify-send "$(pac p)" ;;
 	3) pidof dunst >/dev/null && notify-send "Upgrade module" "📦: number of upgradable packages
 - Left click to upgrade packages
 - Middle click to show upgradable packages" ;;
 esac
 
-updates=$(pacman -Qu | grep -v "\[ignored\]" | wc -l)
+updates=$(pac p | wc -l)
 
 [ "$updates" -gt 0 ] && echo "📦 $updates" || exit 1

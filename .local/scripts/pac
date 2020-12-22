@@ -1,19 +1,19 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 arch() { \
 	case "$1" in
 		i*) shift 1 && sudo pacman -S "$@" ;;
-		u*) yay -Su --noconfirm || sudo pacman -Su --noconfirm ;;
+		u*) yay -Su --noconfirm || sudo pacman -Su --noconfirm --needed ;;
 		r*) shift 1 && sudo pacman -Rns "$@" ;;
 		m*) sudo pacman -S ;;
 		f*) shift 1 && pacman -Ss "$@" ;;
 		l*) pacman -Q ;;
 		s*) pacman -Qe ;;
 		d*) shift 1 && sudo pacman -Syw "$@" ;;
-		q*) yay -Qqu || pacman -Qqu ;;
 		g*) sudo pacman -Syuw --noconfirm ;;
 		o*) pacman -Qdtq ;;
 		c*) sudo pacman -Sc ;;
+		p*) yay -Qqu || pacman -Qqu ;;
 	esac
 }
 
@@ -27,23 +27,27 @@ void() { \
 		l*) xbps-query -l ;;
 		s*) xbps-query -m ;;
 		d*) shift 1 && sudo xbps-install -D "$@" ;;
-		q*) sudo xbps-install -un ;;
+        g*) echo "not implemented" ;;
 		o*) xbps-query -O ;;
 		c*) sudo xbps-remove -O ;;
+		p*) sudo xbps-install -un ;;
 	esac
 }
 
 debi() { \
 	case "$1" in
-		i*) shift 1; command -v sudo >>/dev/null && sudo apt install "$@" || apt install "$@" ;;
-		u*) command -v sudo >>/dev/null && (sudo apt apdate && sudo apt upgrade) || (apt update && apt upgrade) ;;
-		r*) shift 1; command -v sudo >>/dev/null && sudo apt remove "$@" || apt remove "$@" ;;
-		m*) command -v sudo >>/dev/null && sudo apt update || apt update ;;
+		i*) shift 1; command -v sudo >>/dev/null && sudo apt-get install "$@" || apt-get install "$@" ;;
+		u*) command -v sudo >>/dev/null && (sudo apt-get update && sudo apt-get upgrade) || (apt-get update && apt-get upgrade) ;;
+		r*) shift 1; command -v sudo >>/dev/null && sudo apt-get remove "$@" || apt-get remove "$@" ;;
+		m*) command -v sudo >>/dev/null && sudo apt-get update || apt-get update ;;
 		f*) shift 1; apt search "$@" ;;
-		l*) apt list ;;
-		s*) apt list | grep "[installed]" ;;
-		q*) apt list --upgradable ;;
-		o*) command -v sudo >>/dev/null && sudo apt autoremove || apt autoremove;;
+		l*) dpkg --list | awk '{print $2}' ;;
+		s*) apt-mark showmanual ;;
+        d*) command -v sudo >/dev/null && sudo apt-get install --download-only -y "$@" || apt-get install --download-only -y "$@" ;;
+        g*) command -v sudo >/dev/null && (sudo apt-get update && sudo apt-get upgrade --download-only) || (apt-get update && apt-get upgrade --download-only) ;;
+		o*) apt autoremove --dry-run 2>/dev/null | grep REMOVED -A 1 | tail -n1 | sed 's/^ \+//g' ;;
+		c*) command -v sudo /dev/null && sudo apt clean || apt clean ;;
+		p*) apt-get dist-upgrade -s --quiet=2 | grep ^Inst ;;
 	esac
 }
 
@@ -61,9 +65,9 @@ list		List installed packages
 show		List explicit installed packages
 download	Download only without installation
 getall		Download all available updates without installation
-query		Query for updated
 orphan		List orphan packages
 cache		Clear manager cache
+pending     List available updates
 
 EOF
 else
