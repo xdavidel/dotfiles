@@ -54,20 +54,32 @@ multimon() { # Multi-monitor handler.
 		*) morescreen ;;
 	esac ;}
 
+onescreen() { # If only one output available or chosen.
+	xrandr --output "$1" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "\b$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ' -)
+	}
+
+postrun() { # Stuff to run to clean up.
+	setbg		# Fix background if screen size/arangement has changed.
+	{ killall dunst ; setsid -f dunst ;} >/dev/null 2>&1 # Restart dunst to ensure proper location on screen
+	}
+
 # Get all possible displays
 allposs=$(xrandr -q | grep "connected")
 
 # Get all connected screens.
-screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
+screens=$(echo "$allposs" | awk '/ connected/ {print $1}')
 
-# Get user choice including multi-monitor and manual selection:
-chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | rofi -dmenu -theme dmenu -i -p "Select display arangement:") &&
-case "$chosen" in
-	"manual selection") arandr ; exit ;;
-	"multi-monitor") multimon ;;
-	*) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
-esac
+# If there's only one screen
+[ "$(echo "$screens" | wc -l)" -lt 2 ] &&
+	onescreen "$screens" || {
 
-setbg		# Fix background if screen size/arangement has changed.
-remaps		# Re-remap keys if keyboard added (for laptop bases)
-pidof dunst >/dev/null && killall dunst && setsid dunst & # Restart dunst to ensure proper location on screen
+    # Get user choice including multi-monitor and manual selection:
+    chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | rofi -dmenu -theme dmenu -i -p "Select display arangement:") &&
+    case "$chosen" in
+        "manual selection") arandr ; exit ;;
+        "multi-monitor") multimon ;;
+        *) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
+    esac
+}
+
+postrun
