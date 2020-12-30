@@ -1276,10 +1276,10 @@ globalkeys = gears.table.join(
         function () awful.layout.inc(-1) end,
         {description = "select previous layout", group = "layout"}),
 
-    awful.key({ altkey }, "x",
+    awful.key({ modkey }, "r",
         function ()
             awful.prompt.run {
-                prompt       = "Run Lua code: ",
+                prompt       = " Run Lua code: ",
                 textbox      = awful.screen.focused().mypromptbox.widget,
                 exe_callback = awful.util.eval,
                 history_path = awful.util.get_cache_dir() .. "/history_eval"
