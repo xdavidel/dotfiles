@@ -17,6 +17,8 @@ handle_mime() { \
 			bat --style=numbers --color=always "${FILE_PATH}" ||\
 			cat "${FILE_PATH}" ;;
 		application/zip) atool --list -- "${FILE_PATH}" ;;
+		application/octet-stream) hexdump -C "${FILE_PATH}" | head -n 40 ;;
+		application/json) cat "${FILE_PATH}" | jq -C || cat "${FILE_PATH} ";;
 		application/*) file --brief "${FILE_PATH}" | tr ',' '\n' ;;
 		image/*) chafa --fill=inverted --symbols=inverted -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || pixterm -s 2 -d 0 -tc "${HEIGHT}" "${FILE_PATH}" ;;
 		video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" ;;
