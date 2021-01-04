@@ -24,7 +24,7 @@ local freedesktop                    = require("freedesktop")
 
 -- {{{ Error handling
 -- Using notify-send
-function handle_errors(title, text)
+local function handle_errors(title, text)
     awful.spawn(
         "notify-send " ..
         title ..
@@ -37,10 +37,10 @@ end
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-    -- handle_errors("Oops, there were errors during startup!", awesome.startup_errors)
+    -- naughty.notify({ preset = naughty.config.presets.critical,
+    --                  title = "Oops, there were errors during startup!",
+    --                  text = awesome.startup_errors })
+    handle_errors("Oops, there were errors during startup!", awesome.startup_errors)
 end
 
 -- Handle runtime errors after startup
@@ -52,10 +52,10 @@ do
         if in_error then return end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
-        -- handle_errors("Oops, an error happened!", tostring(err))
+        -- naughty.notify({ preset = naughty.config.presets.critical,
+        --                  title = "Oops, an error happened!",
+        --                  text = tostring(err) })
+        handle_errors("Oops, an error happened!", tostring(err))
         in_error = false
     end)
 end
@@ -65,7 +65,7 @@ end
 -- {{{ Helper functions
 
 -- On the fly useless gaps change (from lain)
-function useless_gaps_resize(thatmuch, s, t)
+local function useless_gaps_resize(thatmuch, s, t)
     local scr = s or awful.screen.focused()
     local tag = t or scr.selected_tag
     local delta = tonumber(thatmuch)
@@ -85,21 +85,20 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal        = os.getenv("TERMINAL") or "st"
-files           = os.getenv("FILEGUI") or "pcmanfm"
-editor          = os.getenv("EDITOR") or "nvim"
-homedir         = os.getenv("HOME")
-editor_cmd = terminal .. " -e " .. editor
+local terminal        = os.getenv("TERMINAL") or "st"
+local files           = os.getenv("FILEGUI") or "pcmanfm"
+local editor          = os.getenv("EDITOR") or "nvim"
+local editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
-altkey = "Mod1"
-sftkey = "Shift"
-ctlkey = "Control"
+local modkey = "Mod4"
+local altkey = "Mod1"
+local sftkey = "Shift"
+local ctlkey = "Control"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -188,9 +187,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 local alpha = 'CC'
 local altbackground = '#4d4d4d' .. alpha
 
-local emptyspace = wibox.widget.separator({
-    visible = false
-})
+-- local emptyspace = wibox.widget.separator({
+--     visible = false
+-- })
 local myseparator = wibox.widget.separator({
     orientation = "vertical",
     forced_width = 20,
@@ -831,7 +830,7 @@ local tags = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 " }
 local function get_tags_menu_items()
     local move_to_menu = {}
     -- iterate through all tags
-    for index,tag in ipairs(tags) do
+    for _,tag in ipairs(tags) do
     -- create a menu item for each tag which consists of:
     --   * item title (first table element, we use tag's name here)
     --   * callback function which will be executed on item selection
@@ -986,13 +985,13 @@ awful.screen.connect_for_each_screen(function(s)
             },
             id     = 'background_role',
             widget = wibox.container.background,
-            create_callback = function(self, c, index, objects) --luacheck: no unused args
+            create_callback = function(self, c, _, _) --luacheck: no unused args
                 -- default icon when none is found (ex. simple terminal)
                 if not c.icon then
                     self:get_children_by_id('icon_role')[1].image =
                         awful.util.get_configuration_dir() .. 'gear.svg'
                 end
-                local tooltip = awful.tooltip({
+                awful.tooltip({
                     objects = { self },
                     timer_function = function() return c.name end,
                 })
@@ -1057,7 +1056,7 @@ root.buttons(gears.table.join(
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = gears.table.join(
+local globalkeys = gears.table.join(
     awful.key({ modkey, altkey    }, "Return",
         function()
             local found = false
@@ -1285,10 +1284,29 @@ globalkeys = gears.table.join(
                 history_path = awful.util.get_cache_dir() .. "/history_eval"
               }
         end,
-        {description = "lua execute prompt", group = "awesome"})
+        {description = "lua execute prompt", group = "awesome"}),
+
+    awful.key({ modkey, ctlkey        }, "Up",
+        function ()
+            local tag = awful.tag.selected()
+            for _, c in ipairs(tag:clients()) do
+                c.minimized=false
+                c:raise()
+            end
+        end,
+        {description = "Restore All", group = "client"}),
+
+    awful.key({ modkey, ctlkey        }, "Down",
+        function ()
+            local tag = awful.tag.selected()
+            for _, c in ipairs(tag:clients()) do
+                c.minimized=true
+            end
+        end ,
+        {description = "Minimize All", group = "client"})
 )
 
-clientkeys = gears.table.join(
+local clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -1316,30 +1334,7 @@ clientkeys = gears.table.join(
         function (c)
             c:swap(awful.client.getmaster())
         end,
-        {description = "move to master", group = "client"}),
-
-    awful.key({ modkey, ctlkey        }, "Up",
-        function (c)
-            if c then
-                c.maximized = true
-                c:raise()
-            end
-        end,
-        {description = "maximize", group = "client"}),
-
-    awful.key({ modkey, ctlkey    }, "Down",
-        function (c)
-            if c.maximized then
-                c.maximized = false
-                c:raise()
-            else
-                -- The client currently has the input focus, so it cannot be
-                -- minimized, since minimized clients can't have the focus.
-                c.minimized = true
-                c:raise()
-            end
-        end ,
-        {description = "umaximized / minimize", group = "client"})
+        {description = "move to master", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -1395,7 +1390,7 @@ for i = 1, 9 do
     )
 end
 
-clientbuttons = gears.table.join(
+local clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
     end),
@@ -1584,6 +1579,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- {{{debug
-prt = function(...) naughty.notify{text=" " .. table.concat({...}, '\t') .. " ", bg="blue"} end
-col = function(str) naughty.notify{text="     \n     ", bg=str} end
+function Prt(...) naughty.notify{text=" " .. table.concat({...}, '\t') .. " ", bg="blue"} end
+function Col(str) naughty.notify{text="     \n     ", bg=str} end
 --}}}
