@@ -39,7 +39,7 @@ let g:which_key_map['q'] = [ 'q'                                    , 'Quit'  ]
 let g:which_key_map['v'] = [ ':vs'                                  , 'Split Right' ]
 let g:which_key_map['z'] = [ 'Goyo'                                 , 'Zen'  ]"
 let g:which_key_map['o'] = [ ':setlocal spell! spelllang=en_us'     , 'Spellcheck'  ]"
-let g:which_key_map['M'] = [ ':MaximizerToggle!'                    , 'Toggle Max'  ]"
+let g:which_key_map['m'] = [ ':MaximizerToggle!'                    , 'Toggle Max'  ]"
 
 " Group mappings
 
