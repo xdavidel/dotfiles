@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Get input video and subtitle files and merge them together
+
+[ $# -lt 2 ] && echo "Usage: $0 <video> <subs>" && exit 1
+
+# ffmpeg is required
+! command -v ffmpeg /dev/null >>/dev/null && echo "ffmpeg is not installed" && exit 127
+
+vidfile=$1
+subfile=$2
+ext="${vidfile##*.}"
+outfile="${vidfile%*$ext}sub.$ext"
+
+ffmpeg -i "$vidfile" -i "$subfile" -c copy -c:s mov_text "$outfile"
