@@ -12,4 +12,4 @@ subfile=$2
 ext="${vidfile##*.}"
 outfile="${vidfile%*$ext}sub.$ext"
 
-ffmpeg -i "$vidfile" -i "$subfile" -c copy -c:s mov_text "$outfile"
+ffmpeg -i "$vidfile" -i "$subfile" -c:v copy -c:a copy -c:s mov_text "$outfile"
