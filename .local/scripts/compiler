@@ -36,7 +36,7 @@ case "$ext" in
 		elif command -v groffdown >/dev/null; then
 			groffdown -i "$file" | groff > "$base.pdf"
 		else
-			pandoc "$file" --pdf-engine=xelatex -o "$base".pdf
+            pandoc -t ms --highlight-style=kate -s -o "$base".pdf "$file"
 		fi ; ;;
 	h) sudo -A make install || make ;;
     c) make 2>>/dev/null || cc "$file" -o "$base" && "$base" ;;
