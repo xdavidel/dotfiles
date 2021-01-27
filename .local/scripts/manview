@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 man -k "." | \
-    awk '{gsub(/\(\w+\)/,"");$2="-"; print $0}' | \
+    sed "s/(1)/(Command)/g;s/(2)/(Syscall)/g;s/(3)/(Library)/g;s/(4)/(File)/g;s/(5)/(Format)/g;s/(6)/(Game)/g;s/(7)/(Miscellaneous)/g;s/(8)/(Administration)/g;s/(9)/(Kernel routines)/g" | \
     sort -u -t- -k1,1| \
     fzf -i --bind='Ctrl-p:toggle-preview' --preview-window=up:hidden --preview="echo {} | cut -f 1 -d ' ' | xargs -r man" |\
     awk '{print $1}' | xargs -r man
