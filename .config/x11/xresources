@@ -14,12 +14,13 @@
 #define cyan       #34e2e2
 #define lightgray  #bebebe
 #define white      #ffffff
-#define foreground #eaeaea
-#define background #1d1f21
 
-*.foreground:   foreground
-*.background:   background
-*.cursorColor:  foreground
+#define whiter #eaeaea
+#define darkpurple #272029
+
+*.foreground:   whiter
+*.background:   darkpurple
+*.cursorColor:  whiter
 
 *.color0:   black
 *.color8:   gray
@@ -39,10 +40,10 @@
 *.color15:  white
 
 !! Transparency (0-1):
-st.alpha: 0.70
+st.alpha: 0.9
 
 !! Set a default font and font size as below:
-*.font: Monospace-12;
+/* *.font: Monospace-12; */
 
 !! URXVT
 ! do not scroll with output
