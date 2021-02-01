@@ -46,7 +46,7 @@ debi() { \
         d*) command -v sudo >/dev/null && sudo apt-get install --download-only -y "$@" || apt-get install --download-only -y "$@" ;;
         g*) command -v sudo >/dev/null && (sudo apt-get update && sudo apt-get upgrade --download-only) || (apt-get update && apt-get upgrade --download-only) ;;
 		o*) apt autoremove --dry-run 2>/dev/null | grep REMOVED -A 1 | tail -n1 | sed 's/^ \+//g' ;;
-		c*) command -v sudo /dev/null && sudo apt clean || apt clean ;;
+		c*) command -v sudo >/dev/null && sudo apt clean || apt clean ;;
 		p*) apt-get dist-upgrade -s --quiet=2 | grep ^Inst ;;
 	esac
 }
@@ -56,18 +56,18 @@ cat << EOF
 pac: cli for generic package manager
 
 Allowd options:
-install		Install packages
-update		Update system
-remove		Remove packages
-mirror		Update mirrors
-find		Find package in remote repositories
-list		List installed packages
-show		List explicit installed packages
-download	Download only without installation
-getall		Download all available updates without installation
-orphan		List orphan packages
-cache		Clear manager cache
-pending     List available updates
+install   Install packages
+update    Update system
+remove    Remove packages
+mirror    Update mirrors
+find      Find package in remote repositories
+list      List installed packages
+show      List explicit installed packages
+download  Download only without installation
+getall    Download all available updates without installation
+orphan    List orphan packages
+cache     Clear manager cache
+pending   List available updates
 
 EOF
 else
