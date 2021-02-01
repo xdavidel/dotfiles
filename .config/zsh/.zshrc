@@ -41,10 +41,10 @@ bindkey '^[[3~'   delete-char                               # Delete key
 bindkey '^?'      backward-delete-char                      # Delete key
 bindkey '^[[C'    forward-char                              # Right key
 bindkey '^[[D'    backward-char                             # Left key
-bindkey '\e[A'    history-search-backward                   # Page up key
-bindkey '\e[B'    history-search-forward                    # Page down key
-bindkey '^[[5~'   history-beginning-search-backward         # Page up key
-bindkey '^[[6~'   history-beginning-search-forward          # Page down key
+bindkey '^[[A~'   history-beginning-search-backward         # Up key
+bindkey '^[[B~'   history-beginning-search-forward          # Down key
+bindkey '\e[5'    history-search-backward                   # Page up key
+bindkey '\e[6'    history-search-forward                    # Page down key
 
 # Navigate words with ctrl+arrow keys
 bindkey '^[Oc'    forward-word                              # Ctrl + Right key
