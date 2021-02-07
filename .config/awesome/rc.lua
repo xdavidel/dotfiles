@@ -1241,33 +1241,6 @@ local globalkeys = gears.table.join(
         end,
         {description = "toggle wibox bars", group = "wibox"}),
 
-    -- Standard program
-    awful.key({ modkey, altkey    }, "Right",
-        function () awful.tag.incmwfact( 0.05) end,
-        {description = "increase master width", group = "layout"}),
-    awful.key({ modkey, altkey    }, "Left",
-        function () awful.tag.incmwfact(-0.05) end,
-        {description = "decrease master width", group = "layout"}),
-    awful.key({ modkey, altkey    }, "Up",
-        function () awful.client.incwfact(-0.05) end,
-        {description = "decrease client height", group = "layout"}),
-    awful.key({ modkey, altkey    }, "Down",
-        function () awful.client.incwfact(0.05) end,
-        {description = "increase client height", group = "layout"}),
-
-    awful.key({ modkey, altkey    }, "j",
-        function () awful.client.moveresize(0,20,0,0) end,
-        {description = "move floating client down", group = "client"}),
-    awful.key({ modkey, altkey    }, "k",
-        function () awful.client.moveresize(0,-20,0,0) end,
-        {description = "move floating client up", group = "client"}),
-    awful.key({ modkey, altkey    }, "l",
-        function () awful.client.moveresize(20,0,0,0) end,
-        {description = "move floating client right", group = "client"}),
-    awful.key({ modkey, altkey    }, "h",
-        function () awful.client.moveresize(-20,0,0,0) end,
-        {description = "move floating client left", group = "client"}),
-
     awful.key({ modkey, ctlkey    }, "j",
         function () awful.layout.inc( 1) end,
         {description = "select next layout", group = "layout"}),
@@ -1307,6 +1280,58 @@ local globalkeys = gears.table.join(
 )
 
 local clientkeys = gears.table.join(
+    -- resize clients
+    awful.key({ modkey, altkey    }, "Down",
+        function (c) 
+            if c.floating then
+                c:relative_move(0, 0, 0, 10)
+            else
+                awful.client.incwfact(0.05) 
+            end
+        end,
+        {description = "increase client height", group = "client"}),
+    awful.key({ modkey, altkey    }, "Right",
+        function (c)
+            if c.floating then
+                c:relative_move(0, 0, 10, 0)
+            else
+                awful.tag.incmwfact( 0.05) 
+            end
+        end,
+        {description = "increase master width", group = "client"}),
+    awful.key({ modkey, altkey    }, "Left",
+        function (c)
+            if c.floating then
+                c:relative_move(0, 0, -10, 0)
+            else
+                awful.tag.incmwfact(-0.05) 
+            end
+        end,
+        {description = "decrease master width", group = "client"}),
+    awful.key({ modkey, altkey    }, "Up",
+        function (c) 
+            if c.floating then
+                c:relative_move(0, 0, 0, -10)
+            else
+                awful.client.incwfact(-0.05) 
+            end
+        end,
+        {description = "decrease client height", group = "client"}),
+
+    -- move window
+    awful.key({ modkey, altkey    }, "j",
+        function () awful.client.moveresize(0,20,0,0) end,
+        {description = "move floating client down", group = "client"}),
+    awful.key({ modkey, altkey    }, "k",
+        function () awful.client.moveresize(0,-20,0,0) end,
+        {description = "move floating client up", group = "client"}),
+    awful.key({ modkey, altkey    }, "l",
+        function () awful.client.moveresize(20,0,0,0) end,
+        {description = "move floating client right", group = "client"}),
+    awful.key({ modkey, altkey    }, "h",
+        function () awful.client.moveresize(-20,0,0,0) end,
+        {description = "move floating client left", group = "client"}),
+
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
