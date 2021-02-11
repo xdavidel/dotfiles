@@ -15,7 +15,7 @@ super + shift + q
 	kill -9 `xdotool getwindowfocus getwindowpid`
 
 # Open dmenu
-super + d
+super + slash
 	rofi -show run -theme dmenu -sort
 
 # Open Rofi
@@ -59,7 +59,7 @@ super + shift + w
 	$BROWSERP
 
 # Open keybinds menu
-super + slash
+super + ctrl + slash
 	keybinds
 
 super + ctrl + End
