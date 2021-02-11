@@ -124,7 +124,7 @@ map cw bulkrename
 map ch chmod
 map dD delete
 map dd cut
-map D %rm -f $f
+map D %rm -rf "$f"
 map . set hidden!
 map r push :rename<space>
 map <enter> shell
