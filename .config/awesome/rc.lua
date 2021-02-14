@@ -1466,10 +1466,6 @@ awful.rules.rules = {
             skip_taskbar = true,
             floating  = true,
             hidden = true,
-            new_tag = {
-                name = "SP", -- The tag name.
-                volatile = true, -- Remove the tag when the client is closed.
-            },
             sticky = true,
             placement = awful.placement.centered,
         },
