@@ -15,6 +15,10 @@ vnoremap > >gv
 " Capital Y should behave like this
 nnoremap Y y$
 
+" Wrap text
+nnoremap <silent> <M-z> :set wrap!<CR>
+inoremap <silent> <M-z> <Esc>:set wrap!<CR>a
+
 if exists('g:vscode')
   " Simulate same TAB behavior in VSCode
   nmap <Tab> :Tabnext<CR>
