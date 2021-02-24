@@ -14,7 +14,7 @@ handle_mime() { \
 		text/html) w3m -dump "${FILE_PATH}" ;;
 		text/troff) man ./ "${FILE_PATH}" | col -b ;;
 		text/*) highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" -O ansi "${FILE_PATH}" 2>/dev/null ||\
-			bat --style=numbers --color=always "${FILE_PATH}" ||\
+			bat --style=numbers --color=always "${FILE_PATH}" 2>/dev/null ||\
 			cat "${FILE_PATH}" ;;
 		application/zip) atool --list -- "${FILE_PATH}" ;;
 		application/octet-stream) hexdump -C "${FILE_PATH}" | head -n 40 ;;
