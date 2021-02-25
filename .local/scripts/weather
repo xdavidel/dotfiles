@@ -2,18 +2,20 @@
 
 [ ! -z "$1" ] && BLOCK_BUTTON="$1"
 
+weatherreport="${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
+
 getforecast() {\
-	curl -s "wttr.in" > "$HOME/.cache/weatherreport" &&
+	curl -sf "wttr.in/$LOCATION" > "$weatherreport" &&
 	command -v notify-send >/dev/null && notify-send "⛅ Weather" "New weather forecast for today." && refbar weather
 }
 
 showweather() {\
-	sed '16q;d' "$HOME/.cache/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/💧 /g" | tr -d '\n' &&
-	sed '13q;d' "$HOME/.cache/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " 🌙",$1 "°","🌞",$2 "°"}'
+	sed '16q;d' "$weatherreport" | grep -wo "[0-9]*%" | sort -rn | sed "s/^/💧 /g;1q" | tr -d '\n' &&
+	sed '13q;d' "$weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " 🌙",$1 "°","🌞",$2 "°"}'
 }
 
 case $BLOCK_BUTTON in
-    1) $TERMINAL -e less -Srf "$HOME/.cache/weatherreport" ;;
+    1) $TERMINAL -e less -Srf "$weatherreport" ;;
     2) getforecast && showweather ;;
     3) pidof dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
@@ -23,6 +25,6 @@ case $BLOCK_BUTTON in
     6) setsid "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-[ "$(stat -c %y "$HOME/.cache/weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ]  && getforecast
+[ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ]  && getforecast
 
 showweather
