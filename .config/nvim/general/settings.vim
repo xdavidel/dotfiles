@@ -44,8 +44,11 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Automatically deletes all trailing whitespace on save.
 "=====================================================================
-autocmd BufWritePre * %s/\n\+\%$//e
-autocmd BufWritePre *.[ch] %s/\%$/\r/e
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+endfun
+autocmd BufWritePre * :call TrimWhitespace()
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
 "=====================================================================
