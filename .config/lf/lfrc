@@ -93,13 +93,7 @@ cmd targz %tar cvzf "$f.tar.gz" "$f"
 cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
 
 cmd unarchive ${{
-  case "$f" in
-	  *.zip) unzip "$f" ;;
-		*.tar.gz) tar -xzvf "$f" ;;
-		*.tar.bz2) tar -xjvf "$f" ;;
-		*.tar) tar -xvf "$f" ;;
-		*) echo -n "Unsupported format" ;;
-	esac
+    extract "$f"
 }}
 
 # Remove some defaults
