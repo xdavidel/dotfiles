@@ -23,27 +23,26 @@ if exists('g:vscode')
   " Simulate same TAB behavior in VSCode
   nmap <Tab> :Tabnext<CR>
   nmap <S-Tab> :Tabprev<CR>
+
 else
 
-  " I hate escape more than anything else
-  inoremap jk <Esc>
-  inoremap kj <Esc>
+  " Move lines
+  xnoremap <silent>J :m '>+1<CR>gv=gv
+  xnoremap <silent>K :m '<-2<CR>gv=gv
+  xnoremap <silent><M-down> :m '>+1<CR>gv=gv
+  xnoremap <silent><M-up>   :m '<-2<CR>gv=gv
 
-  " Easy CAPS
-  " inoremap <c-u> <ESC>viwUi
-  " nnoremap <c-u> viwU<Esc>
+  nnoremap <silent><M-down> v:m '>+1<CR>gv=gv<Esc>
+  nnoremap <silent><M-up>   v:m '<-2<CR>gv=gv<Esc>
+
+  inoremap <silent><M-down> <Esc>v:m '>+1<CR>gv=gv<Esc>a
+  inoremap <silent><M-up>   <Esc>v:m '<-2<CR>gv=gv<Esc>a
 
   " TAB in general mode will move to text buffer
   nnoremap <silent> <TAB> :bnext<CR>
 
   " SHIFT-TAB will go back
   nnoremap <silent> <S-TAB> :bprevious<CR>
-
-  " Move selected line / block of text in visual mode
-  " shift + k to move up
-  " shift + j to move down
-  xnoremap K :move '<-2<CR>gv-gv
-  xnoremap J :move '>+1<CR>gv-gv
 
   " <TAB>: completion.
   inoremap <silent> <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
