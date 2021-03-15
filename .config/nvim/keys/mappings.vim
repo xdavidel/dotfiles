@@ -15,6 +15,12 @@ vnoremap > >gv
 " Capital Y should behave like this
 nnoremap Y y$
 
+" Delete until _
+nnoremap dc dt_
+
+" Change until _
+nnoremap cd ct_
+
 " Wrap text
 nnoremap <silent> <M-z> :set wrap!<CR>
 inoremap <silent> <M-z> <Esc>:set wrap!<CR>a
