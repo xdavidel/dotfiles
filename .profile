@@ -25,14 +25,13 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/inputrc"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/x11/xinitrc"
 export WEECHAT_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/weechat"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/docker"
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
-export ALSA_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/alsa/asoundrc"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/npmrc"
 export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-# export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
@@ -43,6 +42,8 @@ export SUDO_ASKPASS="$HOME/.local/scripts/dmenupass"
 # MPD
 export MPD_HOST="127.0.0.1"
 export MPD_PORT="6600"
+
+export LOCATION="Jerusalem"
 
 # less/man colors
 export LESS=-R
@@ -59,4 +60,4 @@ export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 [ "$(tty)" = "/dev/tty1" ] && \
     command -v startx && \
     ! pidof -s Xorg >/dev/null 2>&1 && \
-    exec startx
+    exec startx $XINITRC
