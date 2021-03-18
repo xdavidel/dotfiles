@@ -8,41 +8,44 @@ if ! filereadable(plugpath)
 endif
 
 call plug#begin('$RTP/autoload/plugged')
-  Plug 'tpope/vim-commentary'           " Better Comments
-  Plug 'tpope/vim-surround'             " change surround with 'cs<from><to>'
-  Plug 'vimwiki/vimwiki'                " A personal wiki using vim
-  Plug 'glts/vim-magnum'                " big integer library for Vim plugins
-  Plug 'glts/vim-radical'               " Convert binary, hex, etc..
+  Plug 'tpope/vim-commentary'               " Better Comments
+  Plug 'tpope/vim-surround'                 " change surround with 'cs<from><to>'
+  Plug 'vimwiki/vimwiki'                    " A personal wiki using vim
+  Plug 'glts/vim-magnum'                    " big integer library for Vim plugins
+  Plug 'glts/vim-radical'                   " Convert binary, hex, etc..
 
   if exists('g:vscode')
-    Plug 'asvetliakov/vim-easymotion'   " Easy motion for VSCode
+    Plug 'asvetliakov/vim-easymotion'       " Easy motion for VSCode
   else
-    Plug 'unblevable/quick-scope'       " highlight navigation
-    Plug 'junegunn/fzf',                " FZF
+    Plug 'unblevable/quick-scope'           " highlight navigation
+    Plug 'junegunn/fzf',                    " FZF
        \ { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'             " Fuzzy file finder
-    Plug 'ap/vim-css-color'             " Color highlights
-    " Plug 'sainnhe/gruvbox-material'     " Gruvbox Color scheme
-    " Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'neoclide/coc.nvim',           " auto completions
+    Plug 'junegunn/fzf.vim'                 " Fuzzy file finder
+    Plug 'ap/vim-css-color'                 " Color highlights
+    Plug 'neoclide/coc.nvim',               " auto completions
        \ {'branch' : 'release' }
-    Plug 'metakirby5/codi.vim'          " Interactive Scratchpad for Hackers
-    Plug 'junegunn/goyo.vim'            " distraction free VIM
-    Plug 'preservim/nerdtree'           " file system view
-"    Plug 'vim-airline/vim-airline'      " status/tabline for vim.
+    Plug 'metakirby5/codi.vim'              " Interactive Scratchpad for Hackers
+    Plug 'junegunn/goyo.vim'                " distraction free VIM
+    Plug 'preservim/nerdtree'               " file system view
+"    Plug 'vim-airline/vim-airline'          " status/tabline for vim.
     Plug 'itchyny/lightline.vim'
-    Plug 'easymotion/vim-easymotion'    " simpler way to use motions
-    Plug 'airblade/vim-rooter'          " Have the file system follow you around
-    Plug 'liuchengxu/vim-which-key'     " See what keys do like in emacs
-    Plug 'puremourning/vimspector'      " Debugging in vim
-    Plug 'szw/vim-maximizer'            " Maximizing vim windows
-    Plug 'jreybert/vimagit'             " Git interface inspired by emacs magit
+    Plug 'easymotion/vim-easymotion'        " simpler way to use motions
+    Plug 'airblade/vim-rooter'              " Have the file system follow you around
+    Plug 'liuchengxu/vim-which-key'         " See what keys do like in emacs
+    Plug 'puremourning/vimspector'          " Debugging in vim
+    Plug 'szw/vim-maximizer'                " Maximizing vim windows
+    Plug 'jreybert/vimagit'                 " Git interface inspired by emacs magit
+    Plug 'dbeniamine/cheat.sh-vim'          " cht.sh integration
+
+    " Plug 'sainnhe/gruvbox-material'       " Gruvbox Color scheme
+    " Plug 'drewtempelmeyer/palenight.vim'  " Palenight color theme
+    Plug 'dracula/vim', { 'as': 'dracula' } " Dracula color theme
 
     "File support
     "===========================
-    Plug 'rust-lang/rust.vim'           " rustlang support
-    Plug 'kovetskiy/sxhkd-vim'          " support for sxhkd config files
-    Plug 'cespare/vim-toml'             " tomel support
+    Plug 'rust-lang/rust.vim'               " rustlang support
+    Plug 'kovetskiy/sxhkd-vim'              " support for sxhkd config files
+    Plug 'cespare/vim-toml'                 " tomel support
   endif
 call plug#end()
 
