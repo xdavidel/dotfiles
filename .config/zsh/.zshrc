@@ -92,7 +92,7 @@ function zle-keymap-select zle-line-init {
     fi
 
     if [[ -n ${VIRTUAL_ENV} ]]; then
-        VENV="%F{cyan} (venv)"
+        VENV="%F{cyan} (`basename \"$VIRTUAL_ENV\"`)"
     else
         VENV=""
     fi
