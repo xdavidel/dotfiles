@@ -100,6 +100,7 @@ local altkey = "Mod1"
 local sftkey = "Shift"
 local ctlkey = "Control"
 
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
@@ -802,26 +803,60 @@ mybat = wibox.container.margin(
 )
 
 
+local TAG_SP = "SP"
+function tagviewswitch(direction)
+    local s = awful.screen.focused()
+    local tags = s.tags
+
+    local next_index = s.selected_tag.index + direction
+
+    if next_index < 1 then
+        next_index = #tags
+    end
+
+    if tags[next_index] and tags[next_index].name == TAG_SP then
+        next_index = next_index + direction
+    end
+
+    if next_index > #tags then
+        next_index = 1
+    end
+
+    tags[next_index]:view_only()
+end
+
+function tagview(t)
+    if t and t.name ~= TAG_SP then
+        t:view_only()
+    end
+end
+
+function tagviewtoggle(t)
+    if t and t.name ~= TAG_SP then
+        awful.tag.viewtoggle(t)
+    end
+end
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-    awful.button({ }, 1, function(t) t:view_only() end),
+    awful.button({ }, 1, function(t) tagview(t) end),
     awful.button({ modkey }, 1,
     function(t)
-        if client.focus then
+        if t.name ~= TAG_SP and client.focus then
             client.focus:move_to_tag(t)
         end
     end),
 
-    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ }, 3, function(t) tagviewtoggle(t) end),
     awful.button({ modkey }, 3,
         function(t)
-            if client.focus then
+            if t.name ~= TAG_SP and client.focus then
                 client.focus:toggle_tag(t)
             end
         end),
 
-    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    awful.button({ }, 4, function(t) tagviewswitch(1) end),
+    awful.button({ }, 5, function(t) tagviewswitch(-1) end)
 )
 
 local currentclient
@@ -1076,9 +1111,11 @@ local globalkeys = gears.table.join(
         {description="Toggle dropdown terminal", group="awesome"}),
     awful.key({ modkey, sftkey    }, "/",      hotkeys_popup.show_help,
         {description="show help", group="awesome"}),
-    awful.key({ modkey, ctlkey    }, "Left",   awful.tag.viewprev,
+    -- awful.key({ modkey, ctlkey    }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey, ctlkey    }, "Left",   function() tagviewswitch(-1) end,
         {description = "view previous", group = "tag"}),
-    awful.key({ modkey, ctlkey    }, "Right",  awful.tag.viewnext,
+    -- awful.key({ modkey, ctlkey    }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey, ctlkey    }, "Right",  function() tagviewswitch(1) end,
         {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
         {description = "go back", group = "tag"}),
@@ -1282,11 +1319,11 @@ local globalkeys = gears.table.join(
 local clientkeys = gears.table.join(
     -- resize clients
     awful.key({ modkey, altkey    }, "Down",
-        function (c) 
+        function (c)
             if c.floating then
                 c:relative_move(0, 0, 0, 10)
             else
-                awful.client.incwfact(0.05) 
+                awful.client.incwfact(0.05)
             end
         end,
         {description = "increase client height", group = "client"}),
@@ -1295,7 +1332,7 @@ local clientkeys = gears.table.join(
             if c.floating then
                 c:relative_move(0, 0, 10, 0)
             else
-                awful.tag.incmwfact( 0.05) 
+                awful.tag.incmwfact( 0.05)
             end
         end,
         {description = "increase master width", group = "client"}),
@@ -1304,16 +1341,16 @@ local clientkeys = gears.table.join(
             if c.floating then
                 c:relative_move(0, 0, -10, 0)
             else
-                awful.tag.incmwfact(-0.05) 
+                awful.tag.incmwfact(-0.05)
             end
         end,
         {description = "decrease master width", group = "client"}),
     awful.key({ modkey, altkey    }, "Up",
-        function (c) 
+        function (c)
             if c.floating then
                 c:relative_move(0, 0, 0, -10)
             else
-                awful.client.incwfact(-0.05) 
+                awful.client.incwfact(-0.05)
             end
         end,
         {description = "decrease client height", group = "client"}),
@@ -1372,9 +1409,7 @@ for i = 1, 9 do
             function ()
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
-                if tag then
-                    tag:view_only()
-                end
+                tagview(tag)
             end,
             {description = "view tag #"..i, group = "tag"}),
 
@@ -1383,9 +1418,7 @@ for i = 1, 9 do
             function ()
                 local screen = awful.screen.focused()
                 local tag = screen.tags[i]
-                if tag then
-                    awful.tag.viewtoggle(tag)
-                end
+                tagviewtoggle(tag)
             end,
             {description = "toggle tag #" .. i, group = "tag"}),
 
@@ -1467,8 +1500,15 @@ awful.rules.rules = {
             floating  = true,
             hidden = true,
             sticky = true,
+            new_tag = TAG_SP,
             placement = awful.placement.centered,
         },
+        callback = function (c)
+            awful.placement.centered(c,{honor_padding = true, honor_workarea=true})
+            gears.timer.delayed_call(function()
+                c.urgent = false
+            end)
+        end
     },
 
     -- Floating clients.
