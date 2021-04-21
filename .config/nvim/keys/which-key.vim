@@ -146,8 +146,9 @@ let g:which_key_map.l = {
 let g:which_key_map.t = {
   \ 'name' : '+Tables' ,
   \ 'm' : [':TableModeToggle'                       , 'Toggle table mode'],
+  \ 'm' : [':TableSize'                             , 'Table Size'],
   \ 'r' : [':TableModeRealign'                      , 'Realign'],
-  \ 's' : [':TableSort'                         , 'Sort'],
+  \ 's' : [':TableSort'                             , 'Sort'],
   \ 'd' : {
   \     'name' : '+Delete',
   \     'r' : ['<Plug>(table-mode-delete-row)'      , 'Delete Row' ],

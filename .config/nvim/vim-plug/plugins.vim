@@ -34,12 +34,14 @@ call plug#begin('$RTP/autoload/plugged')
     Plug 'liuchengxu/vim-which-key'         " See what keys do like in emacs
     Plug 'puremourning/vimspector'          " Debugging in vim
     Plug 'szw/vim-maximizer'                " Maximizing vim windows
-    Plug 'jreybert/vimagit'                 " Git interface inspired by emacs magit
-    Plug 'dhruvasagar/vim-table-mode'       " Create tables and spreadsheets
+    Plug 'dhruvasagar/vim-table-mode',      " Create tables and spreadsheets
+        \ { 'on': 'TableModeEnable' }
     Plug 'dbeniamine/cheat.sh-vim'          " cht.sh integration
 
-    " Plug 'sainnhe/gruvbox-material'       " Gruvbox Color scheme
-    " Plug 'drewtempelmeyer/palenight.vim'  " Palenight color theme
+    Plug 'jreybert/vimagit'                 " Git interface inspired by emacs magit
+    Plug 'tpope/vim-fugitive',              " Premier Vim plugin for Git
+        \ { 'on': ['Git', 'Gpush', 'Gedit', 'Ggrep'] }
+
     Plug 'dracula/vim', { 'as': 'dracula' } " Dracula color theme
 
     "File support
