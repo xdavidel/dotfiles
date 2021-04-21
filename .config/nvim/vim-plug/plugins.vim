@@ -35,6 +35,7 @@ call plug#begin('$RTP/autoload/plugged')
     Plug 'puremourning/vimspector'          " Debugging in vim
     Plug 'szw/vim-maximizer'                " Maximizing vim windows
     Plug 'jreybert/vimagit'                 " Git interface inspired by emacs magit
+    Plug 'dhruvasagar/vim-table-mode'       " Create tables and spreadsheets
     Plug 'dbeniamine/cheat.sh-vim'          " cht.sh integration
 
     " Plug 'sainnhe/gruvbox-material'       " Gruvbox Color scheme

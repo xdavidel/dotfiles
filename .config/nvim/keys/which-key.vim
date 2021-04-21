@@ -142,6 +142,24 @@ let g:which_key_map.l = {
   \ 'Z' : [':CocEnable'                          , 'Enable CoC'],
   \ }
 
+" t is for tables
+let g:which_key_map.t = {
+  \ 'name' : '+Tables' ,
+  \ 'm' : [':TableModeToggle'                       , 'Toggle table mode'],
+  \ 'r' : [':TableModeRealign'                      , 'Realign'],
+  \ 's' : [':TableSort'                         , 'Sort'],
+  \ 'd' : {
+  \     'name' : '+Delete',
+  \     'r' : ['<Plug>(table-mode-delete-row)'      , 'Delete Row' ],
+  \     'c' : ['<Plug>(table-mode-delete-column)'   , 'Delete Column' ],
+  \     },
+  \ 'f' : {
+  \     'name' : '+Formula',
+  \     'a' : ['<Plug>(table-mode-add-formula)'      , 'Add Formula' ],
+  \     'e' : ['<Plug>(table-mode-eval-formula)'   , 'Eval Formula' ],
+  \     }
+  \ }
+
 " T is for tabs
 let g:which_key_map.T = {
   \ 'name' : '+Tabs' ,
