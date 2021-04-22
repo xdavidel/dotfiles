@@ -38,6 +38,15 @@ set shortmess+=c               " Don't pass messages to |ins-completion-menu|.
 set updatetime=300             " Faster completion
 set clipboard+=unnamedplus     " Copy paste between vim and everything else
 
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+hi SignColumn ctermbg=None guibg=None
+
 " Disables automatic commenting on newline:
 "=====================================================================
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -52,6 +61,7 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
 "=====================================================================
+autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
 " Update binds when sxhkdrc is updated.
