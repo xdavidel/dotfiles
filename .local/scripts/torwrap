@@ -1,7 +1,9 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-ifinstalled transmission-remote-cli transmission-cli || exit
+ifinstalled tremc-git  transmission-cli || exit
 
-! pidof transmission-da >/dev/null && transmission-daemon && notify-send -i "$PIX/torrent.svg" "Starting torrent daemon..." && sleep 3
+! pidof transmission-daemon >/dev/null && \
+    transmission-daemon && \
+    notify-send "Starting transmission daemon..." && sleep 3
 
-$TERMINAL -e transmission-remote-cli
+$TERMINAL -e tremc

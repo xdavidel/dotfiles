@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # Mimeapp script for adding torrent to transmission-daemon, but will also start
 # the daemon first if not running.
@@ -7,6 +7,7 @@
 # transmission-daemon sometimes fails to take remote requests in its first
 # moments.
 
-pidof transmission-da || (transmission-daemon && note "Starting daemon..." "$PIX/dl.svg" && sleep 3 && pkill -RTMIN+7 i3blocks)
+pidof transmission-daemon /dev/null || (transmission-daemon && \
+                                        notify-send "Starting transmission daemon...")
 
-transmission-remote -a "$@" && note "Torrent added." "$PIX/dl.svg"
+transmission-remote -a "$@" && notify-send "🔽 Torrent added."
