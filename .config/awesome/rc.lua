@@ -469,6 +469,60 @@ awesome.connect_signal("refupdates",
     end
 )
 
+local torrentcmd = "torinfo"
+local mytorrent
+local torrentscript = awful.widget.watch(
+    torrentcmd,
+    60,
+    function(widget, stdout)
+        mytorrent.visible = string.len(stdout) > 1 and true or false
+        widget:set_text(stdout)
+    end
+)
+mytorrent = wibox.container.margin(
+    wibox.container.background(
+        wibox.container.margin(
+            torrentscript,
+            5,
+            5,
+            0,
+            0
+        ),
+        altbackground
+    ),
+    0,
+    10,
+    0,
+    0
+)
+mytorrent:buttons(
+    gears.table.join(
+        mytorrent:buttons(),
+        awful.button(
+            {}, 1, nil,
+            function () awful.spawn(torrentcmd .. " 1") end
+        ),
+        awful.button(
+            {}, 2, nil,
+            function () awful.spawn(torrentcmd .. " 2") end
+        ),
+        awful.button(
+            {}, 3, nil,
+            function () awful.spawn(torrentcmd .. " 3") end
+        )
+    )
+)
+awesome.connect_signal("reftor",
+    function()
+        awful.spawn.easy_async_with_shell(torrentcmd,
+            function(out)
+                mytorrent.visible = string.len(out) > 1 and true or false
+                torrentscript:set_markup(out)
+            end
+        )
+    end
+)
+
 local weathercmd = "weather"
 local myweather
 local weatherscript = awful.widget.watch(
@@ -1052,6 +1106,7 @@ awful.screen.connect_for_each_screen(function(s)
                 mymusic,
                 mynews,
                 myupdates,
+                mytorrent,
                 myweather,
                 mymemory,
                 mycpu,

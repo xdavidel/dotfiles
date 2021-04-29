@@ -38,6 +38,6 @@ case "$1" in
 		pkill -RTMIN+6 i3blocks >/dev/null 2>&1 &
 		;;
     t*)
-		awesome-client 'awesome.emit_signal("reftorrent")' 2>/dev/null &
+		awesome-client 'awesome.emit_signal("reftor")' 2>/dev/null &
         ;;
 esac
