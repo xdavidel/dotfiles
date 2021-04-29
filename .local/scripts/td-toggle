@@ -1,10 +1,13 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # If transmission-daemon is running, will ask to kill, else will ask to start.
-if pidof transmission-da >/dev/null ;
+
+if pidof transmission-daemon >/dev/null ;
 then
-	[ "$(printf "No\\nYes" | rofi -dmenu -theme dmenu -i -p "Kill transmission-daemon?")" = "Yes" ] && killall transmission-da && notify-send -i "$PIX/torrent.svg" "transmission-daemon killed."
+	[ "$(printf "No\\nYes" | dmenu -i -p "Turn off transmission-daemon?")" = "Yes" ] && killall transmission-da && notify-send "transmission-daemon disabled."
 else
 	ifinstalled transmission-cli || exit
-	[ "$(printf "No\\nYes" | rofi -dmenu -theme dmenu -i -p "Start transmission daemon?")" = "Yes" ] && transmission-daemon && notify-send -i "$PIX/torrent.svg" "tranmission-daemon started."
+	[ "$(printf "No\\nYes" | dmenu -i -p "Turn on transmission daemon?")" = "Yes" ] && transmission-daemon && notify-send "transmission-daemon enabled."
 fi
+
+refbar t &
