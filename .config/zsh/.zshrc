@@ -170,4 +170,4 @@ compdef dotconf="git"
 [ -f "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # kubectl completion
-command -v kubectl >/dev/null && source <(kubectl completion zsh)
+command -v kubectl >/dev/null && source <(kubectl completion zsh) || true
