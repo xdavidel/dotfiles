@@ -25,6 +25,15 @@ nnoremap cd ct_
 nnoremap <silent> <M-z> :set wrap!<CR>
 inoremap <silent> <M-z> <Esc>:set wrap!<CR>a
 
+" mark position before search
+nnoremap / ms/
+
+" delete matches
+nmap dm :%s/<c-r>///g<CR>
+
+" change matches
+nmap cm :%s/<c-r>///g<Left><Left>
+
 if exists('g:vscode')
   " Simulate same TAB behavior in VSCode
   nmap <Tab> :Tabnext<CR>
