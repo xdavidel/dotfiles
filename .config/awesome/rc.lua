@@ -167,7 +167,8 @@ local mymainmenu = freedesktop.menu.build({
         { "Monitor", monitormenu     },
     },
     after = {
-        { "Run", "dmenu_run"         },
+      { "Run", "dmenu_run"           },
+      { "Virtual Keyboard", "vkbd"   },
       { "Files", files               },
       { "Terminal", terminal         },
       { "Exit", exitmenu             },
@@ -1565,6 +1566,14 @@ awful.rules.rules = {
             end)
         end
     },
+    {
+        rule = { class = 'XVkbd' },
+        properties = {
+            floating  = true,
+            titlebars_enabled = true,
+            sticky = true
+        }
+    },
 
     -- Floating clients.
     {
@@ -1604,9 +1613,9 @@ awful.rules.rules = {
             }
       },
 
-    -- Add titlebars to normal clients and dialogs
+    -- Add titlebars to dialogs
     {
-        rule_any = {type = { "normal", "dialog" }},
+        rule_any = {type = { "dialog" }},
         properties = { titlebars_enabled = true }
     },
 }
@@ -1663,7 +1672,7 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-        awful.titlebar.hide(c)
+        -- awful.titlebar.hide(c)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
