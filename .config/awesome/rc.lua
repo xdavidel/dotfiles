@@ -1518,6 +1518,7 @@ local clientbuttons = gears.table.join(
     end)
 )
 
+
 -- Set keys
 root.keys(globalkeys)
 -- }}}
@@ -1615,24 +1616,63 @@ awful.rules.rules = {
 
     -- Add titlebars to dialogs
     {
-        rule_any = {type = { "dialog" }},
+        rule_any = {
+            type = { "dialog" },
+        },
         properties = { titlebars_enabled = true }
     },
 }
 -- }}}
 
+
+-- Toggle titlebar on or off depending on s. Creates titlebar if it doesn't exist
+local function setTitlebar(client, s)
+    if s then
+        if client.titlebar == nil then
+            client:emit_signal("request::titlebars", "rules", {})
+        end
+        awful.titlebar.show(client)
+    else 
+        awful.titlebar.hide(client)
+    end
+end
+
+
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
+
+
+--Toggle titlebar on floating status change
+client.connect_signal("property::floating", function(c)
+    setTitlebar(c, c.floating)
+end)
+
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     if not awesome.startup then awful.client.setslave(c) end
+
+    setTitlebar(c, c.floating or c.first_tag.layout == awful.layout.suit.floating)
 
     if awesome.startup
       and not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
+    end
+end)
+
+-- Show titlebars on tags with the floating layout
+tag.connect_signal("property::layout", function(t)
+    -- New to Lua ? 
+    -- pairs iterates on the table and return a key value pair
+    -- I don't need the key here, so I put _ to ignore it
+    for _, c in pairs(t:clients()) do
+        if t.layout == awful.layout.suit.floating then
+            setTitlebar(c, true)
+        else
+            setTitlebar(c, false)
+        end
     end
 end)
 
