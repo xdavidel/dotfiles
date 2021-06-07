@@ -73,6 +73,10 @@ super + {_,shift +} semicolon
 super + {_,shift +} grave
 	menurepo "$HOME/.local/repo/font-awesome-list" "{_,paste}"
 
+# Open password menu
+super + ctrl + p
+	passmenu
+
 # Toggle screenkey
 super + Scroll_Lock
 	killall screenkey || screenkey
