@@ -45,6 +45,7 @@ bindkey '^[[A~'   history-beginning-search-backward         # Up key
 bindkey '^[[B~'   history-beginning-search-forward          # Down key
 bindkey '\e[5'    history-search-backward                   # Page up key
 bindkey '\e[6'    history-search-forward                    # Page down key
+bindkey '^R' history-incremental-search-backward            # Search history backwards
 
 # Navigate words with ctrl+arrow keys
 bindkey '^[Oc'    forward-word                              # Ctrl + Right key
