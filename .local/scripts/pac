@@ -37,7 +37,7 @@ void() { \
 debi() { \
 	case "$1" in
 		i*) shift 1; command -v sudo >>/dev/null && sudo apt-get install "$@" || apt-get install "$@" ;;
-		u*) command -v sudo >>/dev/null && (sudo apt-get update && sudo apt-get upgrade) || (apt-get update && apt-get upgrade) ;;
+		u*) command -v sudo >>/dev/null && (sudo apt-get update && sudo apt-get upgrade -y) || (apt-get update && apt-get upgrade) ;;
 		r*) shift 1; command -v sudo >>/dev/null && sudo apt-get remove "$@" || apt-get remove "$@" ;;
 		m*) command -v sudo >>/dev/null && sudo apt-get update || apt-get update ;;
 		f*) shift 1; apt search "$@" ;;
