@@ -1,0 +1,11 @@
+#!/bin/sh
+
+prefix=${PASSWORD_STORE_DIR:-$HOME/.password-store}
+password_files=$(find "$prefix" -type f -name *.gpg)
+
+password=$(echo "${password_files}" | sed "s|$prefix/||g;s|.gpg||g" \
+    | rofi -dmenu -theme dmenu -i -p "Select"  )
+
+[ -n "$password" ] || exit
+
+pass show -c "$password" 2>/dev/null
