@@ -1,17 +1,25 @@
 ## Options section
 unsetopt PROMPT_SP        # Don't ttempt to preserve a partial line
 unsetopt nomatch          # Passes the command as is instead of reporting pattern matching failure
-setopt rcexpandparam      # Array expension with parameters
 setopt nocheckjobs        # Don't warn about running processes when exiting
 setopt numericglobsort    # Sort filenames numerically when it makes sense
 setopt nobeep             # No beep
 setopt appendhistory      # Immediately append history instead of overwriting
 setopt histignorealldups  # If a new command is a duplicate, remove the older one
 
-autoload -U compinit colors
-compinit
+# dont highlight pasted line
+zle_highlight=('paste:none')
+
+fpath=($fpath $ZDOTDIR/autoloaded)
+
+autoload -Uz compinit colors
 colors
 
+# regenarate when needed only
+[ "$(stat -c %y "$ZDOTDIR/.zcompdump" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] && compinit || compinit -C
+
+# configure completions
+zstyle ':completion:*' menu select                          # show completion menu
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # Colored completion (different colors for dirs/files/etc)
 zstyle ':completion:*' rehash true                          # Automatically find new executables in path
@@ -22,8 +30,8 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/cache
 
 HISTFILE=~/.cache/zsh/history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 WORDCHARS=${WORDCHARS//\/[&.;]}                             # Don't consider certain characters part of the word
 GIT_COLORS=0
 
@@ -48,15 +56,15 @@ bindkey '\e[6'    history-search-forward                    # Page down key
 bindkey '^R' history-incremental-search-backward            # Search history backwards
 
 # Navigate words with ctrl+arrow keys
-bindkey '^[Oc'    forward-word                              # Ctrl + Right key
-bindkey '^[Od'    backward-word                             # Ctrl + Left key
+bindkey '^[[1;5C'    forward-word                              # Ctrl + Right key
+bindkey '^[[1;5D'    backward-word                             # Ctrl + Left key
 bindkey '^H'      backward-kill-word                        # delete previous word with ctrl+backspace
 bindkey '^[[Z'    undo                                      # Shift+tab undo last action
 
 NEWLINE=$'\n'
 
 # display git status in prompt
-function git_status {
+git_status() {
     local statc="%{%b%f%}" # assume none
     local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
@@ -80,17 +88,17 @@ function git_status {
 }
 
 # keymap changed binding
-function zle-keymap-select zle-line-init {
-    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-        echo -ne '\e[1 q'
-        VIMODE="%{$bg[red]%}%B[N]%b"
-    elif [[ ${KEYMAP} == main ]] ||
-        [[ ${KEYMAP} == viins ]] ||
-        [[ ${KEYMAP} = '' ]] ||
-        [[ $1 = 'beam' ]]; then
-        echo -ne '\e[5 q'
-        VIMODE="%{$bg[green]%}%B[I]%b"
-    fi
+zle-keymap-select() {
+    case "$KEYMAP" in
+        vicmd)
+            echo -ne '\e[1 q'
+            VIMODE="%{$bg[red]%}%B[N]%b"
+            ;;
+        viins|main)
+            echo -ne '\e[5 q'
+            VIMODE="%{$bg[green]%}%B[I]%b"
+            ;;
+    esac
 
     if [[ -n ${VIRTUAL_ENV} ]]; then
         VENV="%F{cyan} (`basename \"$VIRTUAL_ENV\"`)"
@@ -102,43 +110,27 @@ function zle-keymap-select zle-line-init {
     zle reset-prompt
 }
 
+zle-line-init() {
+    zle -K viins
+}
+
 zle -N zle-keymap-select
 zle -N zle-line-init
 
 # Use beam shape cursor for each new prompt.
 preexec() { echo -ne '\e[0m\e[5 q' ;}
 
-# Use lf to switch directories
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
+# Use lf to switch directories (lazy loading)
+autoload lfcd
 
-# use vifm to switch directories
-vifmcd () {
-    tmp="$(mktemp)"
-    vifm --choose-dir "$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
+# use vifm to switch directories (lazy loading)
+autoload vifmcd
 
-gclrs () {
-    [ "$GIT_COLORS" == 0 ] && GIT_COLORS=1 || GIT_COLORS=0
-}
+# toggle git colors (lazy loading)
+autoload gclrs
 
 # bind ctrl-o to switch directories using file manager
 bindkey -s '^o' 'lfcd\n'
-
-# bind ctrl-a to open calculator
-bindkey -s '^a' 'bc -lq\n'
 
 # bind ctrl-f to fuzzy open folders
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
@@ -149,10 +141,7 @@ bindkey -s '^g' 'gclrs\n'
 # Print a greeting message when shell is started
 #echo $USER@$HOST  $(uname -srm) $(lsb_release -rcs)
 
-## Prompt on right side:
-
-# Right prompt with time and exit status of previous command marked with ✓ or ✗
-# RPROMPT="%(?.%{$fg[green]%}[OK].%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*"
+# Prompt on right side:
 RPROMPT="%(?..%{$fg[red]%}[%?])%{$reset_color%} %{$fg[yellow]%}%*%{$reset_color%}"
 
 # Edit line in vim with ctrl-e:
@@ -163,12 +152,25 @@ bindkey '^e' edit-command-line
 compdef dotconf="git"
 
 # Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+[ -f "$HOME/.config/customrc" ] && source "$HOME/.config/customrc"
 
 # Load zsh plugins
 [ -f "$ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ] && source "$ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 [ -f "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # kubectl completion
-command -v kubectl >/dev/null && source <(kubectl completion zsh) || true
+if command -v kubectl >/dev/null; then
+    kubectl() {
+
+        # Remove this function,
+        # subsequent calls will execute 'kubectl' directly
+        unfunction "$0"
+
+        # load original auto completion
+        source <(kubectl completion zsh)
+
+        # execute 'kubectl' binary
+        $0 "$@"
+    }
+fi
