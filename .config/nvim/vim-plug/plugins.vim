@@ -48,6 +48,12 @@ call plug#begin('$RTP/autoload/plugged')
     Plug 'rust-lang/rust.vim'               " rustlang support
     Plug 'kovetskiy/sxhkd-vim'              " support for sxhkd config files
     Plug 'cespare/vim-toml'                 " tomel support
+
+
+    if has('nvim-0.5.0')
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+    endif
+
   endif
 call plug#end()
 

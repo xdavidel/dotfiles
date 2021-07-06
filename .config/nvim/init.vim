@@ -19,4 +19,8 @@ else
   source $RTP/plug-config/coc.vim
   source $RTP/plug-config/vim-rooter.vim
   source $RTP/plug-config/nerd-tree.vim
+
+  if has('nvim-0.5.0')
+      source $RTP/plug-config/tree-sitter.vim
+  endif
 endif
