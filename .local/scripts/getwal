@@ -1,13 +1,16 @@
 #!/bin/sh
 
+WIDTH="1920"
+HEIGHT="1080"
+
 url="https://source.unsplash.com/random/"
 
-if [ -n $1 ] && [ -n $2 ]; then
-    url="${url}${1}x${2}"
-else
-    url="${url}1920x1080"
+if [ -n "$2" ]; then
+    WIDTH="$1"
+    HEIGHT="$2"
 fi
 
+url="${url}${WIDTH}x${HEIGHT}"
 
 mkdir -p "$HOME/Pictures"
 
