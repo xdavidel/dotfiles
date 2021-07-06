@@ -3,7 +3,7 @@
 arch() { \
 	case "$1" in
 		i*) shift 1 && sudo pacman -S "$@" ;;
-		u*) yay -Su --noconfirm || sudo pacman -Su --noconfirm --needed ;;
+		u*) $AUR_BIN -Su --noconfirm || sudo pacman -Su --noconfirm --needed ;;
 		r*) shift 1 && sudo pacman -Rns "$@" ;;
 		m*) sudo pacman -S ;;
 		f*) shift 1 && pacman -Ss "$@" ;;
@@ -13,7 +13,7 @@ arch() { \
 		g*) sudo pacman -Syuw --noconfirm ;;
 		o*) pacman -Qdtq ;;
 		c*) sudo pacman -Sc ;;
-		p*) yay -Qqu || pacman -Qqu ;;
+		p*) $AUR_BIN -Qqu || pacman -Qqu ;;
 	esac
 }
 
