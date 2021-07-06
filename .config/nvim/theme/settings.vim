@@ -18,7 +18,6 @@ endif
 hi  Title      ctermbg=NONE ctermfg=115 guibg=NONE    guifg=#5FAFAF cterm=NONE    gui=NONE
 hi  NonText    ctermbg=NONE ctermfg=243 guibg=NONE    guifg=#3E4853 cterm=NONE    gui=NONE
 hi  Identifier ctermbg=NONE ctermfg=179 guibg=NONE    guifg=#E5C078 cterm=NONE    gui=NONE
-hi  CursorLine ctermbg=NONE ctermfg=249 guibg=NONE    guifg=#808080 cterm=NONE    gui=NONE
 hi  Visual     ctermbg=235  ctermfg=13  guibg=#262626 guifg=#B294BB cterm=reverse gui=reverse
 
 hi  Error          ctermbg=NONE    ctermfg=131    guibg=NONE       guifg=#af5f5f  cterm=reverse         gui=reverse
@@ -46,6 +45,7 @@ hi  SpellBad       ctermbg=52      ctermfg=9      guibg=#5F0000    guifg=#CC6666
 hi  SpellRare      ctermbg=53      ctermfg=13     guibg=#5F005F    guifg=#B294BB  cterm=NONE            gui=NONE
 hi  SpellCap       ctermbg=17      ctermfg=12     guibg=#00005F    guifg=#81A2BE  cterm=NONE            gui=NONE
 hi  SpellLocal     ctermbg=24      ctermfg=14     guibg=#005F5F    guifg=#8ABEB7  cterm=NONE            gui=NONE
+
 
 " code
 hi  PreProc   guifg=#C763A0
