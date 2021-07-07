@@ -36,10 +36,10 @@ set updatetime=300                           " Faster completion
 set clipboard+=unnamedplus                   " Copy paste between vim and everything else
 
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
 else
-  set signcolumn=yes
+    set signcolumn=yes
 endif
 
 hi SignColumn ctermbg=None guibg=None
@@ -74,7 +74,7 @@ autocmd BufWritePost ~/.config/bspwm/bspwmrc !~/.config/bspwm/bspwmrc
 " out on the line and is readable.
 "=====================================================================
 if &diff
-  highlight! link DiffText MatchParen
+    highlight! link DiffText MatchParen
 endif
 
 " You can't stop me

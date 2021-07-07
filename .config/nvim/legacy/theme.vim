@@ -3,16 +3,16 @@ syntax enable                 " Enables syntax highlighing
 set background=dark           " tell vim what the background color looks like
 
 if has('termguicolors')
-  set termguicolors
+    set termguicolors
 endif
 
 highlight Normal guibg=none
 if has('nvim')
     highlight Comment cterm=italic gui=italic
-	highlight StatusLineNC cterm=italic gui=italic
+    highlight StatusLineNC cterm=italic gui=italic
 else
     highlight Comment cterm=none gui=none
-	highlight StatusLineNC cterm=none gui=none
+    highlight StatusLineNC cterm=none gui=none
 endif
 
 hi  Title      ctermbg=NONE ctermfg=115 guibg=NONE    guifg=#5FAFAF cterm=NONE    gui=NONE
@@ -89,11 +89,11 @@ hi link Tag                 Special
 let g:focuscolour = 0
 
 function! ToggleColorScheme()
- if (g:focuscolour)
-   set colorcolumn=
-   let g:focuscolour = 0
- else
-     set colorcolumn=80
-     let g:focuscolour = 1
- endif
+    if (g:focuscolour)
+        set colorcolumn=
+        let g:focuscolour = 0
+    else
+        set colorcolumn=80
+        let g:focuscolour = 1
+    endif
 endfunc
