@@ -1,3 +1,5 @@
-require('config')
-require('keymaps')
-require('settings')
+require "keymaps"
+require "settings"
+require "plugins"
+require "pack-treesitter"
+require "pack-whichkey"

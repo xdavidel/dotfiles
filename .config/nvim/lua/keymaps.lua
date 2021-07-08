@@ -9,17 +9,13 @@ vim.api.nvim_set_keymap("t", "<C-h>", "<C-\\<C-N><C-w>h", {silent = true, norema
 vim.api.nvim_set_keymap("t", "<C-j>", "<C-\\<C-N><C-w>j", {silent = true, noremap = true})
 vim.api.nvim_set_keymap("t", "<C-k>", "<C-\\<C-N><C-w>k", {silent = true, noremap = true})
 vim.api.nvim_set_keymap("t", "<C-l>", "<C-\\<C-N><C-w>l", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-h>", "<C-\\<C-N><C-w>h", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-j>", "<C-\\<C-N><C-w>j", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-k>", "<C-\\<C-N><C-w>k", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("i", "<C-l>", "<C-\\<C-N><C-w>l", {silent = true, noremap = true})
 vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\<C-n>", {silent = true, noremap = true})
 
 -- resize with arrows
-vim.api.nvim_set_keymap("n", "<A-Up>", ":resize -2<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<A-Down>", ":resize +2<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<A-Left>", ":vertical resize -2<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<A-Right>", ":vertical resize +2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<C-A-Up>", ":resize -2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<C-A-Down>", ":resize +2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<C-A-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<C-A-Right>", ":vertical resize +2<CR>", { silent = true })
 
 -- better indenting
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
@@ -28,10 +24,6 @@ vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
 -- Tab switch buffer
 vim.api.nvim_set_keymap("n", "<TAB>", ":bnext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<S-TAB>", ":bprevious<CR>", { noremap = true, silent = true })
-
--- Move selected line / block of text in visual mode
-vim.api.nvim_set_keymap("x", "K", ":move '<-2<CR>gv-gv", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("x", "J", ":move '>+1<CR>gv-gv", { noremap = true, silent = true })
 
 -- Move current line / block with Alt-Up/Down ala vscode.
 vim.api.nvim_set_keymap("n", "<A-Down>", ":m .+1<CR>==", { noremap = true, silent = true })
