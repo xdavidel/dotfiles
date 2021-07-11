@@ -9,7 +9,6 @@ source $RTP/legacy/plug-config/easy-motion.vim
 if exists('g:vscode')
     source $RTP/legacy/vscode/settings.vim
 else
-    source $RTP/legacy/theme.vim
     source $RTP/legacy/keys/which-key.vim
     source $RTP/legacy/plug-config/fzf.vim
     source $RTP/legacy/plug-config/codi.vim

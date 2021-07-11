@@ -1,5 +1,3 @@
 require "keymaps"
 require "settings"
 require "plugins"
-require "pack-treesitter"
-require "pack-whichkey"

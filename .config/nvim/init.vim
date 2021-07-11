@@ -5,3 +5,7 @@ if has('nvim-0.5.0')
 else
     source $RTP/legacy/start.vim
 endif
+
+if ! exists('g:vscode')
+    source $RTP/theme.vim
+endif

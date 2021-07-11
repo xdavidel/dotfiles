@@ -20,8 +20,10 @@ cmd "set whichwrap+=<,>,[,],h,l"
 
 --- COLORSCHEME ---
 
-cmd "au ColorScheme * hi Normal ctermbg=none guibg=none"
-cmd "au ColorScheme * hi SignColumn ctermbg=none guibg=none"
+cmd "au ColorScheme * hi Normal      ctermbg=none  guibg=none"
+cmd "au ColorScheme * hi SignColumn  ctermbg=none  guibg=none"
+cmd "au ColorScheme * hi TabLine     ctermbg=none  guibg=none"
+cmd "au ColorScheme * hi TabLineFill ctermbg=none  guibg=none"
 
 
 ---  SETTINGS  ---

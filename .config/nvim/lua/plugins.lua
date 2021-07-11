@@ -37,17 +37,101 @@ return packer.startup(function()
       requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
   }
 
+  -- Snippets
+  use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
+  use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
+  
+  -- Autocomplete
+  use {
+    "hrsh7th/nvim-compe",
+    event = "InsertEnter",
+    config = function()
+      require("pack-compe").config()
+    end,
+  }
+
   -- Treesitter
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use { 
+      "nvim-treesitter/nvim-treesitter",
+      config = function()
+          require("pack-treesitter")
+      end,
+    event = "BufWinEnter",
+  }
+
+  -- File explorer
+  use {
+    "kyazdani42/nvim-tree.lua",
+    commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
+    config = function()
+      require("pack-nvimtree").config()
+    end,
+  }
+
+  -- Git signs 
+  use {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("pack-gitsigns").config()
+    end,
+    event = "BufRead",
+  }
 
   -- Whichkey
-  use { "folke/which-key.nvim" }
-
-  -- Status Line and Bufferline
-  use { "glepnir/galaxyline.nvim" }
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require "pack-whichkey"
+    end,
+    event = "BufWinEnter",
+  }
 
   -- Comments
+  use {
+    "terrortylor/nvim-comment",
+    event = "BufWinEnter",
+    config = function()
+      local status_ok, nvim_comment = pcall(require, "nvim_comment")
+      if not status_ok then
+        return
+      end
+      nvim_comment.setup()
+    end,
+  }
+
+  -- Autopairs
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    after = { "telescope.nvim", "nvim-compe" },
+    config = function()
+      require "pack-autopairs"
+    end,
+  }
+
+  -- Status Line and Bufferline
+  use {
+    "glepnir/galaxyline.nvim",
+    config = function()
+      require "pack-galaxyline"
+    end,
+    -- event = "VimEnter",
+  }
       
+  -- diagnostics
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  }
+
+
+  use {
+    "norcalli/nvim-colorizer.lua",
+    event = "BufWinEnter",
+    config = function()
+      require "pack-colorizer"
+      -- vim.cmd "ColorizerReloadAllBuffers"
+    end,
+  }
+
 end)
-
-

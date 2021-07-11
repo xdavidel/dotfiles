@@ -18,6 +18,7 @@ which_key.setup {
       z = true, -- bindings for folds, spelling and others prefixed with z
       g = true, -- bindings for prefixed with g
     },
+    spelling = { enabled = true, suggestions = 20 }, -- use which-key for spelling hints
   },
   icons = {
     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
@@ -55,6 +56,13 @@ local opts = {
 -- no hl
 vim.api.nvim_set_keymap("n", "<Leader>h", ':let @/=""<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<Leader>e",
+  ":lua require'pack-nvimtree'.toggle_tree()<CR>",
+  { noremap = true, silent = true }
+)
+
 vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
 
 local mappings = {
@@ -66,7 +74,6 @@ local mappings = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
-    r = { "<cmd>lua require('lv-utils').reload_lv_config()<cr>", "Reload" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
@@ -81,7 +88,7 @@ local mappings = {
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     t = { "<cmd>Telescope live_grep<cr>", "Text" },
-  },
+ },
   T = {
     name = "Treesitter",
     i = { ":TSConfigInfo<cr>", "Info" },
