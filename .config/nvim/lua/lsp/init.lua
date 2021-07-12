@@ -2,19 +2,19 @@ local popup_border = "single"
 
 vim.fn.sign_define(
   "LspDiagnosticsSignError",
-  { texthl = "LspDiagnosticsSignError", text = "", numhl = "LspDiagnosticsSignError" }
+  { texthl = "LspDiagnosticsSignError", numhl = "LspDiagnosticsSignError" }
 )
 vim.fn.sign_define(
   "LspDiagnosticsSignWarning",
-  { texthl = "LspDiagnosticsSignWarning", text = "", numhl = "LspDiagnosticsSignWarning" }
+  { texthl = "LspDiagnosticsSignWarning", numhl = "LspDiagnosticsSignWarning" }
 )
 vim.fn.sign_define(
   "LspDiagnosticsSignHint",
-  { texthl = "LspDiagnosticsSignHint", text = "", numhl = "LspDiagnosticsSignHint" }
+  { texthl = "LspDiagnosticsSignHint", numhl = "LspDiagnosticsSignHint" }
 )
 vim.fn.sign_define(
   "LspDiagnosticsSignInformation",
-  { texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation" }
+  { texthl = "LspDiagnosticsSignInformation", numhl = "LspDiagnosticsSignInformation" }
 )
 
 vim.cmd "nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>"
@@ -33,7 +33,6 @@ vim.cmd 'command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").
 -- Note: You can set a prefix per lsp server in the lv-globals.lua file
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = {
-    prefix = "",
     spacing = 0,
   },
   signs = true,

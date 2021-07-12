@@ -33,23 +33,14 @@ M.config = function()
   }
 
   vim.g.nvim_tree_icons = {
-    default = "",
+    default = "",
     symlink = "⚭",
-    git = {
-      unstaged = "",
-      staged = "S",
-      unmerged = "",
-      renamed = "➜",
-      deleted = "☓",
-      untracked = "U",
-      ignored = "◌",
-    },
     folder = {
-      default = "",
-      open = "",
+      default = "",
+      open = "",
       empty = "",
       empty_open = "",
-      symlink = "",
+      symlink = "⚭",
     },
   }
   local tree_cb = nvim_tree_config.nvim_tree_callback

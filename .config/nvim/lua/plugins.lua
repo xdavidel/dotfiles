@@ -40,7 +40,7 @@ return packer.startup(function()
   -- Snippets
   use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
   use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
-  
+
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
@@ -51,7 +51,7 @@ return packer.startup(function()
   }
 
   -- Treesitter
-  use { 
+  use {
       "nvim-treesitter/nvim-treesitter",
       config = function()
           require("pack-treesitter")
@@ -68,7 +68,7 @@ return packer.startup(function()
     end,
   }
 
-  -- Git signs 
+  -- Git signs
   use {
     "lewis6991/gitsigns.nvim",
     config = function()
@@ -115,15 +115,28 @@ return packer.startup(function()
     config = function()
       require "pack-galaxyline"
     end,
-    -- event = "VimEnter",
   }
-      
+
   -- diagnostics
   use {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   }
 
+  -- Floating terminal
+  use {
+    "numToStr/FTerm.nvim",
+    event = "BufWinEnter",
+    config = function()
+      require("pack-floaterm").config()
+    end,
+  }
+
+  -- Diffview
+  use {
+    "sindrets/diffview.nvim",
+    event = "BufRead",
+  }
 
   use {
     "norcalli/nvim-colorizer.lua",
