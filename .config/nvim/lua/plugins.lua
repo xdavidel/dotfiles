@@ -147,4 +147,11 @@ return packer.startup(function()
     end,
   }
 
+  use {
+    "vimwiki/vimwiki",
+    config = function()
+      require "pack-vimwiki"
+    end,
+  }
+
 end)
