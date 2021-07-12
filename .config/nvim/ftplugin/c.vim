@@ -22,6 +22,8 @@ if has('nvim-0.5.0')
         }),
       },
     }
+
+    vim.cmd "setlocal iskeyword-=-"
 EOF
 
 else

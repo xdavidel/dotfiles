@@ -18,14 +18,6 @@ cmd "set iskeyword+=-"                      -- treat dash separated words as a w
 cmd "set inccommand=split"
 cmd "set whichwrap+=<,>,[,],h,l"
 
---- COLORSCHEME ---
-
-cmd "au ColorScheme * hi Normal      ctermbg=none  guibg=none"
-cmd "au ColorScheme * hi SignColumn  ctermbg=none  guibg=none"
-cmd "au ColorScheme * hi TabLine     ctermbg=none  guibg=none"
-cmd "au ColorScheme * hi TabLineFill ctermbg=none  guibg=none"
-
-
 ---  SETTINGS  ---
 
 opt.backup = false 				             -- creates a backup file

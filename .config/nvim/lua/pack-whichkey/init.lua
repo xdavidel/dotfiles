@@ -67,6 +67,10 @@ vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap
 
 local mappings = {
 
+  c = {
+    c = { ":w! | !compiler <c-r>%<CR>", "Compile" },
+    b = { ":!checkbashisms -xfp %<CR>", "Shellcheck" },
+  },
   ["e"] = "Explorer",
   ["f"] = "Find File",
   ["h"] = "No Highlight",

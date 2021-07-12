@@ -37,6 +37,29 @@ vim.api.nvim_set_keymap("x", "<A-Up>", ":m '<-2<CR>gv-gv", { noremap = true, sil
 vim.api.nvim_set_keymap("n", "]q", ":cnext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "[q", ":cprev<CR>", { noremap = true, silent = true })
 
+-- Capital Y should behave like this
+vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
+
+-- Delete / Change until '_'
+vim.api.nvim_set_keymap("n", "dc", "td_", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "cd", "ct_", { noremap = true, silent = true })
+
+-- Wrap text
+vim.api.nvim_set_keymap("n", "<M-z>", ":set wrap!<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<M-z>", "<Esc>:set wrap!<CR>a", { noremap = true, silent = true })
+
+-- Mark position before search
+vim.api.nvim_set_keymap("n", "/", "ms/", { noremap = true, silent = true })
+
+-- Delete matches
+vim.api.nvim_set_keymap("n", "dm", ":%s/<c-r>///g<CR>", { noremap = false, silent = true })
+
+-- Change matches
+vim.api.nvim_set_keymap("n", "cm", ":%s/<c-r>///g<Left><Left>", { noremap = false, silent = true })
+
+-- Replace all is aliased to S
+vim.api.nvim_set_keymap("n", "S", ":%s//g<Left><Left>", { noremap = true, silent = true })
+
 -- Better nav for omnicomplete
 vim.cmd 'inoremap <expr> <c-j> ("\\<C-n>")'
 vim.cmd 'inoremap <expr> <c-k> ("\\<C-p>")'
