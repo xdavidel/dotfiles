@@ -2,14 +2,14 @@ local wiki = {
     path = '~/Documents/wiki',
     syntax = 'markdown',
     ext = '.md',
-    -- exclude_files = {'**/README.md', '**/Readme.md' },
+    exclude_files = {'**/README.md', '**/Readme.md' },
 }
 
 local pwiki = {
     path = '~/Documents/private',
     syntax = 'markdown',
     ext = '.md',
-    -- exclude_files = {'**/README.md', '**/Readme.md' },
+    exclude_files = {'**/README.md', '**/Readme.md' },
 }
 
 vim.g.vimwiki_filetypes = {'markdown'}
