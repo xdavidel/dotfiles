@@ -1,0 +1,25 @@
+[
+    {
+        "key": "Ctrl+n",
+        "name": "No Highlight",
+        "type": "command",
+        "command": "vscode-neovim.send",
+        "args": ":let @/ = ''<CR>"
+    },
+    {
+        "key": "Ctrl+b",
+        "name": "Toggle Sidebar",
+        "type": "command",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "Shift+f1",
+        "name": "Toggle vim",
+        "type": "command",
+        "command": "toggleVim"
+    },
+    {
+        "key": "alt+x",
+        "command": "workbench.action.showCommands"
+    }
+]
