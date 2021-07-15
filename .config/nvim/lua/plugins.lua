@@ -24,22 +24,28 @@ packer.init {
 
 vim.cmd "autocmd BufWritePost plugins.lua PackerCompile"
 
-return packer.startup(function()
+return packer.startup(function(use)
   -- Packer can manage itself as an optional plugin
   use "wbthomason/packer.nvim"
 
   -- Neovim LSP stuff
   use { "neovim/nvim-lspconfig" }
-  use { "kabouzeid/nvim-lspinstall", event = "BufRead" }
-
-  -- Fuzzy searching
-  use { "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+  use {
+    "kabouzeid/nvim-lspinstall",
+    event = "VimEnter",
+    config = function()
+      require("lspinstall").setup()
+    end,
   }
 
-  -- Snippets
-  use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
-  use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
+  -- diagnostics
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    config = function()
+      require("pack-trouble").config()
+    end
+  }
 
   -- Autocomplete
   use {
@@ -50,6 +56,15 @@ return packer.startup(function()
     end,
   }
 
+  -- Fuzzy searching
+  use { "nvim-telescope/telescope.nvim",
+      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+  }
+
+  -- Snippets
+  use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
+  use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
+
   -- Treesitter
   use {
       "nvim-treesitter/nvim-treesitter",
@@ -57,6 +72,16 @@ return packer.startup(function()
           require("pack-treesitter")
       end,
     event = "BufWinEnter",
+  }
+
+  -- Theme
+  use {
+    'folke/tokyonight.nvim',
+    config = function ()
+      vim.g.tokyonight_style = "night"
+      vim.g.tokyonight_transparent = true
+      vim.cmd[[colorscheme tokyonight]]
+    end
   }
 
   -- File explorer
@@ -111,19 +136,23 @@ return packer.startup(function()
 
   -- Status Line and Bufferline
   use {
-    "glepnir/galaxyline.nvim",
+    'hoob3rt/lualine.nvim',
     config = function()
-      require "pack-galaxyline"
-    end,
+      require('pack-lualine').config()
+    end
   }
 
-  -- diagnostics
+  -- Tabs
   use {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    "romgrk/barbar.nvim",
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require "pack-bufferline"
+    end,
+    event = "BufWinEnter",
   }
 
-  -- Floating terminal
+  -- Terminal
   use {
     "numToStr/FTerm.nvim",
     event = "BufWinEnter",

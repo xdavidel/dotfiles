@@ -1,39 +1,45 @@
 local M = {}
 
-vim.g.vsnip_snippet_dir = vim.fn.stdpath "config" .. "/snippets"
+local status_ok, compe = pcall(require, "compe")
+if not status_ok then
+  print "compe has problems"
+  return M
+end
 
 M.config = function()
   local opt = {
-    enabled = true,
-    autocomplete = true,
-    debug = false,
-    min_length = 1,
-    preselect = "enable",
-    throttle_time = 80,
-    source_timeout = 200,
-    incomplete_delay = 400,
-    max_abbr_width = 100,
-    max_kind_width = 100,
-    max_menu_width = 100,
-    documentation = true,
+    enabled = true;
+    autocomplete = true;
+    debug = false;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    resolve_timeout = 800;
+    incomplete_delay = 400;
+    max_abbr_width = 100;
+    max_kind_width = 100;
+    max_menu_width = 100;
+    documentation = {
+      border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+      winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+      max_width = 120,
+      min_width = 60,
+      max_height = math.floor(vim.o.lines * 0.3),
+      min_height = 1,
+    };
 
     source = {
-      path = { kind = " ⚲  (Path)" },
-      buffer = { kind = "   (Buffer)" },
-      calc = { kind = "   (Calc)" },
-      vsnip = { kind = "   (Snippet)" },
-      nvim_lsp = { kind = " ☆  (LSP)" },
-      nvim_lua = false,
-      spell = { kind = " ☖  (Spell)" },
-      tags = false,
-      emoji = { kind = " 😀  (Emoji)", filetypes = { "markdown", "text" } },
-    },
+      path = true;
+      buffer = true;
+      calc = true;
+      nvim_lsp = true;
+      nvim_lua = true;
+      vsnip = true;
+      ultisnips = true;
+      luasnip = true;
+    };
   }
-  local status_ok, compe = pcall(require, "compe")
-  if not status_ok then
-    return
-  end
-
 
   compe.setup(opt)
 
@@ -43,11 +49,7 @@ M.config = function()
 
   local check_back_space = function()
     local col = vim.fn.col "." - 1
-    if col == 0 or vim.fn.getline("."):sub(col, col):match "%s" then
-      return true
-    else
-      return false
-    end
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
   end
 
   -- Use (s-)tab to:
