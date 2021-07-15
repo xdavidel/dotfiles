@@ -5,33 +5,39 @@ FILE_PATH="${1}"         # Full path of the highlighted file
 HEIGHT="${2}"
 
 MIMETYPE="$(file --dereference --brief --mime-type -- "${FILE_PATH}")"
+MD5="$(md5sum ${FILE_PATH} | cut -d' ' -f1)"
+SHA256="$(sha256sum ${FILE_PATH} | cut -d' ' -f1)"
+DATE="$(stat -c %y ${FILE_PATH} | cut -d' ' -f1-2)"
 
 # Settings
 HIGHLIGHT_TABWIDTH=2
 
 handle_mime() { \
-	case "${MIMETYPE}" in
-		text/html) w3m -dump "${FILE_PATH}" ;;
-		text/troff) man ./ "${FILE_PATH}" | col -b ;;
-		text/*) highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" -O ansi "${FILE_PATH}" 2>/dev/null ||\
-			bat --style=numbers --color=always "${FILE_PATH}" 2>/dev/null ||\
-			cat "${FILE_PATH}" ;;
-		application/zip) atool --list -- "${FILE_PATH}" ;;
-		application/octet-stream) hexdump -C "${FILE_PATH}" | head -n 40 ;;
-		application/json) cat "${FILE_PATH}" | jq -C || cat "${FILE_PATH} ";;
-		application/*) file --brief "${FILE_PATH}" | tr ',' '\n' ;;
-		image/*) chafa --fill=inverted --symbols=inverted -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || pixterm -s 2 -d 0 -tc "${HEIGHT}" "${FILE_PATH}" ;;
-		video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" ;;
-		*/pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
-		*opendocument*) odt2txt "${FILE_PATH}" ;;
-	esac
-}
+  case "${MIMETYPE}" in
+    text/html) w3m -dump "${FILE_PATH}" ;;
+    text/troff) man ./ "${FILE_PATH}" | col -b ;;
+    text/*) highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" -O ansi "${FILE_PATH}" 2>/dev/null ||\
+      bat --style=numbers --color=always "${FILE_PATH}" 2>/dev/null ||\
+      cat "${FILE_PATH}" ;;
+        application/zip) atool --list -- "${FILE_PATH}" ;;
+        application/octet-stream) hexdump -C "${FILE_PATH}" | head -n 40 ;;
+        application/json) cat "${FILE_PATH}" | jq -C || cat "${FILE_PATH} ";;
+        application/*) file --brief "${FILE_PATH}" | tr ',' '\n' ;;
+        image/*) chafa --fill=inverted --symbols=inverted -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || pixterm -s 2 -d 0 -tc "${HEIGHT}" "${FILE_PATH}" ;;
+        video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" ;;
+        */pdf) pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - ;;
+        *opendocument*) odt2txt "${FILE_PATH}" ;;
+      esac
+    }
 
-case "${FILE_PATH}" in
-	*.tar*)	tar tf "${FILE_PATH}" ;;
-  *.zip)	unzip -l "${FILE_PATH}" ;;
-  *.rar)	unrar l "${FILE_PATH}" ;;
-  *.7z)		7z l "${FILE_PATH}" ;;
-  *.pdf)	pdftotext "${FILE_PATH}" - ;;
-  *)			printf "Type: ${MIMETYPE}\n\n" && handle_mime ;;
-esac
+  printf "Type: ${MIMETYPE}\nDate: ${DATE}\nMD5: ${MD5}\nSHA256: ${SHA256}\n\n"
+
+  case "${FILE_PATH}" in
+    *.tar*) tar tf "${FILE_PATH}" ;;
+    *.zip)  unzip -l "${FILE_PATH}" ;;
+    *.rar)  unrar l "${FILE_PATH}" ;;
+    *.7z)   7z l "${FILE_PATH}" ;;
+    *.pdf)  pdftotext "${FILE_PATH}" - ;;
+    *)      handle_mime ;;
+  esac
+
