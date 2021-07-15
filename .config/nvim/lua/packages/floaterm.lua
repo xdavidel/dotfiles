@@ -1,12 +1,8 @@
 local M = {}
 
 M.config = function()
-  local status_ok, fterm = pcall(require, "FTerm")
-  if not status_ok then
-    return
-  end
-
-  fterm.setup {
+  O.plugin.floaterm = {
+    active = false,
     dimensions = {
       height = 0.8,
       width = 0.8,
@@ -15,6 +11,16 @@ M.config = function()
     },
     border = "single", -- or 'double'
   }
+end
+
+M.setup = function()
+  local status_ok, fterm = pcall(require, "FTerm")
+  if not status_ok then
+    print("Problem with floatterm")
+    return
+  end
+
+  fterm.setup(O.plugin.floaterm)
 
   -- Create LazyGit Terminal
   local term = require "FTerm.terminal"

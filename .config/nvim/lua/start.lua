@@ -1,4 +1,17 @@
+---  HELPERS  ---
+CONFIG_PATH = vim.fn.stdpath "config"
+DATA_PATH   = vim.fn.stdpath "data"
+CACHE_PATH  = vim.fn.stdpath "cache"
+TERMINAL    = vim.fn.expand "$TERMINAL"
+USER	      = vim.fn.expand "$USER"
+
+require "configuration.configs"
+require "configuration.autocmds"
+
 require "keymaps"
-require "settings"
 require "plugins"
-require "vimutils"
+
+vim.g.colors_name = O.colorscheme
+
+require "configuration.settings"
+require "utils"

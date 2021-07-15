@@ -1,10 +1,10 @@
 local M = {}
-local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not status_ok then
-  return
-end
 
-M.config = function()
+M.setup = function()
+  local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
+  if not status_ok then
+    return
+  end
   local g = vim.g
 
   vim.o.termguicolors = true
@@ -52,12 +52,12 @@ M.config = function()
   }
 end
 
-local view_status_ok, view = pcall(require, "nvim-tree.view")
-if not view_status_ok then
-  return
-end
-
 M.toggle_tree = function()
+  local view_status_ok, view = pcall(require, "nvim-tree.view")
+  if not view_status_ok then
+    return
+  end
+
   if view.win_open() then
     require("nvim-tree").close()
     if package.loaded["bufferline.state"] then

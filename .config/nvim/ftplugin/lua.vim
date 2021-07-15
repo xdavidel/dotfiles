@@ -1,7 +1,7 @@
 if has('nvim-0.5.0')
     lua << EOF
 
-    if not require("vimutils").check_lsp_client_active "sumneko_lua" then
+    if not require("utils").check_lsp_client_active "sumneko_lua" then
       local sumneko_root_path = DATA_PATH .. "/lspinstall/lua"
       local sumneko_binary = sumneko_root_path .. "/sumneko-lua-language-server"
 

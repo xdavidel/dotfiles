@@ -1,6 +1,6 @@
 if has('nvim-0.5.0')
     lua <<EOF
-    if not require("vimutils").check_lsp_client_active "pyright" then
+    if not require("utils").check_lsp_client_active "pyright" then
       -- npm i -g pyright
       require("lspconfig").pyright.setup {
         cmd = {

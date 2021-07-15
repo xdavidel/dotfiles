@@ -1,6 +1,6 @@
 if has('nvim-0.5.0')
     lua << EOF
-    if not require("vimutils").check_lsp_client_active "gopls" then
+    if not require("utils").check_lsp_client_active "gopls" then
       require("lspconfig").gopls.setup {
         cmd = { DATA_PATH .. "/lspinstall/go/gopls" },
         settings = { gopls = { analyses = { unusedparams = true }, staticcheck = true } },

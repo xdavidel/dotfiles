@@ -1,6 +1,6 @@
 if has('nvim-0.5.0')
     lua << EOF
-    if require("vimutils").check_lsp_client_active "clangd" then
+    if require("utils").check_lsp_client_active "clangd" then
       return
     end
 

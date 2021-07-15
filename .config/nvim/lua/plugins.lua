@@ -38,27 +38,19 @@ return packer.startup(function(use)
     end,
   }
 
-  -- diagnostics
-  use {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-    config = function()
-      require("pack-trouble").config()
-    end
-  }
-
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
     event = "InsertEnter",
     config = function()
-      require("pack-compe").config()
+      require("packages.compe").setup()
     end,
   }
 
   -- Fuzzy searching
   use { "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+      config = [[require('packages.telescope').setup()]],
   }
 
   -- Snippets
@@ -69,7 +61,7 @@ return packer.startup(function(use)
   use {
       "nvim-treesitter/nvim-treesitter",
       config = function()
-          require("pack-treesitter")
+          require("packages.treesitter").setup()
       end,
     event = "BufWinEnter",
   }
@@ -79,7 +71,7 @@ return packer.startup(function(use)
     'folke/tokyonight.nvim',
     config = function ()
       vim.g.tokyonight_style = "night"
-      vim.g.tokyonight_transparent = true
+      vim.g.tokyonight_transparent = O.transparent_background
       vim.cmd[[colorscheme tokyonight]]
     end
   }
@@ -89,7 +81,7 @@ return packer.startup(function(use)
     "kyazdani42/nvim-tree.lua",
     commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
     config = function()
-      require("pack-nvimtree").config()
+      require("packages.nvimtree").setup()
     end,
   }
 
@@ -97,7 +89,7 @@ return packer.startup(function(use)
   use {
     "lewis6991/gitsigns.nvim",
     config = function()
-      require("pack-gitsigns").config()
+      require("packages.gitsigns").setup()
     end,
     event = "BufRead",
   }
@@ -106,7 +98,7 @@ return packer.startup(function(use)
   use {
     "folke/which-key.nvim",
     config = function()
-      require "pack-whichkey"
+      require ("packages.whichkey").setup()
     end,
     event = "BufWinEnter",
   }
@@ -130,7 +122,7 @@ return packer.startup(function(use)
     event = "InsertEnter",
     after = { "telescope.nvim", "nvim-compe" },
     config = function()
-      require "pack-autopairs"
+      require "packages.autopairs"
     end,
   }
 
@@ -138,7 +130,7 @@ return packer.startup(function(use)
   use {
     'hoob3rt/lualine.nvim',
     config = function()
-      require('pack-lualine').config()
+      require('packages.lualine').setup()
     end
   }
 
@@ -147,7 +139,7 @@ return packer.startup(function(use)
     "romgrk/barbar.nvim",
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require "pack-bufferline"
+      require "packages.bufferline"
     end,
     event = "BufWinEnter",
   }
@@ -157,7 +149,7 @@ return packer.startup(function(use)
     "numToStr/FTerm.nvim",
     event = "BufWinEnter",
     config = function()
-      require("pack-floaterm").config()
+      require("packages.floaterm").setup()
     end,
   }
 
@@ -171,15 +163,14 @@ return packer.startup(function(use)
     "norcalli/nvim-colorizer.lua",
     event = "BufWinEnter",
     config = function()
-      require "pack-colorizer"
-      -- vim.cmd "ColorizerReloadAllBuffers"
+      require ("packages.colorizer").setup()
     end,
   }
 
   use {
     "vimwiki/vimwiki",
     config = function()
-      require "pack-vimwiki"
+      require "packages.vimwiki"
     end,
   }
 

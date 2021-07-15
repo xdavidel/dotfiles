@@ -107,7 +107,7 @@ function lsp_config.common_on_attach(client, bufnr)
     documentHighlight(client, bufnr)
 end
 
-require("vimutils").define_augroups {
+require("utils").define_augroups {
   _general_lsp = {
     { "FileType", "lspinfo", "nnoremap <silent> <buffer> q :q<CR>" },
   },
