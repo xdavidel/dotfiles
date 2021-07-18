@@ -5,11 +5,11 @@ nonzero_exit_errors = true
 pivot_mode = "auto"
 skip_welcome_message = true
 startup = [
-    "alias l [path] { ls $path }",
-    "alias la [path] { ls --all $path }",
-    "alias ll [path] { ls --all --long $path }",
-    "alias v [path] { nvim $path }",
-    "alias q  [] { exit }"
+    "alias l = ls",
+    "alias la = ls --all",
+    "alias ll = ls --all --long",
+    "alias v = nvim",
+    "alias q = exit"
 ]
 table_mode = "other"
 
