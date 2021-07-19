@@ -1,13 +1,19 @@
 #!/bin/bash
 stty -ixon # Disable ctrl-s and ctrl-q
 
-COLOR_RED="\033[0;31m"
-COLOR_YELLOW="\033[0;33m"
-COLOR_GREEN="\033[0;32m"
-COLOR_OCHRE="\033[38;5;95m"
-COLOR_BLUE="\033[0;34m"
-COLOR_WHITE="\033[0;37m"
-COLOR_RESET="\033[0m"
+ANSI_ESC="\033"
+ANSI_CSI="${ANSI_ESC}["
+ANSI_OSC="${ANSI_ESC}]"
+ANSI_ST="${ANSI_ESC}\\"
+
+COLOR_RED="${ANSI_CSI}31m"
+COLOR_YELLOW="${ANSI_CSI}33m"
+COLOR_GREEN="${ANSI_CSI}32m"
+COLOR_OCHRE="${ANSI_CSI}95m"
+COLOR_BLUE="${ANSI_CSI}34m"
+COLOR_WHITE="${ANSI_CSI}37m"
+COLOR_BOLD="${ANSI_CSI}1m"
+COLOR_RESET="${ANSI_CSI}0m"
 
 git_status() {
     local statc="$COLOR_RESET" # assume none
@@ -26,13 +32,13 @@ git_status() {
         else # is clean
             statc="$COLOR_GREEN"
         fi
-        echo -e " $statc($bname)$COLOR_RESET"
+        echo -e " $statc($bname)"
     else
         echo -n ""
     fi
 }
 
-export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h\[$(tput setaf 1)\]]\[$(tput setaf 5)\] \W\[$(tput sgr0)\]\$(git_status)\n# "
+export PS1="\[${COLOR_BOLD}\]\[${COLOR_RED}\][\[${COLOR_YELLOW}\]\u\[${COLOR_GREEN}\]@\[${COLOR_BLUE}\]\h\[${COLOR_RED}\]]\[${COLOR_OCHRE}\] \w\[${COLOR_RESET}\]\$(git_status)\[${COLOR_RESET}\]\n# "
 
 # Load the aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
