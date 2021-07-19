@@ -1,12 +1,5 @@
 [
     {
-        "key": "Ctrl+n",
-        "name": "No Highlight",
-        "type": "command",
-        "command": "vscode-neovim.send",
-        "args": ":let @/ = ''<CR>"
-    },
-    {
         "key": "Ctrl+b",
         "name": "Toggle Sidebar",
         "type": "command",
