@@ -3,6 +3,9 @@
 # Use neovim for vim if present.
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
+# Use lazygit for dotfiles
+[ -x "$(command -v lazygit)" ] && alias ldot="lazygit -g $HOME/.local/dotfiles -w $HOME"
+
 # Colorize commands
 alias \
 	l="ls -gGhF --color=auto --group-directories-first" \
