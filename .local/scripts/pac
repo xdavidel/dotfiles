@@ -44,7 +44,7 @@ debi() { \
 		l*) dpkg --list | awk '{print $2}' ;;
 		s*) apt-mark showmanual ;;
         d*) command -v sudo >/dev/null && sudo apt-get install --download-only -y "$@" || apt-get install --download-only -y "$@" ;;
-        g*) command -v sudo >/dev/null && (sudo apt-get update && sudo apt-get upgrade --download-only) || (apt-get update && apt-get upgrade --download-only) ;;
+        g*) command -v sudo >/dev/null && (sudo apt-get update && sudo apt-get upgrade --download-only -y) || (apt-get update && apt-get upgrade --download-only) ;;
 		o*) apt autoremove --dry-run 2>/dev/null | grep REMOVED -A 1 | tail -n1 | sed 's/^ \+//g' ;;
 		c*) command -v sudo >/dev/null && sudo apt clean || apt clean ;;
 		p*) apt-get dist-upgrade -s --quiet=2 | grep ^Inst | sed 's/Inst //g;s/(.*)//g;s/\[\]//g' ;;
