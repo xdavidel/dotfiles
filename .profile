@@ -45,6 +45,9 @@ export MPD_PORT="6600"
 
 export LOCATION="Jerusalem"
 
+# Dotfiles
+export DOTCONFDIR="${HOME}/.local/dotfiles"
+
 # less/man colors
 export LESS=-R
 export LESS_TERMCAP_mb="$(printf '%b' '')"; a="${a%_}"

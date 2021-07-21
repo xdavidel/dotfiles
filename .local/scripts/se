@@ -1,17 +1,34 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ! command -v fzf >>/dev/null && echo "fzf is not installed" && exit 127
 
-command -v fd >>/dev/null && \
-    ( fd -H -t f -d 1 \..*rc$ ~/ ; \
-      fd -H -t f -d 1  \..*profile ~/ ; \
-      fd -H -t f . ~/.config/ ~/.local/scripts/ ) \
-        | fzf --query="$1" --preview='preview {}' \
-              --bind='Ctrl-p:toggle-preview' \
-              --preview-window='up:70%:wrap' \
-        | xargs -r $EDITOR || \
-    find ~/.*profile ~/.*rc ~/.config/ ~/.local/scripts/ -type f \
-        | fzf --query="$1" --preview='preview {}' \
-              --bind='Ctrl-p:toggle-preview' \
-              --preview-window='up:70%:wrap' \
-        | xargs -r $EDITOR
+FULL="$1"
+
+cmd() { \
+    # Using git repo
+    if [ -z $FULL ]; then
+        dotconf ls-files
+    else
+        SCRIPT_DIR="${HOME}/.local/scripts"
+        CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+        # Using fd / Using built-in find
+        if command -v fd >>/dev/null; then
+            fd -H -t f -d 1 \..*rc$ ${HOME}/
+            fd -H -t f -d 1 \..*profile ${HOME}/
+            fd -H -t f . ${CONFIG_DIR}/ ${SCRIPT_DIR}/
+        else
+            find \
+                ${HOME}/.*profile \
+                ${HOME}/.*rc \
+                ${CONFIG_DIR}/ \
+                ${SCRIPT_DIR}/ \
+                -type f
+        fi
+    fi
+}
+
+cmd | fzf --preview='preview {}' \
+          --bind='Ctrl-p:toggle-preview' \
+          --preview-window='up:70%:wrap' \
+    | xargs -r $EDITOR

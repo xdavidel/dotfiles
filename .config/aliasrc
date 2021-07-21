@@ -4,7 +4,7 @@
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # Use lazygit for dotfiles
-[ -x "$(command -v lazygit)" ] && alias ldot="lazygit -g $HOME/.local/dotfiles -w $HOME"
+[ -x "$(command -v lazygit)" ] && alias ldot="lazygit -g ${DOTCONFDIR:-$HOME/.local/dotfiles} -w $HOME"
 
 # Colorize commands
 alias \
@@ -31,5 +31,4 @@ alias \
 	ytv="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="youtube-dl -xi -f bestaudio/best --audio-format mp3" \
 	..="cd .." \
-	dotconf="git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
 	fr="manview ."
