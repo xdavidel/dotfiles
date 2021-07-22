@@ -1,6 +1,6 @@
 let $RTP=split(&runtimepath, ',')[0]
 
-if has('nvim-0.5.0')
+if has('nvim-0.5.0') && ! exists('g:vscode')
     lua require 'start'
 else
     source $RTP/legacy/start.vim
