@@ -33,6 +33,7 @@ set noswapfile
 set undofile                                 " default dir is ~/.local/share/nvim/undo
 set shortmess+=c                             " Don't pass messages to |ins-completion-menu|.
 set updatetime=300                           " Faster completion
+set timeoutlen=0
 set clipboard+=unnamedplus                   " Copy paste between vim and everything else
 
 if has("patch-8.1.1564")
