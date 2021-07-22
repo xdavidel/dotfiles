@@ -1,19 +1,27 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = DATA_PATH .. "/site/pack/packer/start/packer.nvim"
+-- vim built-in plugin manager dir
+local pack_dir = RTP .. "/pack"
+local install_path = pack_dir .. "/packer/start/packer.nvim"
+local filename = vim.fn.expand("%")
 
+-- init packer
+local first_init = false
 if fn.empty(fn.glob(install_path)) > 0 then
   execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
   execute "packadd packer.nvim"
+  first_init = true
 end
 
 local packer_ok, packer = pcall(require, "packer")
 if not packer_ok then
+	print("Problem with packer")
   return
 end
 
 packer.init {
+  package_root = pack_dir,
   git = { clone_timeout = 300 },
   display = {
     open_fn = function()
@@ -22,7 +30,9 @@ packer.init {
   },
 }
 
-vim.cmd "autocmd BufWritePost plugins.lua PackerCompile"
+
+-- auto compile packer upon editing this file
+vim.cmd("autocmd BufWritePost " .. filename .. " PackerCompile")
 
 return packer.startup(function(use)
   -- Packer can manage itself as an optional plugin
@@ -173,5 +183,9 @@ return packer.startup(function(use)
       require "packages.vimwiki"
     end,
   }
+
+  if first_init then
+    execute "PackerSync"
+  end
 
 end)

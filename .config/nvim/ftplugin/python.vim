@@ -2,7 +2,11 @@ if has('nvim-0.5.0')
     lua <<EOF
     if not require("utils").check_lsp_client_active "pyright" then
       -- npm i -g pyright
-      require("lspconfig").pyright.setup {
+      local status_ok, lspconfig = pcall(require, "lspconfig")
+      if not status_ok then
+        return
+      end
+      lspconfig.pyright.setup {
         cmd = {
           DATA_PATH .. "/lspinstall/python/node_modules/.bin/pyright-langserver",
           "--stdio",

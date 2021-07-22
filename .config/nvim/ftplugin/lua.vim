@@ -5,7 +5,12 @@ if has('nvim-0.5.0')
       local sumneko_root_path = DATA_PATH .. "/lspinstall/lua"
       local sumneko_binary = sumneko_root_path .. "/sumneko-lua-language-server"
 
-      require("lspconfig").sumneko_lua.setup {
+      local status_ok, lspconfig = pcall(require, "lspconfig")
+      if not status_ok then
+        return
+      end
+
+      lspconfig.sumneko_lua.setup {
         cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
         on_attach = require("lsp").common_on_attach,
         settings = {

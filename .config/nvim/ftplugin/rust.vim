@@ -79,7 +79,13 @@ if has('nvim-0.5.0')
       }
       require("rust-tools").setup(opts)
     else
-      require("lspconfig").rust_analyzer.setup {
+
+      local status_ok, lspconfig = pcall(require, "lspconfig")
+      if not status_ok then
+        return
+      end
+
+      lspconfig.rust_analyzer.setup {
         cmd = { DATA_PATH .. "/lspinstall/rust/rust-analyzer" },
         on_attach = require("lsp").common_on_attach,
         filetypes = { "rust" },
