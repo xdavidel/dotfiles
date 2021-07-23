@@ -20,7 +20,7 @@
 
 *.foreground:   whiter
 *.background:   darkpurple
-*.cursorColor:  whiter
+*.cursorColor:  magenta
 
 *.color0:   black
 *.color8:   gray
