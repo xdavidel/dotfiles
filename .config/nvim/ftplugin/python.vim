@@ -1,35 +1,8 @@
 if has('nvim-0.5.0')
     lua <<EOF
-    if not require("utils").check_lsp_client_active "pyright" then
-      -- npm i -g pyright
-      local status_ok, lspconfig = pcall(require, "lspconfig")
-      if not status_ok then
-        return
-      end
-      lspconfig.pyright.setup {
-        cmd = {
-          DATA_PATH .. "/lspinstall/python/node_modules/.bin/pyright-langserver",
-          "--stdio",
-        },
-        on_attach = require("lsp").common_on_attach,
-        handlers = {
-          ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = { spacing = 0 },
-            signs = true,
-            underline = true,
-            update_in_insert = true,
-          }),
-        },
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "basic",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            },
-          },
-        },
-      }
+    local status_ok, lspconfig = pcall(require, "lspconfig")
+    if not status_ok then
+      return
     end
 
     vim.opt_local.expandtab = true

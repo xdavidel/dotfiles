@@ -1,18 +1,15 @@
 if has('nvim-0.5.0')
     lua << EOF
-    if require("utils").check_lsp_client_active "yamlls" then
-      return
-    end
 
     local status_ok, lspconfig = pcall(require, "lspconfig")
     if not status_ok then
       return
     end
-    lspconfig.yamlls.setup {
-      cmd = { DATA_PATH .. "/lspinstall/yaml/node_modules/.bin/yaml-language-server", "--stdio" },
-      on_attach = require("lsp").common_on_attach,
-    }
-    vim.cmd "setl ts=2 sw=2 ts=2 ai et"
+
+    vim.opt_local.expandtab = true
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
 EOF
 else
     setlocal expandtab
