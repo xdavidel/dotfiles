@@ -2,14 +2,12 @@
 O = {
 	leader_key  = "space",
 	line_wrap_cursor_movement = true,
-	transparent_background = true,
 	format_on_save = true,
 	snippets_directory = CONFIG_PATH .. "/snippets",
 
 	plugins = {},
 
 	auto_close_tree = 0,
-	nvim_tree_disable_netrw = 0,
 
 	lsp = {
 		document_highlight = true,
