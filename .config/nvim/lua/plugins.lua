@@ -76,16 +76,6 @@ return packer.startup(function(use)
     event = "BufWinEnter",
   }
 
-  -- Theme
-  use {
-    'folke/tokyonight.nvim',
-    config = function ()
-      vim.g.tokyonight_style = "night"
-      vim.g.tokyonight_transparent = O.transparent_background
-      vim.cmd[[colorscheme tokyonight]]
-    end
-  }
-
   -- File explorer
   use {
     "kyazdani42/nvim-tree.lua",
