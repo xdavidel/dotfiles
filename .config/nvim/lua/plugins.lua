@@ -4,7 +4,6 @@ local fn = vim.fn
 -- vim built-in plugin manager dir
 local pack_dir = RTP .. "/pack"
 local install_path = pack_dir .. "/packer/start/packer.nvim"
-local filename = vim.fn.expand("%")
 
 -- init packer
 local first_init = false
@@ -32,7 +31,7 @@ packer.init {
 
 
 -- auto compile packer upon editing this file
-vim.cmd("autocmd BufWritePost " .. filename .. " PackerCompile")
+vim.cmd("autocmd BufWritePost plugins.lua PackerCompile")
 
 return packer.startup(function(use)
   -- Packer can manage itself as an optional plugin
