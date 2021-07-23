@@ -6,94 +6,151 @@ if has('termguicolors')
     set termguicolors
 endif
 
-highlight Normal guibg=none
-if has('nvim')
-    highlight Comment cterm=italic gui=italic
-    highlight StatusLineNC cterm=italic gui=italic
-else
-    highlight Comment cterm=none gui=none
-    highlight StatusLineNC cterm=none gui=none
-endif
+let s:fg         = ['#F8F8F2', 253]
 
-hi  Title      ctermbg=NONE ctermfg=115 guibg=NONE    guifg=#5FAFAF cterm=NONE    gui=NONE
-hi  NonText    ctermbg=NONE ctermfg=243 guibg=NONE    guifg=#3E4853 cterm=NONE    gui=NONE
-hi  Identifier ctermbg=NONE ctermfg=179 guibg=NONE    guifg=#E5C078 cterm=NONE    gui=NONE
-hi  Visual     ctermbg=235  ctermfg=13  guibg=#262626 guifg=#B294BB cterm=reverse gui=reverse
+let s:bg4        = ['#232433', 236]
+let s:bg3        = ['#1a1b26', 235]
+let s:bg2        = ['#3b3d57', 237]
+let s:bg1        = ['#32344a', 237]
+let s:bg0        = ['#2a2b3d', 236]
 
-hi  Error          ctermbg=NONE    ctermfg=131    guibg=NONE       guifg=#af5f5f  cterm=reverse         gui=reverse
-hi  ErrorMsg       ctermbg=131     ctermfg=235    guibg=#af5f5f    guifg=#262626  cterm=NONE            gui=NONE
-hi  WarningMsg     ctermbg=NONE    ctermfg=12     guibg=NONE       guifg=#7D8FA3  cterm=NONE            gui=NONE
-hi  helpLeadBlank  ctermbg=NONE    ctermfg=NONE   guibg=NONE       guifg=NONE     cterm=NONE            gui=NONE
-hi  helpNormal     ctermbg=NONE    ctermfg=NONE   guibg=NONE       guifg=NONE     cterm=NONE            gui=NONE
-hi  LineNr         ctermbg=NONE    ctermfg=110    guibg=NONE       guifg=#8FAFD7  cterm=bold            gui=bold
-hi  Pmenu          ctermbg=235     ctermfg=249    guibg=#303537    guifg=#B3B8C4  cterm=NONE            gui=NONE
-hi  PmenuSel       ctermbg=110     ctermfg=235    guibg=#8FAFD7    guifg=#141617  cterm=bold            gui=bold
-hi  PmenuSbar      ctermbg=235     ctermfg=249    guibg=#303537    guifg=#B3B8C4  cterm=NONE            gui=NONE
-hi  PmenuThumb     ctermbg=235     ctermfg=137    guibg=NONE       guifg=#171717  cterm=none            gui=none
-hi  WildMenu       ctermbg=110     ctermfg=235    guibg=#8FAFD7    guifg=#141617  cterm=bold            gui=bold
-hi  ignore         ctermbg=NONE    ctermfg=103    guibg=NONE       guifg=#BCBCBC  cterm=NONE            gui=NONE
-hi  FoldColumn     ctermbg=NONE    ctermfg=242    guibg=#1C1C1C    guifg=#6C6C6C  cterm=NONE            gui=NONE
-hi  Folded         ctermbg=NONE    ctermfg=242    guibg=#1C1C1C    guifg=#6C6C6C  cterm=NONE            gui=NONE
-hi  VertSplit      ctermbg=232     ctermfg=145    guibg=#1C1F20    guifg=#1C1F20  cterm=NONE            gui=NONE
-hi  IncSearch      ctermbg=9       ctermfg=0      guibg=#AF5F5F    guifg=#141617  cterm=NONE            gui=NONE
-hi  Search         ctermbg=NONE    ctermfg=NONE   guibg=NONE       guifg=NONE     cterm=underline,bold  gui=underline,bold
-hi  TabLine        ctermbg=232     ctermfg=249    guibg=#141617    guifg=#B3B8C4  cterm=NONE            gui=NONE
-hi  TabLineFill    ctermbg=235     ctermfg=239    guibg=#303537    guifg=#303537  cterm=NONE            gui=NONE
-hi  TabLineSel     ctermbg=145     ctermfg=0      guibg=#7D8FA3    guifg=#111314  cterm=NONE            gui=NONE
-hi  MatchParen     ctermbg=NONE    ctermfg=11     guibg=NONE       guifg=#E5C078  cterm=bold            gui=bold
-hi  SpellBad       ctermbg=52      ctermfg=9      guibg=#5F0000    guifg=#CC6666  cterm=NONE            gui=NONE
-hi  SpellRare      ctermbg=53      ctermfg=13     guibg=#5F005F    guifg=#B294BB  cterm=NONE            gui=NONE
-hi  SpellCap       ctermbg=17      ctermfg=12     guibg=#00005F    guifg=#81A2BE  cterm=NONE            gui=NONE
-hi  SpellLocal     ctermbg=24      ctermfg=14     guibg=#005F5F    guifg=#8ABEB7  cterm=NONE            gui=NONE
+let s:bg_red     = ['#ff7a93', 203]
+let s:bg_green   = ['#b9f27c', 107]
+let s:bg_blue    = ['#7da6ff', 110]
+
+let s:diff_red   = ['#803d49',  52]
+let s:diff_green = ['#618041',  22]
+let s:diff_blue  = ['#3e5380',  17]
+
+let s:black      = ['#06080a', 237]
+let s:red        = ['#F7768E', 203]
+let s:orange     = ['#FF9E64', 215]
+let s:yellow     = ['#E0AF68', 179]
+let s:green      = ['#9ECE6A', 107]
+let s:blue       = ['#7AA2F7', 110]
+let s:purple     = ['#ad8ee6', 176]
+let s:grey       = ['#444B6A', 246]
+let s:none       = ['NONE', 'NONE']
 
 
-" code
-hi  PreProc   guifg=#C763A0
-hi  Function  guifg=#46C96A
-hi  Constant  guifg=#BD93F9
-hi  String    guifg=#F1FA8C
+" Apply colors (bg, attr_list, special)
+function! s:h(scope, fg, ...) 
+  let l:fg = copy(a:fg)
+  let l:bg = get(a:, 1, ['NONE', 'NONE'])
 
-hi link Boolean             Constant
-hi link Character           Constant
-hi link Number              Constant
+  let l:attr_list = filter(get(a:, 2, ['NONE']), 'type(v:val) == 1')
+  let l:attrs = len(l:attr_list) > 0 ? join(l:attr_list, ',') : 'NONE'
 
-hi link Float               Number
+  let l:special = get(a:, 3, ['NONE', 'NONE'])
+  if l:special[0] !=# 'NONE' && l:fg[0] ==# 'NONE' && !has('gui_running')
+    let l:fg[0] = l:special[0]
+    let l:fg[1] = l:special[1]
+  endif
 
-hi link Define              Preproc
-hi link Include             Preproc
-hi link Macro               Preproc
-hi link PreCondit           PreProc
-
-hi link Conditional         Statement
-hi link Exception           Statement
-hi link HelpCommand         Statement
-hi link HelpExample         Statement
-hi link Keyword             Statement
-hi link Label               Statement
-hi link Operator            Statement
-hi link Repeat              Statement
-
-hi link StorageClass        Type
-hi link Structure           Type
-hi link Typedef             Type
-
-hi link Debug               Special
-hi link Delimiter           Special
-hi link SpecialChar         Special
-hi link SpecialComment      Special
-hi link Tag                 Special
+  let l:hl_string = [
+        \ 'highlight', a:scope,
+        \ 'guifg=' . l:fg[0], 'ctermfg=' . l:fg[1],
+        \ 'guibg=' . l:bg[0], 'ctermbg=' . l:bg[1],
+        \ 'gui=' . l:attrs, 'cterm=' . l:attrs,
+        \ 'guisp=' . l:special[0],
+        \]
+  execute join(l:hl_string, ' ')
+endfunction
 
 
-"" Toggle Color Scheme
-""=================================================================
-let g:focuscolour = 0
+call s:h('Normal', s:fg, s:none)
+call s:h('Terminal', s:fg, s:none)
+call s:h('FoldColumn', s:grey, s:none)
+call s:h('Folded', s:grey, s:none)
+call s:h('SignColumn', s:fg, s:none)
+call s:h('ToolbarLine', s:fg, s:none)
 
-function! ToggleColorScheme()
-    if (g:focuscolour)
-        set colorcolumn=
-        let g:focuscolour = 0
-    else
-        set colorcolumn=80
-        let g:focuscolour = 1
-    endif
-endfunc
+call s:h('ColorColumn', s:none, s:bg1)
+call s:h('Conceal', s:grey, s:none)
+
+call s:h('CursorColumn', s:none, s:bg1)
+call s:h('CursorLine', s:none, s:bg1)
+call s:h('LineNr', s:grey, s:none)
+call s:h('CursorLineNr', s:fg, s:none)
+
+call s:h('DiffAdd', s:none, s:diff_green)
+call s:h('DiffChange', s:none, s:diff_blue)
+call s:h('DiffDelete', s:none, s:diff_red)
+call s:h('DiffText', s:none, s:none, ['reverse'])
+call s:h('DiffRemoved', s:red, s:none)
+call s:h('Directory', s:green, s:none)
+call s:h('ErrorMsg', s:red, s:none, ['bold,underline'])
+call s:h('WarningMsg', s:yellow, s:none, ['bold'])
+call s:h('ModeMsg', s:fg, s:none, ['bold'])
+call s:h('MoreMsg', s:blue, s:none, ['bold'])
+call s:h('IncSearch', s:bg0, s:bg_red)
+call s:h('Search', s:bg0, s:bg_green)
+call s:h('MatchParen', s:none, s:bg4)
+call s:h('NonText', s:bg4, s:none)
+call s:h('Whitespace', s:bg4, s:none)
+call s:h('SpecialKey', s:bg4, s:none)
+call s:h('Pmenu', s:fg, s:bg2)
+call s:h('PmenuSbar', s:none, s:bg2)
+call s:h('PmenuSel', s:bg0, s:purple)
+call s:h('WildMenu', s:bg0, s:bg_blue)
+
+call s:h('PmenuThumb', s:none, s:grey)
+call s:h('Question', s:yellow, s:none)
+call s:h('SpellBad', s:red, s:none, ['undercurl'])
+call s:h('SpellCap', s:yellow, s:none, ['undercurl'])
+call s:h('SpellLocal', s:blue, s:none, ['undercurl'])
+call s:h('SpellRare', s:purple, s:none, ['undercurl'])
+call s:h('StatusLine', s:fg, s:bg3)
+call s:h('StatusLineTerm', s:fg, s:bg3)
+call s:h('StatusLineNC', s:grey, s:bg1)
+call s:h('StatusLineTermNC', s:grey, s:bg1)
+call s:h('TabLine', s:fg, s:bg4)
+call s:h('TabLineFill', s:grey, s:none)
+call s:h('TabLineSel', s:bg0, s:bg_red)
+call s:h('VertSplit', s:black, s:none)
+call s:h('Visual', s:bg4, s:blue)
+call s:h('VisualNOS', s:none, s:bg3, ['underline'])
+call s:h('QuickFixLine', s:blue, s:none, ['bold'])
+call s:h('Debug', s:yellow, s:none)
+call s:h('debugPC', s:bg0, s:green)
+call s:h('debugBreakpoint', s:bg0, s:red)
+call s:h('ToolbarButton', s:bg0, s:bg_blue)
+
+call s:h('Type', s:blue, s:none)
+call s:h('Structure', s:blue, s:none)
+call s:h('StorageClass', s:blue, s:none)
+call s:h('Identifier', s:orange, s:none)
+call s:h('Constant', s:orange, s:none)
+
+call s:h('PreProc', s:red, s:none)
+call s:h('PreCondit', s:red, s:none)
+call s:h('Include', s:red, s:none)
+call s:h('Keyword', s:red, s:none)
+call s:h('Define', s:red, s:none)
+call s:h('Typedef', s:red, s:none)
+call s:h('Exception', s:red, s:none)
+call s:h('Conditional', s:red, s:none)
+call s:h('Repeat', s:red, s:none)
+call s:h('Statement', s:red, s:none)
+call s:h('Macro', s:purple, s:none)
+call s:h('Error', s:red, s:none)
+call s:h('Label', s:purple, s:none)
+call s:h('Special', s:purple, s:none)
+call s:h('SpecialChar', s:purple, s:none)
+call s:h('Boolean', s:purple, s:none)
+call s:h('String', s:yellow, s:none)
+call s:h('Character', s:yellow, s:none)
+call s:h('Number', s:purple, s:none)
+call s:h('Float', s:purple, s:none)
+call s:h('Function', s:green, s:none)
+call s:h('Operator', s:red, s:none)
+call s:h('Title', s:red, s:none, ['bold'])
+call s:h('Tag', s:orange, s:none)
+call s:h('Delimiter', s:fg, s:none)
+
+call s:h('Comment', s:grey, s:none)
+call s:h('SpecialComment', s:grey, s:none)
+call s:h('Todo', s:blue, s:none)
+
+call s:h('Ignore', s:grey, s:none)
+call s:h('Underlined', s:none, s:none, ['underline'])

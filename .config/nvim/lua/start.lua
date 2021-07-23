@@ -9,11 +9,9 @@ USER	      = vim.fn.expand "$USER"
 
 require "configuration.configs"
 require "configuration.autocmds"
-
+ 
 require "keymaps"
 require "plugins"
-
-vim.g.colors_name = O.colorscheme
 
 require "configuration.settings"
 require "utils"

@@ -1,7 +1,6 @@
 --- Globals
 O = {
 	leader_key  = "space",
-	colorscheme = "tokyonight",
 	line_wrap_cursor_movement = true,
 	transparent_background = true,
 	format_on_save = true,
