@@ -42,25 +42,23 @@ return packer.startup(function(use)
   use {
     "kabouzeid/nvim-lspinstall",
     event = "VimEnter",
-    config = function()
-      require("lspinstall").setup()
-    end,
+    config = function() require("lsp").setup() end,
   }
 
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
     event = "InsertEnter",
-    config = function()
-      require("packages.compe").setup()
-    end,
+    setup = function() require("packages.compe").config() end,
+    config = function() require("packages.compe").setup() end,
   }
 
   -- Fuzzy searching
   use { "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
-      config = [[require('packages.telescope').setup()]],
-  }
+  requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+  setup = require("packages.telescope").config() ,
+  config = [[require('packages.telescope').setup()]],
+}
 
   -- Snippets
   use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
@@ -69,9 +67,8 @@ return packer.startup(function(use)
   -- Treesitter
   use {
       "nvim-treesitter/nvim-treesitter",
-      config = function()
-          require("packages.treesitter").setup()
-      end,
+      setup = function() require("packages.treesitter").config() end,
+      config = function() require("packages.treesitter").setup() end,
     event = "BufWinEnter",
   }
 
@@ -79,27 +76,15 @@ return packer.startup(function(use)
   use {
     "kyazdani42/nvim-tree.lua",
     commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
-    config = function()
-      require("packages.nvimtree").setup()
-    end,
+    config = function() require("packages.nvimtree").setup() end,
   }
 
   -- Git signs
   use {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("packages.gitsigns").setup()
-    end,
+    setup = function() require("packages.gitsigns").config() end,
+    config = function() require("packages.gitsigns").setup() end,
     event = "BufRead",
-  }
-
-  -- Whichkey
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require ("packages.whichkey").setup()
-    end,
-    event = "BufWinEnter",
   }
 
   -- Comments
@@ -108,10 +93,9 @@ return packer.startup(function(use)
     event = "BufWinEnter",
     config = function()
       local status_ok, nvim_comment = pcall(require, "nvim_comment")
-      if not status_ok then
-        return
+      if status_ok then
+        nvim_comment.setup()
       end
-      nvim_comment.setup()
     end,
   }
 
@@ -120,32 +104,29 @@ return packer.startup(function(use)
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     after = { "telescope.nvim", "nvim-compe" },
-    config = function()
-      require "packages.autopairs"
-    end,
+    config = function() require "packages.autopairs" end,
   }
 
   -- Status Line and Bufferline
   use {
     'hoob3rt/lualine.nvim',
-    config = function()
-      require('packages.lualine').setup()
-    end
+    setup = function() require('packages.lualine').config() end,
+    config = function() require('packages.lualine').setup() end,
   }
 
   -- Tabs
   use {
     "romgrk/barbar.nvim",
     event = "BufWinEnter",
+    setup = function() require("packages.bufferline").setup() end,
   }
 
   -- Terminal
   use {
     "numToStr/FTerm.nvim",
     event = "BufWinEnter",
-    config = function()
-      require("packages.floaterm").setup()
-    end,
+    setup = function() require("packages.floaterm").config() end,
+    config = function() require("packages.floaterm").setup() end,
   }
 
   -- Diffview
@@ -157,16 +138,22 @@ return packer.startup(function(use)
   use {
     "norcalli/nvim-colorizer.lua",
     event = "BufWinEnter",
-    config = function()
-      require ("packages.colorizer").setup()
-    end,
+    setup = function() require ("packages.colorizer").config() end,
+    config = function() require ("packages.colorizer").setup() end,
   }
 
   use {
     "vimwiki/vimwiki",
-    config = function()
-      require "packages.vimwiki"
-    end,
+    config = function() require "packages.vimwiki" end,
+  }
+
+  -- Whichkey
+  use {
+    "folke/which-key.nvim",
+    -- after = { "nvim-lspinstall" },
+    setup = function() require("packages.whichkey").config() end,
+    config = function() require("packages.whichkey").setup() end,
+    event = "BufWinEnter",
   }
 
   if first_init then

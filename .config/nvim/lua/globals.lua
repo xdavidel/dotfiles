@@ -15,6 +15,7 @@ O = {
 	},
 
 	database = { save_location = CACHE_PATH .. "nvim_db", auto_execute = 1 },
+  lspinstall_dir = "vim",
 
 	user_which_key = {},
 
@@ -33,6 +34,7 @@ O = {
     info = " ",
     warning = " ",
     error = " ",
+    circle = "",
   },
 
 	plugin = {},
@@ -82,12 +84,46 @@ O = {
 	},
 }
 
--- Run config for packages
-require("packages.gitsigns").config()
-require("packages.colorizer").config()
-require("packages.compe").config()
-require("packages.lualine").config()
-require("packages.floaterm").config()
-require("packages.telescope").config()
-require("packages.treesitter").config()
-require("packages.whichkey").config()
+-- Helper function for analysis
+P = function(stuff)
+  print(vim.inspect(stuff))
+end
+
+Utils = {}
+function Utils.check_lsp_client_active(name)
+  local clients = vim.lsp.get_active_clients()
+  for _, client in pairs(clients) do
+    if client.name == name then
+      return true
+    end
+  end
+  return false
+end
+
+function Utils.define_augroups(definitions)
+  for group_name, definition in pairs(definitions) do
+    vim.cmd("augroup " .. group_name)
+    vim.cmd "autocmd!"
+
+    for _, def in pairs(definition) do
+      local command = table.concat(vim.tbl_flatten { "autocmd", def }, " ")
+      vim.cmd(command)
+    end
+
+    vim.cmd "augroup END"
+  end
+end
+
+function Utils.unrequire(m)
+  package.loaded[m] = nil
+  _G[m] = nil
+end
+
+function Utils.SafeLoad(name, action)
+  local status_ok, script = pcall(require, name)
+  if status_ok then
+    action(script)
+  else
+    print("Problem with " .. name)
+  end
+end

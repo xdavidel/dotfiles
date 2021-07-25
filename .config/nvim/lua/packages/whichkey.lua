@@ -65,33 +65,6 @@ M.config = function()
         name = "File"
       },
       ["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
-      l = {
-        name = "LSP",
-        a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-        d = {
-          "<cmd>Telescope lsp_document_diagnostics<cr>",
-          "Document Diagnostics",
-        },
-        w = {
-          "<cmd>Telescope lsp_workspace_diagnostics<cr>",
-          "Workspace Diagnostics",
-        },
-        f = { "<cmd>Neoformat<cr>", "Format" },
-        i = { "<cmd>LspInfo<cr>", "Info" },
-        I = { ":LspInstall ", "Install" },
-        j = { "<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<cr>", "Next Diagnostic" },
-        k = { "<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<cr>", "Prev Diagnostic" },
-        q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
-        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-        s = {
-          "<cmd> Telescope lsp_document_symbols<cr>",
-          "Document Symbols",
-        },
-        S = {
-          "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-          "Workspace Symbols",
-        },
-      },
       p = {
         name = "Packer",
         c = { "<cmd>PackerCompile<cr>", "Compile" },
