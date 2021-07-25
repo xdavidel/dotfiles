@@ -9,14 +9,14 @@ M.config = function()
     active = false,
     defaults = {
       prompt_prefix = "> ",
-      selection_caret = " ",
+      selection_caret = "* ",
       entry_prefix = "  ",
       initial_mode = "insert",
       selection_strategy = "reset",
       sorting_strategy = "descending",
       layout_strategy = "horizontal",
       layout_config = {
-        width = 0.75,
+        width = 0.85,
         prompt_position = "bottom",
         preview_cutoff = 120,
         horizontal = { mirror = false },
@@ -54,13 +54,27 @@ M.config = function()
   }
 end
 
+file_explorer = function()
+  local is_ok, tel_builtins = pcall(require, 'telescope.builtin')
+    if not is_ok then
+      print("Error")
+      return
+    end
+    opts = {}
+    opts.cwd = vim.fn.expand("$HOME")
+    opts.prompt_title = "Explorer"
+    opts.hidden = true
+    tel_builtins.file_browser(opts) 
+end
+
 M.setup = function()
   local status_ok, telescope = pcall(require, "telescope")
   if not status_ok then
     return
   end
   telescope.setup(O.plugin.telescope)
-  vim.api.nvim_set_keymap("n", "<Leader>ff", ":Telescope file_browser<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<Leader>ff", ":lua file_explorer()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<Leader>fd", ":Telescope find_files<CR>", { noremap = true, silent = true })
   vim.api.nvim_set_keymap("n", "<Leader>fr", ":Telescope oldfiles<CR>", { noremap = true, silent = true })
   vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { noremap = true, silent = true })
   vim.api.nvim_set_keymap("i", "<A-x>", "<Esc> :Telescope commands<CR>", { noremap = true, silent = true })
