@@ -136,10 +136,6 @@ return packer.startup(function(use)
   -- Tabs
   use {
     "romgrk/barbar.nvim",
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require "packages.bufferline"
-    end,
     event = "BufWinEnter",
   }
 

@@ -9,6 +9,7 @@ USER	      = vim.fn.expand "$USER"
 
 require "configuration.configs"
 require "configuration.autocmds"
+require "packages.bufferline"
  
 require "keymaps"
 require "plugins"
