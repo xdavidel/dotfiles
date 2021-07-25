@@ -18,6 +18,23 @@ O = {
 
 	user_which_key = {},
 
+  icons = {
+    symlink = "@ ",
+    folder_closed = " ",
+    folder_open = " ",
+    calculator = " ",
+    scissor = " ",
+    arrow_right = "➜ ",
+    closed = " ",
+    x = "✗ ",
+    v = "✓ ",
+    star = "★ ",
+    exclamation = " ",
+    info = " ",
+    warning = " ",
+    error = " ",
+  },
+
 	plugin = {},
 
 	user_plugins = {},

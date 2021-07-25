@@ -33,14 +33,15 @@ M.setup = function()
   }
 
   vim.g.nvim_tree_icons = {
-    default = "",
-    symlink = "⚭",
+    default = "+ ",
+    symlink = "@ ",
     folder = {
-      default = "",
-      open = "",
-      empty = "",
-      empty_open = "",
-      symlink = "⚭",
+      default = O.icons.folder_closed,
+      open = O.icons.folder_open,
+      empty = O.icons.folder_closed,
+      empty_open = O.icons.folder_open,
+      symlink = O.icons.folder_closed,
+      symlink_open = O.icons.folder_open,
     },
   }
 
