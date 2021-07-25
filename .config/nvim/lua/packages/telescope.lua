@@ -73,9 +73,11 @@ M.setup = function()
     return
   end
   telescope.setup(O.plugin.telescope)
-  vim.api.nvim_set_keymap("n", "<Leader>ff", ":lua file_explorer()<CR>", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("n", "<Leader>fd", ":Telescope find_files<CR>", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("n", "<Leader>fr", ":Telescope oldfiles<CR>", { noremap = true, silent = true })
+
+  O.plugin.whichkey.mappings.f.f = {"<cmd>lua file_explorer()<cr>", "File Explorer" }
+  O.plugin.whichkey.mappings.f.d = {"<cmd>Telescope find_files<cr>", "Find Files" }
+  O.plugin.whichkey.mappings.f.r = {"<cmd>Telescope oldfiles<cr>", "Recent Files" }
+
   vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { noremap = true, silent = true })
   vim.api.nvim_set_keymap("i", "<A-x>", "<Esc> :Telescope commands<CR>", { noremap = true, silent = true })
 end
