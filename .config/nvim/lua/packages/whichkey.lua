@@ -61,7 +61,9 @@ M.config = function()
         b = { ":!checkbashisms -xfp %<CR>", "Shellcheck" },
       },
       ["e"] = { "<cmd>lua require'packages.nvimtree'.toggle_tree()<CR>", "Explorer" },
-      ["f"] = { "<cmd>Telescope find_files<CR>", "Find File" },
+      f = { 
+        name = "File"
+      },
       ["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
       l = {
         name = "LSP",

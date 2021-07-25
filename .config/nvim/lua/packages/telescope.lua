@@ -24,7 +24,7 @@ M.config = function()
       },
       file_ignore_patterns = {},
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-      path_display = { "shorten" },
+      path_display = {},
       winblend = 0,
       border = {},
       borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -42,6 +42,7 @@ M.config = function()
           ["<C-k>"] = actions.move_selection_previous,
           ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
           ["<CR>"] = actions.select_default + actions.center,
+          ["<esc>"] = actions.close,
         },
         n = {
           ["<C-j>"] = actions.move_selection_next,
@@ -59,7 +60,10 @@ M.setup = function()
     return
   end
   telescope.setup(O.plugin.telescope)
-  vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<Leader>ff", ":Telescope file_browser<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<Leader>fr", ":Telescope oldfiles<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("i", "<A-x>", "<Esc> :Telescope commands<CR>", { noremap = true, silent = true })
 end
 
 return M
