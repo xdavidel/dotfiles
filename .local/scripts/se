@@ -7,7 +7,8 @@ FULL="$1"
 cmd() { \
     # Using git repo
     if [ -z $FULL ]; then
-        dotconf ls-files
+        root_path="$(dotconf rev-parse --show-toplevel)"
+        dotconf ls-files $root_path --full-name | sed "s|^|$root_path/|g"
     else
         SCRIPT_DIR="${HOME}/.local/scripts"
         CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
