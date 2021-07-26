@@ -26,6 +26,7 @@ M.config = function()
       generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
       path_display = {},
       winblend = 0,
+      color_devicons = false,
       border = {},
       borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       use_less = true,
@@ -42,6 +43,8 @@ M.config = function()
           ["<C-k>"] = actions.move_selection_previous,
           ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
           ["<CR>"] = actions.select_default + actions.center,
+          ["<tab>"] = actions.select_default + actions.center,
+          [" "] = actions.add_selection,
           ["<esc>"] = actions.close,
         },
         n = {
@@ -64,6 +67,21 @@ file_explorer = function()
     opts.cwd = vim.fn.expand("$HOME")
     opts.prompt_title = "Explorer"
     opts.hidden = true
+    opts.dir_icon = O.icons.folder_closed
+    tel_builtins.file_browser(opts) 
+end
+
+relative_files = function()
+  local is_ok, tel_builtins = pcall(require, 'telescope.builtin')
+    if not is_ok then
+      print("Error")
+      return
+    end
+    opts = {}
+    opts.prompt_title = "Files"
+    opts.hidden = true
+    opts.depth = 2
+    opts.dir_icon = O.icons.folder_closed
     tel_builtins.file_browser(opts) 
 end
 
@@ -75,7 +93,7 @@ M.setup = function()
   telescope.setup(O.plugin.telescope)
 
   O.plugin.whichkey.mappings.f.f = {"<cmd>lua file_explorer()<cr>", "File Explorer" }
-  O.plugin.whichkey.mappings.f.d = {"<cmd>Telescope find_files<cr>", "Find Files" }
+  O.plugin.whichkey.mappings.f.d = {"<cmd>lua relative_files()<cr>", "Find Files" }
   O.plugin.whichkey.mappings.f.r = {"<cmd>Telescope oldfiles<cr>", "Recent Files" }
 
   vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { noremap = true, silent = true })
