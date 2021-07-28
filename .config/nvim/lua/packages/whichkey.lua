@@ -56,6 +56,9 @@ M.config = function()
 
     mappings = {
 
+      b = {
+        name = "Buffer"
+      },
       c = {
         c = { ":w! | !compiler <c-r>%<CR>", "Compile" },
         b = { ":!checkbashisms -xfp %<CR>", "Shellcheck" },

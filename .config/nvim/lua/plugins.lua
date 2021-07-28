@@ -114,13 +114,6 @@ return packer.startup(function(use)
     config = function() require('packages.lualine').setup() end,
   }
 
-  -- Tabs
-  use {
-    "romgrk/barbar.nvim",
-    event = "BufWinEnter",
-    setup = function() require("packages.bufferline").setup() end,
-  }
-
   -- Terminal
   use {
     "numToStr/FTerm.nvim",
