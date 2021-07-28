@@ -92,6 +92,7 @@ M.setup = function()
   end
   telescope.setup(O.plugin.telescope)
 
+  O.plugin.whichkey.mappings.b.s = {"<cmd>Telescope buffers<cr>", "Switch Buffers" }
   O.plugin.whichkey.mappings.f.f = {"<cmd>lua file_explorer()<cr>", "File Explorer" }
   O.plugin.whichkey.mappings.f.d = {"<cmd>lua relative_files()<cr>", "Find Files" }
   O.plugin.whichkey.mappings.f.r = {"<cmd>Telescope oldfiles<cr>", "Recent Files" }
