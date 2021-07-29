@@ -1,44 +1,46 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 if [ -z "$1" ]; then
-	cat << EOF
-managesession: manage linux sessions
+  cat << EOF
+  managesession: manage linux sessions
 
-Allowed options:
-logout		Kill user session
-poweroff	Shut down the PC
-fresh		Refresh the session
-reboot		Restart the system
+  Allowed options:
+  logout    Kill user session
+  sleep     Suspend
+  poweroff  Shut down the PC
+  fresh     Refresh the session
+  reboot    Restart the system
 
 EOF
 
 else
-	command -v wmctrl >>/dev/null && active_wm=$(wmctrl -m | awk '/Name: / {printf "%s\n", $NF}')
+  command -v wmctrl >>/dev/null && active_wm=$(wmctrl -m | awk '/Name: / {printf "%s\n", $NF}')
 
-	case "$1" in
-		l*)
-			case "$active_wm" in
-				"Openbox") cmd="openbox --exit" ;;
-				"i3") cmd="i3-msg exit" ;;
-				"bspwm") cmd="bspc quit";;
-				"awesome") cmd="awesome-client awesome.quit()" ;;
-				"dwm") cmd="kill -TERM $(pidof dwm)" ;;
-				"*") cmd="kill $(pidof $active_wm) || pkill -u $USER" ;;
-			esac
+  case "$1" in
+    l*)
+      case "$active_wm" in
+        "Openbox") cmd="openbox --exit" ;;
+        "i3") cmd="i3-msg exit" ;;
+        "bspwm") cmd="bspc quit";;
+        "awesome") cmd="awesome-client awesome.quit()" ;;
+        "dwm") cmd="kill -TERM $(pidof dwm)" ;;
+        "*") cmd="kill $(pidof $active_wm) || pkill -u $USER" ;;
+      esac
 
-			prompt "Close sessions?" "$cmd" ;;
-		f*)
-			case "$active_wm" in
-				"Openbox") openbox --restart ;;
-				"i3") i3-msg restart ;;
-				"bspwm") bspc wm -r ;;
-				"awesome") echo "awesome.restart()" | awesome-client ;;
-				"dwm") kill -HUP $(pidof dwm) ;;
-			esac ;;
+      prompt "Close sessions?" "$cmd" ;;
+    f*)
+      case "$active_wm" in
+        "Openbox") openbox --restart ;;
+        "i3") i3-msg restart ;;
+        "bspwm") bspc wm -r ;;
+        "awesome") echo "awesome.restart()" | awesome-client ;;
+        "dwm") kill -HUP $(pidof dwm) ;;
+      esac ;;
 
-		p*)
-			prompt "Shutdown PC?" "sudo -A shutdown -h now" ;;
-		r*)
-			prompt "Restart PC?" "sudo -A reboot" ;;
-	esac
+    s*) 
+      lockscreen &
+      systemctl suspend ;;
+    p*) prompt "Shutdown PC?" "sudo -A shutdown -h now" ;;
+    r*) prompt "Restart PC?" "sudo -A reboot" ;;
+  esac
 fi
