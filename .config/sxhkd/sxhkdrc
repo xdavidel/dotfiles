@@ -75,7 +75,7 @@ super + {_,shift +} grave
 
 # Open password menu
 super + ctrl + p
-	passmenu
+	passmenu v
 
 # Toggle screenkey
 super + Scroll_Lock

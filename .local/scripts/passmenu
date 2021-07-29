@@ -1,12 +1,50 @@
 #!/bin/sh
 
-prefix=${PASSWORD_STORE_DIR:-$HOME/.password-store}
-password_files=$(find "$prefix" -type f -name *.gpg)
+getPasswords() { \
+	choice="$(pass | sed -r '1d;s/^├.{3}//;s/^└.{3}//' | rofi -dmenu -theme dmenu -p "Passwords")"
 
-password=$(echo "${password_files}" | sed "s|$prefix/||g;s|.gpg||g" \
-    | rofi -dmenu -theme dmenu -i -p "Select"  )
-
-[ -z "$password" ] && exit
-
-pass show -c "$password" >/dev/null 2>&1 && \
+	[ "$choice" != "" ] && \
+    pass show -c "$choice" >/dev/null 2>&1 && \
     notify-send "Password was copied to clipboard"
+}
+
+addPassword() { \
+	name=$(printf "" | rofi -dmenu -theme dmenu -p "What is the account name?")
+	if [ "$name" != "" ]; then
+		case "$(printf "Random password\\nManual password" | rofi -dmenu -theme dmenu -p "Passwords")" in
+			"Random password") addPass=$(randompass -p $(printf "12\\n32\\n128" | rofi -dmenu -theme dmenu -p "How many characters?")) ;;
+			"Manual password") addPass=$(rofi -dmenu -theme dmenu -p "Enter a password") ;;
+		esac
+		echo $addPass | pass insert "$name" -e
+		notify-send "Password for $name added!"
+	fi
+
+	unset name
+	unset addPass
+}
+
+removePassword() { \
+	name="$(pass | sed -r '1d;s/^├.{3}//;s/^└.{3}//' | rofi -dmenu -theme dmenu -p "Passwords")"
+	sure="$(printf "No\\nYes" | rofi -dmenu -theme dmenu -p "Are you sure?")"
+	
+  [ $sure = "Yes" ] && \
+      notify-send "Password for $name removed!" && \
+      pass rm "$name" -f || \
+      notify-send "Canceled"
+
+	unset name
+}
+
+if [ -z "$1" ]; then
+  case "$(printf "Add password\\nRemove password\\nView password" | rofi -dmenu -theme dmenu -p "Passwords")" in
+    "Add password") addPassword ;;
+    "Remove password") removePassword ;;
+    "View password") getPasswords ;;
+  esac
+else
+  case "$1" in
+    a*) addPassword ;;
+    r*) removePassword ;;
+    v*) getPasswords ;;
+  esac
+fi
