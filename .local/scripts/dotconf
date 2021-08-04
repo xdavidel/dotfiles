@@ -2,4 +2,4 @@
 
 REPO_DIR="${DOTCONFDIR:-$HOME/.local/dotfiles}"
 
-git --git-dir=$REPO_DIR --work-tree=$HOME $@
+git --git-dir=$REPO_DIR --work-tree=$HOME "$@"
