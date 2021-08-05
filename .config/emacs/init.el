@@ -595,17 +595,31 @@ The original function deletes trailing whitespace of the current line."
 
 ;; Debugger
 (use-package dap-mode
-  :commands dap-debug
+  :after lsp-mode
+  :straight (dap-mode :includes (dap-python dap-cpptools)
+		      :type git
+		      :host github
+		      :repo "emacs-lsp/dap-mode")
+  :general
+  (lsp-mode-map "<f2>" 'dap-breakpoint-toggle)
+  (lsp-mode-map "<f5>" 'dap-debug)
+  (lsp-mode-map "<f6>" 'dap-hydra)
+  (lsp-mode-map "<f8>" 'dap-continue)
+  (lsp-mode-map "<f9>" 'dap-next)
+  (lsp-mode-map "<f11>" 'dap-step-in)
+  (lsp-mode-map "<f10>" 'dap-step-out)
+  :config
+  (setq dap-ui-controls-mode nil))
+
+(use-package dap-cpptools
+  :after dap-mode
+  :demand)
+
+(use-package dap-python
+  :after dap-mode python
+  :demand ; so it loads, "requires", dap-python
   :init
-  (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  :bind
-  (:map dap-mode-map
-   (("<f5>" . dap-debug)
-    ("<f8>" . dap-continue)
-    ("<f9>" . dap-next)
-    ("<f11>" . dap-step-in)
-    ("<f10>" . dap-step-out)
-    ("<f2>" . dap-breakpoint-toggle))))
+  (setq dap-python-debugger 'debugpy))
 
 ;; ------------------------------------
 
