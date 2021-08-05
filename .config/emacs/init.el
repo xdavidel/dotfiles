@@ -237,7 +237,7 @@
 ;; more readable :)
 (unless (display-graphic-p)
   (use-package evil-terminal-cursor-changer
-    :config
+    :init
     (evil-terminal-cursor-changer-activate)))
 
 ;; Vim like surround package
