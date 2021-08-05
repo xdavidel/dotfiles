@@ -846,6 +846,10 @@ The original function deletes trailing whitespace of the current line."
 (use-package toml-mode
   :mode ("\\.toml\\'" . toml-mode))
 
+;; Syntax highlighting for zig
+(use-package zig-mode
+  :mode ("\\.zig\\'" . zig-mode))
+
 ;; Syntax highlighting for vimscript
 (use-package vimrc-mode
   :mode ("\\.vim\\(rc\\)?\\'" . vimrc-mode))
