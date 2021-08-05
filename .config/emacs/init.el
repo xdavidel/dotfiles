@@ -996,11 +996,11 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 		  "https://news.ycombinator.com/rss")))
 
 (use-package transmission
-  :bind (:map transmission-mode-map
-	 ("C-c a" . transmission-add)
-	 ("C-c d" . transmission-delete)
-	 ("C-c t" . transmission-toggle)
-	 ("C-c f" . transmission-files))
+  :general
+  (transmission-mode-map "C-c a" 'transmission-add)
+  (transmission-mode-map "C-c d" 'transmission-delete)
+  (transmission-mode-map "C-c t" 'transmission-toggle)
+  (transmission-mode-map "C-c f" 'transmission-files)
   :config
   (setq transmission-refresh-modes '(transmission-mode))
   :commands (transmission))
@@ -1023,7 +1023,8 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
   :after eshell-toggle
   :hook eshell) ;company for eshell
 
-(global-set-key (kbd "C-`") 'eshell-toggle)
+(general-def 'global-map
+  "C-`" 'eshell-toggle)
 
 ;; ------------------------------------
 
@@ -1155,6 +1156,8 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
   "<SPC>j" '(evilem-motion-next-line :which-key "Sneak down")
   "<SPC>k" '(evilem-motion-previous-line :which-key "Sneak up")
 
+  "?"  '(general-describe-keybindings :which-key "Keybindings")
+
   ;; Apps
   "a"  '(:ignore t :which-key "Apps")
   "gd" '(docker :which-key "Docker")
@@ -1246,6 +1249,12 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 
 (general-def 'normal 'lsp-mode-map
   "gr" 'lsp-find-references)
+
+(general-def '(normal insert visual) 'global-map
+  "C-w <left>" 'evil-window-left
+  "C-w <up>" 'evil-window-up
+  "C-w <right>" 'evil-window-right
+  "C-w <down>" 'evil-window-down)
 
 ;; ------------------------------------
 
