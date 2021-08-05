@@ -271,6 +271,9 @@
   :init
   (which-key-mode t))
 
+;; Repeater keys
+(use-package hydra)
+
 ;; ------------------------------------
 
 ;; Completions
