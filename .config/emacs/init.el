@@ -9,20 +9,133 @@
 (unless (featurep 'early-init)
   (load (expand-file-name "early-init" user-emacs-directory)))
 
-;; At this point use-package should be installed
-(require 'use-package)
+;; Profile Emacs startup speed
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (message "*** Emacs loaded in %s with %d garbage collections."
+		     (format "%.2f seconds"
+			     (float-time
+			      (time-subtract after-init-time before-init-time)))
+		     gcs-done)))
 
-(use-package restart-emacs)
+;; Consts
+(defconst IS-MAC     (eq system-type 'darwin))
+(defconst IS-LINUX   (eq system-type 'gnu/linux))
+(defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
+(defconst IS-BSD     (or IS-MAC (eq system-type 'berkeley-unix)))
+
+;; Package Management
+;; ------------------------------------
+;; Use Straight el
+(setq straight-check-for-modifications '(check-on-save find-when-checking))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Install use-package
+(straight-use-package 'use-package)
+(setq use-package-verbose nil		; don't print anything
+      use-package-compute-statistics nil; compute statistics about package initialization
+      use-package-expand-minimally t	; minimal expanded macro
+      use-package-always-defer t)	; always defer, don't "require", except when :demand
+
+;; Makes :straight t by default
+(setq straight-use-package-by-default t)
+
+;;; Prevent builtin Org from being loaded
+(straight-register-package 'org)
+(straight-register-package 'org-contrib)
+
+;; ------------------------------------
+
 
 ;; General Settings
 ;; ------------------------------------
-; 
-;; Allow async compilation of packages
-(use-package async
+;; General for keybinding
+(use-package general
+  :demand
+  :config
+  (general-create-definer my/leader-keys
+    :prefix "SPC"))
+
+(use-package diminish
+  :demand)
+
+(use-package restart-emacs)
+
+;; Minimizes GC interferecen with user activity
+(use-package gcmh
+  :diminish gcmh-mode
   :init
-  (dired-async-mode 1)
-  (async-bytecomp-package-mode 1)
-  :custom (async-bytecomp-allowed-packages '(all)))
+  (setq gcmh-idle-delay 5
+	gcmh-high-cons-threshold (* 16 1024 1024)) ; 16M
+  (gcmh-mode 1))
+
+;; General Emacs stuff
+(use-package emacs
+  :straight nil
+  :general
+  ;; Increase / Decrease font
+  ("C-="  'text-scale-increase)
+  ("C--"  'text-scale-decrease)
+  ("<C-mouse-4>"  'text-scale-increase)
+  ("<C-mouse-5>"  'text-scale-decrease)
+  :init
+  (setq-default fill-column 80)	  ; column length
+  (column-number-mode t)          ; show column number in the mode line
+  :config
+  (menu-bar-mode -1)
+  (blink-cursor-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq scroll-conservatively 101         ;; Don't center curser at off screen
+        scroll-margin 5                   ;; Create a margin for off screen
+        mouse-wheel-progressive-speed nil ;; Normal mouse scrolling
+	kill-buffer-query-functions nil   ;; Kill even on backgound process
+	tab-always-indent 'complete       ;; TAB key behavior
+	inhibit-startup-screen t          ;; No startup screen
+        ring-bell-function 'ignore)       ;; Disable bells
+  (global-auto-revert-mode t)             ;; Auto refresh changed buffers
+  (setq-default truncate-lines t))        ;; No line wrap be default
+
+;; Windows doesn't always has HOME env.
+(when (and IS-WINDOWS (null (getenv-internal "HOME")))
+  (setenv "HOME" (getenv "USERPROFILE"))
+  (setq abbreviated-home-dir nil))
+
+;; Make UTF-8 the default coding system
+(set-language-environment "UTF-8")
+(unless IS-WINDOWS
+  (setq selection-coding-system 'utf-8))
+
+;; Don't render cursors or regions in non-focused windows.
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+;; Rapid scrolling over unfontified regions.
+(setq fast-but-imprecise-scrolling t)
+
+;; Font compacting can be terribly expensive.
+(setq inhibit-compacting-font-caches t
+      redisplay-skip-fontification-on-input t)
+
+;; maybe improve performance on windows
+(when IS-WINDOWS
+  (setq w32-get-true-file-attributes nil   ; decrease file IO workload
+        w32-pipe-read-delay 0              ; faster IPC
+        w32-pipe-buffer-size (* 64 1024))) ; read more at a time (was 4K)
+
+;; Remove cmdlines options that aren't relevant to our current OS.
+(unless IS-MAC   (setq command-line-ns-option-alist nil))
+(unless IS-LINUX (setq command-line-x-option-alist nil))
 
 ;; Set transparent background
 (defvar my/frame-transparency '(95 . 95))
@@ -43,30 +156,11 @@
   (initial-scratch-message "")
   (inhibit-splash-screen t))
 
-;; General Emacs stuff
-(use-package emacs
-  :straight nil
-  :bind (:map global-map
-  ;; Increase / Decrease font
-  ("C-=" . text-scale-increase)
-  ("C--" . text-scale-decrease)
-  ("<C-mouse-4>" . text-scale-increase)
-  ("<C-mouse-5>" . text-scale-decrease))
-  :config
-  (menu-bar-mode -1)
-  (blink-cursor-mode -1)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (setq scroll-conservatively 101         ;; Don't center curser at off screen
-        scroll-margin 5                   ;; Create a margin for off screen
-        mouse-wheel-progressive-speed nil ;; Normal mouse scrolling
-        ring-bell-function 'ignore)       ;; Disable bells
-  (global-auto-revert-mode t)             ;; Auto refresh changed buffers
-  (setq-default truncate-lines t))        ;; No line wrap be default
-
 ;; User profile
-(setq user-full-name "David Delarosa"   
+(setq user-full-name "David Delarosa"
       user-mail-address "xdavidel@gmail.com")
 
+;; Manage remotes
 (use-package tramp
   :straight nil
   :config
@@ -95,7 +189,9 @@
 ;; EVIL - Load it as fast as possible
 ;; ------------------------------------
 ;; Better undo for evil
-(use-package undo-fu)
+(use-package undo-fu
+  :demand
+  :defer 0.1)
 (use-package undo-fu-session
   :after undo-fu
   :init
@@ -112,14 +208,17 @@
 	evil-split-window-below t
 	evil-want-C-i-jump nil
 	evil-undo-system 'undo-fu)
-  :config
   (evil-mode 1)
+  :config
   (evil-set-leader 'normal " "))
 
 ;; Collection of bindings Evil does not cover
 (use-package evil-collection
+  :diminish evil-collection-unimpaired-mode
   :after evil
-  :config
+  :init
+  (setq evil-collection-setup-minibuffer nil ; does not play nice with vertico
+	evil-collection-company-use-tng nil) ; makes company works betters I think
   (evil-collection-init))
 
 ;; Move quickly in the document
@@ -167,7 +266,9 @@
 
 ;; Display keys in a menu
 (use-package which-key
-  :config
+  :defer 1
+  :diminish which-key-mode
+  :init
   (which-key-mode t))
 
 ;; ------------------------------------
@@ -178,11 +279,22 @@
 (use-package vertico
   :init
   (vertico-mode)
+  :config
+  ;; Use `consult-completion-in-region' if Vertico is enabled.
+  ;; Otherwise use the default `completion--in-region' function.
+  (setq completion-in-region-function
+	(lambda (&rest args)
+	  (apply (if vertico-mode
+		     #'consult-completion-in-region
+		   #'completion--in-region)
+		 args)))
   :custom-face
   (vertico-current ((t (:background "#3a3f5a")))))
 
 ;; Fuzzy search
 (use-package orderless
+  :after vertico
+  :demand
   :custom
   (completion-styles '(orderless))
   (completion-category-defaults nil)
@@ -204,13 +316,12 @@
 
 ;; Menu completion
 (use-package consult
-  :after vertico
-  :bind (:map global-map
-    ("C-x b" . consult-buffer)           ; enhanced switch to buffer
-    ("M-s" . consult-outline)            ; navigation by headings
-    ("C-c o" . consult-imenu)            ; navigation by "imenu" items
-    ("M-y" . consult-yank-pop)           ; editing cycle through kill-ring
-    ("C-s" . consult-line))              ; search lines with preview
+  :general
+    ("C-x b" 'consult-buffer)   ; enhanced switch to buffer
+    ("M-s" 'consult-outline)    ; navigation by headings
+    ("C-c o" 'consult-imenu)    ; navigation by "imenu" items
+    ("M-y" 'consult-yank-pop)   ; editing cycle through kill-ring
+    ("C-s" 'consult-line)       ; search lines with preview
   :hook (completion-setup . hl-line-mode)
   :config
   ;; configure preview behavior
@@ -222,6 +333,7 @@
 
 ;; Completion framwork for anything
 (use-package company
+  :diminish
   :bind
   (:map company-active-map
    ("<down>" . company-select-next)
@@ -245,6 +357,7 @@
 ;; Theme
 ;; ------------------------------------
 (use-package doom-themes
+  :demand
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
@@ -261,6 +374,7 @@
 
 ;; Set color backgrounds to color names
 (use-package rainbow-mode
+  :diminish rainbow-mode
   :hook (prog-mode . rainbow-mode))
 
 ;; Rainbow colors for brackets
@@ -368,13 +482,35 @@ The original function deletes trailing whitespace of the current line."
       ((my/font-installed-p "Hack")
        (set-face-attribute 'default nil :font "Hack 10")))
 
+;; context menu/action at point or minibuffer
+(use-package embark
+  :general
+  ("C-S-a" 'embark-act)
+  ("C-S-z" 'embark-dwim)
+  ("C-h B" 'embark-bindings)
+  :config
+  ;; actions with "@" when in the prompter
+  ;; prefer the default
+  ;; (setq embark-prompter 'embark-completing-read-prompter)
+  (setq embark-action-indicator
+	(lambda (map _target)
+	  (which-key--show-keymap "Embark" map nil nil 'no-paging)
+	  #'which-key--hide-popup-ignore-command)
+	embark-become-indicator embark-action-indicator))
+
+(use-package embark-consult
+  :demand				;necessary for consult preview
+  :hook (embark-collect-mode . embark-consult-preview-minor-mode)
+  :after (embark consult))
+
+
 (use-package all-the-icons
   :hook (after-init . recentf-mode)
   :config
   (when (and (not (my/font-installed-p "all-the-icons"))
 	     (window-system))
     (all-the-icons-install-fonts t)))
-; 
+;
 ;; Icons for dired
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -393,8 +529,9 @@ The original function deletes trailing whitespace of the current line."
 ;; Show matching parens
 (use-package paren
   :straight nil
-  :hook (after-init . recentf-mode)
-  :config (show-paren-mode 1))
+  :init
+  (setq show-paren-delay 0)
+  (show-paren-mode t))
 
 ;; Lightweight syntax highlighting improvement for numbers
 (use-package highlight-numbers
@@ -424,8 +561,6 @@ The original function deletes trailing whitespace of the current line."
 ;; LSP client
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :bind (:map lsp-mode-map
-	 ("TAB" . completion-at-point))
   :custom
   (lsp-auto-guess-root nil)
   (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
@@ -477,21 +612,20 @@ The original function deletes trailing whitespace of the current line."
 ;; Org Mode
 (use-package org
   ;; :straight (:type built-in)
-  :bind (:map global-map
-	 ("C-c l" . org-store-link)
-	 ("C-c a" . org-todo-list)
-	 ("C-c c" . org-capture)
-	 :map global-map
-	 ("M-H" . org-shiftleft)
-	 ("M-J" . org-shiftdown)
-	 ("M-K" . org-shiftup)
-	 ("M-L" . org-shiftright)
-	 ("M-h" . org-metaleft)
-	 ("M-j" . org-metadown)
-	 ("M-k" . org-metaup)
-	 ("M-l" . org-metaright)
-	 ("C-c l" . org-store-link)
-	 ("C-c a" . org-todo-list))
+  :diminish org-indent-mode
+  :mode (("\\.org$" . org-mode))
+  :general
+  ("C-c l" 'org-store-link)
+  ("C-c a" 'org-todo-list)
+  ("C-c c" 'org-capture)
+  ("M-H" 'org-shiftleft)
+  ("M-J" 'org-shiftdown)
+  ("M-K" 'org-shiftup)
+  ("M-L" 'org-shiftright)
+  ("M-h" 'org-metaleft)
+  ("M-j" 'org-metadown)
+  ("M-k" 'org-metaup)
+  ("M-l" 'org-metaright)
   :hook ((ediff-prepare-buffer . outline-show-all)
 	 ((org-capture-mode org-src-mode) . my/discard-history))
   :commands (org-capture org-agenda)
@@ -902,9 +1036,11 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 ;; Recent files
 (use-package recentf
   :straight nil
-  :hook (after-init . recentf-mode)
+  :defer 3
+  :config
+  (setq recentf-max-saved-items 20
+	recentf-auto-cleanup 'mode)
   :custom
-  (recentf-max-saved-items 200)
   (recentf-exclude '((expand-file-name package-user-dir)
 		     ".cache"
 		     ".cask"
@@ -936,9 +1072,13 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 ;; Buitin file manager
 (use-package dired
   :straight nil
+  :commands dired
   :bind (:map dired-mode-map
-	 ("-" . dired-up-directory)
-	 ("<backspace>" . dired-up-directory))
+  ("<backspace>" . dired-up-directory))
+  :general
+  (dired-mode-map
+   ("C-c C-d" 'mkdir)
+   ("-" 'dired-up-directory))
   :custom ((dired-listing-switches "-aghoA --group-directories-first"))
   :config
   (setq dired-omit-files
@@ -949,8 +1089,8 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 ;; Interface to Git
 (use-package magit
   :hook ((git-commit-mode . flyspell-mode))
-  :bind (:map global-map
-  ("C-x g" . magit-status))
+  :general
+  ("C-x g" 'magit-status)
   :custom
   (magit-ediff-dwim-show-on-hunks t)
   (magit-diff-refine-ignore-whitespace nil)
@@ -988,82 +1128,77 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 ;; Use escape to close
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(use-package general
-  :config
-  (general-create-definer my/leader-keys
-    :prefix "SPC")
+(my/leader-keys
+  :states 'normal
+  :keymaps 'override
 
-  (my/leader-keys
-    :states 'normal
-    :keymaps 'override
+  ;; Evilmotion
+  "<SPC>"  '(:ignore t :which-key "Evilmotion")
+  "<SPC>j" '(evilem-motion-next-line :which-key "Sneak down")
+  "<SPC>k" '(evilem-motion-previous-line :which-key "Sneak up")
 
-    ;; Evilmotion
-    "<SPC>"  '(:ignore t :which-key "Evilmotion")
-    "<SPC>j" '(evilem-motion-next-line :which-key "Sneak down")
-    "<SPC>k" '(evilem-motion-previous-line :which-key "Sneak up")
+  ;; Apps
+  "a"  '(:ignore t :which-key "Apps")
+  "gd" '(docker :which-key "Docker")
+  "gc" '(docker-compose :which-key "Docker compose")
+  "gk" '(kubel :which-key "Kubernetes")
+  "an" '(elfeed :which-key "Feeds")
 
-    ;; Apps
-    "a"  '(:ignore t :which-key "Apps")
-    "gd" '(docker :which-key "Docker")
-    "gc" '(docker-compose :which-key "Docker compose")
-    "gk" '(kubel :which-key "Kubernetes")
-    "an" '(elfeed :which-key "Feeds")
+  ;; Buffers & windows
+  "b"  '(:ignore t :which-key "Buffer")
+  "bs" '(switch-to-buffer :which-key "Switch buffer")
+  "bi" '(my/indent-buffer :which-key "Indent buffer")
+  "be" '(ediff-buffers :which-key "Difference")
 
-    ;; Buffers & windows
-    "b"  '(:ignore t :which-key "Buffer")
-    "bs" '(switch-to-buffer :which-key "Switch buffer")
-    "bi" '(my/indent-buffer :which-key "Indent buffer")
-    "be" '(ediff-buffers :which-key "Difference")
+  "e" '(neotree-toggle :which-key "Explorer")
 
-    "e" '(neotree-toggle :which-key "Explorer")
+  ;; Files
+  "f"  '(:ignore t :which-key "Files")
+  "fd" '(dired-jump :which-key "Dired")
+  "ff" '(find-file :which-key "Find file")
+  "fj" '(find-journal :which-key "Journal")
+  "fr" '(consult-buffer :which-key "Recent files")
 
-    ;; Files
-    "f"  '(:ignore t :which-key "Files")
-    "fd" '(dired-jump :which-key "Dired")
-    "ff" '(find-file :which-key "Find file")
-    "fj" '(find-journal :which-key "Journal")
-    "fr" '(consult-buffer :which-key "Recent files")
+  ;; Git
+  "g"  '(:ignore t :which-key "Git")
+  "gs" '(magit-status :which-key "Magit")
+  "gm" '(magit-blame-addition :which-key "Blame")
 
-    ;; Git
-    "g"  '(:ignore t :which-key "Git")
-    "gs" '(magit-status :which-key "Magit")
-    "gm" '(magit-blame-addition :which-key "Blame")
+  ;; Org
+  "o"  '(:ignore t :which-key "Org")
+  "oa" '(org-agenda :which-key "Agenda")
+  "oc" '(org-capture :which-key "Capture")
+  "ot" '(org-todo-list :which-key "Todo")
 
-    ;; Org
-    "o"  '(:ignore t :which-key "Org")
-    "oa" '(org-agenda :which-key "Agenda")
-    "oc" '(org-capture :which-key "Capture")
-    "ot" '(org-todo-list :which-key "Todo")
+  ;; Quiting
+  "q"  '(:ignore t :which-key "Quit")
+  "qq" '(kill-buffer-and-window :which-key "Quit now")
 
-    ;; Quiting
-    "q"  '(:ignore t :which-key "Quit")
-    "qq" '(kill-buffer-and-window :which-key "Quit now")
-
-    ;; Search
-    "s"  '(:ignore t :which-key "Search")
-    "si"  '(:ignore t :which-key "Internet")
-    "sia" '(engine/search-archwiki :which-key "Archwiki")
-    "sic" '(engine/search-cppreference :which-key "Cpp")
-    "sib" '(engine/search-cmake :which-key "Cmake")
-    "siy" '(engine/search-youtube :which-key "Youtube")
-    "sid" '(engine/search-dockerhub :which-key "Dockerhub")
-    "sir" '(engine/search-rustdoc :which-key "Rustdocs")
-    "siw" '(engine/search-wikipedia :which-key "Wikipedia")
-    "sig" '(engine/search-google :which-key "Google")
-    "siG" '(engine/search-github :which-key "Github")
-    "sM" '(consult-man :which-key "Manpages")
-    "sc" '(consult-theme :which-key "Colorscheme")
-    "sR" '(consult-register :which-key "Registers")
-    "st" '(consult-grep :which-key "Text")
+  ;; Search
+  "s"  '(:ignore t :which-key "Search")
+  "si"  '(:ignore t :which-key "Internet")
+  "sia" '(engine/search-archwiki :which-key "Archwiki")
+  "sic" '(engine/search-cppreference :which-key "Cpp")
+  "sib" '(engine/search-cmake :which-key "Cmake")
+  "siy" '(engine/search-youtube :which-key "Youtube")
+  "sid" '(engine/search-dockerhub :which-key "Dockerhub")
+  "sir" '(engine/search-rustdoc :which-key "Rustdocs")
+  "siw" '(engine/search-wikipedia :which-key "Wikipedia")
+  "sig" '(engine/search-google :which-key "Google")
+  "siG" '(engine/search-github :which-key "Github")
+  "sM" '(consult-man :which-key "Manpages")
+  "sc" '(consult-theme :which-key "Colorscheme")
+  "sR" '(consult-register :which-key "Registers")
+  "st" '(consult-grep :which-key "Text")
 
 
-    "w"  '(:ignore t :which-key "Windows")
-    "ww" '(tear-off-window :which-key "Tear off")
-    "wh" '(windmove-swap-states-left :which-key "Swap left")
-    "wj" '(windmove-swap-states-down :which-key "Swap down")
-    "wk" '(windmove-swap-states-up :which-key "Swap up")
-    "wl" '(windmove-swap-states-right :which-key "Swap right"))
-  )
+  "w"  '(:ignore t :which-key "Windows")
+  "ww" '(tear-off-window :which-key "Tear off")
+  "wh" '(windmove-swap-states-left :which-key "Swap left")
+  "wj" '(windmove-swap-states-down :which-key "Swap down")
+  "wk" '(windmove-swap-states-up :which-key "Swap up")
+  "wl" '(windmove-swap-states-right :which-key "Swap right"))
+
 
 ;; Mode Keybindings
 (general-define-key
@@ -1098,6 +1233,8 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 
 ;; Enable server
 (use-package server
+  :straight nil
+  :demand
   :init
   (progn
     (when (equal window-system 'w32)
