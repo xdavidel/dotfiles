@@ -970,6 +970,13 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 (use-package disk-usage
   :commands (disk-usage))
 
+(use-package projectile
+  :diminish projectile-mode
+  :config
+  (projectile-mode +1)
+  (setq projectile-git-submodule-command nil)
+  (setq projectile-indexing-method 'alien))
+
 ;; RSS feed
 (use-package elfeed
   :commands (elfeed)
@@ -1005,6 +1012,7 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
       eshell-hist-ignoredups t)
 
 (use-package eshell-toggle
+  :after projectile
   :bind ("C-M-'" . eshell-toggle)
   :custom
   (eshell-toggle-size-fraction 3)
@@ -1018,13 +1026,6 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 (global-set-key (kbd "C-`") 'eshell-toggle)
 
 ;; ------------------------------------
-
-(use-package projectile
-  :diminish projectile-mode
-  :config
-  (projectile-mode +1)
-  (setq projectile-git-submodule-command nil)
-  (setq projectile-indexing-method 'alien))
 
 ;; Search engines
 (use-package engine-mode
