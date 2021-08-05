@@ -107,11 +107,10 @@ return packer.startup(function(use)
     config = function() require "packages.autopairs" end,
   }
 
-  -- Status Line and Bufferline
   use {
-    'hoob3rt/lualine.nvim',
-    setup = function() require('packages.lualine').config() end,
-    config = function() require('packages.lualine').setup() end,
+    "glepnir/galaxyline.nvim",
+    config = function() require("packages.galaxyline").config() end,
+    event = "BufWinEnter",
   }
 
   -- Terminal
