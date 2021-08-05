@@ -1185,6 +1185,12 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
   "gs" '(magit-status :which-key "Magit")
   "gm" '(magit-blame-addition :which-key "Blame")
 
+  ;; Lsp
+  "l"  '(:ignore t :which-key "LSP")
+  "lt" '(lsp :which-key "Activate LSP")
+  "lI" '(lsp-install-server :which-key "Install Server")
+  "lk" '(lsp-disconnect :which-key "Disconnect")
+
   ;; Org
   "o"  '(:ignore t :which-key "Org")
   "oa" '(org-agenda :which-key "Agenda")
