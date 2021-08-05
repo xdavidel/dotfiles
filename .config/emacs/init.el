@@ -583,12 +583,12 @@ The original function deletes trailing whitespace of the current line."
   (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
     (setq mode-line-format nil)))
 
-;; (use-package eglot
-;;   :commands eglot
-;;   :config
-;;   (add-hook 'c-mode-common-hook 'eglot)
-;;   (add-to-list 'eglot-server-programs
-;; 	       '(c-mode . ("clangd"))))
+(use-package eglot
+  :commands eglot
+  :config
+  ;; (add-hook 'c-mode-common-hook 'eglot)
+  (add-to-list 'eglot-server-programs
+	       '(c-mode . ("clangd"))))
 
 ;; Debugger
 (use-package dap-mode
