@@ -1105,6 +1105,21 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 		(seq bol "." eol)
 		(seq bol ".." eol)))))
 
+;; browser the web inside emacs
+(use-package eww
+  :straight nil
+  :general
+  ("<f12>" 'eww)
+  :hook (eww-mode-hook . (lambda () (eww-readable)))
+  :config
+  (setq shr-use-fonts  nil                          ; No special fonts
+	shr-use-colors t                          ;  colours
+	shr-inhibit-images nil			  ; inhibit images
+	shr-indentation 2                           ; Left-side margin
+	shr-color-visible-luminance-min 80
+	eww-search-prefix "https://search.brave.com/search?q="
+	shr-width 70))                                ; Fold text to 70 columns
+
 ;; Interface to Git
 (use-package magit
   :hook ((git-commit-mode . flyspell-mode))
