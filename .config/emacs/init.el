@@ -188,38 +188,42 @@
 
 ;; EVIL - Load it as fast as possible
 ;; ------------------------------------
-;; Better undo for evil
-(use-package undo-fu
-  :demand
-  :defer 0.1)
-(use-package undo-fu-session
-  :after undo-fu
-  :init
-  (global-undo-fu-session-mode))
+(progn
+  ;; Better undo for evil
+  (use-package undo-fu
+    :demand
+    :defer 0.1)
+  (use-package undo-fu-session
+    :after undo-fu
+    :init
+    (global-undo-fu-session-mode))
 
-;; Basic Evil mode
-(use-package evil
-  :after undo-fu-session
-  :init
-  (setq evil-want-integration t
-	evil-want-keybinding nil
+  ;; Give evil what it wants
+  (setq evil-want-keybinding nil
+	evil-want-integration t
 	evil-want-Y-yank-to-eol t
-	evil-vsplit-window-right t
-	evil-split-window-below t
-	evil-want-C-i-jump nil
-	evil-undo-system 'undo-fu)
-  (evil-mode 1)
-  :config
-  (evil-set-leader 'normal " "))
+	evil-want-C-i-jump nil)
 
-;; Collection of bindings Evil does not cover
-(use-package evil-collection
-  :diminish evil-collection-unimpaired-mode
-  :after evil
-  :init
-  (setq evil-collection-setup-minibuffer nil ; does not play nice with vertico
-	evil-collection-company-use-tng nil) ; makes company works betters I think
-  (evil-collection-init))
+  ;; Basic Evil mode
+  (use-package evil
+    :after undo-fu-session
+    :init
+    (setq evil-undo-system 'undo-fu
+	  evil-vsplit-window-right t
+	  evil-split-window-below t)
+    (evil-mode 1)
+    :config
+    (evil-set-leader 'normal " "))
+
+  ;; Collection of bindings Evil does not cover
+  (use-package evil-collection
+    :diminish evil-collection-unimpaired-mode
+    :after evil
+    :init
+    (setq evil-collection-setup-minibuffer nil ; does not play nice with vertico
+	  evil-collection-company-use-tng nil) ; makes company works betters I think
+    (evil-collection-init))
+)
 
 ;; Move quickly in the document
 (use-package evil-easymotion
@@ -517,6 +521,8 @@ The original function deletes trailing whitespace of the current line."
 ;; Icons for dired
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package ranger)
 
 ;; Line numbers
 (use-package display-line-numbers
