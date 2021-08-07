@@ -982,6 +982,9 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 
 (use-package projectile
   :diminish projectile-mode
+  :hook (prog-mode . projectile-mode)
+  :bind(:map projectile-mode-map
+	("C-c p" . projectile-command-map))
   :config
   (projectile-mode +1)
   (setq projectile-git-submodule-command nil)
