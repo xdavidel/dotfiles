@@ -33,9 +33,9 @@
     "python.showStartPage": false,
     "python.languageServer": "Pylance",
     // ================== NEOVIM ======================
-    "vscode-neovim.neovimExecutablePaths.win32": "C:/tools/neovim/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.win32": "nvim",
     "vscode-neovim.neovimInitVimPaths.win32": "C:/Users/David/AppData/Local/nvim/init.vim",
-    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.linux": "nvim",
     "vscode-neovim.neovimInitVimPaths.linux": "$HOME/.config/nvim/init.vim",
     "vscode-neovim.highlightGroups.highlights": {
         "Directory": "vim",
