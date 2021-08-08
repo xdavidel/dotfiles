@@ -54,11 +54,12 @@ return packer.startup(function(use)
   }
 
   -- Fuzzy searching
-  use { "nvim-telescope/telescope.nvim",
-  requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
-  setup = require("packages.telescope").config() ,
-  config = [[require('packages.telescope').setup()]],
-}
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+    setup = require("packages.telescope").config() ,
+    config = [[require('packages.telescope').setup()]],
+  }
 
   -- Snippets
   use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
@@ -66,9 +67,9 @@ return packer.startup(function(use)
 
   -- Treesitter
   use {
-      "nvim-treesitter/nvim-treesitter",
-      setup = function() require("packages.treesitter").config() end,
-      config = function() require("packages.treesitter").setup() end,
+    "nvim-treesitter/nvim-treesitter",
+    setup = function() require("packages.treesitter").config() end,
+    config = function() require("packages.treesitter").setup() end,
     event = "BufWinEnter",
   }
 
@@ -129,6 +130,7 @@ return packer.startup(function(use)
     end,
   }
 
+  -- Light custom statusline
   use {
     "glepnir/galaxyline.nvim",
     config = function() require("packages.galaxyline").config() end,
