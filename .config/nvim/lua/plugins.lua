@@ -107,6 +107,28 @@ return packer.startup(function(use)
     config = function() require "packages.autopairs" end,
   }
 
+  -- Colored brackets pairs
+  use {
+    "p00f/nvim-ts-rainbow",
+    requires = {{"nvim-treesitter/nvim-treesitter"}},
+    after = { "nvim-treesitter" },
+    event = "BufWinEnter",
+    config = function()
+      local has_ts, ts_configs = pcall(require, 'nvim-treesitter.configs')
+      if not has_ts then
+        return
+      end
+
+      ts_configs.setup {
+        rainbow = {
+          enable = true,
+          extended_mode = true, -- Also highlight html tags, etc.
+          max_file_lines = 1000, -- limit to 1000 lines
+        }
+      }
+    end,
+  }
+
   use {
     "glepnir/galaxyline.nvim",
     config = function() require("packages.galaxyline").config() end,
