@@ -139,6 +139,12 @@ return packer.startup(function(use)
     config = function() require "packages.vimwiki" end,
   }
 
+  -- Lua scratchpad
+  use {
+    "rafcamlet/nvim-luapad",
+    cmd = { "Luapad", "LuaRun" },
+  }
+
   -- Whichkey
   use {
     "folke/which-key.nvim",
