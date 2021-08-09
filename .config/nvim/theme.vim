@@ -29,7 +29,8 @@ let s:yellow     = ['#E0AF68', 179]
 let s:green      = ['#9ECE6A', 107]
 let s:blue       = ['#7AA2F7', 110]
 let s:purple     = ['#ad8ee6', 176]
-let s:grey       = ['#444B6A', 246]
+let s:grey       = ['#989aa2', 238]
+
 let s:none       = ['NONE', 'NONE']
 
 
