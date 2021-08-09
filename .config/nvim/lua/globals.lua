@@ -36,6 +36,13 @@ O = {
     warning = " ",
     error = " ",
     circle = "",
+    bang = " ",
+    plus = " ",
+    minus = " ",
+    connect = " ",
+    bulb = " ",
+    tree = " ",
+    gear = " ",
   },
 
   colors = {

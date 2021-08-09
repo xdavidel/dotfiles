@@ -80,7 +80,7 @@ M.config = function ()
       DiffAdd = {
         provider = "DiffAdd",
         condition = condition.hide_in_width,
-        icon = "  ",
+        icon = " " .. O.icons.plus,
         highlight = { colors.green, colors.alt_bg },
       }
     },
@@ -88,7 +88,7 @@ M.config = function ()
       DiffModified = {
         provider = "DiffModified",
         condition = condition.hide_in_width,
-        icon = "  ",
+        icon = " " .. O.icons.connect,
         highlight = { colors.blue, colors.alt_bg },
       }
     },
@@ -96,7 +96,7 @@ M.config = function ()
       DiffRemove = {
         provider = "DiffRemove",
         condition = condition.hide_in_width,
-        icon = "  ",
+        icon = " " .. O.icons.minus,
         highlight = { colors.red, colors.alt_bg },
       }
     },
@@ -123,7 +123,7 @@ M.config = function ()
     {
       DiagnosticError = {
         provider = "DiagnosticError",
-        icon = "  ",
+        icon = " " .. O.icons.error,
         highlight = { colors.red, colors.alt_bg },
       }
     },
@@ -131,7 +131,7 @@ M.config = function ()
     {
       DiagnosticWarn = {
         provider = "DiagnosticWarn",
-        icon = "  ",
+        icon = " " .. O.icons.warning,
         highlight = { colors.orange, colors.alt_bg },
       }
     },
@@ -139,7 +139,7 @@ M.config = function ()
     {
       DiagnosticInfo = {
         provider = "DiagnosticInfo",
-        icon = "  ",
+        icon = " " .. O.icons.info,
         highlight = { colors.yellow, colors.alt_bg },
       }
     },
@@ -147,7 +147,7 @@ M.config = function ()
     {
       DiagnosticHint = {
         provider = "DiagnosticHint",
-        icon = "  ",
+        icon = " " .. O.icons.bulb,
         highlight = { colors.blue, colors.alt_bg },
       }
     },
@@ -156,7 +156,7 @@ M.config = function ()
       TreesitterIcon = {
         provider = function()
           if next(vim.treesitter.highlighter.active) ~= nil then
-            return "  "
+            return " " .. O.icons.tree
           end
           return ""
         end,
@@ -170,7 +170,7 @@ M.config = function ()
         provider = "GetLspClient",
         condition = function()
           return next(vim.lsp.buf_get_clients()) ~= nil end,
-          icon = "  ",
+          icon = " " .. O.icons.gear,
           highlight = { colors.grey, colors.alt_bg },
         }
     },
