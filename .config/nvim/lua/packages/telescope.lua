@@ -57,32 +57,32 @@ M.config = function()
   }
 end
 
-file_explorer = function()
+FileExplorer = function()
   local is_ok, tel_builtins = pcall(require, 'telescope.builtin')
     if not is_ok then
       print("Error")
       return
     end
-    opts = {}
+    local opts = {}
     opts.cwd = vim.fn.expand("$HOME")
     opts.prompt_title = "Explorer"
     opts.hidden = true
     opts.dir_icon = O.icons.folder_closed
-    tel_builtins.file_browser(opts) 
+    tel_builtins.file_browser(opts)
 end
 
-relative_files = function()
+RelativeFiles = function()
   local is_ok, tel_builtins = pcall(require, 'telescope.builtin')
     if not is_ok then
       print("Error")
       return
     end
-    opts = {}
+    local opts = {}
     opts.prompt_title = "Files"
     opts.hidden = true
     opts.depth = 2
     opts.dir_icon = O.icons.folder_closed
-    tel_builtins.file_browser(opts) 
+    tel_builtins.file_browser(opts)
 end
 
 M.setup = function()
@@ -93,8 +93,8 @@ M.setup = function()
   telescope.setup(O.plugin.telescope)
 
   O.plugin.whichkey.mappings.b.s = {"<cmd>Telescope buffers<cr>", "Switch Buffers" }
-  O.plugin.whichkey.mappings.f.f = {"<cmd>lua file_explorer()<cr>", "File Explorer" }
-  O.plugin.whichkey.mappings.f.d = {"<cmd>lua relative_files()<cr>", "Find Files" }
+  O.plugin.whichkey.mappings.f.f = {"<cmd>lua FileExplorer()<cr>", "File Explorer" }
+  O.plugin.whichkey.mappings.f.d = {"<cmd>lua RelativeFiles()<cr>", "Find Files" }
   O.plugin.whichkey.mappings.f.r = {"<cmd>Telescope oldfiles<cr>", "Recent Files" }
 
   vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { noremap = true, silent = true })
