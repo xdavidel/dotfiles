@@ -951,10 +951,7 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 ;; Plantuml mode
 (use-package plantuml-mode
   :mode (("\\.plantuml\\'" . plantuml-mode)
-         ("\\.pu\\'" . plantuml-mode))
-  :config
-  (add-to-list 'auto-mode-alist
-	       '("\\.plantuml\\'" . plantuml-mode)))
+         ("\\.pu\\'" . plantuml-mode)))
 ;; ------------------------------------
 
 
