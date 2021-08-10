@@ -713,25 +713,23 @@ The original function deletes trailing whitespace of the current line."
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle)))
+
   (defun my/org-babel-tangle-async (file)
     "Invoke `org-babel-tangle-file' asynchronously."
-    (message "Tangling %s..." (buffer-file-name))
     (async-start
      (let ((args (list file)))
        `(lambda ()
 	  (require 'org)
-	  (let ((start-time (current-time)))
-	    (apply #'org-babel-tangle-file ',args)
-	    (format "%.2f" (float-time (time-since start-time))))))
-     (let ((message-string (format "Tangling %S completed after " file)))
-       `(lambda (tangle-time)
-	  (message (concat ,message-string
-			   (format "%s seconds" tangle-time)))))))
+	  (apply #'org-babel-tangle-file ',args)))
+     (let ((args (list file)))
+       `(lambda (result)
+	  (message "Tangling %S completed" ',args)))))
 
-  (defun my/org-babel-tangle-current-buffer-async ()
+  (defun org-babel-tangle-current-buffer-async ()
     "Tangle current buffer asynchronously."
+    (interactive)
     (my/org-babel-tangle-async (buffer-file-name)))
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-dont-ask))))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'org-babel-tangle-current-buffer-async))))
 
 ;; Show bullets in a nice way
 (use-package org-bullets
