@@ -373,9 +373,8 @@
   (doom-themes-visual-bell-config))
 
 (use-package doom-modeline
-  :defer 1
+  :hook (after-init . doom-modeline-mode)
   :config
-  (doom-modeline-mode)
   (when (display-graphic-p)
     (setq doom-modeline-icon t)))
 
