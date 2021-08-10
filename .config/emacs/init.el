@@ -740,17 +740,6 @@ The original function deletes trailing whitespace of the current line."
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-;; Org Margins
-(use-package visual-fill-column
-  :after org
-  :config
-  (defun my/org-mode-visual-fill()
-    "Set some margins in org documents"
-    (setq visual-fill-column-width 100
-	  visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
-  :hook (org-mode . my/org-mode-visual-fill))
-
 ;; Table of contents using `:toc:`
 (use-package toc-org
   :after org
