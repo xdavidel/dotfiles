@@ -720,7 +720,8 @@ The original function deletes trailing whitespace of the current line."
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
+  ; Add c, cpp and D languages
+  (org-babel-do-load-languages 'org-babel-load-languages '((C . t)))
   (defun my/discard-history ()
     "Discard undo history of org src and capture blocks."
     (setq buffer-undo-list nil)
