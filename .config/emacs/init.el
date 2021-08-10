@@ -686,16 +686,13 @@ The original function deletes trailing whitespace of the current line."
   ;; add plantuml to org sources
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (when (not (version<= org-version "9.1.9"))
-    (use-package org-tempo
-      :straight nil
-      :config
-      ;; add source templates
-      (add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
-      (add-to-list 'org-structure-template-alist '("el"  . "src emacs-lisp"))
-      (add-to-list 'org-structure-template-alist '("py"  . "src python"))
-      (add-to-list 'org-structure-template-alist '("cpp"   . "src cpp"))
-      (add-to-list 'org-structure-template-alist '("go"  . "src go"))
-      ))
+    (require 'org-tempo)
+    ;; add source templates
+    (add-to-list 'org-structure-template-alist '("sh"  . "src shell"))
+    (add-to-list 'org-structure-template-alist '("el"  . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("py"  . "src python"))
+    (add-to-list 'org-structure-template-alist '("cpp"   . "src cpp"))
+    (add-to-list 'org-structure-template-alist '("go"  . "src go")))
 
   ;; change header size on different levels
   (dolist (face '((org-level-1 . 1.2)
