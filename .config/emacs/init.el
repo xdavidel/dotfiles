@@ -952,6 +952,12 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 (use-package plantuml-mode
   :mode (("\\.plantuml\\'" . plantuml-mode)
          ("\\.pu\\'" . plantuml-mode)))
+
+(use-package ahk-mode
+  :mode ("\\.ahk\\'" . ahk-mode))
+
+(use-package powershell
+  :mode ("\\.ps1\\'" . powershell-mode))
 ;; ------------------------------------
 
 
