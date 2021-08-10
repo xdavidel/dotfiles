@@ -631,38 +631,29 @@ The original function deletes trailing whitespace of the current line."
 ;; Org Stuff
 ;; ------------------------------------
 
-;; Org Mode
+;;; Org Mode
 (use-package org
   ;; :straight (:type built-in)
   :diminish org-indent-mode
   :mode (("\\.org$" . org-mode))
-  :general
-  ("C-c l" 'org-store-link)
-  ("C-c a" 'org-todo-list)
-  ("C-c c" 'org-capture)
-  ("M-H" 'org-shiftleft)
-  ("M-J" 'org-shiftdown)
-  ("M-K" 'org-shiftup)
-  ("M-L" 'org-shiftright)
-  ("M-h" 'org-metaleft)
-  ("M-j" 'org-metadown)
-  ("M-k" 'org-metaup)
-  ("M-l" 'org-metaright)
-  :hook ((ediff-prepare-buffer . outline-show-all)
-	 ((org-capture-mode org-src-mode) . my/discard-history))
   :commands (org-capture org-agenda)
+  :general
+  ("C-j" 'org-next-visible-heading)
+  ("C-k" 'org-previous-visible-heading)
   :custom
   (org-ellipsis " ▼")
   (org-startup-with-inline-images nil)
   (org-log-done 'time)
+  (org-src-fontify-natively t)
+  (org-fontify-quote-and-verse-blocks t)
+  (org-src-tab-acts-natively t)
+  (org-edit-src-content-indentation 2)
+  (org-hide-emphasis-markers t)
+  (org-hide-block-startup nil)
+  (org-src-preserve-indentation nil)
+  (org-startup-folded 'content)
   (org-journal-date-format "%B %d, %Y (%A) ")
   (org-journal-file-format "%Y-%m-%d.org")
-  (org-hide-emphasis-markers t)
-  (org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
-   '(("google" . "http://www.google.com/search?q=")
-     ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
-     ("ddg" . "https://duckduckgo.com/?q=")
-     ("wiki" . "https://en.wikipedia.org/wiki/")))
   (org-todo-keywords
    '((sequence
       "TODO(t)"
@@ -716,15 +707,11 @@ The original function deletes trailing whitespace of the current line."
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :height (cdr face)))
-
-  ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-  ; Add c, cpp and D languages
-  (org-babel-do-load-languages 'org-babel-load-languages '((C . t)))
-  (defun my/discard-history ()
-    "Discard undo history of org src and capture blocks."
-    (setq buffer-undo-list nil)
-    (set-buffer-modified-p nil))
+  ; Add elisp and [c, cpp, D] languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (C . t)))
   (defun my/org-babel-tangle-dont-ask ()
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
