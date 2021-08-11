@@ -34,7 +34,7 @@ let s:grey       = ['#989aa2', 238]
 let s:none       = ['NONE', 'NONE']
 
 
-" Apply colors (bg, attr_list, special)
+" Apply colors (scope, foreground, background, attributes)
 function! s:h(scope, fg, ...) 
   let l:fg = copy(a:fg)
   let l:bg = get(a:, 1, ['NONE', 'NONE'])
@@ -155,3 +155,5 @@ call s:h('Todo', s:blue, s:none)
 
 call s:h('Ignore', s:grey, s:none)
 call s:h('Underlined', s:none, s:none, ['underline'])
+
+call s:h('TelescopeMatching', s:none, s:purple)
