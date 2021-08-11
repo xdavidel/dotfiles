@@ -511,7 +511,6 @@ The original function deletes trailing whitespace of the current line."
 
 
 (use-package all-the-icons
-  :hook (after-init . recentf-mode)
   :config
   (when (and (not (my/font-installed-p "all-the-icons"))
 	     (window-system))
@@ -740,6 +739,7 @@ The original function deletes trailing whitespace of the current line."
 
 ;; Table of contents using `:toc:` on a heading
 (use-package toc-org
+  :diminish
   :hook
   (org-mode . toc-org-mode)
   (markdown-mode . toc-org-mode))
@@ -1040,9 +1040,9 @@ https://github.com/hlissner/doom-emacs/commit/a634e2c8125ed692bb76b2105625fe902b
 
 ;; Recent files
 (use-package recentf
-  :straight nil
-  :defer 3
+  :defer 5
   :config
+  (recentf-mode 1)
   (setq recentf-max-saved-items 20
 	recentf-auto-cleanup 'mode)
   :custom
