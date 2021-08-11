@@ -42,9 +42,8 @@ M.config = function()
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
           ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-          ["<CR>"] = actions.select_default + actions.center,
+          ["<CR>"]  = actions.select_default + actions.center,
           ["<tab>"] = actions.select_default + actions.center,
-          [" "] = actions.add_selection,
           ["<esc>"] = actions.close,
         },
         n = {
