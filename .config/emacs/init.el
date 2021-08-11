@@ -738,9 +738,8 @@ The original function deletes trailing whitespace of the current line."
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-;; Table of contents using `:toc:`
+;; Table of contents using `:toc:` on a heading
 (use-package toc-org
-  :after org
   :hook
   (org-mode . toc-org-mode)
   (markdown-mode . toc-org-mode))
