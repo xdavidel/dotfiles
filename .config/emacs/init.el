@@ -749,6 +749,9 @@ The original function deletes trailing whitespace of the current line."
   :straight nil
   :defer t)
 
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
 ;; ------------------------------------
 
 ;; Programming Languages
