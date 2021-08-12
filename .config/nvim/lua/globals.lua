@@ -1,7 +1,7 @@
 --- Globals
 O = {
 	leader_key  = "space",
-	line_wrap_cursor_movement = true,
+	line_wrap_cursor_movement = false,
 	format_on_save = true,
 	snippets_directory = CONFIG_PATH .. "/snippets",
 
