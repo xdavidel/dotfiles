@@ -708,7 +708,12 @@ The original function deletes trailing whitespace of the current line."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (C . t)))
+     (C          . t)
+     (shell      . t)
+     (js         . t)
+     (clojure    . t)
+     (python     . t)
+     ))
   (defun my/org-babel-tangle-dont-ask ()
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
