@@ -646,6 +646,7 @@ The original function deletes trailing whitespace of the current line."
   (org-src-fontify-natively t)
   (org-fontify-quote-and-verse-blocks t)
   (org-src-tab-acts-natively t)
+  (org-confirm-babel-evaluate nil)
   (org-edit-src-content-indentation 2)
   (org-hide-emphasis-markers t)
   (org-hide-block-startup nil)
