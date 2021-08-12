@@ -1379,7 +1379,7 @@ local clientkeys = gears.table.join(
             if c.floating then
                 c:relative_move(0, 0, 0, 10)
             else
-                awful.client.incwfact(0.05)
+                awful.client.incwfact(-0.05)
             end
         end,
         {description = "increase client height", group = "client"}),
@@ -1406,7 +1406,7 @@ local clientkeys = gears.table.join(
             if c.floating then
                 c:relative_move(0, 0, 0, -10)
             else
-                awful.client.incwfact(-0.05)
+                awful.client.incwfact(0.05)
             end
         end,
         {description = "decrease client height", group = "client"}),
